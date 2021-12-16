@@ -1,0 +1,18 @@
+table{
+    table-layout: fixed;
+  }
+  
+  #miTablaPersonalizada th{
+    width: 200px;
+    overflow: auto;
+    border: 0.2px solid;
+    margin: 0;
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  #miLogin
+  {
+    background-color: limegreen;
+  }

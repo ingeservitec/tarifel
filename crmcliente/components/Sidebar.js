@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import logo from '../public/img/logo.png'; // Tell webpack this JS file uses this image
 
 const Sidebar = () => {
 
@@ -12,7 +13,9 @@ const Sidebar = () => {
     return ( 
         <aside className="bg-gray-800 sm:w-60 xl:w-60 sm:min-h-screen p-1" >
             <div>
-                <h2 className="text-white text-3xl font-black m-4">QUBIT</h2>
+                {/* <h2 className="text-white text-3xl font-black m-4">QUBIT</h2> */}
+                <img src={logo.src} alt="Logo" className="img-fluid p-2" />
+                <h2 className="text-white text-center text-3xl font-black mb-4">TARIFEL</h2>
             </div>
 
             <nav className="mt-5 list-none ">

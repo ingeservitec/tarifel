@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router'
+import logo from '../public/img/logo.png'; // Tell webpack this JS file uses this image
 
 const AUTENTICAR_USUARIO = gql`
     mutation autenticarUsuario($input: AutenticarInput) {
@@ -87,7 +88,7 @@ const Login = () => {
     return ( 
         <>
             <Layout>
-                <h1 className="text-center text-2xl text-white font-light">Login</h1>
+                {/* <h1 className="text-center text-2xl text-white font-light">Login</h1> */}
                 {mensaje && mostrarMensaje() }
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
@@ -95,15 +96,16 @@ const Login = () => {
                             className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
                             onSubmit={formik.handleSubmit}
                         >
+                        <img src={logo.src} alt="Logo" className="mb-4" />
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                                    Email
+                                    Correo
                                 </label>
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo Usuario"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.email}
@@ -119,14 +121,14 @@ const Login = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                                    Password
+                                    Contraseña
                                 </label>
 
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
-                                    placeholder="Password Usuario"
+                                    placeholder="Contraseña Usuario"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.password}
@@ -142,7 +144,8 @@ const Login = () => {
 
                             <input
                                 type="submit"
-                                className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+                                className="w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+                                style={{"backgroundColor": "#1A9DDC"}}
                                 value="Iniciar Sesión"
                             />
 

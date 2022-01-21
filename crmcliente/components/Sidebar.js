@@ -14,8 +14,8 @@ const Sidebar = () => {
         <aside className="bg-gray-800 sm:w-60 xl:w-60 sm:min-h-screen p-1" >
             <div>
                 {/* <h2 className="text-white text-3xl font-black m-4">QUBIT</h2> */}
-                <img src={logo.src} alt="Logo" className="img-fluid p-2" />
-                <h2 className="text-white text-center text-3xl font-black mb-4">TARIFEL</h2>
+                <h2 className="text-white text-center text-3xl font-black my-4">TARIFEL</h2>
+                <img src={logo.src} alt="Logo" className="img-fluid p-3 mb-2" />
             </div>
 
             <nav className="mt-5 list-none ">

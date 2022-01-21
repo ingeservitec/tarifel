@@ -1,7 +1,7 @@
 {
   "name": "crmgrapghql",
   "version": "1.0.0",
-  "description": "QUBIT modulo CRM",
+  "description": "TARIFEL modulo CRM",
   "main": "index.js",
   "scripts": {
     "start": "node .",

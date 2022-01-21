@@ -107,6 +107,8 @@ const NuevoDataxmadem2 =(props) => {
     const [fileNames, setFileNames] = useState([]);
     const [creador, setCreador] = useState();
     const [empresa_id, setEmpresa_id]= useState("")
+    const [anho, setAnho]= useState()
+    const [mes, setMes]= useState()
     const [nuevoDataxmadem]=useMutation(NUEVO_DATA_XMADEM, {
       update(cache, { data: { nuevoDataxmadem } } ) {
           // Obtener el objeto de cache que deseamos actualizar
@@ -184,10 +186,8 @@ const NuevoDataxmadem2 =(props) => {
       try {
         if (loading1) return null; // Si no hay informacion
         const Datacsv2=csvJSON(datacsv)  
-        console.log(fileNames[0].substr(4,2))
-        console.log(Datacsv2);
         var arreglado = Datacsv2.map( item => { 
-          return {anho:parseFloat(fileNames[0].substr(4,2)),mes:parseFloat(fileNames[0].substr(4,2)),dia:parseFloat(fileNames[0].substr(4,2)),creador:creador,
+          return {anho:parseFloat(anho),mes:parseFloat(mes),dia:parseFloat(item["DIA"]),creador:creador,
           empresa_id:empresa_id,cod_contenido:item["CODIGO"],agente:item["AGENTE"],
           contenido:(item["CONTENIDO"]),cont_hora_1:parseFloat(item["HORA 01"]),cont_hora_2:parseFloat(item["HORA 02"]),
           cont_hora_3:parseFloat(item["HORA 03"]),cont_hora_4:parseFloat(item["HORA 04"]),cont_hora_5:parseFloat(item["HORA 05"]),
@@ -199,16 +199,13 @@ const NuevoDataxmadem2 =(props) => {
           cont_hora_21:parseFloat(item["HORA 21"]),cont_hora_22:parseFloat(item["HORA 22"]),cont_hora_23:parseFloat(item["HORA 23"]),
           cont_hora_24:parseFloat(item["HORA 24"])}; 
         });
-        console.log(arreglado)
         const {results} = await Promise.all(arreglado.map(object => {  
         return nuevoDataxmadem({ variables:{
           input:
             object
       }
     });
-        
         }
-        
         ));
         Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
     props.close2()
@@ -216,7 +213,6 @@ const NuevoDataxmadem2 =(props) => {
        // Do whatever here with the results
       } catch (error) {
         console.log(error)
-  
         // Handle any errors as appropriate
       }
     }
@@ -255,6 +251,8 @@ const NuevoDataxmadem2 =(props) => {
         </ul>
       </div>
         </div>
+        <input type="number" placeholder="Año" onChange={e => setAnho(e.target.value)} />
+    <input type="number" placeholder="Mes" onChange={e => setMes(e.target.value)} />      
         </div>
         </div>
   

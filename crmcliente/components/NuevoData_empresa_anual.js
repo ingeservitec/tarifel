@@ -10,32 +10,28 @@ import { useDropzone } from "react-dropzone";
 import csv from 'csv';
 import Swal from 'sweetalert2'
 
-const NUEVO_DATA_MME_GIRO= gql`
-mutation nuevoData_mme_giro($input:Data_mme_giroInput ){
-nuevoData_mme_giro(input:$input){
+const NUEVO_DATA_EMPRESA_ANUAL= gql`
+mutation nuevoData_empresa_anual($input:Data_empresa_anualInput ){
+nuevoData_empresa_anual(input:$input){
 id
 creador
 empresa_id
-fecha
-fondo
-resolucion
-link_resolucion
-giro_cop
+anho
+contribuciones_creg
+contribuciones_sspd
 
 }
 }
 `;
-const OBTENER_DATA_MME_GIRO = gql`
-query obtenerData_mme_giro{
-obtenerData_mme_giro{
+const OBTENER_DATA_EMPRESA_ANUAL = gql`
+query obtenerData_empresa_anual{
+obtenerData_empresa_anual{
 id
 creador
 empresa_id
-fecha
-fondo
-resolucion
-link_resolucion
-giro_cop
+anho
+contribuciones_creg
+contribuciones_sspd
 
 }
 }
@@ -52,20 +48,20 @@ empresa
 `;
 
 
-const NuevoData_mme_giro= (props) => {
+const NuevoData_empresa_anual= (props) => {
 const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [datacsv, setDatacsv] = useState("");
 const [fileNames, setFileNames] = useState([]);
-const [creador, setcreador] = useState("");const [empresa_id, setempresa_id] = useState("");const [fecha, setFecha] = useState("");const [fondo, setFondo] = useState("");const [resolucion, setResolucion] = useState("");const [link_resolucion, setLink_Resolucion] = useState("");const [giro_cop, setGiro_Cop] = useState("");
-const [nuevoData_mme_giro]=useMutation(NUEVO_DATA_MME_GIRO, {
-update(cache, { data: { nuevoData_mme_giro} } ) {
+const [creador, setcreador] = useState("");const [empresa_id, setempresa_id] = useState("");const [anho, setAnho] = useState("");const [contribuciones_creg, setContribuciones_Creg] = useState("");const [contribuciones_sspd, setContribuciones_Sspd] = useState("");
+const [nuevoData_empresa_anual]=useMutation(NUEVO_DATA_EMPRESA_ANUAL, {
+update(cache, { data: { nuevoData_empresa_anual} } ) {
 // Obtener el objeto de cache que deseamos actualizar
-const { obtenerData_mme_giro} = cache.readQuery({ query: OBTENER_DATA_MME_GIRO});
+const { obtenerData_empresa_anual} = cache.readQuery({ query: OBTENER_DATA_EMPRESA_ANUAL});
 // Reescribimos el cache ( el cache nunca se debe modificar )
 cache.writeQuery({
-query: OBTENER_DATA_MME_GIRO,
+query: OBTENER_DATA_EMPRESA_ANUAL,
 data: {
-obtenerData_mme_giro: [...obtenerData_mme_giro, nuevoData_mme_giro]
+obtenerData_empresa_anual: [...obtenerData_empresa_anual, nuevoData_empresa_anual]
 }
 })
 }
@@ -102,14 +98,15 @@ if (j ==1){
 obj['empresa_id'] = (empresa_id)
 }
 if (j >1){
-if (encabezados[j-2] === 'empresa_id' || encabezados[j-2] === 'Fecha' || encabezados[j-2] === 'Fondo' || encabezados[j-2] === 'Resolucion' || encabezados[j-2] === 'Link_Resolucion' )
+
 obj[headers[j-2]] = (currentline[j-2]);
+}
 else{
 obj[headers[j-2]] = parseFloat(currentline[j-2]);
 }
 }
 
-}
+
 result.push(obj);
 }
 //return result; //JavaScript object
@@ -121,22 +118,24 @@ return result; //JSON
 
 const formik=useFormik({
 initialValues: {
-creador:creador,empresa_id:empresa_id,fecha:fecha,fondo:fondo,resolucion:resolucion,link_resolucion:link_resolucion,giro_cop:giro_cop
+creador:creador,empresa_id:empresa_id,anho:anho,contribuciones_creg:contribuciones_creg,contribuciones_sspd:contribuciones_sspd
 },
 enableReinitialize: true,
 validationSchema: Yup.object({
 creador: Yup.string()
 .required('El creador es obligatorio'),
+anho: Yup.string()
+.required('El Año es obligatorio')
 }),
 onSubmit: async valores => {
-const{creador,empresa_id,fecha,fondo,resolucion,link_resolucion,giro_cop}=valores
+const{creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd}=valores
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()
 try {
-const{data}=await nuevoData_mme_giro({
+const{data}=await nuevoData_empresa_anual({
 variables:{
 input:{
-creador,empresa_id,fecha,fondo,resolucion,link_resolucion,giro_cop
+creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd
 }
 }
 });
@@ -148,12 +147,10 @@ console.log(error);
 
 useEffect(() => {
 if (datacsv) {
-var Position=(datacsv[0].indexOf(("Fecha").toString()))
-           setFecha((datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Fondo").toString()))
-           setFondo((datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Resolucion").toString()))
-           setResolucion((datacsv[1][Position]));var Position=(datacsv[0].indexOf(("link_resolucion").toString()))
-           setLink_Resolucion((datacsv[1][Position]));var Position=(datacsv[0].indexOf(("giro_cop").toString()))
-           setGiro_Cop(parseFloat(datacsv[1][Position]));
+var Position=(datacsv[0].indexOf(("Anho").toString()))
+           setAnho(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Contribuciones_Creg").toString()))
+           setContribuciones_Creg(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Contribuciones_Sspd").toString()))
+           setContribuciones_Sspd(parseFloat(datacsv[1][Position]));
 } else {
 }
 }, [datacsv])
@@ -164,6 +161,7 @@ setcreador(parseInt(data1.obtenerUsuario.id));
 setempresa_id(data1.obtenerUsuario.empresa);
 console.log(empresa_id)
 }, [loading1])
+
 return (
 <div>
 <Modal show={props.show}
@@ -172,7 +170,7 @@ centered
 id="myModal"
 onHide={props.close}>
 <Modal.Header closeButton>
-<Modal.Title>Adicionar datos a tabla Datamme_giro</Modal.Title>
+<Modal.Title>Adicionar datos a tabla Dataempresa_anual</Modal.Title>
 </Modal.Header>
 <Modal.Body>
 <div>
@@ -218,70 +216,37 @@ value={formik.values.empresa_id ?
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-3">
-        <input type="date" className="form-control" id="fecha" placeholder="Fecha"
+        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-3">
+        <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
-value={formik.values.fecha}></input></div></div>
-        { formik.touched.fecha&& formik.errors.fecha? (
+value={formik.values.anho}></input></div></div>
+        { formik.touched.anho&& formik.errors.anho? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
         <p className="font-bold">Error</p>
-        <p>{formik.errors.fecha}</p>
-        </div>
-        ) : null  }
-        <div className="form-group row">
-        <label htmlFor="fondo"className="col-sm-7 col-form-label">Fondo</label><div className="col-sm-3">
-        <select type="text" className="form-control" id="fondo" placeholder="Fondo"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.fondo}>
-        <option value="">
-    Seleccione {" "}
-    </option>
-    <option value="FSSRI">
-    FSSRI
-    </option>
-    <option value="FOES">
-    FOES
-    </option>
-      </select></div></div>
-        { formik.touched.fondo&& formik.errors.fondo? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
-        <p>{formik.errors.fondo}</p>
+        <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="resolucion"className="col-sm-7 col-form-label">Resolucion</label><div className="col-sm-3">
-        <input type="text" className="form-control" id="resolucion" placeholder="Resolucion"
+        <label htmlFor="contribuciones_creg"className="col-sm-7 col-form-label">Contribuciones_Creg</label><div className="col-sm-3">
+        <input type="number" className="form-control" id="contribuciones_creg" placeholder="Contribuciones_Creg"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
-value={formik.values.resolucion}></input></div></div>
-        { formik.touched.resolucion&& formik.errors.resolucion? (
+value={formik.values.contribuciones_creg}></input></div></div>
+        { formik.touched.contribuciones_creg&& formik.errors.contribuciones_creg? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
         <p className="font-bold">Error</p>
-        <p>{formik.errors.resolucion}</p>
+        <p>{formik.errors.contribuciones_creg}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="link_resolucion"className="col-sm-7 col-form-label">Link_Resolucion</label><div className="col-sm-3">
-        <input type="text" className="form-control" id="link_resolucion" placeholder="Link_Resolucion"
+        <label htmlFor="contribuciones_sspd"className="col-sm-7 col-form-label">Contribuciones_Sspd</label><div className="col-sm-3">
+        <input type="number" className="form-control" id="contribuciones_sspd" placeholder="Contribuciones_Sspd"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
-value={formik.values.link_resolucion}></input></div></div>
-        { formik.touched.link_resolucion&& formik.errors.link_resolucion? (
+value={formik.values.contribuciones_sspd}></input></div></div>
+        { formik.touched.contribuciones_sspd&& formik.errors.contribuciones_sspd? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
         <p className="font-bold">Error</p>
-        <p>{formik.errors.link_resolucion}</p>
-        </div>
-        ) : null  }<div className="form-group row">
-        <label htmlFor="giro_cop"className="col-sm-7 col-form-label">Giro_Cop</label><div className="col-sm-3">
-        <input type="number" className="form-control" id="giro_cop" placeholder="Giro_Cop"
-onChange={formik.handleChange}
-onBlur={formik.handleBlur}
-value={formik.values.giro_cop}></input></div></div>
-        { formik.touched.giro_cop&& formik.errors.giro_cop? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
-        <p>{formik.errors.giro_cop}</p>
+        <p>{formik.errors.contribuciones_sspd}</p>
         </div>
         ) : null  }
 <div className="container">
@@ -313,4 +278,4 @@ onClick={props.close}
 )
 }
 
-export default NuevoData_mme_giro
+export default NuevoData_empresa_anual

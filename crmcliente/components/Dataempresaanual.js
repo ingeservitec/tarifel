@@ -6,31 +6,26 @@ import Search from './DataTable/Search';
 import 'bootstrap/dist/css/bootstrap.css';
 import TableHeader from './DataTable/TableHeader';
 import 'font-awesome/css/font-awesome.min.css';
-import NuevoData_mme_validacion from './NuevoData_mme_validacion';
-import NuevoData_mme_validacion2 from './NuevoData_mme_validacion2';
+import NuevoData_empresa_anual from './NuevoData_empresa_anual';
+import NuevoData_empresa_anual2 from './NuevoData_empresa_anual2';
 
-const OBTENER_DATA_MME_VALIDACION= gql`
-query obtenerData_mme_validacion{
-obtenerData_mme_validacion{
+
+const OBTENER_DATA_EMPRESA_ANUAL= gql`
+query obtenerData_empresa_anual{
+obtenerData_empresa_anual{
 id
 creador
 empresa_id
-fecha
-trimestre
 anho
-facturacion
-subsidios
-contribuciones
-contrib_no_recaud_desp_6m
-contrib_recaud_desp_de_conc
-giros_recibidos
+contribuciones_creg
+contribuciones_sspd
 
 }
 }
 `;
 
-const Data_mme_validacion= () => {
-const { data, error, loading} = useQuery(OBTENER_DATA_MME_VALIDACION);
+const Data_empresa_anual= () => {
+const { data, error, loading} = useQuery(OBTENER_DATA_EMPRESA_ANUAL);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -43,11 +38,11 @@ const [showLogin2, setShowLogin2] = useState(false);
 
 const ITEMS_PER_PAGE = 3;
 const headers = [
-{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Fecha", field: "fecha", sortable: true},{ name: "Trimestre", field: "trimestre", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Facturacion", field: "facturacion", sortable: true},{ name: "Subsidios", field: "subsidios", sortable: true},{ name: "Contribuciones", field: "contribuciones", sortable: true},{ name: "Contrib_No_Recaud_Desp_6M", field: "contrib_no_recaud_desp_6m", sortable: true},{ name: "Contrib_Recaud_Desp_De_Conc", field: "contrib_recaud_desp_de_conc", sortable: true},{ name: "Giros_Recibidos", field: "giros_recibidos", sortable: true}
+{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Contribuciones_Creg", field: "contribuciones_creg", sortable: true},{ name: "Contribuciones_Sspd", field: "contribuciones_sspd", sortable: true}
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_mme_validacion);
+setComments(data.obtenerData_empresa_anual);
 });
 const commentsData = useMemo(() => {
 let computedComments = comments;
@@ -79,11 +74,15 @@ return computedComments.slice(
 );
 }, [comments, currentPage, search, sorting])
 
+
+
 return (
+
+
 <div className="container p-0">
 <div className="card col-sm ">
 <div className="card-header h6">
-<dt>INSUMOSDATA MME VALIDACION</dt>
+<dt>INSUMOS DATA EMPRESA ANUAL</dt>
 </div>
 <div className="card-body shadow ">
 <div className="card-body shadow">
@@ -94,9 +93,9 @@ return (
 <div className="col-md-6">
 <div className="text-left mr-0 mb-3">
 <button variant="primary" onClick={() => setShowLogin(true)}><i className="fa fa-plus mr-2 white"></i>Agregar Datos</button>
-<NuevoData_mme_validacion show={showLogin} close={() => setShowLogin(false)} />
+<NuevoData_empresa_anual show={showLogin} close={() => setShowLogin(false)} />
 <button variant="primary" onClick={() => setShowLogin2(true)}><i className="fa fa-plus mr-2 white"></i>Agregar Datos Masivos</button>
-<NuevoData_mme_validacion2 show2={showLogin2} close2={() => setShowLogin2(false)} />
+<NuevoData_empresa_anual2 show2={showLogin2} close2={() => setShowLogin2(false)} />
 </div>
 <Paginacion
 total={totalItems}
@@ -125,15 +124,9 @@ setSorting({ field, order })
 </th>
 <td>{comment.creador}</td>
 <td>{comment.empresa_id}</td>
-<td>{comment.fecha}</td>
-<td>{comment.trimestre}</td>
 <td>{comment.anho}</td>
-<td>{comment.facturacion}</td>
-<td>{comment.subsidios}</td>
-<td>{comment.contribuciones}</td>
-<td>{comment.contrib_no_recaud_desp_6m}</td>
-<td>{comment.contrib_recaud_desp_de_conc}</td>
-<td>{comment.giros_recibidos}</td>
+<td>{comment.contribuciones_creg}</td>
+<td>{comment.contribuciones_sspd}</td>
 
 </tr>
 ))}
@@ -148,5 +141,5 @@ setSorting({ field, order })
 </div>
 );
 }
-export default Data_mme_validacion;
+export default Data_empresa_anual;
 

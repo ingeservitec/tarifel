@@ -75,7 +75,7 @@ const NuevoDataxmtserv2 =(props) => {
           cache.writeQuery({
               query: OBTENER_DATA_XM_TSERV,
               data: {
-                obtenerData_xm_afac : [...obtenerData_xm_tserv, nuevoDataxmtserv ]
+                obtenerData_xm_tserv : [...obtenerData_xm_tserv, nuevoDataxmtserv ]
               }
           })
       }
@@ -155,7 +155,7 @@ const NuevoDataxmtserv2 =(props) => {
         console.log(fileNames[0].substr(5,2))
         console.log(Datacsv2)
         var arreglado = Datacsv2.map( item => { 
-          return {anho:parseFloat(item["FECHA"].substr(0,4)),mes:parseFloat(fileNames[0].substr(5,2)),creador:(item["creador"]),empresa_id:(item["empresa_id"]),fecha:(item["FECHA"]),agente:(item["AGENTE"]),beneficiario:(item["BENEFICIARIO"]),concepto:(item["CONCEPTO"]),tipopago:(item["TIPOPAGO"]),valor:parseFloat(item["VALOR"]),magnitud:parseFloat(item["MAGNITUD"])}; 
+          return {anho:parseFloat(item["FECHA"].substr(0,4)),mes:parseFloat(item["FECHA"].substr(6,2)),creador:(item["creador"]),empresa_id:(item["empresa_id"]),fecha:(item["FECHA"]),agente:(item["AGENTE"]),beneficiario:(item["BENEFICIARIO"]),concepto:(item["CONCEPTO"]),tipopago:(item["TIPOPAGO"]),valor:parseFloat(item["VALOR"]),magnitud:parseFloat(item["MAGNITUD"])}; 
         });
         console.log(arreglado)
         const {results} = await Promise.all(arreglado.map(object => {  

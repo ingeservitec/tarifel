@@ -4,33 +4,32 @@ import { gql, useMutation, useQuery } from '@apollo/client'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { useDropzone } from "react-dropzone";
-import readXlsxFile from 'read-excel-file'
+import csv from 'csv';
 import Swal from 'sweetalert2'
-import XLSX from 'xlsx';
 
-const NUEVO_DATA_XM_CPROG= gql`
-mutation nuevoData_xm_cprog($input:Data_xm_cprogInput ){
-nuevoData_xm_cprog(input:$input){
+const NUEVO_DATA_NUEVODATA_EMPRESA_ANUAL= gql`
+mutation nuevoData_nuevodata_empresa_anual($input:Data_nuevodata_empresa_anualInput ){
+nuevoData_nuevodata_empresa_anual(input:$input){
 id
 creador
 empresa_id
 anho
-mes
-agente
-cargo_cprog_cop_kwh
+contribuciones_creg
+contribuciones_sspd
+
 }
 }
 `;
-const OBTENER_DATA_XM_CPROG = gql`
-query obtenerData_xm_cprog{
-obtenerData_xm_cprog{
+const OBTENER_DATA_NUEVODATA_EMPRESA_ANUAL = gql`
+query obtenerData_nuevodata_empresa_anual{
+obtenerData_nuevodata_empresa_anual{
 id
 creador
 empresa_id
 anho
-mes
-agente
-cargo_cprog_cop_kwh
+contribuciones_creg
+contribuciones_sspd
+
 }
 }
 `;
@@ -45,22 +44,21 @@ empresa
 }
 `;
 
-const NuevoDataxm_cprog2= (props) => {
+const NuevoDatanuevodata_empresa_anual2= (props) => {
 const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [datacsv, setDatacsv] = useState("");
 const [fileNames, setFileNames] = useState([]);
 const [creador, setCreador] = useState();
 const [empresa_id, setEmpresa_id]= useState("")
-const [anho, setAnho] = useState("");const [mes, setMes] = useState("");const [agente, setAgente] = useState("");const [cargo_cprog_cop_kwh, setCargo_Cprog_Cop_Kwh] = useState("")
-const [nuevoData_xm_cprog]=useMutation(NUEVO_DATA_XM_CPROG, {
-update(cache, { data: { nuevoData_xm_cprog} } ) {
+const [nuevoData_nuevodata_empresa_anual]=useMutation(NUEVO_DATA_NUEVODATA_EMPRESA_ANUAL, {
+update(cache, { data: { nuevoData_nuevodata_empresa_anual} } ) {
 // Obtener el objeto de cache que deseamos actualizar
-const { obtenerData_xm_cprog} = cache.readQuery({ query: OBTENER_DATA_XM_CPROG});
+const { obtenerData_nuevodata_empresa_anual} = cache.readQuery({ query: OBTENER_DATA_NUEVODATA_EMPRESA_ANUAL});
 // Reescribimos el cache ( el cache nunca se debe modificar )
 cache.writeQuery({
-query: OBTENER_DATA_XM_CPROG,
+query: OBTENER_DATA_NUEVODATA_EMPRESA_ANUAL,
 data: {
-obtenerData_xm_cprog: [...obtenerData_xm_cprog, nuevoData_xm_cprog]
+obtenerData_nuevodata_empresa_anual: [...obtenerData_nuevodata_empresa_anual, nuevoData_nuevodata_empresa_anual]
 }
 })
 }
@@ -72,38 +70,69 @@ reader.onabort = () => console.log("file reading was aborted");
 reader.onerror = () => console.log("file reading failed");
 reader.onload = () => {
 // Parse CSV file
-
-const workbook = XLSX.read(reader.result, {type: 'binary'});
-const excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets['CargoCPROG']);
-const data=excelRows
-console.log(data)
-
-if (data[1].Definitivo==='Mes cargo:') {
-    const fecha=(new Date(((Math.floor((data[1].__EMPTY_1 - 25568)*86400*1000)))).toLocaleDateString("en-US"))
-    setMes(parseFloat(fecha.substr(0,2)))
-    setAnho(parseFloat(fecha.substr(5,4)))   
+csv.parse(reader.result, (err, data) => {
+console.log("Parsed CSV data: ", data);
+setDatacsv(data)
+});
 };
-if (data[6].__EMPTY_3==='Cargo CPROG por concepto del plan ($/kWh)') {
-    setCargo_Cprog_Cop_Kwh(data[7].__EMPTY_3)
- };
- setAgente(data[7].Definitivo.substr(0,4))
-}
 // read file contents
 acceptedFiles.forEach(file => reader.readAsBinaryString(file));
 }, []);
 const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+function csvJSON(csv2){
+var lines=csv2
+var result = [];
+// NOTE: If your columns contain commas in their values, you'll need
+// to deal with those before doing the next step
+// (you might convert them to &&& or something, then covert them back later)
+// jsfiddle showing the issue https://jsfiddle.net/
+var headers=lines[0].toString().split(";");
+var encabezados=lines[0].toString().split(";");
+for(var i=1;i<lines.length;i++){
+var obj = {};
+var currentline=lines[i].toString().split(";")
+for(var j=0;j<headers.length +2;j++){
+if (j ==0){
+obj['creador'] = (creador)
+}
+if (j ==1){
+obj['empresa_id'] = (empresa_id)
+}
+if (j >1){
+obj[headers[j-2]] = (currentline[j-2]);
+}
+else{
+obj[headers[j-2]] = parseFloat(currentline[j-2]);
+}
 
+}
+result.push(obj);
+}
+//return result; //JavaScript object
+// parseFloat()
+return result; //JSON
+}
+// useEffect(() => {
+// console.log(Datacsv2)
+// }, [datacsv])
 
 const handleSubmit = async () => {
 try {
-    console.log(creador,empresa_id,anho, mes,agente, cargo_cprog_cop_kwh)
-    const{data}=await nuevoData_xm_cprog({
-        variables:{
-        input:{
-            creador:creador,empresa_id:empresa_id,anho:anho,mes:mes,agente:agente,cargo_cprog_cop_kwh:cargo_cprog_cop_kwh
-        }
-        }
-        })
+if (loading1) return null; // Si no hay informacion
+const Datacsv2=csvJSON(datacsv)
+console.log(fileNames[0].substr(4,2))
+var arreglado = Datacsv2.map( item => {
+return {creador:creador,empresa_id:empresa_id,anho:parseFloat(item["anho"]),contribuciones_creg:parseFloat(item["contribuciones_creg"]),contribuciones_sspd:parseFloat(item["contribuciones_sspd"])}
+});
+console.log(arreglado)
+const {results} = await Promise.all(arreglado.map(object => {
+return nuevoData_nuevodata_empresa_anual({ variables:{
+input:
+object
+}
+});
+}
+));
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close2()
 // results will be an array of execution result objects (i.e. { data, error })
@@ -127,7 +156,7 @@ aria-labelledby="contained-modal-title-vcenter"
 centered
 onHide={props.close2}>
 <Modal.Header closeButton>
-<Modal.Title>Cargue Masivo a tabla Data XM CPROG</Modal.Title>
+<Modal.Title>Cargue Masivo a tabla Data NUEVODATA EMPRESA ANUAL</Modal.Title>
 </Modal.Header>
 <Modal.Body>
 <div>
@@ -176,4 +205,4 @@ onClick={props.close2}
 )
 }
 
-export default NuevoDataxm_cprog2
+export default NuevoDatanuevodata_empresa_anual2

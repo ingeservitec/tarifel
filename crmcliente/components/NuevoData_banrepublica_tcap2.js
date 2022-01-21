@@ -191,6 +191,19 @@ var regex = /(\d+)/g;
 headers[0]="Fecha"
 for(var j=0;j<headers.length;j++){
 if (j>0) {
+    
+if (headers[j].includes('Tasa') && lines[inicio-3][j]!=null)   {
+headers[j] = headers[j].replace('Tasa', 'Tasa_').concat(lines[inicio-2][j], '_',lines[inicio-3][j],'_',lines[inicio-4][1])
+}
+if (headers[j].includes('Tasa') && lines[inicio-3][j]===null)   {
+    if (j<33){
+        headers[j] = headers[j].replace('Tasa', 'Tasa_').concat(lines[inicio-2][j], '_',lines[inicio-3][1],'_',lines[inicio-4][1])
+    }
+    else {
+        headers[j] = headers[j].replace('Tasa', 'Tasa_').concat(lines[inicio-2][j], '_',lines[inicio-3][33],'_',lines[inicio-4][1])
+    }
+    }
+    
 if (headers[j].includes('Monto')) {
 headers[j] = headers[j-1].replace('Tasa_', 'Monto_')
 }
@@ -216,7 +229,6 @@ result.push(obj);
 }
 //return result; //JavaScript object
 // parseFloat()
-console.log('Aca')
 console.log(headers)
 console.log(result)
 return result; //JSON
@@ -227,7 +239,7 @@ const handleSubmit = async () => {
 try {
 if (loading1) return null; // Si no hay informacion
 const Datacsv2=csvJSON(datacsv)
-console.log(fileNames[0].substr(4,2))
+console.log(Datacsv2)
 //se deja 25568 para que cuadre
 var arreglado = Datacsv2.map( item => {
 return {creador:creador,fecha: new Date((((((item["Fecha"]) - 25568)*86400*1000)))).toLocaleDateString("en-US") ,empresa_id:empresa_id,tasa_a_30_cdt_bancos_comerciales:(item["Tasa_A 30 días_CDT_Bancos comerciales"]),monto_a_30_cdt_bancos_comerciales:(item["Monto_A 30 días_CDT_Bancos comerciales"]),tasa_entre_31_y_44_cdt_bancos_comerciales:(item["Tasa_Entre 31 y 44 días_CDT_Bancos comerciales"]),monto_entre_31_y_44_cdt_bancos_comerciales:(item["Monto_Entre 31 y 44 días_CDT_Bancos comerciales"]),tasa_a_45_cdt_bancos_comerciales:(item["Tasa_A 45 días_CDT_Bancos comerciales"]),monto_a_45_cdt_bancos_comerciales:(item["Monto_A 45 días_CDT_Bancos comerciales"]),tasa_entre_46_y_59_cdt_bancos_comerciales:(item["Tasa_Entre 46 y 59 días_CDT_Bancos comerciales"]),monto_entre_46_y_59_cdt_bancos_comerciales:(item["Monto_Entre 46 y 59 días_CDT_Bancos comerciales"]),tasa_a_60_cdt_bancos_comerciales:(item["Tasa_A 60 días_CDT_Bancos comerciales"]),monto_a_60_cdt_bancos_comerciales:(item["Monto_A 60 días_CDT_Bancos comerciales"]),tasa_entre_61_y_89_cdt_bancos_comerciales:(item["Tasa_Entre 61 y 89 días_CDT_Bancos comerciales"]),monto_entre_61_y_89_cdt_bancos_comerciales:(item["Monto_Entre 61 y 89 días_CDT_Bancos comerciales"]),tasa_a_90_cdt_bancos_comerciales:(item["Tasa_A 90 días_CDT_Bancos comerciales"]),monto_a_90_cdt_bancos_comerciales:(item["Monto_A 90 días_CDT_Bancos comerciales"]),tasa_entre_91_y_119_cdt_bancos_comerciales:(item["Tasa_Entre 91 y 119 días_CDT_Bancos comerciales"]),monto_entre_91_y_119_cdt_bancos_comerciales:(item["Monto_Entre 91 y 119 días_CDT_Bancos comerciales"]),tasa_a_120_cdt_bancos_comerciales:(item["Tasa_A 120 días_CDT_Bancos comerciales"]),monto_a_120_cdt_bancos_comerciales:(item["Monto_A 120 días_CDT_Bancos comerciales"]),tasa_entre_121_y_179_cdt_bancos_comerciales:(item["Tasa_Entre 121 y 179 días_CDT_Bancos comerciales"]),monto_entre_121_y_179_cdt_bancos_comerciales:(item["Monto_Entre 121 y 179 días_CDT_Bancos comerciales"]),tasa_a_180_cdt_bancos_comerciales:(item["Tasa_A 180 días_CDT_Bancos comerciales"]),monto_a_180_cdt_bancos_comerciales:(item["Monto_A 180 días_CDT_Bancos comerciales"]),tasa_entre_181_y_359_cdt_bancos_comerciales:(item["Tasa_Entre 181 y 359 días_CDT_Bancos comerciales"]),monto_entre_181_y_359_cdt_bancos_comerciales:(item["Monto_Entre 181 y 359 días_CDT_Bancos comerciales"]),tasa_a_360_cdt_bancos_comerciales:(item["Tasa_A 360 días_CDT_Bancos comerciales"]),monto_a_360_cdt_bancos_comerciales:(item["Monto_A 360 días_CDT_Bancos comerciales"]),tasa_superiores_a_360_cdt_bancos_comerciales:(item["Tasa_Superiores a 360 días_CDT_Bancos comerciales"]),monto_superiores_a_360_cdt_bancos_comerciales:(item["Monto_Superiores a 360 días_CDT_Bancos comerciales"]),tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales:(item["Tasa_Captaciones a través de CDT por red de oficinas_CDT_Bancos comerciales"]),monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales:(item["Monto_Captaciones a través de CDT por red de oficinas_CDT_Bancos comerciales"]),tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales:(item["Tasa_Captaciones a través de CDT por tesorería_CDT_Bancos comerciales"]),monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales:(item["Monto_Captaciones a través de CDT por tesorería_CDT_Bancos comerciales"]),tasa_entre_2_y_14_cdats_cdat_bancos_comerciales:(item["Tasa_Entre 2 y 14 días (CDATs)_CDAT_Bancos comerciales"]),monto_entre_2_y_14_cdats_cdat_bancos_comerciales:(item["Monto_Entre 2 y 14 días (CDATs)_CDAT_Bancos comerciales"]),tasa_entre_15_y_29_cdats_cdat_bancos_comerciales:(item["Tasa_Entre 15 y 29 días (CDATs)_CDAT_Bancos comerciales"]),monto_entre_15_y_29_cdat_bancos_comerciales:(item["Monto_Entre 15 y 29 días (CDATs)_CDAT_Bancos comerciales"]),tasa_a_30_cdats_cdat_bancos_comerciales:(item["Tasa_A 30 días (CDATs)_CDAT_Bancos comerciales"]),monto_a_30_cdat_bancos_comerciales:(item["Monto_A 30 días (CDATs)_CDAT_Bancos comerciales"]),tasa_entre_31_y_90_cdats_cdat_bancos_comerciales:(item["Tasa_Entre 31 y 90 días (CDATs)_CDAT_Bancos comerciales"]),monto_entre_31_y_90_cdat_bancos_comerciales:(item["Monto_Entre 31 y 90 días (CDATs)_CDAT_Bancos comerciales"]),tasa_entre_91_y_180_cdats_cdat_bancos_comerciales:(item["Tasa_Entre 91 y 180 días (CDATs)_CDAT_Bancos comerciales"]),monto_entre_91_y_180_cdat_bancos_comerciales:(item["Monto_Entre 91 y 180 días (CDATs)_CDAT_Bancos comerciales"]),tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales:(item["Tasa_De 181 días en adelante (CDATs)_CDAT_Bancos comerciales"]),monto_de_181_en_adelante_cdats_cdat_bancos_comerciales:(item["Monto_De 181 días en adelante (CDATs)_CDAT_Bancos comerciales"]),tasa_cap_cdat_oficinas_cdat_bancos_comerciales:(item["Tasa_Captaciones a través de CDAT por red de oficinas_CDAT_Bancos comerciales"]),monto_cap_cdat_oficinas_cdat_bancos_comerciales:(item["Monto_Captaciones a través de CDAT por red de oficinas_CDAT_Bancos comerciales"])}

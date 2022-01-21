@@ -131,6 +131,7 @@ const NuevoDataempresa =(props) => {
     Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
     props.close()
     try {
+      console.log(creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,costo_garantias_mem_cop,costo_garantias_str_sdl_cop,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh)
     const{data}=await nuevoDataempresa({
     variables:{
         input:{
@@ -277,11 +278,109 @@ const NuevoDataempresa =(props) => {
     ) : null  }
     <div className="form-group row">
     <label htmlFor="mercado"className="col-sm-7 col-form-label">Mercado</label><div className="col-sm-3">
-    <input type="number" className="form-control" id="mercado" placeholder="Mercado"
+    <select type="number" className="form-control" id="mercado" placeholder="Mercado"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
-    value={formik.values.mercado}></input></div>
+    value={formik.values.mercado}>
+    <option value="">
+    Seleccione {" "}
+    </option>
+    <option value="AIR-E">
+    AIR-E
+    </option>
+    <option value="ANTIOQUIA CREG 078/07">
+    ANTIOQUIA CREG 078/07
+    </option>
+    <option value="ARAUCA">
+    ARAUCA
+    </option>
+    <option value="BAJO PUTUMAYO">
+    BAJO PUTUMAYO
+    </option>
+    <option value="BOGOTA - CUNDINAMARCA CREG 199/16">
+    BOGOTA - CUNDINAMARCA CREG 199/16
+    </option>
+    <option value="BOYACA">
+    BOYACA
+    </option>
+    <option value="CALDAS">
+    CALDAS
+    </option>
+    <option value="CALI - YUMBO - PUERTO TEJADA">
+    CALI - YUMBO - PUERTO TEJADA
+    </option>
+    <option value="CAQUETA">
+    CAQUETA
+    </option>
+    <option value="CARIBE MAR">
+    CARIBE MAR
+    </option>
+    <option value="CARTAGO">
+    CARTAGO
+    </option>
+    <option value="CASANARE">
+    CASANARE
+    </option>
+    <option value="CAUCA">
+    CAUCA
+    </option>
+    <option value="CELSIA VALLE DEL CAUCA">
+    CELSIA VALLE DEL CAUCA
+    </option>
+    <option value="CHAIRA ">
+    CHAIRA
+    </option>
+    <option value="CHOCO">
+    CHOCO
+    </option>
+    <option value="ECUADOR">
+    ECUADOR
+    </option>
+    <option value="GUAVIARE">
+    GUAVIARE
+    </option>
+    <option value="HUILA">
+    HUILA
+    </option>
+    <option value="META">
+    META
+    </option>
+    <option value="NARIÑO">
+    NARIÑO
+    </option>
+    <option value="NORTE DE SANTANDER">
+    NORTE DE SANTANDER
+    </option>
+    <option value="PEREIRA">
+    PEREIRA
+    </option>
+    <option value="POPAYAN - PURACE">
+    POPAYAN - PURACE
+    </option>
+    <option value="PUTUMAYO">
+    PUTUMAYO
+    </option>
+    <option value="QUINDIO">
+    QUINDIO
+    </option>
+    <option value="RUITOQUE">
+    RUITOQUE
+    </option>
+    <option value="SANTANDER">
+    SANTANDER
+    </option>
+    <option value="SIBUNDOY">
+    SIBUNDOY
+    </option>
+    <option value="TOLIMA">
+    TOLIMA
+    </option>
+    <option value="TULUA">
+    TULUA
+    </option>
+      </select></div>
     </div>
+
     { formik.touched.mercado&& formik.errors.mercado? (
     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
     <p className="font-bold">Error</p>

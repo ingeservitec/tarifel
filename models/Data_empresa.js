@@ -21,7 +21,7 @@ const Data_empresaSchema = sequelize.define('data_empresa', {
     // sin espacios en blanco al inicio o al final
   },
   mercado: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     trim: true
     // sin espacios en blanco al inicio o al final

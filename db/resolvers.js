@@ -20,6 +20,7 @@ const Data_xm_cprog= require ('../models/Data_xm_cprog');
 const Data_xm_ipr= require ('../models/Data_xm_ipr');	
 const Data_xm_d015= require ('../models/Data_xm_d015');	
 const Data_xm_dtun= require ('../models/Data_xm_dtun');
+const Data_empresa_anual= require ('../models/Data_empresa_anual');
 
 const bcryptjs = require ('bcryptjs');
 const jwt = require ('jsonwebtoken');
@@ -269,6 +270,15 @@ obtenerData_xm_dtun: async () => {
 try {
 const data_xm_dtun=await Data_xm_dtun.findAll()
 return data_xm_dtun;
+} catch (error) {
+console.log(error)
+}
+},
+//Query
+obtenerData_empresa_anual: async () => {
+try {
+const data_empresa_anual=await Data_empresa_anual.findAll()
+return data_empresa_anual;
 } catch (error) {
 console.log(error)
 }
@@ -568,7 +578,20 @@ return resultado
 } catch (error) {
 console.log(error)
 }
+},
+//Mutation
+
+nuevoData_empresa_anual:async (_,{input})=> {
+
+try {
+const data_empresa_anual=new Data_empresa_anual(input);
+const resultado = await data_empresa_anual.save();
+return resultado
+} catch (error) {
+console.log(error)
 }
+}
+
 
     
     }

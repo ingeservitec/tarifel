@@ -32,7 +32,7 @@ type Data_empresa  {
     empresa_id: String
     anho: Int
     mes: Int
-    mercado: Int
+    mercado: String
     numero_usuarios_r: Int
     numero_usuarios_nr: Int
     ventas_usuarios_r_nt1_e: Float	
@@ -465,7 +465,7 @@ input DataempresaInput  {
    anho: Int
    mes: Int
    empresa_id: String
-   mercado: Int
+   mercado: String
    numero_usuarios_r: Int
    numero_usuarios_nr: Int
    ventas_usuarios_r_nt1_e: Float	
@@ -937,6 +937,7 @@ type Data_creg_cx{
                fecha: String
                trimestre: Int
                anho: Int
+               facturacion: String
                subsidios: Int
                contribuciones: Int
                contrib_no_recaud_desp_6m: Int
@@ -952,6 +953,7 @@ type Data_creg_cx{
                trimestre: Int
                anho: Int
                subsidios: Int
+               facturacion: String
                contribuciones: Int
                contrib_no_recaud_desp_6m: Int
                contrib_recaud_desp_de_conc: Int
@@ -1669,7 +1671,25 @@ type Data_creg_cx{
                                        version: String
                                        }
                                        
-                                    
+                                       type Data_empresa_anual{
+                                          id: ID
+                                          creador: Int
+                                          empresa_id: String
+                                          anho: Int
+                                          contribuciones_creg: Int
+                                          contribuciones_sspd: Int
+                                          
+                                          }
+                                          input Data_empresa_anualInput {
+                                          id: ID
+                                          creador: Int
+                                          empresa_id: String
+                                          anho: Int
+                                          contribuciones_creg: Int
+                                          contribuciones_sspd: Int
+                                          
+                                          }
+                                          
                                  
                               
          
@@ -1721,6 +1741,8 @@ obtenerData_xm_ipr: [Data_xm_ipr]
 obtenerData_xm_d015: [Data_xm_d015]
 #Query Data_xm_dtun
 obtenerData_xm_dtun: [Data_xm_dtun]
+#Query Data_empresa_anual
+obtenerData_empresa_anual: [Data_empresa_anual]
 }
 type Mutation {  
     #Usuarios
@@ -1766,6 +1788,8 @@ nuevoData_xm_ipr(input:Data_xm_iprInput):Data_xm_ipr
 nuevoData_xm_d015(input:Data_xm_d015Input):Data_xm_d015
 #MutationData_xm_dtun
 nuevoData_xm_dtun(input:Data_xm_dtunInput):Data_xm_dtun
+#MutationData_empresa_anual
+nuevoData_empresa_anual(input:Data_empresa_anualInput):Data_empresa_anual
     }
 `;
 

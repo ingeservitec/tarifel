@@ -194,6 +194,7 @@ const NuevoDataempresa =(props) => {
     return (
     <div>
     <Modal show={props.show}
+size="lg"
   
     aria-labelledby="contained-modal-title-vcenter"
     centered
@@ -223,7 +224,7 @@ const NuevoDataempresa =(props) => {
     onSubmit={formik.handleSubmit}
     >
     {/* <div className="form-group row">
-    <label htmlFor="creador"className="col-sm-7 col-form-label">Creador</label><div className="col-sm-3">
+    <label htmlFor="creador"className="col-sm-7 col-form-label">Creador</label><div className="col-sm-5">
     <input type="number" className="form-control" id="creador" placeholder= "Creador"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -237,7 +238,7 @@ const NuevoDataempresa =(props) => {
     </div>
     ) : null  } */}
     <div className="form-group row">
-    <label htmlFor="empresa_id"className="col-sm-7 col-form-label">Empresa</label><div className="col-sm-3">
+    <label htmlFor="empresa_id"className="col-sm-7 col-form-label">Empresa</label><div className="col-sm-5">
     <input type="text" className="form-control" id="empresa_id" placeholder="Empresa Id"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -253,7 +254,7 @@ const NuevoDataempresa =(props) => {
     </div>
     ) : null  }
     <div className="form-group row">
-    <label htmlFor="anho"className="col-sm-7 col-form-label">Año</label><div className="col-sm-3">
+    <label htmlFor="anho"className="col-sm-7 col-form-label">Año</label><div className="col-sm-5">
     <input type="number" className="form-control" id="anho" onChange={formik.handleChange} placeholder= "Año"
     onBlur={formik.handleBlur}
     value={formik.values.anho}></input></div>
@@ -264,7 +265,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.anho}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-3">
+    <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
     <input type="number" className="form-control" id="mes" placeholder="Mes"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -277,7 +278,7 @@ const NuevoDataempresa =(props) => {
     </div>
     ) : null  }
     <div className="form-group row">
-    <label htmlFor="mercado"className="col-sm-7 col-form-label">Mercado</label><div className="col-sm-3">
+    <label htmlFor="mercado"className="col-sm-7 col-form-label">Mercado</label><div className="col-sm-5">
     <select type="number" className="form-control" id="mercado" placeholder="Mercado"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -387,7 +388,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.mercado}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="numero_usuarios_r"className="col-sm-7 col-form-label">Número Usuarios R</label><div className="col-sm-3">
+    <label htmlFor="numero_usuarios_r"className="col-sm-7 col-form-label">Número Usuarios R</label><div className="col-sm-5">
     <input type="number" className="form-control" id="numero_usuarios_r" placeholder="Número Usuarios R"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -399,7 +400,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.numero_usuarios_r}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="numero_usuarios_nr"className="col-sm-7 col-form-label">Número Usuarios NR</label><div className="col-sm-3">
+    <label htmlFor="numero_usuarios_nr"className="col-sm-7 col-form-label">Número Usuarios NR</label><div className="col-sm-5">
     <input type="number" className="form-control" id="numero_usuarios_nr" placeholder="Número Usuarios NR"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -411,7 +412,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.numero_usuarios_nr}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="ventas_usuarios_r_nt1_e"className="col-sm-7 col-form-label">Ventas Usuarios R Nt1 E</label><div className="col-sm-3">
+    <label htmlFor="ventas_usuarios_r_nt1_e"className="col-sm-7 col-form-label">Ventas Usuarios R Nt1 E</label><div className="col-sm-5">
     <input type="number" className="form-control" id="ventas_usuarios_r_nt1_e" placeholder="Ventas Usuarios R Nt1 E"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -423,7 +424,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.ventas_usuarios_r_nt1_e}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="ventas_usuarios_r_nt1_c"className="col-sm-7 col-form-label">Ventas Usuarios R Nt1 C</label><div className="col-sm-3">
+    <label htmlFor="ventas_usuarios_r_nt1_c"className="col-sm-7 col-form-label">Ventas Usuarios R Nt1 C</label><div className="col-sm-5">
     <input type="number" className="form-control" id="ventas_usuarios_r_nt1_c" placeholder="Ventas Usuarios R Nt1 C"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -435,7 +436,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.ventas_usuarios_r_nt1_c}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="ventas_usuarios_r_nt1_u"className="col-sm-7 col-form-label">Ventas Usuarios R Nt1 U</label><div className="col-sm-3">
+    <label htmlFor="ventas_usuarios_r_nt1_u"className="col-sm-7 col-form-label">Ventas Usuarios R Nt1 U</label><div className="col-sm-5">
     <input type="number" className="form-control" id="ventas_usuarios_r_nt1_u" placeholder="Ventas Usuarios R Nt1 U"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -447,7 +448,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.ventas_usuarios_r_nt1_u}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="ventas_usuarios_r_nt2"className="col-sm-7 col-form-label">Ventas Usuarios R Nt2</label><div className="col-sm-3">
+    <label htmlFor="ventas_usuarios_r_nt2"className="col-sm-7 col-form-label">Ventas Usuarios R Nt2</label><div className="col-sm-5">
     <input type="number" className="form-control" id="ventas_usuarios_r_nt2" placeholder="Ventas Usuarios R Nt2"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -459,7 +460,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.ventas_usuarios_r_nt2}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="ventas_usuarios_r_nt3"className="col-sm-7 col-form-label">Ventas Usuarios R Nt3</label><div className="col-sm-3">
+    <label htmlFor="ventas_usuarios_r_nt3"className="col-sm-7 col-form-label">Ventas Usuarios R Nt3</label><div className="col-sm-5">
     <input type="number" className="form-control" id="ventas_usuarios_r_nt3" placeholder="Ventas Usuarios R Nt3"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -471,7 +472,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.ventas_usuarios_r_nt3}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="ventas_usuarios_nr_kwh"className="col-sm-7 col-form-label">Ventas Usuarios NR Kwh</label><div className="col-sm-3">
+    <label htmlFor="ventas_usuarios_nr_kwh"className="col-sm-7 col-form-label">Ventas Usuarios NR Kwh</label><div className="col-sm-5">
     <input type="number" className="form-control" id="ventas_usuarios_nr_kwh" placeholder="Ventas Usuarios Nr Kwh"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -483,7 +484,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.ventas_usuarios_nr_kwh}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="costo_garantias_mem_cop"className="col-sm-7 col-form-label">Costo Garantias MEM Cop</label><div className="col-sm-3">
+    <label htmlFor="costo_garantias_mem_cop"className="col-sm-7 col-form-label">Costo Garantias MEM Cop</label><div className="col-sm-5">
     <input type="number" className="form-control" id="costo_garantias_mem_cop" placeholder="Costo Garantias Mem Cop"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -495,7 +496,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.costo_garantias_mem_cop}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="costo_garantias_str_sdl_cop"className="col-sm-7 col-form-label">Costo Garantias STR SDL Cop</label><div className="col-sm-3">
+    <label htmlFor="costo_garantias_str_sdl_cop"className="col-sm-7 col-form-label">Costo Garantias STR SDL Cop</label><div className="col-sm-5">
     <input type="number" className="form-control" id="costo_garantias_str_sdl_cop" placeholder="Costo Garantias Str Sdl Cop"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -507,7 +508,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.costo_garantias_str_sdl_cop}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="pui_cop_kwh"className="col-sm-7 col-form-label">PUI Cop Kwh</label><div className="col-sm-3">
+    <label htmlFor="pui_cop_kwh"className="col-sm-7 col-form-label">PUI Cop Kwh</label><div className="col-sm-5">
     <input type="number" className="form-control" id="pui_cop_kwh" placeholder="PUI Cop Kwh"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -519,7 +520,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.pui_cop_kwh}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="vsne_kwh"className="col-sm-7 col-form-label">VSNE Kwh</label><div className="col-sm-3">
+    <label htmlFor="vsne_kwh"className="col-sm-7 col-form-label">VSNE Kwh</label><div className="col-sm-5">
     <input type="number" className="form-control" id="vsne_kwh" placeholder="VSNE Kwh"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -531,7 +532,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.vsne_kwh}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="vnu_kwh"className="col-sm-7 col-form-label">VNU Kwh</label><div className="col-sm-3">
+    <label htmlFor="vnu_kwh"className="col-sm-7 col-form-label">VNU Kwh</label><div className="col-sm-5">
     <input type="number" className="form-control" id="vnu_kwh" placeholder="VNU Kwh"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -543,7 +544,7 @@ const NuevoDataempresa =(props) => {
     <p>{formik.errors.vnu_kwh}</p>
     </div>
     ) : null  }<div className="form-group row">
-    <label htmlFor="vae_kwh"className="col-sm-7 col-form-label">VAE Kwh</label><div className="col-sm-3">
+    <label htmlFor="vae_kwh"className="col-sm-7 col-form-label">VAE Kwh</label><div className="col-sm-5">
     <input type="number" className="form-control" id="vae_kwh" placeholder="VAE Kwh"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}

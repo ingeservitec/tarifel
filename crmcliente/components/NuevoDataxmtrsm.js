@@ -174,6 +174,7 @@ const [nuevoDataxmtrsm]=useMutation(NUEVO_DATA_XMTRSM, {
     return (
     <div>
     <Modal show={props.show}
+size="lg"
     aria-labelledby="contained-modal-title-vcenter"
     centered
     id="myModal"
@@ -202,7 +203,7 @@ const [nuevoDataxmtrsm]=useMutation(NUEVO_DATA_XMTRSM, {
     onSubmit={formik.handleSubmit}
     >
       <div className="form-group row">
-    <label htmlFor="empresa_id"className="col-sm-7 col-form-label">Empresa</label><div className="col-sm-3">
+    <label htmlFor="empresa_id"className="col-sm-7 col-form-label">Empresa</label><div className="col-sm-5">
     <input type="text" className="form-control" id="empresa_id" placeholder="Empresa Id"
     onChange={formik.handleChange}
     onBlur={formik.handleBlur}
@@ -218,7 +219,7 @@ const [nuevoDataxmtrsm]=useMutation(NUEVO_DATA_XMTRSM, {
     </div>
     ) : null  }
         <div className="form-group row">
-        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-3">
+        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
         <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -230,7 +231,7 @@ value={formik.values.anho}></input></div>
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-3">
+        <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
         <input type="number" className="form-control" id="mes" placeholder="Mes"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -242,7 +243,7 @@ value={formik.values.mes}></input></div>
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-3">
+        <label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-5">
         <input type="date" className="form-control" id="fecha" placeholder="Fecha"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -254,7 +255,7 @@ value={formik.values.fecha}></input></div>
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="codigo"className="col-sm-7 col-form-label">Codigo</label><div className="col-sm-3">
+        <label htmlFor="codigo"className="col-sm-7 col-form-label">Codigo</label><div className="col-sm-5">
         <input type="text" className="form-control" id="codigo" placeholder="Codigo"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -266,7 +267,7 @@ value={formik.values.codigo}></input></div>
         <p>{formik.errors.codigo}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="descripcion"className="col-sm-7 col-form-label">Descripcion</label><div className="col-sm-3">
+        <label htmlFor="descripcion"className="col-sm-7 col-form-label">Descripcion</label><div className="col-sm-5">
         <input type="text" className="form-control" id="descripcion" placeholder="Descripcion"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -278,7 +279,7 @@ value={formik.values.descripcion}></input></div>
         <p>{formik.errors.descripcion}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="valor"className="col-sm-7 col-form-label">Valor</label><div className="col-sm-3">
+        <label htmlFor="valor"className="col-sm-7 col-form-label">Valor</label><div className="col-sm-5">
         <input type="number" className="form-control" id="valor" placeholder="Valor"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}

@@ -179,6 +179,7 @@ console.log(empresa_id)
 return (
 <div>
 <Modal show={props.show}
+size="lg"
 aria-labelledby="contained-modal-title-vcenter"
 centered
 id="myModal"
@@ -207,7 +208,7 @@ onHide={props.close}>
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-<label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-3">
+<label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
 <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -218,7 +219,7 @@ value={formik.values.creador}></input></div></div>
 <p>{formik.errors.creador}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-3">
+<label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
 <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -230,7 +231,7 @@ formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slic
 <p>{formik.errors.empresa_id}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-3">
+<label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-5">
 <input type="date" className="form-control" id="fecha" placeholder="Fecha"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -241,7 +242,7 @@ value={formik.values.fecha}></input></div></div>
 <p>{formik.errors.fecha}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="trimestre"className="col-sm-7 col-form-label">Trimestre</label><div className="col-sm-3">
+<label htmlFor="trimestre"className="col-sm-7 col-form-label">Trimestre</label><div className="col-sm-5">
 <input type="number" className="form-control" id="trimestre" placeholder="Trimestre"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -252,7 +253,7 @@ value={formik.values.trimestre}></input></div></div>
 <p>{formik.errors.trimestre}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-3">
+<label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
 <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -264,7 +265,7 @@ value={formik.values.anho}></input></div></div>
 </div>
 ) : null  }
 <div className="form-group row">
-<label htmlFor="facturacion"className="col-sm-7 col-form-label">Facturacion</label><div className="col-sm-3">
+<label htmlFor="facturacion"className="col-sm-7 col-form-label">Facturacion</label><div className="col-sm-5">
 <input type="text" className="form-control" id="facturacion" placeholder="Facturacion"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -277,7 +278,7 @@ value={formik.values.facturacion}></input></div></div>
 ) : null  }
 
 <div className="form-group row">
-<label htmlFor="subsidios"className="col-sm-7 col-form-label">Subsidios</label><div className="col-sm-3">
+<label htmlFor="subsidios"className="col-sm-7 col-form-label">Subsidios</label><div className="col-sm-5">
 <input type="number" className="form-control" id="subsidios" placeholder="Subsidios"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -288,7 +289,7 @@ value={formik.values.subsidios}></input></div></div>
 <p>{formik.errors.subsidios}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="contribuciones"className="col-sm-7 col-form-label">Contribuciones</label><div className="col-sm-3">
+<label htmlFor="contribuciones"className="col-sm-7 col-form-label">Contribuciones</label><div className="col-sm-5">
 <input type="number" className="form-control" id="contribuciones" placeholder="Contribuciones"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -299,7 +300,7 @@ value={formik.values.contribuciones}></input></div></div>
 <p>{formik.errors.contribuciones}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="contrib_no_recaud_desp_6m"className="col-sm-7 col-form-label">Contrib_No_Recaud_Desp_6M</label><div className="col-sm-3">
+<label htmlFor="contrib_no_recaud_desp_6m"className="col-sm-7 col-form-label">Contrib_No_Recaud_Desp_6M</label><div className="col-sm-5">
 <input type="number" className="form-control" id="contrib_no_recaud_desp_6m" placeholder="Contrib_No_Recaud_Desp_6M"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -310,7 +311,7 @@ value={formik.values.contrib_no_recaud_desp_6m}></input></div></div>
 <p>{formik.errors.contrib_no_recaud_desp_6m}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="contrib_recaud_desp_de_conc"className="col-sm-7 col-form-label">Contrib_Recaud_Desp_De_Conc</label><div className="col-sm-3">
+<label htmlFor="contrib_recaud_desp_de_conc"className="col-sm-7 col-form-label">Contrib_Recaud_Desp_De_Conc</label><div className="col-sm-5">
 <input type="number" className="form-control" id="contrib_recaud_desp_de_conc" placeholder="Contrib_Recaud_Desp_De_Conc"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -321,7 +322,7 @@ value={formik.values.contrib_recaud_desp_de_conc}></input></div></div>
 <p>{formik.errors.contrib_recaud_desp_de_conc}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="giros_recibidos"className="col-sm-7 col-form-label">Giros_Recibidos</label><div className="col-sm-3">
+<label htmlFor="giros_recibidos"className="col-sm-7 col-form-label">Giros_Recibidos</label><div className="col-sm-5">
 <input type="number" className="form-control" id="giros_recibidos" placeholder="Giros_Recibidos"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}

@@ -180,6 +180,7 @@ console.log(empresa_id)
 return (
 <div>
 <Modal show={props.show}
+size="lg"
 aria-labelledby="contained-modal-title-vcenter"
 centered
 id="myModal"
@@ -208,7 +209,7 @@ onHide={props.close}>
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-        <label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-3">
+        <label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
         <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -219,7 +220,7 @@ value={formik.values.creador}></input></div></div>
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-3">
+        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
         <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -231,7 +232,7 @@ value={formik.values.empresa_id ?
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-3">
+        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
         <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -242,7 +243,7 @@ value={formik.values.anho}></input></div></div>
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-3">
+        <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
         <input type="number" className="form-control" id="mes" placeholder="Mes"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -253,7 +254,7 @@ value={formik.values.mes}></input></div></div>
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="t_cop_kwh"className="col-sm-7 col-form-label">T_Cop_Kwh</label><div className="col-sm-3">
+        <label htmlFor="t_cop_kwh"className="col-sm-7 col-form-label">T_Cop_Kwh</label><div className="col-sm-5">
         <input type="number" className="form-control" id="t_cop_kwh" placeholder="T_Cop_Kwh"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -264,7 +265,7 @@ value={formik.values.t_cop_kwh}></input></div></div>
         <p>{formik.errors.t_cop_kwh}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="t_prima_cop_kwh"className="col-sm-7 col-form-label">T_Prima_Cop_Kwh</label><div className="col-sm-3">
+        <label htmlFor="t_prima_cop_kwh"className="col-sm-7 col-form-label">T_Prima_Cop_Kwh</label><div className="col-sm-5">
         <input type="number" className="form-control" id="t_prima_cop_kwh" placeholder="T_Prima_Cop_Kwh"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -275,7 +276,7 @@ value={formik.values.t_prima_cop_kwh}></input></div></div>
         <p>{formik.errors.t_prima_cop_kwh}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="Energia_sin_kwh"className="col-sm-7 col-form-label">Energia_Sin_Kwh</label><div className="col-sm-3">
+        <label htmlFor="Energia_sin_kwh"className="col-sm-7 col-form-label">Energia_Sin_Kwh</label><div className="col-sm-5">
         <input type="number" className="form-control" id="Energia_sin_kwh" placeholder="Energia_Sin_Kwh"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -286,7 +287,7 @@ value={formik.values.Energia_sin_kwh}></input></div></div>
         <p>{formik.errors.Energia_sin_kwh}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="Ing_Reg_Bruto_T_cop"className="col-sm-7 col-form-label">Ing_Reg_Bruto_T_Cop</label><div className="col-sm-3">
+        <label htmlFor="Ing_Reg_Bruto_T_cop"className="col-sm-7 col-form-label">Ing_Reg_Bruto_T_Cop</label><div className="col-sm-5">
         <input type="number" className="form-control" id="Ing_Reg_Bruto_T_cop" placeholder="Ing_Reg_Bruto_T_Cop"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -297,7 +298,7 @@ value={formik.values.Ing_Reg_Bruto_T_cop}></input></div></div>
         <p>{formik.errors.Ing_Reg_Bruto_T_cop}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="Ing_Compensar_T_cop"className="col-sm-7 col-form-label">Ing_Compensar_T_Cop</label><div className="col-sm-3">
+        <label htmlFor="Ing_Compensar_T_cop"className="col-sm-7 col-form-label">Ing_Compensar_T_Cop</label><div className="col-sm-5">
         <input type="number" className="form-control" id="Ing_Compensar_T_cop" placeholder="Ing_Compensar_T_Cop"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -308,7 +309,7 @@ value={formik.values.Ing_Compensar_T_cop}></input></div></div>
         <p>{formik.errors.Ing_Compensar_T_cop}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="Ing_Reg_Neto_T_cop"className="col-sm-7 col-form-label">Ing_Reg_Neto_T_Cop</label><div className="col-sm-3">
+        <label htmlFor="Ing_Reg_Neto_T_cop"className="col-sm-7 col-form-label">Ing_Reg_Neto_T_Cop</label><div className="col-sm-5">
         <input type="number" className="form-control" id="Ing_Reg_Neto_T_cop" placeholder="Ing_Reg_Neto_T_Cop"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -319,7 +320,7 @@ value={formik.values.Ing_Reg_Neto_T_cop}></input></div></div>
         <p>{formik.errors.Ing_Reg_Neto_T_cop}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="delta_t_cop_kwh"className="col-sm-7 col-form-label">Delta_T_Cop_Kwh</label><div className="col-sm-3">
+        <label htmlFor="delta_t_cop_kwh"className="col-sm-7 col-form-label">Delta_T_Cop_Kwh</label><div className="col-sm-5">
         <input type="number" className="form-control" id="delta_t_cop_kwh" placeholder="Delta_T_Cop_Kwh"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}

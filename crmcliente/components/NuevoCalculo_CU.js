@@ -1493,6 +1493,7 @@ useEffect(() => {
           return (
             <div>
             <Modal show={props.show}
+            size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
             id="myModal"
@@ -1542,7 +1543,7 @@ useEffect(() => {
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-<label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-3">
+<label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
 <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1553,7 +1554,7 @@ value={formik.values.creador}></input></div></div>
 <p>{formik.errors.creador}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-3">
+<label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
 <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1564,7 +1565,7 @@ value={formik.values.anho}></input></div></div>
 <p>{formik.errors.anho}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-3">
+<label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
 <input type="number" className="form-control" id="mes" placeholder="Mes"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1575,7 +1576,7 @@ value={formik.values.mes}></input></div></div>
 <p>{formik.errors.mes}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="qc"className="col-sm-7 col-form-label">Qc</label><div className="col-sm-3">
+<label htmlFor="qc"className="col-sm-7 col-form-label">Qc</label><div className="col-sm-5">
 <input type="number" className="form-control" id="qc" placeholder="Qc"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1586,7 +1587,7 @@ value={formik.values.qc}></input></div></div>
 <p>{formik.errors.qc}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="pc"className="col-sm-7 col-form-label">Pc</label><div className="col-sm-3">
+<label htmlFor="pc"className="col-sm-7 col-form-label">Pc</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pc" placeholder="Pc"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1597,7 +1598,7 @@ value={formik.values.pc}></input></div></div>
 <p>{formik.errors.pc}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="ref_g"className="col-sm-7 col-form-label">Ref_G</label><div className="col-sm-3">
+<label htmlFor="ref_g"className="col-sm-7 col-form-label">Ref_G</label><div className="col-sm-5">
 <input type="number" className="form-control" id="ref_g" placeholder="Ref_G"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1608,7 +1609,7 @@ value={formik.values.ref_g}></input></div></div>
 <p>{formik.errors.ref_g}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="max_g"className="col-sm-7 col-form-label">Max_G</label><div className="col-sm-3">
+<label htmlFor="max_g"className="col-sm-7 col-form-label">Max_G</label><div className="col-sm-5">
 <input type="number" className="form-control" id="max_g" placeholder="Max_G"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1619,7 +1620,7 @@ value={formik.values.max_g}></input></div></div>
 <p>{formik.errors.max_g}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cr"className="col-sm-7 col-form-label">Cr</label><div className="col-sm-3">
+<label htmlFor="cr"className="col-sm-7 col-form-label">Cr</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cr" placeholder="Cr"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1630,7 +1631,7 @@ value={formik.values.cr}></input></div></div>
 <p>{formik.errors.cr}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="ad"className="col-sm-7 col-form-label">Ad</label><div className="col-sm-3">
+<label htmlFor="ad"className="col-sm-7 col-form-label">Ad</label><div className="col-sm-5">
 <input type="number" className="form-control" id="ad" placeholder="Ad"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1641,7 +1642,7 @@ value={formik.values.ad}></input></div></div>
 <p>{formik.errors.ad}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="aj"className="col-sm-7 col-form-label">Aj</label><div className="col-sm-3">
+<label htmlFor="aj"className="col-sm-7 col-form-label">Aj</label><div className="col-sm-5">
 <input type="number" className="form-control" id="aj" placeholder="Aj"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1652,7 +1653,7 @@ value={formik.values.aj}></input></div></div>
 <p>{formik.errors.aj}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="pb"className="col-sm-7 col-form-label">Pb</label><div className="col-sm-3">
+<label htmlFor="pb"className="col-sm-7 col-form-label">Pb</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pb" placeholder="Pb"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1663,7 +1664,7 @@ value={formik.values.pb}></input></div></div>
 <p>{formik.errors.pb}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="gc"className="col-sm-7 col-form-label">Gc</label><div className="col-sm-3">
+<label htmlFor="gc"className="col-sm-7 col-form-label">Gc</label><div className="col-sm-5">
 <input type="number" className="form-control" id="gc" placeholder="Gc"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1674,7 +1675,7 @@ value={formik.values.gc}></input></div></div>
 <p>{formik.errors.gc}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="tx"className="col-sm-7 col-form-label">Tx</label><div className="col-sm-3">
+<label htmlFor="tx"className="col-sm-7 col-form-label">Tx</label><div className="col-sm-5">
 <input type="number" className="form-control" id="tx" placeholder="Tx"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1685,7 +1686,7 @@ value={formik.values.tx}></input></div></div>
 <p>{formik.errors.tx}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dtun_nt1_e"className="col-sm-7 col-form-label">Dtun_Nt1_E</label><div className="col-sm-3">
+<label htmlFor="dtun_nt1_e"className="col-sm-7 col-form-label">Dtun_Nt1_E</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dtun_nt1_e" placeholder="Dtun_Nt1_E"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1696,7 +1697,7 @@ value={formik.values.dtun_nt1_e}></input></div></div>
 <p>{formik.errors.dtun_nt1_e}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dtun_nt1_c"className="col-sm-7 col-form-label">Dtun_Nt1_C</label><div className="col-sm-3">
+<label htmlFor="dtun_nt1_c"className="col-sm-7 col-form-label">Dtun_Nt1_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dtun_nt1_c" placeholder="Dtun_Nt1_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1707,7 +1708,7 @@ value={formik.values.dtun_nt1_c}></input></div></div>
 <p>{formik.errors.dtun_nt1_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dtun_nt1_p"className="col-sm-7 col-form-label">Dtun_Nt1_P</label><div className="col-sm-3">
+<label htmlFor="dtun_nt1_p"className="col-sm-7 col-form-label">Dtun_Nt1_P</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dtun_nt1_p" placeholder="Dtun_Nt1_P"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1718,7 +1719,7 @@ value={formik.values.dtun_nt1_p}></input></div></div>
 <p>{formik.errors.dtun_nt1_p}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dtun_nt2"className="col-sm-7 col-form-label">Dtun_Nt2</label><div className="col-sm-3">
+<label htmlFor="dtun_nt2"className="col-sm-7 col-form-label">Dtun_Nt2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dtun_nt2" placeholder="Dtun_Nt2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1729,7 +1730,7 @@ value={formik.values.dtun_nt2}></input></div></div>
 <p>{formik.errors.dtun_nt2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dtun_nt3"className="col-sm-7 col-form-label">Dtun_Nt3</label><div className="col-sm-3">
+<label htmlFor="dtun_nt3"className="col-sm-7 col-form-label">Dtun_Nt3</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dtun_nt3" placeholder="Dtun_Nt3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1740,7 +1741,7 @@ value={formik.values.dtun_nt3}></input></div></div>
 <p>{formik.errors.dtun_nt3}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cdi_100"className="col-sm-7 col-form-label">Cdi_100</label><div className="col-sm-3">
+<label htmlFor="cdi_100"className="col-sm-7 col-form-label">Cdi_100</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cdi_100" placeholder="Cdi_100"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1751,7 +1752,7 @@ value={formik.values.cdi_100}></input></div></div>
 <p>{formik.errors.cdi_100}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cdi_50"className="col-sm-7 col-form-label">Cdi_50</label><div className="col-sm-3">
+<label htmlFor="cdi_50"className="col-sm-7 col-form-label">Cdi_50</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cdi_50" placeholder="Cdi_50"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1762,7 +1763,7 @@ value={formik.values.cdi_50}></input></div></div>
 <p>{formik.errors.cdi_50}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cdm"className="col-sm-7 col-form-label">Cdm</label><div className="col-sm-3">
+<label htmlFor="cdm"className="col-sm-7 col-form-label">Cdm</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cdm" placeholder="Cdm"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1773,7 +1774,7 @@ value={formik.values.cdm}></input></div></div>
 <p>{formik.errors.cdm}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cd4"className="col-sm-7 col-form-label">Cd4</label><div className="col-sm-3">
+<label htmlFor="cd4"className="col-sm-7 col-form-label">Cd4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cd4" placeholder="Cd4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1784,7 +1785,7 @@ value={formik.values.cd4}></input></div></div>
 <p>{formik.errors.cd4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cd3"className="col-sm-7 col-form-label">Cd3</label><div className="col-sm-3">
+<label htmlFor="cd3"className="col-sm-7 col-form-label">Cd3</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cd3" placeholder="Cd3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1795,7 +1796,7 @@ value={formik.values.cd3}></input></div></div>
 <p>{formik.errors.cd3}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cd2"className="col-sm-7 col-form-label">Cd2</label><div className="col-sm-3">
+<label htmlFor="cd2"className="col-sm-7 col-form-label">Cd2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cd2" placeholder="Cd2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1806,7 +1807,7 @@ value={formik.values.cd2}></input></div></div>
 <p>{formik.errors.cd2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dnt1"className="col-sm-7 col-form-label">Dnt1</label><div className="col-sm-3">
+<label htmlFor="dnt1"className="col-sm-7 col-form-label">Dnt1</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dnt1" placeholder="Dnt1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1817,7 +1818,7 @@ value={formik.values.dnt1}></input></div></div>
 <p>{formik.errors.dnt1}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dnt2"className="col-sm-7 col-form-label">Dnt2</label><div className="col-sm-3">
+<label htmlFor="dnt2"className="col-sm-7 col-form-label">Dnt2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dnt2" placeholder="Dnt2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1828,7 +1829,7 @@ value={formik.values.dnt2}></input></div></div>
 <p>{formik.errors.dnt2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dnt3"className="col-sm-7 col-form-label">Dnt3</label><div className="col-sm-3">
+<label htmlFor="dnt3"className="col-sm-7 col-form-label">Dnt3</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dnt3" placeholder="Dnt3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1839,7 +1840,7 @@ value={formik.values.dnt3}></input></div></div>
 <p>{formik.errors.dnt3}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="dnt4"className="col-sm-7 col-form-label">Dnt4</label><div className="col-sm-3">
+<label htmlFor="dnt4"className="col-sm-7 col-form-label">Dnt4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="dnt4" placeholder="Dnt4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1850,7 +1851,7 @@ value={formik.values.dnt4}></input></div></div>
 <p>{formik.errors.dnt4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="crs"className="col-sm-7 col-form-label">Crs</label><div className="col-sm-3">
+<label htmlFor="crs"className="col-sm-7 col-form-label">Crs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="crs" placeholder="Crs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1861,7 +1862,7 @@ value={formik.values.crs}></input></div></div>
 <p>{formik.errors.crs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="rcal"className="col-sm-7 col-form-label">Rcal</label><div className="col-sm-3">
+<label htmlFor="rcal"className="col-sm-7 col-form-label">Rcal</label><div className="col-sm-5">
 <input type="number" className="form-control" id="rcal" placeholder="Rcal"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1872,7 +1873,7 @@ value={formik.values.rcal}></input></div></div>
 <p>{formik.errors.rcal}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="r"className="col-sm-7 col-form-label">R</label><div className="col-sm-3">
+<label htmlFor="r"className="col-sm-7 col-form-label">R</label><div className="col-sm-5">
 <input type="number" className="form-control" id="r" placeholder="R"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1883,7 +1884,7 @@ value={formik.values.r}></input></div></div>
 <p>{formik.errors.r}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="iprstn"className="col-sm-7 col-form-label">Iprstn</label><div className="col-sm-3">
+<label htmlFor="iprstn"className="col-sm-7 col-form-label">Iprstn</label><div className="col-sm-5">
 <input type="number" className="form-control" id="iprstn" placeholder="Iprstn"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1894,7 +1895,7 @@ value={formik.values.iprstn}></input></div></div>
 <p>{formik.errors.iprstn}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="pr_nt1"className="col-sm-7 col-form-label">Pr_Nt1</label><div className="col-sm-3">
+<label htmlFor="pr_nt1"className="col-sm-7 col-form-label">Pr_Nt1</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pr_nt1" placeholder="Pr_Nt1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1905,7 +1906,7 @@ value={formik.values.pr_nt1}></input></div></div>
 <p>{formik.errors.pr_nt1}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="pr_nt2"className="col-sm-7 col-form-label">Pr_Nt2</label><div className="col-sm-3">
+<label htmlFor="pr_nt2"className="col-sm-7 col-form-label">Pr_Nt2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pr_nt2" placeholder="Pr_Nt2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1916,7 +1917,7 @@ value={formik.values.pr_nt2}></input></div></div>
 <p>{formik.errors.pr_nt2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="pr_nt3"className="col-sm-7 col-form-label">Pr_Nt3</label><div className="col-sm-3">
+<label htmlFor="pr_nt3"className="col-sm-7 col-form-label">Pr_Nt3</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pr_nt3" placeholder="Pr_Nt3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1927,7 +1928,7 @@ value={formik.values.pr_nt3}></input></div></div>
 <p>{formik.errors.pr_nt3}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="pr_nt4"className="col-sm-7 col-form-label">Pr_Nt4</label><div className="col-sm-3">
+<label htmlFor="pr_nt4"className="col-sm-7 col-form-label">Pr_Nt4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pr_nt4" placeholder="Pr_Nt4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1938,7 +1939,7 @@ value={formik.values.pr_nt4}></input></div></div>
 <p>{formik.errors.pr_nt4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cer"className="col-sm-7 col-form-label">Cer</label><div className="col-sm-3">
+<label htmlFor="cer"className="col-sm-7 col-form-label">Cer</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cer" placeholder="Cer"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1949,7 +1950,7 @@ value={formik.values.cer}></input></div></div>
 <p>{formik.errors.cer}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cfm"className="col-sm-7 col-form-label">Cfm</label><div className="col-sm-3">
+<label htmlFor="cfm"className="col-sm-7 col-form-label">Cfm</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cfm" placeholder="Cfm"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1960,7 +1961,7 @@ value={formik.values.cfm}></input></div></div>
 <p>{formik.errors.cfm}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="rc"className="col-sm-7 col-form-label">Rc</label><div className="col-sm-3">
+<label htmlFor="rc"className="col-sm-7 col-form-label">Rc</label><div className="col-sm-5">
 <input type="number" className="form-control" id="rc" placeholder="Rc"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1971,7 +1972,7 @@ value={formik.values.rc}></input></div></div>
 <p>{formik.errors.rc}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="ul_trim_val_mme"className="col-sm-7 col-form-label">Ul_Trim_Val_Mme</label><div className="col-sm-3">
+<label htmlFor="ul_trim_val_mme"className="col-sm-7 col-form-label">Ul_Trim_Val_Mme</label><div className="col-sm-5">
 <input type="number" className="form-control" id="ul_trim_val_mme" placeholder="Ul_Trim_Val_Mme"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1982,7 +1983,7 @@ value={formik.values.ul_trim_val_mme}></input></div></div>
 <p>{formik.errors.ul_trim_val_mme}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="anho_ul_trim_val_mme"className="col-sm-7 col-form-label">Anho_Ul_Trim_Val_Mme</label><div className="col-sm-3">
+<label htmlFor="anho_ul_trim_val_mme"className="col-sm-7 col-form-label">Anho_Ul_Trim_Val_Mme</label><div className="col-sm-5">
 <input type="number" className="form-control" id="anho_ul_trim_val_mme" placeholder="Anho_Ul_Trim_Val_Mme"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1993,7 +1994,7 @@ value={formik.values.anho_ul_trim_val_mme}></input></div></div>
 <p>{formik.errors.anho_ul_trim_val_mme}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="sub1"className="col-sm-7 col-form-label">Sub1</label><div className="col-sm-3">
+<label htmlFor="sub1"className="col-sm-7 col-form-label">Sub1</label><div className="col-sm-5">
 <input type="number" className="form-control" id="sub1" placeholder="Sub1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2004,7 +2005,7 @@ value={formik.values.sub1}></input></div></div>
 <p>{formik.errors.sub1}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="sub2"className="col-sm-7 col-form-label">Sub2</label><div className="col-sm-3">
+<label htmlFor="sub2"className="col-sm-7 col-form-label">Sub2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="sub2" placeholder="Sub2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2015,7 +2016,7 @@ value={formik.values.sub2}></input></div></div>
 <p>{formik.errors.sub2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="n_sub1"className="col-sm-7 col-form-label">N_Sub1</label><div className="col-sm-3">
+<label htmlFor="n_sub1"className="col-sm-7 col-form-label">N_Sub1</label><div className="col-sm-5">
 <input type="number" className="form-control" id="n_sub1" placeholder="N_Sub1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2026,7 +2027,7 @@ value={formik.values.n_sub1}></input></div></div>
 <p>{formik.errors.n_sub1}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="m_sub2"className="col-sm-7 col-form-label">M_Sub2</label><div className="col-sm-3">
+<label htmlFor="m_sub2"className="col-sm-7 col-form-label">M_Sub2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="m_sub2" placeholder="M_Sub2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2037,7 +2038,7 @@ value={formik.values.m_sub2}></input></div></div>
 <p>{formik.errors.m_sub2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="facturacion_t"className="col-sm-7 col-form-label">Facturacion_T</label><div className="col-sm-3">
+<label htmlFor="facturacion_t"className="col-sm-7 col-form-label">Facturacion_T</label><div className="col-sm-5">
 <input type="number" className="form-control" id="facturacion_t" placeholder="Facturacion_T"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2048,7 +2049,7 @@ value={formik.values.facturacion_t}></input></div></div>
 <p>{formik.errors.facturacion_t}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="r1"className="col-sm-7 col-form-label">R1</label><div className="col-sm-3">
+<label htmlFor="r1"className="col-sm-7 col-form-label">R1</label><div className="col-sm-5">
 <input type="number" className="form-control" id="r1" placeholder="R1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2059,7 +2060,7 @@ value={formik.values.r1}></input></div></div>
 <p>{formik.errors.r1}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="r2"className="col-sm-7 col-form-label">R2</label><div className="col-sm-3">
+<label htmlFor="r2"className="col-sm-7 col-form-label">R2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="r2" placeholder="R2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2070,7 +2071,7 @@ value={formik.values.r2}></input></div></div>
 <p>{formik.errors.r2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="sup_def"className="col-sm-7 col-form-label">Sup_Def</label><div className="col-sm-3">
+<label htmlFor="sup_def"className="col-sm-7 col-form-label">Sup_Def</label><div className="col-sm-5">
 <input type="number" className="form-control" id="sup_def" placeholder="Sup_Def"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2081,7 +2082,7 @@ value={formik.values.sup_def}></input></div></div>
 <p>{formik.errors.sup_def}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cfs"className="col-sm-7 col-form-label">Cfs</label><div className="col-sm-3">
+<label htmlFor="cfs"className="col-sm-7 col-form-label">Cfs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cfs" placeholder="Cfs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2092,7 +2093,7 @@ value={formik.values.cfs}></input></div></div>
 <p>{formik.errors.cfs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cfe"className="col-sm-7 col-form-label">Cfe</label><div className="col-sm-3">
+<label htmlFor="cfe"className="col-sm-7 col-form-label">Cfe</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cfe" placeholder="Cfe"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2103,7 +2104,7 @@ value={formik.values.cfe}></input></div></div>
 <p>{formik.errors.cfe}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="c_ast"className="col-sm-7 col-form-label">C_Ast</label><div className="col-sm-3">
+<label htmlFor="c_ast"className="col-sm-7 col-form-label">C_Ast</label><div className="col-sm-5">
 <input type="number" className="form-control" id="c_ast" placeholder="C_Ast"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2114,7 +2115,7 @@ value={formik.values.c_ast}></input></div></div>
 <p>{formik.errors.c_ast}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cvr"className="col-sm-7 col-form-label">Cvr</label><div className="col-sm-3">
+<label htmlFor="cvr"className="col-sm-7 col-form-label">Cvr</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cvr" placeholder="Cvr"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2125,7 +2126,7 @@ value={formik.values.cvr}></input></div></div>
 <p>{formik.errors.cvr}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cv"className="col-sm-7 col-form-label">Cv</label><div className="col-sm-3">
+<label htmlFor="cv"className="col-sm-7 col-form-label">Cv</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cv" placeholder="Cv"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2137,7 +2138,7 @@ value={formik.values.cv}></input></div></div>
 </div>
 ) : null  }
 <div className="form-group row">
-<label htmlFor="cu_nt1_100"className="col-sm-7 col-form-label">Cu_Nt1_100</label><div className="col-sm-3">
+<label htmlFor="cu_nt1_100"className="col-sm-7 col-form-label">Cu_Nt1_100</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cu_nt1_100" placeholder="Cu_Nt1_100"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2148,7 +2149,7 @@ value={formik.values.cu_nt1_100}></input></div></div>
 <p>{formik.errors.cu_nt1_100}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cu_nt1_50"className="col-sm-7 col-form-label">Cu_Nt1_50</label><div className="col-sm-3">
+<label htmlFor="cu_nt1_50"className="col-sm-7 col-form-label">Cu_Nt1_50</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cu_nt1_50" placeholder="Cu_Nt1_50"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2159,7 +2160,7 @@ value={formik.values.cu_nt1_50}></input></div></div>
 <p>{formik.errors.cu_nt1_50}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cu_nt1_0"className="col-sm-7 col-form-label">Cu_Nt1_0</label><div className="col-sm-3">
+<label htmlFor="cu_nt1_0"className="col-sm-7 col-form-label">Cu_Nt1_0</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cu_nt1_0" placeholder="Cu_Nt1_0"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2170,7 +2171,7 @@ value={formik.values.cu_nt1_0}></input></div></div>
 <p>{formik.errors.cu_nt1_0}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cu_nt2"className="col-sm-7 col-form-label">Cu_Nt2</label><div className="col-sm-3">
+<label htmlFor="cu_nt2"className="col-sm-7 col-form-label">Cu_Nt2</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cu_nt2" placeholder="Cu_Nt2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2181,7 +2182,7 @@ value={formik.values.cu_nt2}></input></div></div>
 <p>{formik.errors.cu_nt2}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cu_nt3"className="col-sm-7 col-form-label">Cu_Nt3</label><div className="col-sm-3">
+<label htmlFor="cu_nt3"className="col-sm-7 col-form-label">Cu_Nt3</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cu_nt3" placeholder="Cu_Nt3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2192,7 +2193,7 @@ value={formik.values.cu_nt3}></input></div></div>
 <p>{formik.errors.cu_nt3}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="cu_nt4"className="col-sm-7 col-form-label">Cu_Nt4</label><div className="col-sm-3">
+<label htmlFor="cu_nt4"className="col-sm-7 col-form-label">Cu_Nt4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="cu_nt4" placeholder="Cu_Nt4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2203,7 +2204,7 @@ value={formik.values.cu_nt4}></input></div></div>
 <p>{formik.errors.cu_nt4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_1_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_1_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_1_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_1_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_1_men_cs" placeholder="Nt1_100_Estrato_1_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2214,7 +2215,7 @@ value={formik.values.nt1_100_estrato_1_men_cs}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_1_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_2_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_2_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_2_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_2_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_2_men_cs" placeholder="Nt1_100_Estrato_2_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2225,7 +2226,7 @@ value={formik.values.nt1_100_estrato_2_men_cs}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_2_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_3_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_3_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_3_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_3_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_3_men_cs" placeholder="Nt1_100_Estrato_3_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2236,7 +2237,7 @@ value={formik.values.nt1_100_estrato_3_men_cs}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_3_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_4_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_4_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_4_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_4_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_4_men_cs" placeholder="Nt1_100_Estrato_4_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2247,7 +2248,7 @@ value={formik.values.nt1_100_estrato_4_men_cs}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_4_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_5_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_5_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_5_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_5_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_5_men_cs" placeholder="Nt1_100_Estrato_5_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2258,7 +2259,7 @@ value={formik.values.nt1_100_estrato_5_men_cs}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_5_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_6_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_6_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_6_men_cs"className="col-sm-7 col-form-label">Nt1_100_Estrato_6_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_6_men_cs" placeholder="Nt1_100_Estrato_6_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2269,7 +2270,7 @@ value={formik.values.nt1_100_estrato_6_men_cs}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_6_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_4"className="col-sm-7 col-form-label">Nt1_100_Estrato_4</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_4"className="col-sm-7 col-form-label">Nt1_100_Estrato_4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_4" placeholder="Nt1_100_Estrato_4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2280,7 +2281,7 @@ value={formik.values.nt1_100_estrato_4}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_5"className="col-sm-7 col-form-label">Nt1_100_Estrato_5</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_5"className="col-sm-7 col-form-label">Nt1_100_Estrato_5</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_5" placeholder="Nt1_100_Estrato_5"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2291,7 +2292,7 @@ value={formik.values.nt1_100_estrato_5}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_5}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_estrato_6"className="col-sm-7 col-form-label">Nt1_100_Estrato_6</label><div className="col-sm-3">
+<label htmlFor="nt1_100_estrato_6"className="col-sm-7 col-form-label">Nt1_100_Estrato_6</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_estrato_6" placeholder="Nt1_100_Estrato_6"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2302,7 +2303,7 @@ value={formik.values.nt1_100_estrato_6}></input></div></div>
 <p>{formik.errors.nt1_100_estrato_6}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_c"className="col-sm-7 col-form-label">Nt1_100_C</label><div className="col-sm-3">
+<label htmlFor="nt1_100_c"className="col-sm-7 col-form-label">Nt1_100_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_c" placeholder="Nt1_100_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2313,7 +2314,7 @@ value={formik.values.nt1_100_c}></input></div></div>
 <p>{formik.errors.nt1_100_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_i_con_c"className="col-sm-7 col-form-label">Nt1_100_I_Con_C</label><div className="col-sm-3">
+<label htmlFor="nt1_100_i_con_c"className="col-sm-7 col-form-label">Nt1_100_I_Con_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_i_con_c" placeholder="Nt1_100_I_Con_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2324,7 +2325,7 @@ value={formik.values.nt1_100_i_con_c}></input></div></div>
 <p>{formik.errors.nt1_100_i_con_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_i_sin_c"className="col-sm-7 col-form-label">Nt1_100_I_Sin_C</label><div className="col-sm-3">
+<label htmlFor="nt1_100_i_sin_c"className="col-sm-7 col-form-label">Nt1_100_I_Sin_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_i_sin_c" placeholder="Nt1_100_I_Sin_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2335,7 +2336,7 @@ value={formik.values.nt1_100_i_sin_c}></input></div></div>
 <p>{formik.errors.nt1_100_i_sin_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_p"className="col-sm-7 col-form-label">Nt1_100_P</label><div className="col-sm-3">
+<label htmlFor="nt1_100_p"className="col-sm-7 col-form-label">Nt1_100_P</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_p" placeholder="Nt1_100_P"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2346,7 +2347,7 @@ value={formik.values.nt1_100_p}></input></div></div>
 <p>{formik.errors.nt1_100_p}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_100_o"className="col-sm-7 col-form-label">Nt1_100_O</label><div className="col-sm-3">
+<label htmlFor="nt1_100_o"className="col-sm-7 col-form-label">Nt1_100_O</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_100_o" placeholder="Nt1_100_O"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2357,7 +2358,7 @@ value={formik.values.nt1_100_o}></input></div></div>
 <p>{formik.errors.nt1_100_o}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_1_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_1_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_1_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_1_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_1_men_cs" placeholder="Nt1_50_100_Estrato_1_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2368,7 +2369,7 @@ value={formik.values.nt1_50_100_estrato_1_men_cs}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_1_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_2_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_2_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_2_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_2_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_2_men_cs" placeholder="Nt1_50_100_Estrato_2_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2379,7 +2380,7 @@ value={formik.values.nt1_50_100_estrato_2_men_cs}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_2_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_3_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_3_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_3_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_3_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_3_men_cs" placeholder="Nt1_50_100_Estrato_3_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2390,7 +2391,7 @@ value={formik.values.nt1_50_100_estrato_3_men_cs}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_3_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_4_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_4_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_4_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_4_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_4_men_cs" placeholder="Nt1_50_100_Estrato_4_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2401,7 +2402,7 @@ value={formik.values.nt1_50_100_estrato_4_men_cs}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_4_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_5_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_5_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_5_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_5_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_5_men_cs" placeholder="Nt1_50_100_Estrato_5_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2412,7 +2413,7 @@ value={formik.values.nt1_50_100_estrato_5_men_cs}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_5_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_6_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_6_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_6_men_cs"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_6_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_6_men_cs" placeholder="Nt1_50_100_Estrato_6_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2423,7 +2424,7 @@ value={formik.values.nt1_50_100_estrato_6_men_cs}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_6_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_4"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_4</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_4"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_4" placeholder="Nt1_50_100_Estrato_4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2434,7 +2435,7 @@ value={formik.values.nt1_50_100_estrato_4}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_5"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_5</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_5"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_5</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_5" placeholder="Nt1_50_100_Estrato_5"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2445,7 +2446,7 @@ value={formik.values.nt1_50_100_estrato_5}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_5}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_estrato_6"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_6</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_estrato_6"className="col-sm-7 col-form-label">Nt1_50_100_Estrato_6</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_estrato_6" placeholder="Nt1_50_100_Estrato_6"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2456,7 +2457,7 @@ value={formik.values.nt1_50_100_estrato_6}></input></div></div>
 <p>{formik.errors.nt1_50_100_estrato_6}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_c"className="col-sm-7 col-form-label">Nt1_50_100_C</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_c"className="col-sm-7 col-form-label">Nt1_50_100_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_c" placeholder="Nt1_50_100_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2467,7 +2468,7 @@ value={formik.values.nt1_50_100_c}></input></div></div>
 <p>{formik.errors.nt1_50_100_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_i_con_c"className="col-sm-7 col-form-label">Nt1_50_100_I_Con_C</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_i_con_c"className="col-sm-7 col-form-label">Nt1_50_100_I_Con_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_i_con_c" placeholder="Nt1_50_100_I_Con_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2478,7 +2479,7 @@ value={formik.values.nt1_50_100_i_con_c}></input></div></div>
 <p>{formik.errors.nt1_50_100_i_con_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_i_sin_c"className="col-sm-7 col-form-label">Nt1_50_100_I_Sin_C</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_i_sin_c"className="col-sm-7 col-form-label">Nt1_50_100_I_Sin_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_i_sin_c" placeholder="Nt1_50_100_I_Sin_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2489,7 +2490,7 @@ value={formik.values.nt1_50_100_i_sin_c}></input></div></div>
 <p>{formik.errors.nt1_50_100_i_sin_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_p"className="col-sm-7 col-form-label">Nt1_50_100_P</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_p"className="col-sm-7 col-form-label">Nt1_50_100_P</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_p" placeholder="Nt1_50_100_P"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2500,7 +2501,7 @@ value={formik.values.nt1_50_100_p}></input></div></div>
 <p>{formik.errors.nt1_50_100_p}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_50_100_o"className="col-sm-7 col-form-label">Nt1_50_100_O</label><div className="col-sm-3">
+<label htmlFor="nt1_50_100_o"className="col-sm-7 col-form-label">Nt1_50_100_O</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_50_100_o" placeholder="Nt1_50_100_O"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2511,7 +2512,7 @@ value={formik.values.nt1_50_100_o}></input></div></div>
 <p>{formik.errors.nt1_50_100_o}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_1_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_1_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_1_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_1_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_1_men_cs" placeholder="Nt1_0_Estrato_1_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2522,7 +2523,7 @@ value={formik.values.nt1_0_estrato_1_men_cs}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_1_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_2_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_2_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_2_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_2_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_2_men_cs" placeholder="Nt1_0_Estrato_2_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2533,7 +2534,7 @@ value={formik.values.nt1_0_estrato_2_men_cs}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_2_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_3_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_3_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_3_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_3_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_3_men_cs" placeholder="Nt1_0_Estrato_3_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2544,7 +2545,7 @@ value={formik.values.nt1_0_estrato_3_men_cs}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_3_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_4_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_4_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_4_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_4_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_4_men_cs" placeholder="Nt1_0_Estrato_4_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2555,7 +2556,7 @@ value={formik.values.nt1_0_estrato_4_men_cs}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_4_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_5_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_5_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_5_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_5_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_5_men_cs" placeholder="Nt1_0_Estrato_5_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2566,7 +2567,7 @@ value={formik.values.nt1_0_estrato_5_men_cs}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_5_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_6_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_6_Men_Cs</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_6_men_cs"className="col-sm-7 col-form-label">Nt1_0_Estrato_6_Men_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_6_men_cs" placeholder="Nt1_0_Estrato_6_Men_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2577,7 +2578,7 @@ value={formik.values.nt1_0_estrato_6_men_cs}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_6_men_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_4"className="col-sm-7 col-form-label">Nt1_0_Estrato_4</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_4"className="col-sm-7 col-form-label">Nt1_0_Estrato_4</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_4" placeholder="Nt1_0_Estrato_4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2588,7 +2589,7 @@ value={formik.values.nt1_0_estrato_4}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_4}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_5"className="col-sm-7 col-form-label">Nt1_0_Estrato_5</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_5"className="col-sm-7 col-form-label">Nt1_0_Estrato_5</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_5" placeholder="Nt1_0_Estrato_5"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2599,7 +2600,7 @@ value={formik.values.nt1_0_estrato_5}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_5}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_estrato_6"className="col-sm-7 col-form-label">Nt1_0_Estrato_6</label><div className="col-sm-3">
+<label htmlFor="nt1_0_estrato_6"className="col-sm-7 col-form-label">Nt1_0_Estrato_6</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_estrato_6" placeholder="Nt1_0_Estrato_6"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2610,7 +2611,7 @@ value={formik.values.nt1_0_estrato_6}></input></div></div>
 <p>{formik.errors.nt1_0_estrato_6}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_c"className="col-sm-7 col-form-label">Nt1_0_C</label><div className="col-sm-3">
+<label htmlFor="nt1_0_c"className="col-sm-7 col-form-label">Nt1_0_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_c" placeholder="Nt1_0_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2621,7 +2622,7 @@ value={formik.values.nt1_0_c}></input></div></div>
 <p>{formik.errors.nt1_0_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_i_con_c"className="col-sm-7 col-form-label">Nt1_0_I_Con_C</label><div className="col-sm-3">
+<label htmlFor="nt1_0_i_con_c"className="col-sm-7 col-form-label">Nt1_0_I_Con_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_i_con_c" placeholder="Nt1_0_I_Con_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2632,7 +2633,7 @@ value={formik.values.nt1_0_i_con_c}></input></div></div>
 <p>{formik.errors.nt1_0_i_con_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_i_sin_c"className="col-sm-7 col-form-label">Nt1_0_I_Sin_C</label><div className="col-sm-3">
+<label htmlFor="nt1_0_i_sin_c"className="col-sm-7 col-form-label">Nt1_0_I_Sin_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_i_sin_c" placeholder="Nt1_0_I_Sin_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2643,7 +2644,7 @@ value={formik.values.nt1_0_i_sin_c}></input></div></div>
 <p>{formik.errors.nt1_0_i_sin_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_p"className="col-sm-7 col-form-label">Nt1_0_P</label><div className="col-sm-3">
+<label htmlFor="nt1_0_p"className="col-sm-7 col-form-label">Nt1_0_P</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_p" placeholder="Nt1_0_P"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2654,7 +2655,7 @@ value={formik.values.nt1_0_p}></input></div></div>
 <p>{formik.errors.nt1_0_p}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt1_0_o"className="col-sm-7 col-form-label">Nt1_0_O</label><div className="col-sm-3">
+<label htmlFor="nt1_0_o"className="col-sm-7 col-form-label">Nt1_0_O</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt1_0_o" placeholder="Nt1_0_O"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2665,7 +2666,7 @@ value={formik.values.nt1_0_o}></input></div></div>
 <p>{formik.errors.nt1_0_o}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_c"className="col-sm-7 col-form-label">Nt2_C</label><div className="col-sm-3">
+<label htmlFor="nt2_c"className="col-sm-7 col-form-label">Nt2_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_c" placeholder="Nt2_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2676,7 +2677,7 @@ value={formik.values.nt2_c}></input></div></div>
 <p>{formik.errors.nt2_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_i_con_c"className="col-sm-7 col-form-label">Nt2_I_Con_C</label><div className="col-sm-3">
+<label htmlFor="nt2_i_con_c"className="col-sm-7 col-form-label">Nt2_I_Con_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_i_con_c" placeholder="Nt2_I_Con_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2687,7 +2688,7 @@ value={formik.values.nt2_i_con_c}></input></div></div>
 <p>{formik.errors.nt2_i_con_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_i_sin_c"className="col-sm-7 col-form-label">Nt2_I_Sin_C</label><div className="col-sm-3">
+<label htmlFor="nt2_i_sin_c"className="col-sm-7 col-form-label">Nt2_I_Sin_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_i_sin_c" placeholder="Nt2_I_Sin_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2698,7 +2699,7 @@ value={formik.values.nt2_i_sin_c}></input></div></div>
 <p>{formik.errors.nt2_i_sin_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_o"className="col-sm-7 col-form-label">Nt2_O</label><div className="col-sm-3">
+<label htmlFor="nt2_o"className="col-sm-7 col-form-label">Nt2_O</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_o" placeholder="Nt2_O"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2709,7 +2710,7 @@ value={formik.values.nt2_o}></input></div></div>
 <p>{formik.errors.nt2_o}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_ap"className="col-sm-7 col-form-label">Nt2_Ap</label><div className="col-sm-3">
+<label htmlFor="nt2_ap"className="col-sm-7 col-form-label">Nt2_Ap</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_ap" placeholder="Nt2_Ap"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2720,7 +2721,7 @@ value={formik.values.nt2_ap}></input></div></div>
 <p>{formik.errors.nt2_ap}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_bsnmen_cs"className="col-sm-7 col-form-label">Nt2_Bsnmen_Cs</label><div className="col-sm-3">
+<label htmlFor="nt2_bsnmen_cs"className="col-sm-7 col-form-label">Nt2_Bsnmen_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_bsnmen_cs" placeholder="Nt2_Bsnmen_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2731,7 +2732,7 @@ value={formik.values.nt2_bsnmen_cs}></input></div></div>
 <p>{formik.errors.nt2_bsnmen_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt2_bsnmay_cs"className="col-sm-7 col-form-label">Nt2_Bsnmay_Cs</label><div className="col-sm-3">
+<label htmlFor="nt2_bsnmay_cs"className="col-sm-7 col-form-label">Nt2_Bsnmay_Cs</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt2_bsnmay_cs" placeholder="Nt2_Bsnmay_Cs"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2742,7 +2743,7 @@ value={formik.values.nt2_bsnmay_cs}></input></div></div>
 <p>{formik.errors.nt2_bsnmay_cs}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt3_c"className="col-sm-7 col-form-label">Nt3_C</label><div className="col-sm-3">
+<label htmlFor="nt3_c"className="col-sm-7 col-form-label">Nt3_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt3_c" placeholder="Nt3_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2753,7 +2754,7 @@ value={formik.values.nt3_c}></input></div></div>
 <p>{formik.errors.nt3_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt3_i_con_c"className="col-sm-7 col-form-label">Nt3_I_Con_C</label><div className="col-sm-3">
+<label htmlFor="nt3_i_con_c"className="col-sm-7 col-form-label">Nt3_I_Con_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt3_i_con_c" placeholder="Nt3_I_Con_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2764,7 +2765,7 @@ value={formik.values.nt3_i_con_c}></input></div></div>
 <p>{formik.errors.nt3_i_con_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt3_i_sin_c"className="col-sm-7 col-form-label">Nt3_I_Sin_C</label><div className="col-sm-3">
+<label htmlFor="nt3_i_sin_c"className="col-sm-7 col-form-label">Nt3_I_Sin_C</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt3_i_sin_c" placeholder="Nt3_I_Sin_C"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2775,7 +2776,7 @@ value={formik.values.nt3_i_sin_c}></input></div></div>
 <p>{formik.errors.nt3_i_sin_c}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt3_o"className="col-sm-7 col-form-label">Nt3_O</label><div className="col-sm-3">
+<label htmlFor="nt3_o"className="col-sm-7 col-form-label">Nt3_O</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt3_o" placeholder="Nt3_O"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2786,7 +2787,7 @@ value={formik.values.nt3_o}></input></div></div>
 <p>{formik.errors.nt3_o}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="nt3_ap"className="col-sm-7 col-form-label">Nt3_Ap</label><div className="col-sm-3">
+<label htmlFor="nt3_ap"className="col-sm-7 col-form-label">Nt3_Ap</label><div className="col-sm-5">
 <input type="number" className="form-control" id="nt3_ap" placeholder="Nt3_Ap"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2797,7 +2798,7 @@ value={formik.values.nt3_ap}></input></div></div>
 <p>{formik.errors.nt3_ap}</p>
 </div>
 ) : null  }<div className="form-group row">
-<label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-3">
+<label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
 <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -2814,14 +2815,14 @@ formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slic
 <div className="col-sm">
 <input
 type="submit"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 />
 </div>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close}
 />

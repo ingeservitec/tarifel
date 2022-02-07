@@ -7,6 +7,7 @@ import Rescomponentescutarifas from './Rescomponentescutarifa'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NuevoCalculo_CU from './NuevoCalculo_CU';
+import Exportacionpdf from '../components/Exportacionpdf'
 
 const OBTENER_DATA_EMPRESAS = gql`
 query obtenerData_empresa {
@@ -112,20 +113,20 @@ nt1_100_i_con_c
 nt1_100_i_sin_c
 nt1_100_p
 nt1_100_o
-nt1_50_100_estrato_1_men_cs
-nt1_50_100_estrato_2_men_cs
-nt1_50_100_estrato_3_men_cs
-nt1_50_100_estrato_4_men_cs
-nt1_50_100_estrato_5_men_cs
-nt1_50_100_estrato_6_men_cs
-nt1_50_100_estrato_4
-nt1_50_100_estrato_5
-nt1_50_100_estrato_6
-nt1_50_100_c
-nt1_50_100_i_con_c
-nt1_50_100_i_sin_c
-nt1_50_100_p
-nt1_50_100_o
+nt1_50_estrato_1_men_cs
+nt1_50_estrato_2_men_cs
+nt1_50_estrato_3_men_cs
+nt1_50_estrato_4_men_cs
+nt1_50_estrato_5_men_cs
+nt1_50_estrato_6_men_cs
+nt1_50_estrato_4
+nt1_50_estrato_5
+nt1_50_estrato_6
+nt1_50_c
+nt1_50_i_con_c
+nt1_50_i_sin_c
+nt1_50_p
+nt1_50_o
 nt1_0_estrato_1_men_cs
 nt1_0_estrato_2_men_cs
 nt1_0_estrato_3_men_cs
@@ -235,20 +236,20 @@ nt1_100_i_con_c
 nt1_100_i_sin_c
 nt1_100_p
 nt1_100_o
-nt1_50_100_estrato_1_men_cs
-nt1_50_100_estrato_2_men_cs
-nt1_50_100_estrato_3_men_cs
-nt1_50_100_estrato_4_men_cs
-nt1_50_100_estrato_5_men_cs
-nt1_50_100_estrato_6_men_cs
-nt1_50_100_estrato_4
-nt1_50_100_estrato_5
-nt1_50_100_estrato_6
-nt1_50_100_c
-nt1_50_100_i_con_c
-nt1_50_100_i_sin_c
-nt1_50_100_p
-nt1_50_100_o
+nt1_50_estrato_1_men_cs
+nt1_50_estrato_2_men_cs
+nt1_50_estrato_3_men_cs
+nt1_50_estrato_4_men_cs
+nt1_50_estrato_5_men_cs
+nt1_50_estrato_6_men_cs
+nt1_50_estrato_4
+nt1_50_estrato_5
+nt1_50_estrato_6
+nt1_50_c
+nt1_50_i_con_c
+nt1_50_i_sin_c
+nt1_50_p
+nt1_50_o
 nt1_0_estrato_1_men_cs
 nt1_0_estrato_2_men_cs
 nt1_0_estrato_3_men_cs
@@ -458,6 +459,7 @@ const Index  = () => {
   const [dataCU, setcomponenteDatosCU] = useState([]);
   const [SiexisteCU, setSiexisteCU] = useState(0);
   const [showLogin, setShowLogin] = useState(false);
+  const [showLogin2, setShowLogin2] = useState(false);
    var mes = startDate.getMonth()+1;
   var anho = startDate.getFullYear();
   useEffect(() => {
@@ -602,9 +604,12 @@ return (
       </div>
     </div>
   </div>
-  
+   <div className="p-3 text-center">     
+  <button variant="primary" onClick={() => setShowLogin2(true)}><i className="fa fa-eye mr-2 white"></i>Ver Publicación Tarifaria</button>
+  </div>
 </div>
 }
+{showLogin2 ? <Exportacionpdf show2={showLogin2}  anho={anho} mes={mes} close={() => setShowLogin2(false)} />:  null}
 
 {SiexisteCU===0 &&
 

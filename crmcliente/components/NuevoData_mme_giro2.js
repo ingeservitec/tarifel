@@ -112,6 +112,7 @@ obj[headers[j-2]] = parseFloat(currentline[j-2]);
 
 }
 result.push(obj);
+
 }
 //return result; //JavaScript object
 // parseFloat()
@@ -128,7 +129,7 @@ if (loading1) return null; // Si no hay informacion
 const Datacsv2=csvJSON(datacsv)
 console.log(fileNames[0].substr(4,2))
 var arreglado = Datacsv2.map( item => {
-return {creador:creador,empresa_id:empresa_id,fecha:(item["fecha"]),fondo:(item["fondo"]),resolucion:(item["resolucion"]),link_resolucion:(item["link_resolucion"]),giro_cop:parseFloat(item["giro_cop"])}
+return {creador:creador,empresa_id:empresa_id,fecha:(item["fecha"]),fondo:(item["Fondo"]),resolucion:(item["Resolucion"]),link_resolucion:(item["Link_Resolucion"]),giro_cop:parseFloat(item["giro_cop"])}
 });
 console.log(arreglado)
 const {results} = await Promise.all(arreglado.map(object => {
@@ -186,7 +187,7 @@ onHide={props.close2}>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 onClick={handleSubmit}
 />
@@ -194,7 +195,7 @@ onClick={handleSubmit}
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close2}
 />

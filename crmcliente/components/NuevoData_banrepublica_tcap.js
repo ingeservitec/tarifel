@@ -64,25 +64,6 @@ monto_de_181_en_adelante_cdats_cdat_bancos_comerciales
 tasa_cap_cdat_oficinas_cdat_bancos_comerciales
 monto_cap_cdat_oficinas_cdat_bancos_comerciales
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 }
 `;
@@ -343,7 +324,7 @@ onHide={props.close}>
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-        <label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
+        <label htmlFor="creador" className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
         <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -354,7 +335,7 @@ value={formik.values.creador}></input></div></div>
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-5">
+        <label htmlFor="fecha" className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-5">
         <input type="date" className="form-control" id="fecha" placeholder="Fecha"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -365,7 +346,7 @@ value={formik.values.fecha}></input></div></div>
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
+        <label htmlFor="empresa_id" className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
         <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -376,8 +357,11 @@ value={formik.values.empresa_id ?
         <p className="font-bold">Error</p>
         <p>{formik.errors.empresa_id}</p>
         </div>
-        ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_30_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_30_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        ) : null  }
+        
+        
+        <div className="form-group row">
+        <label htmlFor="tasa_a_30_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_30_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_30_cdt_bancos_comerciales" placeholder="Tasa_A_30_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -387,8 +371,11 @@ value={formik.values.tasa_a_30_cdt_bancos_comerciales}></input></div></div>
         <p className="font-bold">Error</p>
         <p>{formik.errors.tasa_a_30_cdt_bancos_comerciales}</p>
         </div>
-        ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_30_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_30_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        ) : null  }
+        
+        
+        <div className="form-group row">
+        <label htmlFor="monto_a_30_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_30_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_30_cdt_bancos_comerciales" placeholder="Monto_A_30_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -399,7 +386,7 @@ value={formik.values.monto_a_30_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_30_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_31_y_44_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_31_Y_44_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_31_y_44_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_31_Y_44_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_31_y_44_cdt_bancos_comerciales" placeholder="Tasa_Entre_31_Y_44_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -410,7 +397,7 @@ value={formik.values.tasa_entre_31_y_44_cdt_bancos_comerciales}></input></div></
         <p>{formik.errors.tasa_entre_31_y_44_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_31_y_44_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_31_Y_44_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_31_y_44_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_31_Y_44_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_31_y_44_cdt_bancos_comerciales" placeholder="Monto_Entre_31_Y_44_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -421,7 +408,7 @@ value={formik.values.monto_entre_31_y_44_cdt_bancos_comerciales}></input></div><
         <p>{formik.errors.monto_entre_31_y_44_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_45_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_45_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_45_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_45_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_45_cdt_bancos_comerciales" placeholder="Tasa_A_45_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -432,7 +419,7 @@ value={formik.values.tasa_a_45_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.tasa_a_45_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_45_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_45_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_45_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_45_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_45_cdt_bancos_comerciales" placeholder="Monto_A_45_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -443,7 +430,7 @@ value={formik.values.monto_a_45_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_45_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_46_y_59_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_46_Y_59_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_46_y_59_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_46_Y_59_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_46_y_59_cdt_bancos_comerciales" placeholder="Tasa_Entre_46_Y_59_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -454,7 +441,7 @@ value={formik.values.tasa_entre_46_y_59_cdt_bancos_comerciales}></input></div></
         <p>{formik.errors.tasa_entre_46_y_59_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_46_y_59_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_46_Y_59_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_46_y_59_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_46_Y_59_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_46_y_59_cdt_bancos_comerciales" placeholder="Monto_Entre_46_Y_59_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -465,7 +452,7 @@ value={formik.values.monto_entre_46_y_59_cdt_bancos_comerciales}></input></div><
         <p>{formik.errors.monto_entre_46_y_59_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_60_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_60_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_60_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_60_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_60_cdt_bancos_comerciales" placeholder="Tasa_A_60_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -476,7 +463,7 @@ value={formik.values.tasa_a_60_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.tasa_a_60_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_60_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_60_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_60_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_60_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_60_cdt_bancos_comerciales" placeholder="Monto_A_60_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -487,7 +474,7 @@ value={formik.values.monto_a_60_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_60_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_61_y_89_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_61_Y_89_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_61_y_89_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_61_Y_89_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_61_y_89_cdt_bancos_comerciales" placeholder="Tasa_Entre_61_Y_89_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -498,7 +485,7 @@ value={formik.values.tasa_entre_61_y_89_cdt_bancos_comerciales}></input></div></
         <p>{formik.errors.tasa_entre_61_y_89_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_61_y_89_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_61_Y_89_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_61_y_89_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_61_Y_89_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_61_y_89_cdt_bancos_comerciales" placeholder="Monto_Entre_61_Y_89_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -509,7 +496,7 @@ value={formik.values.monto_entre_61_y_89_cdt_bancos_comerciales}></input></div><
         <p>{formik.errors.monto_entre_61_y_89_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_90_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_90_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_90_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_90_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_90_cdt_bancos_comerciales" placeholder="Tasa_A_90_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -520,7 +507,7 @@ value={formik.values.tasa_a_90_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.tasa_a_90_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_90_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_90_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_90_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_90_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_90_cdt_bancos_comerciales" placeholder="Monto_A_90_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -531,7 +518,7 @@ value={formik.values.monto_a_90_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_90_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_91_y_119_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_91_Y_119_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_91_y_119_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_91_Y_119_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_91_y_119_cdt_bancos_comerciales" placeholder="Tasa_Entre_91_Y_119_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -542,7 +529,7 @@ value={formik.values.tasa_entre_91_y_119_cdt_bancos_comerciales}></input></div><
         <p>{formik.errors.tasa_entre_91_y_119_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_91_y_119_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_91_Y_119_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_91_y_119_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_91_Y_119_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_91_y_119_cdt_bancos_comerciales" placeholder="Monto_Entre_91_Y_119_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -553,7 +540,7 @@ value={formik.values.monto_entre_91_y_119_cdt_bancos_comerciales}></input></div>
         <p>{formik.errors.monto_entre_91_y_119_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_120_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_120_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_120_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_120_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_120_cdt_bancos_comerciales" placeholder="Tasa_A_120_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -564,7 +551,7 @@ value={formik.values.tasa_a_120_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.tasa_a_120_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_120_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_120_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_120_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_120_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_120_cdt_bancos_comerciales" placeholder="Monto_A_120_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -575,7 +562,7 @@ value={formik.values.monto_a_120_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_120_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_121_y_179_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_121_Y_179_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_121_y_179_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_121_Y_179_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_121_y_179_cdt_bancos_comerciales" placeholder="Tasa_Entre_121_Y_179_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -586,7 +573,7 @@ value={formik.values.tasa_entre_121_y_179_cdt_bancos_comerciales}></input></div>
         <p>{formik.errors.tasa_entre_121_y_179_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_121_y_179_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_121_Y_179_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_121_y_179_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_121_Y_179_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_121_y_179_cdt_bancos_comerciales" placeholder="Monto_Entre_121_Y_179_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -597,7 +584,7 @@ value={formik.values.monto_entre_121_y_179_cdt_bancos_comerciales}></input></div
         <p>{formik.errors.monto_entre_121_y_179_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_180_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_180_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_180_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_180_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_180_cdt_bancos_comerciales" placeholder="Tasa_A_180_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -608,7 +595,7 @@ value={formik.values.tasa_a_180_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.tasa_a_180_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_180_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_180_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_180_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_180_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_180_cdt_bancos_comerciales" placeholder="Monto_A_180_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -619,7 +606,7 @@ value={formik.values.monto_a_180_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_180_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_181_y_359_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_181_Y_359_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_181_y_359_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_181_Y_359_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_181_y_359_cdt_bancos_comerciales" placeholder="Tasa_Entre_181_Y_359_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -630,7 +617,7 @@ value={formik.values.tasa_entre_181_y_359_cdt_bancos_comerciales}></input></div>
         <p>{formik.errors.tasa_entre_181_y_359_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_181_y_359_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_181_Y_359_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_181_y_359_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_181_Y_359_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_181_y_359_cdt_bancos_comerciales" placeholder="Monto_Entre_181_Y_359_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -641,7 +628,7 @@ value={formik.values.monto_entre_181_y_359_cdt_bancos_comerciales}></input></div
         <p>{formik.errors.monto_entre_181_y_359_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_360_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_360_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_360_cdt_bancos_comerciales" placeholder="Tasa_A_360_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -652,7 +639,7 @@ value={formik.values.tasa_a_360_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.tasa_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_360_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_360_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_360_cdt_bancos_comerciales" placeholder="Monto_A_360_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -663,7 +650,7 @@ value={formik.values.monto_a_360_cdt_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_superiores_a_360_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Superiores_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_superiores_a_360_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Superiores_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_superiores_a_360_cdt_bancos_comerciales" placeholder="Tasa_Superiores_A_360_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -674,7 +661,7 @@ value={formik.values.tasa_superiores_a_360_cdt_bancos_comerciales}></input></div
         <p>{formik.errors.tasa_superiores_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_superiores_a_360_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Superiores_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_superiores_a_360_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Superiores_A_360_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_superiores_a_360_cdt_bancos_comerciales" placeholder="Monto_Superiores_A_360_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -685,7 +672,7 @@ value={formik.values.monto_superiores_a_360_cdt_bancos_comerciales}></input></di
         <p>{formik.errors.monto_superiores_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Cap_Cdt_Red_De_Oficinas_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Cap_Cdt_Red_De_Oficinas_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales" placeholder="Tasa_Cap_Cdt_Red_De_Oficinas_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -696,7 +683,7 @@ value={formik.values.tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales}></inpu
         <p>{formik.errors.tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Cap_Cdt_Red_De_Oficinas__Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Cap_Cdt_Red_De_Oficinas__Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales" placeholder="Monto_Cap_Cdt_Red_De_Oficinas__Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -707,7 +694,7 @@ value={formik.values.monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales}></in
         <p>{formik.errors.monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Cap_Cdt_Por_Tesoreria_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Cap_Cdt_Por_Tesoreria_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales" placeholder="Tasa_Cap_Cdt_Por_Tesoreria_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -718,7 +705,7 @@ value={formik.values.tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales}></input>
         <p>{formik.errors.tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Cap_Cdt_Por_Tesoreria_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Cap_Cdt_Por_Tesoreria_Cdt_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales" placeholder="Monto_Cap_Cdt_Por_Tesoreria_Cdt_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -729,7 +716,7 @@ value={formik.values.monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales}></input
         <p>{formik.errors.monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_2_y_14_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_2_Y_14_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_2_y_14_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_2_Y_14_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_2_y_14_cdats_cdat_bancos_comerciales" placeholder="Tasa_Entre_2_Y_14_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -740,7 +727,7 @@ value={formik.values.tasa_entre_2_y_14_cdats_cdat_bancos_comerciales}></input></
         <p>{formik.errors.tasa_entre_2_y_14_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_2_y_14_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_2_Y_14_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_2_y_14_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_2_Y_14_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_2_y_14_cdats_cdat_bancos_comerciales" placeholder="Monto_Entre_2_Y_14_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -751,7 +738,7 @@ value={formik.values.monto_entre_2_y_14_cdats_cdat_bancos_comerciales}></input><
         <p>{formik.errors.monto_entre_2_y_14_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_15_y_29_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_15_Y_29_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_15_y_29_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_15_Y_29_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_15_y_29_cdats_cdat_bancos_comerciales" placeholder="Tasa_Entre_15_Y_29_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -762,7 +749,7 @@ value={formik.values.tasa_entre_15_y_29_cdats_cdat_bancos_comerciales}></input><
         <p>{formik.errors.tasa_entre_15_y_29_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_15_y_29_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_15_Y_29_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_15_y_29_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_15_Y_29_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_15_y_29_cdat_bancos_comerciales" placeholder="Monto_Entre_15_Y_29_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -773,7 +760,7 @@ value={formik.values.monto_entre_15_y_29_cdat_bancos_comerciales}></input></div>
         <p>{formik.errors.monto_entre_15_y_29_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_a_30_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_A_30_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_a_30_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_A_30_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_a_30_cdats_cdat_bancos_comerciales" placeholder="Tasa_A_30_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -784,7 +771,7 @@ value={formik.values.tasa_a_30_cdats_cdat_bancos_comerciales}></input></div></di
         <p>{formik.errors.tasa_a_30_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_a_30_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_A_30_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_a_30_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_A_30_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_a_30_cdat_bancos_comerciales" placeholder="Monto_A_30_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -795,7 +782,7 @@ value={formik.values.monto_a_30_cdat_bancos_comerciales}></input></div></div>
         <p>{formik.errors.monto_a_30_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_31_y_90_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_31_Y_90_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_31_y_90_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_31_Y_90_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_31_y_90_cdats_cdat_bancos_comerciales" placeholder="Tasa_Entre_31_Y_90_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -806,7 +793,7 @@ value={formik.values.tasa_entre_31_y_90_cdats_cdat_bancos_comerciales}></input><
         <p>{formik.errors.tasa_entre_31_y_90_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_31_y_90_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_31_Y_90_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_31_y_90_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_31_Y_90_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_31_y_90_cdat_bancos_comerciales" placeholder="Monto_Entre_31_Y_90_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -817,7 +804,7 @@ value={formik.values.monto_entre_31_y_90_cdat_bancos_comerciales}></input></div>
         <p>{formik.errors.monto_entre_31_y_90_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_entre_91_y_180_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Entre_91_Y_180_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_entre_91_y_180_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Entre_91_Y_180_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_entre_91_y_180_cdats_cdat_bancos_comerciales" placeholder="Tasa_Entre_91_Y_180_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -828,7 +815,7 @@ value={formik.values.tasa_entre_91_y_180_cdats_cdat_bancos_comerciales}></input>
         <p>{formik.errors.tasa_entre_91_y_180_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_entre_91_y_180_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Entre_91_Y_180_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_entre_91_y_180_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Entre_91_Y_180_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_entre_91_y_180_cdat_bancos_comerciales" placeholder="Monto_Entre_91_Y_180_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -839,7 +826,7 @@ value={formik.values.monto_entre_91_y_180_cdat_bancos_comerciales}></input></div
         <p>{formik.errors.monto_entre_91_y_180_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_De_181_En_Adelante_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_De_181_En_Adelante_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales" placeholder="Tasa_De_181_En_Adelante_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -850,7 +837,7 @@ value={formik.values.tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales}></in
         <p>{formik.errors.tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_de_181_en_adelante_cdats_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_De_181_En_Adelante_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_de_181_en_adelante_cdats_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_De_181_En_Adelante_Cdats_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_de_181_en_adelante_cdats_cdat_bancos_comerciales" placeholder="Monto_De_181_En_Adelante_Cdats_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -861,7 +848,7 @@ value={formik.values.monto_de_181_en_adelante_cdats_cdat_bancos_comerciales}></i
         <p>{formik.errors.monto_de_181_en_adelante_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_cap_cdat_oficinas_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Tasa_Cap_Cdat_Oficinas_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="tasa_cap_cdat_oficinas_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Tasa_Cap_Cdat_Oficinas_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_cap_cdat_oficinas_cdat_bancos_comerciales" placeholder="Tasa_Cap_Cdat_Oficinas_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -872,7 +859,7 @@ value={formik.values.tasa_cap_cdat_oficinas_cdat_bancos_comerciales}></input></d
         <p>{formik.errors.tasa_cap_cdat_oficinas_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_cap_cdat_oficinas_cdat_bancos_comerciales"className="col-sm-7 col-form-label">Monto_Cap_Cdat_Oficinas_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
+        <label htmlFor="monto_cap_cdat_oficinas_cdat_bancos_comerciales" className="col-sm-7 col-form-label">Monto_Cap_Cdat_Oficinas_Cdat_Bancos_Comerciales</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_cap_cdat_oficinas_cdat_bancos_comerciales" placeholder="Monto_Cap_Cdat_Oficinas_Cdat_Bancos_Comerciales"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -888,14 +875,14 @@ value={formik.values.monto_cap_cdat_oficinas_cdat_bancos_comerciales}></input></
 <div className="col-sm">
 <input
 type="submit"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 />
 </div>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close}
 />

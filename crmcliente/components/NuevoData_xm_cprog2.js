@@ -79,9 +79,11 @@ const data=excelRows
 console.log(data)
 
 if (data[1].Definitivo==='Mes cargo:') {
-    const fecha=(new Date(((Math.floor((data[1].__EMPTY_1 - 25568)*86400*1000)))).toLocaleDateString("en-US"))
-    setMes(parseFloat(fecha.substr(0,2)))
-    setAnho(parseFloat(fecha.substr(5,4)))   
+    const fecha=(new Date(((Math.floor((data[1].__EMPTY_1 - 25568)*86400*1000))))).toLocaleDateString('en-GB').split('/').reverse().join('-')
+    console.log(data[1].__EMPTY_1)
+    console.log(fecha)
+    setMes(parseFloat(fecha.substr(5,2)))
+    setAnho(parseFloat(fecha.substr(0,4)))   
 };
 if (data[6].__EMPTY_3==='Cargo CPROG por concepto del plan ($/kWh)') {
     setCargo_Cprog_Cop_Kwh(data[7].__EMPTY_3)
@@ -151,7 +153,7 @@ onHide={props.close2}>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 onClick={handleSubmit}
 />
@@ -159,7 +161,7 @@ onClick={handleSubmit}
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close2}
 />

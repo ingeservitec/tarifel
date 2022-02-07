@@ -86,20 +86,20 @@ nt1_100_i_con_c
 nt1_100_i_sin_c
 nt1_100_p
 nt1_100_o
-nt1_50_100_estrato_1_men_cs
-nt1_50_100_estrato_2_men_cs
-nt1_50_100_estrato_3_men_cs
-nt1_50_100_estrato_4_men_cs
-nt1_50_100_estrato_5_men_cs
-nt1_50_100_estrato_6_men_cs
-nt1_50_100_estrato_4
-nt1_50_100_estrato_5
-nt1_50_100_estrato_6
-nt1_50_100_c
-nt1_50_100_i_con_c
-nt1_50_100_i_sin_c
-nt1_50_100_p
-nt1_50_100_o
+nt1_50_estrato_1_men_cs
+nt1_50_estrato_2_men_cs
+nt1_50_estrato_3_men_cs
+nt1_50_estrato_4_men_cs
+nt1_50_estrato_5_men_cs
+nt1_50_estrato_6_men_cs
+nt1_50_estrato_4
+nt1_50_estrato_5
+nt1_50_estrato_6
+nt1_50_c
+nt1_50_i_con_c
+nt1_50_i_sin_c
+nt1_50_p
+nt1_50_o
 nt1_0_estrato_1_men_cs
 nt1_0_estrato_2_men_cs
 nt1_0_estrato_3_men_cs
@@ -127,7 +127,19 @@ nt3_i_sin_c
 nt3_o
 nt3_ap
 empresa_id
-
+cu_nt1_100_ot
+cu_nt1_50_ot
+cu_nt1_0_ot
+cu_nt2_ot
+cu_nt3_ot
+saldo_nt1_100_ot
+saldo_nt1_50_ot
+saldo_nt1_0_ot
+saldo_nt2_ot
+saldo_nt3_ot
+pv
+giro_sobrante
+ultimo_giro_incluido
 }
 }
 `;
@@ -143,10 +155,72 @@ const [sorting, setSorting] = useState({ field: "", order: "" });
 const [showLogin, setShowLogin] = useState(false);
 const [showLogin2, setShowLogin2] = useState(false);
 
-
 const ITEMS_PER_PAGE = 3;
 const headers = [
-{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Qc", field: "qc", sortable: true},{ name: "Pc", field: "pc", sortable: true},{ name: "Ref_G", field: "ref_g", sortable: true},{ name: "Max_G", field: "max_g", sortable: true},{ name: "Cr", field: "cr", sortable: true},{ name: "Ad", field: "ad", sortable: true},{ name: "Aj", field: "aj", sortable: true},{ name: "Pb", field: "pb", sortable: true},{ name: "Gc", field: "gc", sortable: true},{ name: "Tx", field: "tx", sortable: true},{ name: "Dtun_Nt1_E", field: "dtun_nt1_e", sortable: true},{ name: "Dtun_Nt1_C", field: "dtun_nt1_c", sortable: true},{ name: "Dtun_Nt1_P", field: "dtun_nt1_p", sortable: true},{ name: "Dtun_Nt2", field: "dtun_nt2", sortable: true},{ name: "Dtun_Nt3", field: "dtun_nt3", sortable: true},{ name: "Cdi_100", field: "cdi_100", sortable: true},{ name: "Cdi_50", field: "cdi_50", sortable: true},{ name: "Cdm", field: "cdm", sortable: true},{ name: "Cd4", field: "cd4", sortable: true},{ name: "Cd3", field: "cd3", sortable: true},{ name: "Cd2", field: "cd2", sortable: true},{ name: "Dnt1", field: "dnt1", sortable: true},{ name: "Dnt2", field: "dnt2", sortable: true},{ name: "Dnt3", field: "dnt3", sortable: true},{ name: "Dnt4", field: "dnt4", sortable: true},{ name: "Crs", field: "crs", sortable: true},{ name: "Rcal", field: "rcal", sortable: true},{ name: "R", field: "r", sortable: true},{ name: "Iprstn", field: "iprstn", sortable: true},{ name: "Pr_Nt1", field: "pr_nt1", sortable: true},{ name: "Pr_Nt2", field: "pr_nt2", sortable: true},{ name: "Pr_Nt3", field: "pr_nt3", sortable: true},{ name: "Pr_Nt4", field: "pr_nt4", sortable: true},{ name: "Cer", field: "cer", sortable: true},{ name: "Cfm", field: "cfm", sortable: true},{ name: "Rc", field: "rc", sortable: true},{ name: "Ul_Trim_Val_Mme", field: "ul_trim_val_mme", sortable: true},{ name: "Anho_Ul_Trim_Val_Mme", field: "anho_ul_trim_val_mme", sortable: true},{ name: "Sub1", field: "sub1", sortable: true},{ name: "Sub2", field: "sub2", sortable: true},{ name: "N_Sub1", field: "n_sub1", sortable: true},{ name: "M_Sub2", field: "m_sub2", sortable: true},{ name: "Facturacion_T", field: "facturacion_t", sortable: true},{ name: "R1", field: "r1", sortable: true},{ name: "R2", field: "r2", sortable: true},{ name: "Sup_Def", field: "sup_def", sortable: true},{ name: "Cfs", field: "cfs", sortable: true},{ name: "Cfe", field: "cfe", sortable: true},{ name: "C_Ast", field: "c_ast", sortable: true},{ name: "Cvr", field: "cvr", sortable: true},{ name: "Cv", field: "cv", sortable: true},{ name: "Cu_Nt1_100", field: "cu_nt1_100", sortable: true},{ name: "Cu_Nt1_50", field: "cu_nt1_50", sortable: true},{ name: "Cu_Nt1_0", field: "cu_nt1_0", sortable: true},{ name: "Cu_Nt2", field: "cu_nt2", sortable: true},{ name: "Cu_Nt3", field: "cu_nt3", sortable: true},{ name: "Cu_Nt4", field: "cu_nt4", sortable: true},{ name: "Nt1_100_Estrato_1_Men_Cs", field: "nt1_100_estrato_1_men_cs", sortable: true},{ name: "Nt1_100_Estrato_2_Men_Cs", field: "nt1_100_estrato_2_men_cs", sortable: true},{ name: "Nt1_100_Estrato_3_Men_Cs", field: "nt1_100_estrato_3_men_cs", sortable: true},{ name: "Nt1_100_Estrato_4_Men_Cs", field: "nt1_100_estrato_4_men_cs", sortable: true},{ name: "Nt1_100_Estrato_5_Men_Cs", field: "nt1_100_estrato_5_men_cs", sortable: true},{ name: "Nt1_100_Estrato_6_Men_Cs", field: "nt1_100_estrato_6_men_cs", sortable: true},{ name: "Nt1_100_Estrato_4", field: "nt1_100_estrato_4", sortable: true},{ name: "Nt1_100_Estrato_5", field: "nt1_100_estrato_5", sortable: true},{ name: "Nt1_100_Estrato_6", field: "nt1_100_estrato_6", sortable: true},{ name: "Nt1_100_C", field: "nt1_100_c", sortable: true},{ name: "Nt1_100_I_Con_C", field: "nt1_100_i_con_c", sortable: true},{ name: "Nt1_100_I_Sin_C", field: "nt1_100_i_sin_c", sortable: true},{ name: "Nt1_100_P", field: "nt1_100_p", sortable: true},{ name: "Nt1_100_O", field: "nt1_100_o", sortable: true},{ name: "Nt1_50_100_Estrato_1_Men_Cs", field: "nt1_50_100_estrato_1_men_cs", sortable: true},{ name: "Nt1_50_100_Estrato_2_Men_Cs", field: "nt1_50_100_estrato_2_men_cs", sortable: true},{ name: "Nt1_50_100_Estrato_3_Men_Cs", field: "nt1_50_100_estrato_3_men_cs", sortable: true},{ name: "Nt1_50_100_Estrato_4_Men_Cs", field: "nt1_50_100_estrato_4_men_cs", sortable: true},{ name: "Nt1_50_100_Estrato_5_Men_Cs", field: "nt1_50_100_estrato_5_men_cs", sortable: true},{ name: "Nt1_50_100_Estrato_6_Men_Cs", field: "nt1_50_100_estrato_6_men_cs", sortable: true},{ name: "Nt1_50_100_Estrato_4", field: "nt1_50_100_estrato_4", sortable: true},{ name: "Nt1_50_100_Estrato_5", field: "nt1_50_100_estrato_5", sortable: true},{ name: "Nt1_50_100_Estrato_6", field: "nt1_50_100_estrato_6", sortable: true},{ name: "Nt1_50_100_C", field: "nt1_50_100_c", sortable: true},{ name: "Nt1_50_100_I_Con_C", field: "nt1_50_100_i_con_c", sortable: true},{ name: "Nt1_50_100_I_Sin_C", field: "nt1_50_100_i_sin_c", sortable: true},{ name: "Nt1_50_100_P", field: "nt1_50_100_p", sortable: true},{ name: "Nt1_50_100_O", field: "nt1_50_100_o", sortable: true},{ name: "Nt1_0_Estrato_1_Men_Cs", field: "nt1_0_estrato_1_men_cs", sortable: true},{ name: "Nt1_0_Estrato_2_Men_Cs", field: "nt1_0_estrato_2_men_cs", sortable: true},{ name: "Nt1_0_Estrato_3_Men_Cs", field: "nt1_0_estrato_3_men_cs", sortable: true},{ name: "Nt1_0_Estrato_4_Men_Cs", field: "nt1_0_estrato_4_men_cs", sortable: true},{ name: "Nt1_0_Estrato_5_Men_Cs", field: "nt1_0_estrato_5_men_cs", sortable: true},{ name: "Nt1_0_Estrato_6_Men_Cs", field: "nt1_0_estrato_6_men_cs", sortable: true},{ name: "Nt1_0_Estrato_4", field: "nt1_0_estrato_4", sortable: true},{ name: "Nt1_0_Estrato_5", field: "nt1_0_estrato_5", sortable: true},{ name: "Nt1_0_Estrato_6", field: "nt1_0_estrato_6", sortable: true},{ name: "Nt1_0_C", field: "nt1_0_c", sortable: true},{ name: "Nt1_0_I_Con_C", field: "nt1_0_i_con_c", sortable: true},{ name: "Nt1_0_I_Sin_C", field: "nt1_0_i_sin_c", sortable: true},{ name: "Nt1_0_P", field: "nt1_0_p", sortable: true},{ name: "Nt1_0_O", field: "nt1_0_o", sortable: true},{ name: "Nt2_C", field: "nt2_c", sortable: true},{ name: "Nt2_I_Con_C", field: "nt2_i_con_c", sortable: true},{ name: "Nt2_I_Sin_C", field: "nt2_i_sin_c", sortable: true},{ name: "Nt2_O", field: "nt2_o", sortable: true},{ name: "Nt2_Ap", field: "nt2_ap", sortable: true},{ name: "Nt2_Bsnmen_Cs", field: "nt2_bsnmen_cs", sortable: true},{ name: "Nt2_Bsnmay_Cs", field: "nt2_bsnmay_cs", sortable: true},{ name: "Nt3_C", field: "nt3_c", sortable: true},{ name: "Nt3_I_Con_C", field: "nt3_i_con_c", sortable: true},{ name: "Nt3_I_Sin_C", field: "nt3_i_sin_c", sortable: true},{ name: "Nt3_O", field: "nt3_o", sortable: true},{ name: "Nt3_Ap", field: "nt3_ap", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true}
+{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "Anho", field: "anho", sortable: true},
+{ name: "Mes", field: "mes", sortable: true},{ name: "Qc", field: "qc", sortable: true},{ name: "Pc", field: "pc", sortable: true},
+{ name: "Ref_G", field: "ref_g", sortable: true},{ name: "Max_G", field: "max_g", sortable: true},{ name: "Cr", field: "cr", sortable: true},
+{ name: "Ad", field: "ad", sortable: true},{ name: "Aj", field: "aj", sortable: true},{ name: "Pb", field: "pb", sortable: true},
+{ name: "Gc", field: "gc", sortable: true},{ name: "Tx", field: "tx", sortable: true},{ name: "Dtun_Nt1_E", field: "dtun_nt1_e", sortable: true},
+{ name: "Dtun_Nt1_C", field: "dtun_nt1_c", sortable: true},{ name: "Dtun_Nt1_P", field: "dtun_nt1_p", sortable: true},{ name: "Dtun_Nt2", field: "dtun_nt2", sortable: true},
+{ name: "Dtun_Nt3", field: "dtun_nt3", sortable: true},{ name: "Cdi_100", field: "cdi_100", sortable: true},{ name: "Cdi_50", field: "cdi_50", sortable: true},
+{ name: "Cdm", field: "cdm", sortable: true},{ name: "Cd4", field: "cd4", sortable: true},{ name: "Cd3", field: "cd3", sortable: true},
+{ name: "Cd2", field: "cd2", sortable: true},{ name: "Dnt1", field: "dnt1", sortable: true},{ name: "Dnt2", field: "dnt2", sortable: true},
+{ name: "Dnt3", field: "dnt3", sortable: true},{ name: "Dnt4", field: "dnt4", sortable: true},{ name: "Crs", field: "crs", sortable: true},
+{ name: "Rcal", field: "rcal", sortable: true},{ name: "R", field: "r", sortable: true},{ name: "Iprstn", field: "iprstn", sortable: true},
+{ name: "Pr_Nt1", field: "pr_nt1", sortable: true},{ name: "Pr_Nt2", field: "pr_nt2", sortable: true},{ name: "Pr_Nt3", field: "pr_nt3", sortable: true},
+{ name: "Pr_Nt4", field: "pr_nt4", sortable: true},{ name: "Cer", field: "cer", sortable: true},{ name: "Cfm", field: "cfm", sortable: true},
+{ name: "Rc", field: "rc", sortable: true},{ name: "Ul_Trim_Val_Mme", field: "ul_trim_val_mme", sortable: true},
+{ name: "Anho_Ul_Trim_Val_Mme", field: "anho_ul_trim_val_mme", sortable: true},{ name: "Sub1", field: "sub1", sortable: true},
+{ name: "Sub2", field: "sub2", sortable: true},{ name: "N_Sub1", field: "n_sub1", sortable: true},{ name: "M_Sub2", field: "m_sub2", sortable: true},
+{ name: "Facturacion_T", field: "facturacion_t", sortable: true},{ name: "R1", field: "r1", sortable: true},{ name: "R2", field: "r2", sortable: true},
+{ name: "Sup_Def", field: "sup_def", sortable: true},{ name: "Cfs", field: "cfs", sortable: true},{ name: "Cfe", field: "cfe", sortable: true},
+{ name: "C_Ast", field: "c_ast", sortable: true},{ name: "Cvr", field: "cvr", sortable: true},{ name: "Cv", field: "cv", sortable: true},
+{ name: "Cu_Nt1_100", field: "cu_nt1_100", sortable: true},{ name: "Cu_Nt1_50", field: "cu_nt1_50", sortable: true},
+{ name: "Cu_Nt1_0", field: "cu_nt1_0", sortable: true},{ name: "Cu_Nt2", field: "cu_nt2", sortable: true},
+{ name: "Cu_Nt3", field: "cu_nt3", sortable: true},
+{ name: "Cu_Nt1_100_ot", field: "cu_nt1_100_ot", sortable: true},{ name: "Cu_Nt1_50_ot", field: "cu_nt1_50_ot", sortable: true},
+{ name: "Cu_Nt1_0_ot", field: "cu_nt1_0_ot", sortable: true},{ name: "Cu_Nt2_ot", field: "cu_nt2_ot", sortable: true},
+{ name: "Cu_Nt3_ot", field: "cu_nt3_ot", sortable: true},
+{ name: "Saldo_Nt1_100_ot", field: "saldo_nt1_100_ot", sortable: true},{ name: "Saldo_Nt1_50_ot", field: "saldo_nt1_50_ot", sortable: true},
+{ name: "Saldo_Nt1_0_ot", field: "saldo_nt1_0_ot", sortable: true},{ name: "Saldo_Nt2_ot", field: "saldo_nt2_ot", sortable: true},
+{ name: "Saldo_Nt3_ot", field: "saldo_nt3_ot", sortable: true},
+{ name: "PV", field: "pv", sortable: true},
+{ name: "Nt1_100_Estrato_1_Men_Cs", field: "nt1_100_estrato_1_men_cs", sortable: true},
+{ name: "Nt1_100_Estrato_2_Men_Cs", field: "nt1_100_estrato_2_men_cs", sortable: true},
+{ name: "Nt1_100_Estrato_3_Men_Cs", field: "nt1_100_estrato_3_men_cs", sortable: true},
+{ name: "Nt1_100_Estrato_4_Men_Cs", field: "nt1_100_estrato_4_men_cs", sortable: true},
+{ name: "Nt1_100_Estrato_5_Men_Cs", field: "nt1_100_estrato_5_men_cs", sortable: true},
+{ name: "Nt1_100_Estrato_6_Men_Cs", field: "nt1_100_estrato_6_men_cs", sortable: true},
+{ name: "Nt1_100_Estrato_4", field: "nt1_100_estrato_4", sortable: true},{ name: "Nt1_100_Estrato_5", field: "nt1_100_estrato_5", sortable: true},
+{ name: "Nt1_100_Estrato_6", field: "nt1_100_estrato_6", sortable: true},{ name: "Nt1_100_C", field: "nt1_100_c", sortable: true},
+{ name: "Nt1_100_I_Con_C", field: "nt1_100_i_con_c", sortable: true},{ name: "Nt1_100_I_Sin_C", field: "nt1_100_i_sin_c", sortable: true},
+{ name: "Nt1_100_P", field: "nt1_100_p", sortable: true},{ name: "Nt1_100_O", field: "nt1_100_o", sortable: true},
+{ name: "Nt1_50_Estrato_1_Men_Cs", field: "nt1_50_estrato_1_men_cs", sortable: true},
+{ name: "Nt1_50_Estrato_2_Men_Cs", field: "nt1_50_estrato_2_men_cs", sortable: true},
+{ name: "Nt1_50_Estrato_3_Men_Cs", field: "nt1_50_estrato_3_men_cs", sortable: true},
+{ name: "Nt1_50_Estrato_4_Men_Cs", field: "nt1_50_estrato_4_men_cs", sortable: true},
+{ name: "Nt1_50_Estrato_5_Men_Cs", field: "nt1_50_estrato_5_men_cs", sortable: true},
+{ name: "Nt1_50_Estrato_6_Men_Cs", field: "nt1_50_estrato_6_men_cs", sortable: true},
+{ name: "Nt1_50_Estrato_4", field: "nt1_50_estrato_4", sortable: true},
+{ name: "Nt1_50_Estrato_5", field: "nt1_50_estrato_5", sortable: true},
+{ name: "Nt1_50_Estrato_6", field: "nt1_50_estrato_6", sortable: true},
+{ name: "Nt1_50_C", field: "nt1_50_c", sortable: true},{ name: "Nt1_50_I_Con_C", field: "nt1_50_i_con_c", sortable: true},
+{ name: "Nt1_50_I_Sin_C", field: "nt1_50_i_sin_c", sortable: true},{ name: "Nt1_50_P", field: "nt1_50_p", sortable: true},
+{ name: "Nt1_50_O", field: "nt1_50_o", sortable: true},{ name: "Nt1_0_Estrato_1_Men_Cs", field: "nt1_0_estrato_1_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_2_Men_Cs", field: "nt1_0_estrato_2_men_cs", sortable: true},{ name: "Nt1_0_Estrato_3_Men_Cs", field: "nt1_0_estrato_3_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_4_Men_Cs", field: "nt1_0_estrato_4_men_cs", sortable: true},{ name: "Nt1_0_Estrato_5_Men_Cs", field: "nt1_0_estrato_5_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_6_Men_Cs", field: "nt1_0_estrato_6_men_cs", sortable: true},{ name: "Nt1_0_Estrato_4", field: "nt1_0_estrato_4", sortable: true},
+{ name: "Nt1_0_Estrato_5", field: "nt1_0_estrato_5", sortable: true},{ name: "Nt1_0_Estrato_6", field: "nt1_0_estrato_6", sortable: true},
+{ name: "Nt1_0_C", field: "nt1_0_c", sortable: true},{ name: "Nt1_0_I_Con_C", field: "nt1_0_i_con_c", sortable: true},
+{ name: "Nt1_0_I_Sin_C", field: "nt1_0_i_sin_c", sortable: true},{ name: "Nt1_0_P", field: "nt1_0_p", sortable: true},
+{ name: "Nt1_0_O", field: "nt1_0_o", sortable: true},{ name: "Nt2_C", field: "nt2_c", sortable: true},{ name: "Nt2_I_Con_C", field: "nt2_i_con_c", sortable: true},
+{ name: "Nt2_I_Sin_C", field: "nt2_i_sin_c", sortable: true},{ name: "Nt2_O", field: "nt2_o", sortable: true},{ name: "Nt2_Ap", field: "nt2_ap", sortable: true},
+{ name: "Nt2_Bsnmen_Cs", field: "nt2_bsnmen_cs", sortable: true},{ name: "Nt2_Bsnmay_Cs", field: "nt2_bsnmay_cs", sortable: true},
+{ name: "Nt3_C", field: "nt3_c", sortable: true},{ name: "Nt3_I_Con_C", field: "nt3_i_con_c", sortable: true},{ name: "Nt3_I_Sin_C", field: "nt3_i_sin_c", sortable: true},
+{ name: "Nt3_O", field: "nt3_o", sortable: true},{ name: "Nt3_Ap", field: "nt3_ap", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},
+{ name: "giro_sobrante", field: "giro_sobrante", sortable: true},{ name: "ultimo_giro_incluido", field: "ultimo_giro_incluido", sortable: true}
+
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
@@ -182,10 +256,7 @@ return computedComments.slice(
 );
 }, [comments, currentPage, search, sorting])
 
-
-
 return (
-
 
 <div className="container p-0">
 <div className="card col-sm ">
@@ -283,6 +354,17 @@ setSorting({ field, order })
 <td>{comment.cu_nt2}</td>
 <td>{comment.cu_nt3}</td>
 <td>{comment.cu_nt4}</td>
+<td>{comment.cu_nt1_100_ot}</td>
+<td>{comment.cu_nt1_50_ot}</td>
+<td>{comment.cu_nt1_0_ot}</td>
+<td>{comment.cu_nt2_ot}</td>
+<td>{comment.cu_nt3_ot}</td>
+<td>{comment.pv}</td>
+<td>{comment.saldo_nt1_100_ot}</td>
+<td>{comment.saldo_nt1_50_ot}</td>
+<td>{comment.saldo_nt1_0_ot}</td>
+<td>{comment.saldo_nt2_ot}</td>
+<td>{comment.saldo_nt3_ot}</td>
 <td>{comment.nt1_100_estrato_1_men_cs}</td>
 <td>{comment.nt1_100_estrato_2_men_cs}</td>
 <td>{comment.nt1_100_estrato_3_men_cs}</td>
@@ -297,20 +379,20 @@ setSorting({ field, order })
 <td>{comment.nt1_100_i_sin_c}</td>
 <td>{comment.nt1_100_p}</td>
 <td>{comment.nt1_100_o}</td>
-<td>{comment.nt1_50_100_estrato_1_men_cs}</td>
-<td>{comment.nt1_50_100_estrato_2_men_cs}</td>
-<td>{comment.nt1_50_100_estrato_3_men_cs}</td>
-<td>{comment.nt1_50_100_estrato_4_men_cs}</td>
-<td>{comment.nt1_50_100_estrato_5_men_cs}</td>
-<td>{comment.nt1_50_100_estrato_6_men_cs}</td>
-<td>{comment.nt1_50_100_estrato_4}</td>
-<td>{comment.nt1_50_100_estrato_5}</td>
-<td>{comment.nt1_50_100_estrato_6}</td>
-<td>{comment.nt1_50_100_c}</td>
-<td>{comment.nt1_50_100_i_con_c}</td>
-<td>{comment.nt1_50_100_i_sin_c}</td>
-<td>{comment.nt1_50_100_p}</td>
-<td>{comment.nt1_50_100_o}</td>
+<td>{comment.nt1_50_estrato_1_men_cs}</td>
+<td>{comment.nt1_50_estrato_2_men_cs}</td>
+<td>{comment.nt1_50_estrato_3_men_cs}</td>
+<td>{comment.nt1_50_estrato_4_men_cs}</td>
+<td>{comment.nt1_50_estrato_5_men_cs}</td>
+<td>{comment.nt1_50_estrato_6_men_cs}</td>
+<td>{comment.nt1_50_estrato_4}</td>
+<td>{comment.nt1_50_estrato_5}</td>
+<td>{comment.nt1_50_estrato_6}</td>
+<td>{comment.nt1_50_c}</td>
+<td>{comment.nt1_50_i_con_c}</td>
+<td>{comment.nt1_50_i_sin_c}</td>
+<td>{comment.nt1_50_p}</td>
+<td>{comment.nt1_50_o}</td>
 <td>{comment.nt1_0_estrato_1_men_cs}</td>
 <td>{comment.nt1_0_estrato_2_men_cs}</td>
 <td>{comment.nt1_0_estrato_3_men_cs}</td>
@@ -338,7 +420,8 @@ setSorting({ field, order })
 <td>{comment.nt3_o}</td>
 <td>{comment.nt3_ap}</td>
 <td>{comment.empresa_id}</td>
-
+<td>{comment.giro_sobrante}</td>
+<td>{comment.ultimo_giro_incluido}</td>
 </tr>
 ))}
 </tbody>

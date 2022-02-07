@@ -127,19 +127,17 @@ nt3_i_sin_c
 nt3_o
 nt3_ap
 empresa_id
-cu_nt1_100_ot
-cu_nt1_50_ot
-cu_nt1_0_ot
-cu_nt2_ot
-cu_nt3_ot
-saldo_nt1_100_ot
-saldo_nt1_50_ot
-saldo_nt1_0_ot
-saldo_nt2_ot
-saldo_nt3_ot
-pv
-giro_sobrante
-ultimo_giro_incluido
+cu_nt1_100_ot: Float
+cu_nt1_50_ot: Float
+cu_nt1_0_ot: Float
+cu_nt2_ot: Float
+cu_nt3_ot: Float
+saldo_nt1_100_ot: Float
+saldo_nt1_50_ot: Float
+saldo_nt1_0_ot: Float
+saldo_nt2_ot: Float
+saldo_nt3_ot: Float
+pv: Float
 }
 }
 `;
@@ -273,8 +271,6 @@ saldo_nt1_0_ot
 saldo_nt2_ot
 saldo_nt3_ot
 pv
-giro_sobrante
-ultimo_giro_incluido
 }
 }
 `;
@@ -1026,7 +1022,7 @@ data: {
 })
 }
 })
-
+const [dataCargada, setDataCargada] = useState(0)
 const [creador, setcreador] = useState(0);const [anho, setAnho] = useState(props.anho);const [mes, setMes] = useState(props.mes);const [qc, setQc] = useState(0);
 const [mc, setMc] = useState(0);
 const [pc, setPc] = useState(0);const [ref_g, setRef_G] = useState(0);const [max_g, setMax_G] = useState(0);const [cr, setCr] = useState(0);
@@ -1082,10 +1078,7 @@ const [cu_nt1_100_ot, setCu_Nt1_100_ot] = useState(0);const [cu_nt1_50_ot, setCu
 const [cu_nt2_ot, setCu_Nt2_ot] = useState(0);const [cu_nt3_ot, setCu_Nt3_ot] = useState(0);
 const [saldo_nt1_100_ot, setSaldo_Nt1_100_ot] = useState(0);const [saldo_nt1_50_ot, setSaldo_Nt1_50_ot] = useState(0);const [saldo_nt1_0_ot, setSaldo_Nt1_0_ot] = useState(0);
 const [saldo_nt2_ot, setSaldo_Nt2_ot] = useState(0);const [saldo_nt3_ot, setSaldo_Nt3_ot] = useState(0);
-const [saldo_total_ot, setSaldo_Total_ot] = useState(0);const [giro_sobrante, setGiro_sobrante] = useState(0);
-const [ultimo_giro_incluido, setUltimo_giro_incluido] = useState(0);
-
-
+const [saldo_total_ot, setSaldo_Total_ot] = useState(0);
 
 
 
@@ -1103,7 +1096,7 @@ if (mes===1){
 }
 else{
         if(mes===2){
-        var mesm=mes-1
+        var mesm=m-1
         var anhom=anho  
         var mesm2=12
         var anhom2=anho-1            
@@ -1114,12 +1107,9 @@ else{
         var anhom2=anho   
 }
 
-function roundToTwo(num) {    
-        return +(Math.round(num + "e+5")  + "e-5");
-    }
+
 
 useEffect(() => {
-
 
 if(loading2) return null;
 setcreador(parseInt(data2.obtenerUsuario.id));
@@ -1134,7 +1124,7 @@ creador:creador,anho:anho,mes:mes,qc:qc,pc:pc,ref_g:ref_g,max_g:max_g,cr:cr,ad:a
 pb:pb,gc:gc,tx:tx,dtun_nt1_e:dtun_nt1_e,dtun_nt1_c:dtun_nt1_c,dtun_nt1_p:dtun_nt1_p,dtun_nt2:dtun_nt2,dtun_nt3:dtun_nt3,
 cdi_100:cdi_100,cdi_50:cdi_50,cdm:cdm,cd4:cd4,cd3:cd3,cd2:cd2,dnt1:dnt1,dnt2:dnt2,dnt3:dnt3,dnt4:dnt4,crs:crs,rcal:rcal,r:r,iprstn:iprstn,pr_nt1:pr_nt1,
 pr_nt2:pr_nt2,pr_nt3:pr_nt3,pr_nt4:pr_nt4,cer:cer,cfm:cfm,rc:rc,ul_trim_val_mme:ul_trim_val_mme,anho_ul_trim_val_mme:anho_ul_trim_val_mme,sub1:sub1,sub2:sub2,
-n_sub1:n_sub1,m_sub2:m_sub2,facturacion_t:facturacion_t.toString(),r1:r1,r2:r2,sup_def:sup_def,cfs:cfs,cfe:cfe,c_ast:c_ast,cvr:cvr,cv:cv,cu_nt1_100:cu_nt1_100,cu_nt1_50:cu_nt1_50,
+n_sub1:n_sub1,m_sub2:m_sub2,facturacion_t:facturacion_t,r1:r1,r2:r2,sup_def:sup_def,cfs:cfs,cfe:cfe,c_ast:c_ast,cvr:cvr,cv:cv,cu_nt1_100:cu_nt1_100,cu_nt1_50:cu_nt1_50,
 cu_nt1_0:cu_nt1_0,cu_nt2:cu_nt2,cu_nt3:cu_nt3,cu_nt4:cu_nt4,nt1_100_estrato_1_men_cs:nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs:nt1_100_estrato_2_men_cs,
 nt1_100_estrato_3_men_cs:nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs:nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs:nt1_100_estrato_5_men_cs,
 nt1_100_estrato_6_men_cs:nt1_100_estrato_6_men_cs,nt1_100_estrato_4:nt1_100_estrato_4,nt1_100_estrato_5:nt1_100_estrato_5,nt1_100_estrato_6:nt1_100_estrato_6,
@@ -1148,8 +1138,7 @@ nt1_0_estrato_5_men_cs:nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs:nt1_0_estra
 nt1_0_estrato_6:nt1_0_estrato_6,nt1_0_c:nt1_0_c,nt1_0_i_con_c:nt1_0_i_con_c,nt1_0_i_sin_c:nt1_0_i_sin_c,nt1_0_p:nt1_0_p,nt1_0_o:nt1_0_o,nt2_c:nt2_c,nt2_i_con_c:nt2_i_con_c,
 nt2_i_sin_c:nt2_i_sin_c,nt2_o:nt2_o,nt2_ap:nt2_ap,nt2_bsnmen_cs:nt2_bsnmen_cs,nt2_bsnmay_cs:nt2_bsnmay_cs,nt3_c:nt3_c,nt3_i_con_c:nt3_i_con_c,nt3_i_sin_c:nt3_i_sin_c,
 nt3_o:nt3_o,nt3_ap:nt3_ap,empresa_id:empresa_id,pv:pv,cu_nt1_100_ot:cu_nt1_100_ot,cu_nt1_50_ot:cu_nt1_50_ot,cu_nt1_0_ot:cu_nt1_0_ot,cu_nt2_ot:cu_nt2_ot,
-cu_nt3_ot:cu_nt3_ot,saldo_nt1_100_ot:saldo_nt1_100_ot,saldo_nt1_50_ot:saldo_nt1_50_ot,saldo_nt1_0_ot:saldo_nt1_0_ot,saldo_nt2_ot:saldo_nt2_ot,saldo_nt3_ot:saldo_nt3_ot,
-giro_sobrante:giro_sobrante, ultimo_giro_incluido:ultimo_giro_incluido
+cu_nt3_ot:cu_nt3_ot,saldo_nt1_100_ot:saldo_nt1_100_ot,saldo_nt1_50_ot:saldo_nt1_50_ot,saldo_nt1_0_ot:saldo_nt1_0_ot,saldo_nt2_ot:saldo_nt2_ot,saldo_nt3_ot:saldo_nt3_ot
 },
 enableReinitialize: true,
 validationSchema: Yup.object({
@@ -1157,7 +1146,7 @@ creador: Yup.string()
 .required('El creador es obligatorio'),
 }),
 onSubmit: async valores => {
-const{creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido}=valores
+const{creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id}=valores
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()
 try {
@@ -1165,14 +1154,13 @@ console.log(valores)
 const{data}=await nuevoRes_componentes_cu_tarifa({
 variables:{
 input:{
-        creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido
+creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id
 }
 }
 });
 } catch (error) {
 console.log(valores)
 console.log(error);
-console.log(creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido);
 }
 }
 })
@@ -1180,17 +1168,12 @@ console.log(creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun
 useEffect(() => {
         if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
                 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-        try {
-                
-
-        
-        
-        const Alfa=0.036578428408 //***************************** */
-        setGc(roundToTwo((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*pb)+aj))
-        setRef_G(roundToTwo(qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*mc))
-        setMax_G(roundToTwo((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*mc)*1.3))
-        setCr(roundToTwo((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*pb)))
-        setCfm(roundToTwo((cfm*(1-x))))
+                const Alfa=0.036578428408 //***************************** */
+        setGc((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*pb)+aj)
+        setRef_G(qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*mc)
+        setMax_G((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*mc)*1.3)
+        setCr(qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*pb)
+        setCfm(cfm*(1-x))
 
                         const data_xm_dtun=data18.obtenerData_xm_dtun
                         const data_xm_dtunm1=data_xm_dtun.filter(data_xm_dtun => data_xm_dtun.anho===anhom && data_xm_dtun.mes===mes && data_xm_dtun.operador_red==='ENELAR Mercado de Comercialización ARAUCA'  && data_xm_dtun.nivel_tension===1)                        
@@ -1200,61 +1183,54 @@ useEffect(() => {
                         const data_xm_d015m=data_xm_d015.filter(data_xm_d015 => data_xm_d015.anho===anho && data_xm_d015.mes===mes && data_xm_d015.empresa_id===data2.obtenerUsuario.empresa)                                                                              
 
                         if(data_xm_dtunm1.length>0){
-                                setDnt1(roundToTwo(data_xm_dtunm1[0].valor))
-                                setDnt2(roundToTwo((data_xm_dtunm2[0].valor)))
-                                setDnt3(roundToTwo((data_xm_dtunm3[0].valor)))
+                                setDnt1(data_xm_dtunm1[0].valor)
+                                setDnt2(data_xm_dtunm2[0].valor)
+                                setDnt3(data_xm_dtunm3[0].valor)
                         }
                         else{
                                 
-                                setDnt1(roundToTwo(data_xm_d015m[0].cargo_por_uso_dt1_cop_kwh))
-                                setDnt2(roundToTwo(data_xm_d015m[0].cargo_por_uso_dt2_cop_kwh))
-                                setDnt3(roundToTwo(data_xm_d015m[0].cargo_por_uso_dt3_cop_kwh))
-                                setCdi_100(roundToTwo(data_xm_d015m[0].cargo_de_inversion_cdi1_cop_kwh))
-                                setCdi_50(roundToTwo(data_xm_d015m[0].cargo_de_inversion_cdi1_cop_kwh/2))
-                                setCd2(roundToTwo(data_xm_d015m[0].cargo_nivel_de_tension_cd2_cop_kwh))
-                                setCd3(roundToTwo(data_xm_d015m[0].cargo_nivel_de_tension_cd3_cop_kwh))
-                                setCd4(roundToTwo(data_xm_d015m[0].cargo_nivel_de_tension_cd4_cop_kwh))
-                                setCdm(roundToTwo(data_xm_d015m[0].cargo_por_aom_cda1_cop_kwh))
+                                setDnt1(data_xm_d015m[0].cargo_por_uso_dt1_cop_kwh)
+                                setDnt2(data_xm_d015m[0].cargo_por_uso_dt2_cop_kwh)
+                                setDnt3(data_xm_d015m[0].cargo_por_uso_dt3_cop_kwh)
+                                setCdi_100(data_xm_d015m[0].cargo_de_inversion_cdi1_cop_kwh)
+                                setCdi_50(data_xm_d015m[0].cargo_de_inversion_cdi1_cop_kwh/2)
+                                setCd2(data_xm_d015m[0].cargo_nivel_de_tension_cd2_cop_kwh)
+                                setCd3(data_xm_d015m[0].cargo_nivel_de_tension_cd3_cop_kwh)
+                                setCd4(data_xm_d015m[0].cargo_nivel_de_tension_cd4_cop_kwh)
+                                setCdm(data_xm_d015m[0].cargo_por_aom_cda1_cop_kwh)
                         }
-                } catch (error) {
-                console.log('NO Hay datos 3')
-                } 
-        }
         
+
+        }
         },[qc,pc,pb,iprstn,x]);
 
 
         useEffect(() => {
                 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
                 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-try {
-        
-                   const data_xm_ipr=data16.obtenerData_xm_ipr
+
+                        const data_xm_ipr=data16.obtenerData_xm_ipr
                         const data_xm_iprm1=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado==='GUVM' && data_xm_ipr.nivelEntrada===1)
                         const data_xm_iprm2=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado==='GUVM' && data_xm_ipr.nivelEntrada===2)
                         const data_xm_iprm3=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado==='GUVM' && data_xm_ipr.nivelEntrada===3)
                         const data_xm_iprm4=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado==='GUVM' && data_xm_ipr.nivelEntrada===4)
                         const data_xm_cprog=data15.obtenerData_xm_cprog
                         const data_xm_cprogm=data_xm_cprog.filter(data_xm_cprog => data_xm_cprog.anho===anho && data_xm_cprog.mes===mes && data_xm_cprog.agente==='EGVD')
-                        setPr_Nt1(roundToTwo((((gc*(data_xm_iprm1[0].valor+iprstn))/(1-(data_xm_iprm1[0].valor+iprstn))+(tx*data_xm_iprm1[0].valor/(1-data_xm_iprm1[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh)))
-                        setPr_Nt2(roundToTwo(((gc*(data_xm_iprm2[0].valor+iprstn))/(1-(data_xm_iprm2[0].valor+iprstn))+(tx*data_xm_iprm2[0].valor/(1-data_xm_iprm2[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh) )       
-                        setPr_Nt3(roundToTwo(((gc*(data_xm_iprm3[0].valor+iprstn))/(1-(data_xm_iprm3[0].valor+iprstn))+(tx*data_xm_iprm3[0].valor/(1-data_xm_iprm3[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh))
-                        setPr_Nt4(roundToTwo(((gc*(data_xm_iprm4[0].valor+iprstn))/(1-(data_xm_iprm4[0].valor+iprstn))+(tx*data_xm_iprm4[0].valor/(1-data_xm_iprm4[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh))
-                } catch (error) {
-        console.log('No hay datos')
-                }
-                     
+                        setPr_Nt1(((gc*(data_xm_iprm1[0].valor+iprstn))/(1-(data_xm_iprm1[0].valor+iprstn))+(tx*data_xm_iprm1[0].valor/(1-data_xm_iprm1[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh)
+                        setPr_Nt2(((gc*(data_xm_iprm2[0].valor+iprstn))/(1-(data_xm_iprm2[0].valor+iprstn))+(tx*data_xm_iprm2[0].valor/(1-data_xm_iprm2[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh)        
+                        setPr_Nt3(((gc*(data_xm_iprm3[0].valor+iprstn))/(1-(data_xm_iprm3[0].valor+iprstn))+(tx*data_xm_iprm3[0].valor/(1-data_xm_iprm3[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh)
+                        setPr_Nt4(((gc*(data_xm_iprm4[0].valor+iprstn))/(1-(data_xm_iprm4[0].valor+iprstn))+(tx*data_xm_iprm4[0].valor/(1-data_xm_iprm4[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh)
                 }
         },[gc]);
 
 useEffect(() => {
 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-setCu_Nt1_100(roundToTwo(gc+tx+r+cv+pr_nt1+dnt1))
-setCu_Nt1_50(roundToTwo(gc+tx+r+cv+pr_nt1+dnt1-cdi_50))
-setCu_Nt1_0(roundToTwo(gc+tx+r+cv+pr_nt1+dnt1-cdi_100))
-setCu_Nt2(roundToTwo(gc+tx+r+cv+pr_nt2+dnt2))
-setCu_Nt3(roundToTwo(gc+tx+r+cv+pr_nt3+dnt3))
+setCu_Nt1_100(gc+tx+r+cv+pr_nt1+dnt1)
+setCu_Nt1_50(gc+tx+r+cv+pr_nt1+dnt1-cdi_50)
+setCu_Nt1_0(gc+tx+r+cv+pr_nt1+dnt1-cdi_100)
+setCu_Nt2(gc+tx+r+cv+pr_nt2+dnt2)
+setCu_Nt3(gc+tx+r+cv+pr_nt3+dnt3)
 }
 },[gc,cv,tx,r,pr_nt1]);
 
@@ -1326,11 +1302,9 @@ setNt1_50__P((cu_nt1_100-cdi_100/2)*(1))
 
 useEffect(() => {
 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
-&& !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){    
-if(sub1>=0 || sub2>=0){
+&& !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
 setCfs(((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/facturacion_t)
 setCfe((((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/facturacion_t)+0.00042)
-} 
 }
 },[n_sub1,m_sub2,r1,r2,sub1,sub2,facturacion_t]);
 
@@ -1338,16 +1312,10 @@ setCfe((((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/factu
 
 useEffect(() => {
 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
-&& !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){  
-        try {
-                
-
+&& !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
 const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
 const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
 setC_Ast((data_Res_componentes_cu_tarifam[0].gc+data_Res_componentes_cu_tarifam[0].tx+data_Res_componentes_cu_tarifam[0].dtun_nt1_e+data_Res_componentes_cu_tarifam[0].pr_nt1+data_Res_componentes_cu_tarifam[0].r)*(cfe+0.0273+rc))
-} catch (error) {
-    console.log('NO hay datos 1')            
-}   
 }
 },[cfe,rc]);
         
@@ -1355,10 +1323,7 @@ setC_Ast((data_Res_componentes_cu_tarifam[0].gc+data_Res_componentes_cu_tarifam[
 useEffect(() => {
 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-        try {
-                
-
-        const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
+const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
 const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
 data_dane=data1.obtenerData_dane
 data_danem=data_dane.filter(data_dane => data_dane.anho===anhom && data_dane.mes===mesm)
@@ -1405,9 +1370,6 @@ setPorc_subE2_0(1-(tarifamc2_0/cu_nt1_0))
 else{
 setPorc_subE2_0(0.5)
 }
-} catch (error) {
-        console.log('no hay datos')
-}
 }},[cu_nt1_100,cu_nt1_50,cu_nt1_0]);
 
 
@@ -1417,8 +1379,6 @@ useEffect(() => {
 
 if (status) 
 {
-try {
-        
 
         const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
         const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
@@ -1431,25 +1391,9 @@ try {
         setCu_Nt1_0_ot(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100))
         setCu_Nt2_ot(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100))
         setCu_Nt3_ot(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100))
-} catch (error) {
-        console.log('no hay datos')
-}
+
 }
         }},[pv]);
-
-        useEffect(() => {
-                if( !loading20 ){  
-                        try {
-        
-
-                        const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
-                        const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
-                setGiro_sobrante(data_Res_componentes_cu_tarifam[0].giro_sobrante)
-                setUltimo_giro_incluido(data_Res_componentes_cu_tarifam[0].ultimo_giro_incluido)
-        } catch (error) {
-                  console.log('NO hay datos 2')              
-        }
-                }},[loading20])
 
         useEffect(() => {
                 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
@@ -1468,7 +1412,6 @@ try {
                 setSaldo_Nt1_0_ot(((cu_nt1_0-(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_u)+data_Res_componentes_cu_tarifam[0].saldo_nt1_0_ot)
                 setSaldo_Nt2_ot(((cu_nt2-(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt2)+data_Res_componentes_cu_tarifam[0].saldo_nt2_ot)
                 setSaldo_Nt3_ot(((cu_nt3-(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt3)+data_Res_componentes_cu_tarifam[0].saldo_nt3_ot)
-
 
         }
                 }},[cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot]);
@@ -1489,9 +1432,6 @@ try {
         useEffect(() => {
                 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
                 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-                        try {
-                                
-
                         const data_empresa_anual=data21.obtenerData_empresa_anual
                         const data_empresaanualm=data_empresa_anual.filter(data_empresa_anual => data_empresa_anual.anho===anho-1)
                         const data_xm_tserv=data4.obtenerData_xm_tserv
@@ -1502,16 +1442,13 @@ try {
                          const data_xm_tservmsiciva=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.anho===anhom && data_xm_tserv.mes===mesm && data_xm_tserv.agente===data2.obtenerUsuario.empresa && data_xm_tserv.concepto==="SIC_IVA")   
                          setCer((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)
    
-                setCv(roundToTwo(c_ast+cvr+(((((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)+
+                setCv(c_ast+cvr+(((((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)+
                 data_xm_tservmcnd[0].magnitud+data_xm_tservmsiciva[0].magnitud+data_empresam[0].costo_garantias_mem_cop)/(data_empresam[0].ventas_usuarios_r_nt1_e+
                         data_empresam[0].ventas_usuarios_r_nt1_c+
                         data_empresam[0].ventas_usuarios_r_nt1_u+
                         data_empresam[0].ventas_usuarios_r_nt2+
                         data_empresam[0].ventas_usuarios_r_nt3+
-                        data_empresam[0].ventas_usuarios_nr_kwh))) )  ) 
-                } catch (error) {
-                            console.log('No hay datos')    
-                }
+                        data_empresam[0].ventas_usuarios_nr_kwh))) )   
                 }
                 },[c_ast]);   
 
@@ -1519,7 +1456,7 @@ useEffect(() => {
         
         if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
                 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-                try{
+                // try{
                         const data_xm_afac=data7.obtenerData_xm_afac
                         const data_xm_afacm=data_xm_afac.filter(data_xm_afac => data_xm_afac.anho===anhom && data_xm_afac.mes===mesm && data_xm_afac.agente===data2.obtenerUsuario.empresa)
                         const data_xm_dspctto=data6.obtenerData_xm_dspctto
@@ -1527,9 +1464,9 @@ useEffect(() => {
                         const data_xm_trsm=data5.obtenerData_xm_trsm
                         const data_xm_trsmm=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom && data_xm_trsm.mes===mesm)
                         const data_xm_stn=data14.obtenerDataxmstn
-                        const data_xm_stnm=data_xm_stn.filter(data_xm_stn => data_xm_stn.anho===anho && data_xm_stn.mes===mes)
+                        const data_xm_stnm=data_xm_stn.filter(data_xm_stn => data_xm_stn.anho===anhom && data_xm_stn.mes===mes)
                         const data_xm_guatape=data19.obtenerData_xm_guatape
-                        const data_xm_guatapem=data_xm_guatape.filter(data_xm_guatape => data_xm_guatape.anho===anho && data_xm_guatape.mes===mes && data_xm_guatape.agente===data2.obtenerUsuario.empresa)
+                        const data_xm_guatapem=data_xm_guatape.filter(data_xm_guatape => data_xm_guatape.anho===anhom && data_xm_guatape.mes===mes && data_xm_guatape.agente===data2.obtenerUsuario.empresa)
                         data_empresa=data3.obtenerData_empresa
                         data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm)
 
@@ -1546,14 +1483,13 @@ useEffect(() => {
                         const data_mme_giro=data10.obtenerData_mme_giro       
                         const data_banrepublica_tco=data12.obtenerData_banrepublica_tco
                         const data_banrepublica_tcap=data13.obtenerData_banrepublica_tcap
-                        const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
-                        const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
+                        
          
-                        setQc(roundToTwo((Math.min(1,(data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))))
+                        setQc(Math.min(1,(data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))
                         if (data_xm_afacm[0].compras_en_bolsa_nacional_kwh===0){
                           setPb(0)
                         } else{
-                          setPb(roundToTwo(((data_xm_afacm[0].compras_energia_en_bolsa_cop+data_xm_afacm[0].compras_en_bolsa_ajustes_cop)/data_xm_afacm[0].compras_energia_en_bolsa_kwh)))
+                          setPb((data_xm_afacm[0].compras_energia_en_bolsa_cop+data_xm_afacm[0].compras_en_bolsa_ajustes_cop)/data_xm_afacm[0].compras_energia_en_bolsa_kwh)
                         }
                         
                         var Energia_contratos = 0;
@@ -1563,29 +1499,25 @@ useEffect(() => {
                             Costo_contratos += parseFloat(obj.desp_hora_1)*parseFloat(obj.trf_hora_1)+parseFloat(obj.desp_hora_2)*parseFloat(obj.trf_hora_2)+parseFloat(obj.desp_hora_3)*parseFloat(obj.trf_hora_3)+parseFloat(obj.desp_hora_4)*parseFloat(obj.trf_hora_4)+parseFloat(obj.desp_hora_5)*parseFloat(obj.trf_hora_5)+parseFloat(obj.desp_hora_6)*parseFloat(obj.trf_hora_6)+parseFloat(obj.desp_hora_7)*parseFloat(obj.trf_hora_7)+parseFloat(obj.desp_hora_8)*parseFloat(obj.trf_hora_8)+parseFloat(obj.desp_hora_9)*parseFloat(obj.trf_hora_9)+parseFloat(obj.desp_hora_10)*parseFloat(obj.trf_hora_10)+parseFloat(obj.desp_hora_11)*parseFloat(obj.trf_hora_11)+parseFloat(obj.desp_hora_12)*parseFloat(obj.trf_hora_12)+parseFloat(obj.desp_hora_13)*parseFloat(obj.trf_hora_13)+parseFloat(obj.desp_hora_14)*parseFloat(obj.trf_hora_14)+parseFloat(obj.desp_hora_15)*parseFloat(obj.trf_hora_15)+parseFloat(obj.desp_hora_16)*parseFloat(obj.trf_hora_16)+parseFloat(obj.desp_hora_17)*parseFloat(obj.trf_hora_17)+parseFloat(obj.desp_hora_18)*parseFloat(obj.trf_hora_18)+parseFloat(obj.desp_hora_19)*parseFloat(obj.trf_hora_19)+parseFloat(obj.desp_hora_20)*parseFloat(obj.trf_hora_20)+parseFloat(obj.desp_hora_21)*parseFloat(obj.trf_hora_21)+parseFloat(obj.desp_hora_22)*parseFloat(obj.trf_hora_22)+parseFloat(obj.desp_hora_23)*parseFloat(obj.trf_hora_23)+parseFloat(obj.desp_hora_24)*parseFloat(obj.trf_hora_24);
                         });
                         if ((data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))<=1){
-                                setPc(roundToTwo(Costo_contratos/Energia_contratos))
+                                setPc(Costo_contratos/Energia_contratos)
                         } else{
                                 const w=((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))/Energia_contratos 
-                                setPc(roundToTwo((Costo_contratos/Energia_contratos)*w))
+                                setPc((Costo_contratos/Energia_contratos)*w)
                         }
-                        // const Alfa=0.584204941605 //***************************** */
-                        setMc(roundToTwo(data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='MC')[0].valor))
+                        const Alfa=0.584204941605 //***************************** */
+                        setMc(data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='MC')[0].valor)
                         setAd(0)
                         setAj(0)                        
-                        setPc(roundToTwo(Costo_contratos/Energia_contratos))
-                       
-                        setTx(roundToTwo(data_xm_stnm[0].t_prima_cop_kwh+data_xm_stnm[0].delta_t_cop_kwh))
-                        console.log('ACA')
-                        console.log(data_xm_guatapem[0].crs_variable_guatape_cop)
-                        setCrs((data_xm_afacm[0].restricciones_aliviadas_cop)-(data_xm_afacm[0].ventas_en_desviacion_cop+data_xm_guatapem[0].crs_variable_guatape_cop))
-                        console.log('ACA2')
-                        setR(roundToTwo((data_xm_afacm[0].restricciones_aliviadas_cop-data_xm_afacm[0].ventas_en_desviacion_cop+data_xm_guatapem[0].crs_variable_guatape_cop)/(data_empresam[0].ventas_usuarios_r_nt1_e+
+                        setPc(Costo_contratos/Energia_contratos)
+                        setTx(data_xm_stnm[0].t_prima_cop_kwh+data_xm_stnm[0].delta_t_cop_kwh)
+                        setCrs(data_xm_afacm[0].restricciones_aliviadas_cop)-(data_xm_afacm[0].ventas_en_desviacion_cop+data_xm_guatapem[0].crs_variable_guatape_cop)
+                        setR((data_xm_afacm[0].restricciones_aliviadas_cop-data_xm_afacm[0].ventas_en_desviacion_cop+data_xm_guatapem[0].crs_variable_guatape_cop)/(data_empresam[0].ventas_usuarios_r_nt1_e+
                                 data_empresam[0].ventas_usuarios_r_nt1_c+
                                 data_empresam[0].ventas_usuarios_r_nt1_u+
                                 data_empresam[0].ventas_usuarios_r_nt2+
                                 data_empresam[0].ventas_usuarios_r_nt3+
-                                data_empresam[0].ventas_usuarios_nr_kwh)))
-                        setIprstn(roundToTwo((data_xm_afacm[0].perdida_real_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))
+                                data_empresam[0].ventas_usuarios_nr_kwh))
+                        setIprstn((data_xm_afacm[0].perdida_real_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh)))
                         
          
                         if (anho===2015)
@@ -1608,18 +1540,18 @@ useEffect(() => {
                         {
                                 setX(0.00725*4)
                         }
-                        setCfm(roundToTwo(data_creg_cxm[0].Cf*data_danem[0].ipc/79.56))
-                        setCvr(roundToTwo((((1-0)*data_creg_cxm[0].Cf*data_empresam[0].numero_usuarios_r)+(data_empresam[0].costo_garantias_str_sdl_cop)+(data_empresam[0].pui_cop_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
+                        setCfm(data_creg_cxm[0].Cf*data_danem[0].ipc/79.56)
+                        setCvr((((1-0)*data_creg_cxm[0].Cf*data_empresam[0].numero_usuarios_r)+(data_empresam[0].costo_garantias_str_sdl_cop)+(data_empresam[0].pui_cop_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
                         data_empresam[0].ventas_usuarios_r_nt1_c+
                         data_empresam[0].ventas_usuarios_r_nt1_u+
                         data_empresam[0].ventas_usuarios_r_nt2+
-                        data_empresam[0].ventas_usuarios_r_nt3)))
-                        setRc(roundToTwo((data_creg_cxm[0].RCT*((data_empresam[0].ventas_usuarios_r_nt1_e+data_empresam[0].ventas_usuarios_r_nt1_c+data_empresam[0].ventas_usuarios_r_nt1_u+data_empresam[0].ventas_usuarios_r_nt2+data_empresam[0].ventas_usuarios_r_nt3)-data_empresam[0].vae_kwh-data_empresam[0].vnu_kwh-data_empresam[0].vsne_kwh)+
+                        data_empresam[0].ventas_usuarios_r_nt3))
+                        setRc((data_creg_cxm[0].RCT*((data_empresam[0].ventas_usuarios_r_nt1_e+data_empresam[0].ventas_usuarios_r_nt1_c+data_empresam[0].ventas_usuarios_r_nt1_u+data_empresam[0].ventas_usuarios_r_nt2+data_empresam[0].ventas_usuarios_r_nt3)-data_empresam[0].vae_kwh-data_empresam[0].vnu_kwh-data_empresam[0].vsne_kwh)+
                         data_creg_cxm[0].RCAE*(data_empresam[0].vae_kwh)+data_creg_cxm[0].RCSNE*(data_empresam[0].vsne_kwh)+data_creg_cxm[0].RCNU*(data_empresam[0].vnu_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
                                 data_empresam[0].ventas_usuarios_r_nt1_c+
                                 data_empresam[0].ventas_usuarios_r_nt1_u+
                                 data_empresam[0].ventas_usuarios_r_nt2+
-                                data_empresam[0].ventas_usuarios_r_nt3)))
+                                data_empresam[0].ventas_usuarios_r_nt3))
                                             
                         var len = data_xm_mme_validacion.length, maxa= -Infinity;
                         while (len>0) {
@@ -1637,186 +1569,536 @@ useEffect(() => {
                           }
                         }
                         setUl_Trim_Val_Mme(maxt)
-                        
-                        
-                        var len=4, tri_validados=[],index=0,summ = 0,trimestre,anho_trimestre,fecha_inicio_trimestre,fecha_fin_trimestre
+                        var len = data_xm_mme_validacion.length, summ = 0, defsub1, defsub2, defsub3, defsub4, tri_primer_tri_val,anho_primer_tri_val,tri_segundo_tri_val,anho_segundo_tri_val,tri_tercer_tri_val,anho_tercer_tri_val,tri_cuarto_tri_val,anho_cuarto_tri_val,seg_mes_cuarto_tri_val;
                         while (len>0) {
-                        len--
-                        index++
-                        if(maxt-len>=1){
-                                trimestre=maxt-len
-                                anho_trimestre=maxa
+                        len--                          
+                        if (maxt=== 4 && data_xm_mme_validacion[len].anho===maxa && (data_xm_mme_validacion[len].trimestre===4 ||data_xm_mme_validacion[len].trimestre===3||data_xm_mme_validacion[len].trimestre===2||data_xm_mme_validacion[len].trimestre===1 )) {
+                        summ = summ + parseFloat(data_xm_mme_validacion[len].facturacion);  
+                                if (data_xm_mme_validacion[len].trimestre===1){
+                                        defsub1=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                        tri_primer_tri_val=1
+                                        anho_primer_tri_val=maxa
+                                }
+                                if (data_xm_mme_validacion[len].trimestre===2){
+                                        defsub2=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                        tri_segundo_tri_val=2
+                                        anho_segundo_tri_val=maxa
+                                }
+                                if (data_xm_mme_validacion[len].trimestre===3){
+                                        defsub3=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                        tri_tercer_tri_val=3
+                                        anho_tercer_tri_val=maxa
+                                }
+                                if (data_xm_mme_validacion[len].trimestre===4){
+                                        defsub4=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                        tri_cuarto_tri_val=4
+                                        anho_cuarto_tri_val=maxa
+                                        seg_mes_cuarto_tri_val=10
+                                }
                         }
-                        else{
-                                if(maxt-len===-2){
-                                        trimestre=2   
-                                        anho_trimestre=maxa-1                                     
-                                }
-                                if(maxt-len===-1){
-                                        trimestre=3 
-                                        anho_trimestre=maxa-1
-                                }
-                                if(maxt-len===0){
-                                        trimestre=4 
-                                        anho_trimestre=maxa-1
-                                }
+                        if (maxt=== 3 && ((data_xm_mme_validacion[len].anho===maxa && data_xm_mme_validacion[len].trimestre===3) ||( data_xm_mme_validacion[len].anho===maxa && data_xm_mme_validacion[len].trimestre===2) || (data_xm_mme_validacion[len].anho===maxa && data_xm_mme_validacion[len].trimestre===1) || (data_xm_mme_validacion[len].anho===maxa-1 && data_xm_mme_validacion[len].trimestre===4))) {
+                        summ = summ + parseFloat(data_xm_mme_validacion[len].facturacion);       
+                        if (data_xm_mme_validacion[len].trimestre===4){
+                                defsub1=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_primer_tri_val=4
+                                anho_primer_tri_val=maxa-1
                         }
-                                if(trimestre===1){
-                                        fecha_inicio_trimestre=new Date(anho_trimestre, 1-1, 1)
-                                        fecha_fin_trimestre= new Date(anho_trimestre, 3-1, 31);                                
-                                }
-                                if(trimestre===2){
-                                        fecha_inicio_trimestre=new Date(anho_trimestre, 4-1, 1)
-                                        fecha_fin_trimestre= new Date(anho_trimestre, 6-1, 30);
-                                }
-                                if(trimestre===3){
-                                        fecha_inicio_trimestre=new Date(anho_trimestre, 7-1, 1)
-                                        fecha_fin_trimestre= new Date(anho_trimestre, 9-1, 30);
-                                }
-                                if(trimestre===4){
-                                        fecha_inicio_trimestre=new Date(anho_trimestre, 10-1, 1)
-                                        fecha_fin_trimestre= new Date(anho_trimestre, 12-1, 31);
-                                }
-
-                        for (let index1 = 0; index1 < data_xm_mme_validacion.length; index1++) {
-                                if (data_xm_mme_validacion[index1].anho===anho_trimestre && data_xm_mme_validacion[index1].trimestre===trimestre){
-                                tri_validados.push([index,trimestre,anho_trimestre,data_xm_mme_validacion[index1].subsidios-data_xm_mme_validacion[index1].contribuciones,data_xm_mme_validacion[index1].facturacion,fecha_inicio_trimestre,fecha_fin_trimestre]) 
-                                summ = summ + parseFloat(data_xm_mme_validacion[index1].facturacion);  
-                                } 
+                        if (data_xm_mme_validacion[len].trimestre===1){
+                                defsub2=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_segundo_tri_val=1
+                                anho_segundo_tri_val=maxa
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===2){
+                                defsub3=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_tercer_tri_val=2
+                                anho_tercer_tri_val=maxa
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===3){
+                                defsub4=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_cuarto_tri_val=3
+                                anho_cuarto_tri_val=maxa
+                                seg_mes_cuarto_tri_val=2
+                        }   
+                        }
+                        if (maxt=== 2 && ((data_xm_mme_validacion[len].anho===maxa && data_xm_mme_validacion[len].trimestre===2) ||( data_xm_mme_validacion[len].anho===maxa && data_xm_mme_validacion[len].trimestre===1) || (data_xm_mme_validacion[len].anho===maxa-1 && data_xm_mme_validacion[len].trimestre===4) || (data_xm_mme_validacion[len].anho===maxa-1 && data_xm_mme_validacion[len].trimestre===3))) {
+                        summ = summ + parseFloat(data_xm_mme_validacion[len].facturacion);    
+                        if (data_xm_mme_validacion[len].trimestre===3){
+                                defsub1=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_primer_tri_val=3
+                                anho_primer_tri_val=maxa-1
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===4){
+                                defsub2=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_segundo_tri_val=4
+                                anho_segundo_tri_val=maxa-1
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===1){
+                                defsub3=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_tercer_tri_val=1
+                                anho_tercer_tri_val=maxa
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===2){
+                                defsub4=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_cuarto_tri_val=2
+                                anho_cuarto_tri_val=maxa
+                                seg_mes_cuarto_tri_val=5
+                        }      
+                        }
+                        if (maxt=== 1 && ((data_xm_mme_validacion[len].anho===maxa && data_xm_mme_validacion[len].trimestre===1) ||( data_xm_mme_validacion[len].anho===maxa-1 && data_xm_mme_validacion[len].trimestre===4) || (data_xm_mme_validacion[len].anho===maxa-1 && data_xm_mme_validacion[len].trimestre===3) || (data_xm_mme_validacion[len].anho===maxa-1 && data_xm_mme_validacion[len].trimestre===2))) {
+                        summ = summ + parseFloat(data_xm_mme_validacion[len].facturacion); 
+                        if (data_xm_mme_validacion[len].trimestre===2){
+                                defsub1=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_primer_tri_val=2
+                                anho_primer_tri_val=maxa-1
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===3){
+                                defsub2=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_segundo_tri_val=3
+                                anho_segundo_tri_val=maxa-1
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===4){
+                                defsub3=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_tercer_tri_val=4
+                                anho_tercer_tri_val=maxa-1
+                        }
+                        if (data_xm_mme_validacion[len].trimestre===1){
+                                defsub4=data_xm_mme_validacion[len].subsidios-data_xm_mme_validacion[len].contribuciones
+                                tri_cuarto_tri_val=1
+                                anho_cuarto_tri_val=maxa
+                                seg_mes_cuarto_tri_val=2
+                        }         
                         }
                         }
-
                         setFacturacion_T((summ/4).toString())
-
+                        var len = data_mme_giro.length, summg1 = 0,summg2 = 0,summg3 = 0,summg4 = 0;
+                        while (len>0) {
+                        len--      
+                        if (maxt=== 4){
+                        if(data_mme_giro[len].fondo==='FSSRI' &&  parseFloat(data_mme_giro[len].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro[len].fecha.substr(5,2))===1||parseFloat(data_mme_giro[len].fecha.substr(5,2))===2||parseFloat(data_mme_giro[len].fecha.substr(5,2))===3) ){
+                        summg1 = summg1 + data_mme_giro[len].giro_cop;  
+                        }
+                        if(data_mme_giro[len].fondo==='FSSRI' &&  parseFloat(data_mme_giro[len].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro[len].fecha.substr(5,2))===4||parseFloat(data_mme_giro[len].fecha.substr(5,2))===5||parseFloat(data_mme_giro[len].fecha.substr(5,2))===6) ){
+                        summg2 = summg1 + data_mme_giro[len].giro_cop;  
+                        }
+                        if(data_mme_giro[len].fondo==='FSSRI' &&  parseFloat(data_mme_giro[len].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro[len].fecha.substr(5,2))===7||parseFloat(data_mme_giro[len].fecha.substr(5,2))===8||parseFloat(data_mme_giro[len].fecha.substr(5,2))===9) ){
+                        summg3 = summg3 + data_mme_giro[len].giro_cop;  
+                        }
+                        if(data_mme_giro[len].fondo==='FSSRI' &&  parseFloat(data_mme_giro[len].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro[len].fecha.substr(5,2))===10||parseFloat(data_mme_giro[len].fecha.substr(5,2))===11||parseFloat(data_mme_giro[len].fecha.substr(5,2))===12) ){
+                        summg4 = summg4 + data_mme_giro[len].giro_cop;  
+                        }
+                        }       
+                        }
                         var data_mme_giro_ordenado = [...data_mme_giro]
                         data_mme_giro_ordenado.sort((a,b) => (a.fecha > b.fecha) ? 1 : ((b.fecha > a.fecha) ? -1 : 0))
                         const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                       // Defino variables
+                        var len1 = 0, len2=0, len3, summ = 0, defsub, defsub2, defsub3, defsub4, array_sub2M=[],array_sub1N=[],saldo1T=defsub1,giro_sobrante1T,saldo1T,saldo2T,saldo3T,saldo4T,giro_sobrante2T,giro_sobrante3T,giro_sobrante4T,ultimo_giro_incluido,fecha_ultimo_giro_4T;
+                        //Para cada trimestre de los validados en firme que ya estan identificados
+                        //Saldo es igual al deficit de cada trimestre                         // if(len1 === 2){
+                        // saldo=defsub2
+                        // }
+                        // if(len1 === 3){
+                        // saldo=defsub3
+                        // }
+                        // if(len1 === 4){
+                        // saldo=defsub4
+                        // }
+                        //Para ese deficit de ese trimestre en el que estoy recorro los giros, acaba cuando recorra todos los hgiros o cuando el saldo llegue a cero
+                        while (len2<data_mme_giro_ordenado.length-1 && saldo1T!=0) {
+                        len2++
+                        //Si estamos hablando de que ese 1 trimestre validado es el primer trimestre dle año, evaluo giros que esten dentro de ese trimestre
+                        var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
+                        var secondDate = new Date(maxa, 1, 1);
+                        if(tri_primer_tri_val===1 &&(data_mme_giro_ordenado[len2].fondo==='FSSRI' &&  parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===1||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===2||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===3) )){
+                        //Saldo será igual al saldo anterior menos ese giro
+                        saldo1T=saldo1T-data_mme_giro_ordenado[len2].giro_cop  
 
-                        var len1 = 0, len2, len3, summ = 0, array_sub2M=[],array_sub1N=[],saldo,giro_sobranteb,ultimo_giro_incluidob,fecha_ultimo_giro;
-                        
-                        
-                        giro_sobranteb=data_Res_componentes_cu_tarifam[0].giro_sobrante
-                        ultimo_giro_incluidob=data_Res_componentes_cu_tarifam[0].ultimo_giro_incluido
-                        if(giro_sobranteb===null || ultimo_giro_incluidob===null){
-                                giro_sobranteb=0
-                                ultimo_giro_incluidob=0
+                        //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+                        if (saldo1T>0){
+                                array_sub2M.push([1,data_mme_giro_ordenado[len2].giro_cop, Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                ultimo_giro_incluido=len2
+                                giro_sobrante1T =0
+                        }
+                        else{
+                                array_sub2M.push([1,(data_mme_giro_ordenado[len2].giro_cop+saldo1T), Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                giro_sobrante1T = (-saldo1T)
+                                saldo1T=0
+                                ultimo_giro_incluido=len2
+                                fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
                         }
 
-                        for (let index = 0; index < 4; index++) {
-                                saldo=tri_validados[index][3]
-                                len2=ultimo_giro_incluidob
-                                while (len2<data_mme_giro_ordenado.length-1 && saldo!=0) {
-                                
-                                var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
-                                var fecha_inicial_giros = new Date(2019,1,1);
-
-                                if(data_mme_giro_ordenado[len2].fondo==='FSSRI' && Date.parse(fecha_giro) >= Date.parse(fecha_inicial_giros) && Date.parse(fecha_giro) <= Date.parse(tri_validados[index][6])){
-
-                                        
-                                        if (giro_sobranteb>0){
-
-                                                
-                                        var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
-                                        saldo=saldo- giro_sobranteb  
-                                      //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
-                                        if (saldo>0){
-                                                array_sub2M.push([index+1,giro_sobranteb, Math.round(Math.abs((Date.parse(tri_validados[index][6]) - fecha_giro) / oneDay)),giro_sobranteb* Math.round(Math.abs(((tri_validados[index][6]) - fecha_giro) / oneDay))])
-                                                ultimo_giro_incluidob=len2
-                                                giro_sobranteb =0
-                                        }
-                                        else{
-                                                array_sub2M.push([index+1,(giro_sobranteb+saldo), Math.round(Math.abs((Date.parse(tri_validados[index][6]) - fecha_giro) / oneDay)),(giro_sobranteb+saldo)* Math.round(Math.abs(((tri_validados[index][6]) - fecha_giro) / oneDay))])
-                                                giro_sobranteb = (-saldo)
-                                                ultimo_giro_incluidob=len2
-                                                saldo=0
-                                        }
-                                        }
-                                        else{
-
-                                                saldo=saldo-data_mme_giro_ordenado[len2].giro_cop 
-                                                                               //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
-
-                                                                                 
-                                        if (saldo>0){
-                                                
-                                                array_sub2M.push([index+1,data_mme_giro_ordenado[len2].giro_cop, (Math.round(Math.abs((tri_validados[index][6] - fecha_giro)/oneDay))),data_mme_giro_ordenado[len2].giro_cop* (Math.round(Math.abs((tri_validados[index][6] - fecha_giro)/oneDay)))])
-                                                                                          
-                                                ultimo_giro_incluidob=len2
-                                                giro_sobranteb =0
-                                                fecha_ultimo_giro=data_mme_giro_ordenado[len2].fecha  
-                                                
-                                                
-                                        }
-                                        else{
-                                                
-                                                array_sub2M.push([index+1,(data_mme_giro_ordenado[len2].giro_cop+saldo), (Math.round(Math.abs((tri_validados[index][6] - fecha_giro)/oneDay))),(data_mme_giro_ordenado[len2].giro_cop+saldo)* (Math.round(Math.abs((tri_validados[index][6] - fecha_giro)/oneDay)))])
-                                                giro_sobranteb = (-saldo)
-                                                ultimo_giro_incluidob=len2
-                                                saldo=0
-                                                fecha_ultimo_giro=data_mme_giro_ordenado[len2].fecha  
-                                        }
-                                        }
-                                }
-                                len2++  
+                        }
                         }
 
-                        len3 = ultimo_giro_incluidob
+
                         
-                        while (len3<data_mme_giro_ordenado.length-1 && saldo>0) {
-                                
-                                //Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre 
-                                var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
-                                
-                                if(data_mme_giro_ordenado[len3].fondo==='FSSRI' && Date.parse(fecha_giro) > Date.parse(tri_validados[index][6])){
+    
+                        //Ya tengo SUb2 para ese trimestre, ahora miro sub 1, si aun hay saldo                         
+                        len3 = ultimo_giro_incluido
+
+
+                        while (len3<data_mme_giro_ordenado.length-1 && saldo1T>0) {
+                                len3++
+                                //Evaluo si, hablando de que 1T, sea el primer trimestre del año el giro sea posterior al fin del trimestre 
+                                if(tri_primer_tri_val===1 && data_mme_giro_ordenado[len2].fondo==='FSSRI'){
+
+
+                                var fecha_fin_trimestre= new Date(maxa, 3, 31);
+                                var GiroDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+                                        if ( Math.round(((GiroDate - fecha_fin_trimestre) / oneDay))>0){
                                                 //Se descuenta del saldo ese giro
-                                               
-                                                if (giro_sobranteb>0){
-                                                        saldo=saldo- giro_sobranteb
-                                                        var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len2-1].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2-1].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len2-1].fecha.substr(8,2)) );
-                                              //se evalua si aunqueda saldo y se garda sub1 y N
-                                                if (saldo>0){
-                                                        array_sub1N.push([index+1,giro_sobranteb, Math.round(Math.abs((fecha_giro -Date.parse(tri_validados[index][6])) / oneDay)),giro_sobranteb* Math.round(Math.abs((fecha_giro - (tri_validados[index][6])) / oneDay))])
-                                                        ultimo_giro_incluidob=len3
-                                                        giro_sobranteb =0
+                                                var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+                                                if (len3===ultimo_giro_incluido-1){
+                                                        saldo1T=saldo1T- giro_sobrante1T   
+                                                                                                      //se evalua si aunqueda saldo y se garda sub1 y N
+                                                if (saldo1T>0){
+                                                        array_sub1N.push([1,giro_sobrante1T, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),giro_sobrante1T* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        giro_sobrante1T =0
+                                                        ultimo_giro_incluido=len3
                                                 }
                                                 else{
-                                                        array_sub1N.push([index+1,(giro_sobranteb+saldo), Math.round(Math.abs((fecha_giro - Date.parse(tri_validados[index][6])) / oneDay)),(giro_sobranteb+saldo)* Math.round(Math.abs((fecha_giro - (tri_validados[index][6])) / oneDay))])
-                                                        giro_sobranteb = (-saldo)
-                                                        ultimo_giro_incluidob=len3
-                                                        saldo=0                                         
+                                                        array_sub1N.push([1,(giro_sobrante1T+saldo1T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(giro_sobrante1T+saldo1T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        giro_sobrante1T = (-saldo1T)
+                                                        ultimo_giro_incluido=len3
+                                                        saldo1T=0                                         
+                                                }    
+                                                }
+                                                else{
+                                                        saldo1T=saldo1T-data_mme_giro_ordenado[len3].giro_cop 
+                                                                                                      //se evalua si aunqueda saldo y se garda sub1 y N
+                                                if (saldo1T>0){
+                                                        array_sub1N.push([1,data_mme_giro_ordenado[len3].giro_cop, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),data_mme_giro_ordenado[len3].giro_cop* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        giro_sobrante1T =0
+                                                        ultimo_giro_incluido=len3
+                                                        fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha  
+                                                }
+                                                else{
+                                                        array_sub1N.push([1,(data_mme_giro_ordenado[len3].giro_cop+saldo1T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(data_mme_giro_ordenado[len3].giro_cop+saldo1T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        giro_sobrante1T = (-saldo1T)
+                                                        ultimo_giro_incluido=len3
+                                                        saldo1T=0      
+                                                        fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha                                     
+                                                }
+                                                }
+        
+                                                
+                                                
+  
+                                              
+                                        } 
+                                }
+                        }
+
+                        
+                        len2=ultimo_giro_incluido-1
+                        saldo2T=defsub2
+
+
+
+                        while (len2<data_mme_giro_ordenado.length-1 && saldo2T!=0) {
+                                len2++
+                                //AÑADIR LA OPCION DE QUE SEAN OTROS TRIMETSRES
+                                //Si estamos hablando de que ese 1 trimestre validado es el primer trimestre dle año, evaluo giros que esten dentro de ese trimestre
+                                if(tri_segundo_tri_val===2 &&(data_mme_giro_ordenado[len2].fondo==='FSSRI' &&  parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===4||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===5||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===6) )){
+                                        var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
+                                        var secondDate = new Date(maxa, 4, 1);
+         
+                                        //Saldo será igual al saldo anterior menos ese giro
+                                if (len2===ultimo_giro_incluido){
+                                        saldo2T=saldo2T- giro_sobrante1T       
+                                                                       //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+                                if (saldo2T>0){
+                                        array_sub2M.push([2,giro_sobrante1T, Math.round(Math.abs((firstDate - secondDate) / oneDay)),giro_sobrante1T* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                        ultimo_giro_incluido=len2
+                                        giro_sobrante2T =0
+                                        
+                                }
+                                else{
+                                        array_sub2M.push([2,(giro_sobrante1T+saldo2T), Math.round(Math.abs((firstDate - secondDate) / oneDay)),(giro_sobrante1T+saldo2T)* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                        giro_sobrante2T = (-saldo2T)
+                                        ultimo_giro_incluido=len2
+                                        saldo2T=0
+                                }
+                                }
+                                else{
+                                        saldo2T=saldo2T-data_mme_giro_ordenado[len2].giro_cop 
+                                                                       //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+                                if (saldo2T>0){
+                                        array_sub2M.push([2,data_mme_giro_ordenado[len2].giro_cop, Math.round(Math.abs((firstDate - secondDate) / oneDay)),data_mme_giro_ordenado[len2].giro_cop* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                        ultimo_giro_incluido=len2
+                                        giro_sobrante2T =0
+                                        fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
+                                        
+                                }
+                                else{
+                                        array_sub2M.push([2,(data_mme_giro_ordenado[len2].giro_cop+saldo2T), Math.round(Math.abs((firstDate - secondDate) / oneDay)),(data_mme_giro_ordenado[len2].giro_cop+saldo2T)* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                        giro_sobrante2T = (-saldo2T)
+                                        ultimo_giro_incluido=len2
+                                        saldo2T=0
+                                        fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
+                                }
+                                }
+                                 
+
+
+                                }
+                                
+                                }
+
+                                                        //Ya tengo SUb2 para ese trimestre, ahora miro sub 1, si aun hay saldo                         
+                        len3 = ultimo_giro_incluido
+
+                        while (len3<data_mme_giro_ordenado.length-1 && saldo2T>0) {
+                                len3++
+                                //Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre 
+
+                                if( tri_segundo_tri_val===2 && data_mme_giro_ordenado[len2].fondo==='FSSRI'){
+                                var fecha_fin_trimestre= new Date(maxa, 6, 30);
+                                var GiroDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+                                        if ( Math.round(((GiroDate - fecha_fin_trimestre) / oneDay))>0){
+                                                //Se descuenta del saldo ese giro
+                                                var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+                                                if (len3===ultimo_giro_incluido){
+                                                        saldo2T=saldo2T- giro_sobrante2T  
+                                                                                                        //se evalua si aunqueda saldo y se garda sub1 y N
+                                                if (saldo2T>0){
+                                                        array_sub1N.push([2,giro_sobrante2T, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),giro_sobrante2T* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        ultimo_giro_incluido=len3
+                                                }
+                                                else{
+                                                        array_sub1N.push([2,(giro_sobrante2T+saldo2T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(giro_sobrante2T+saldo2T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        giro_sobrante2T = (-saldo2T)
+                                                        ultimo_giro_incluido=len3
+                                                        saldo2T=0                                         
                                                 }     
                                                 }
                                                 else{
-                                                       
-                                                        saldo=saldo-data_mme_giro_ordenado[len3].giro_cop 
+                                                        saldo2T=saldo2T-data_mme_giro_ordenado[len3].giro_cop 
                                                                                                         //se evalua si aunqueda saldo y se garda sub1 y N
-                                                if (saldo>0){
-                                                        array_sub1N.push([index+1,data_mme_giro_ordenado[len3].giro_cop, Math.round(Math.abs((fecha_giro - Date.parse(tri_validados[index][6])) / oneDay)),data_mme_giro_ordenado[len3].giro_cop* Math.round(Math.abs((fecha_giro - (tri_validados[index][6])) / oneDay))])
-                                                        ultimo_giro_incluidob=len3
-                                                        fecha_ultimo_giro=data_mme_giro_ordenado[len3].fecha  
-                                                       
+                                                if (saldo2T>0){
+                                                        array_sub1N.push([2,data_mme_giro_ordenado[len3].giro_cop, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),data_mme_giro_ordenado[len3].giro_cop* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        ultimo_giro_incluido=len3
+                                                        fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha  
                                                 }
                                                 else{
-                                                        array_sub1N.push([index+1,(data_mme_giro_ordenado[len3].giro_cop+saldo), Math.round(Math.abs((fecha_giro - Date.parse(tri_validados[index][6])) / oneDay)),(data_mme_giro_ordenado[len3].giro_cop+saldo)* Math.round(Math.abs((fecha_giro - (tri_validados[index][6])) / oneDay))])
-                                                        giro_sobranteb = (-saldo)
-                                                        ultimo_giro_incluidob=len3
-                                                        saldo=0            
-                                                        fecha_ultimo_giro=data_mme_giro_ordenado[len3].fecha     
-                                                                              
+                                                        array_sub1N.push([2,(data_mme_giro_ordenado[len3].giro_cop+saldo2T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(data_mme_giro_ordenado[len3].giro_cop+saldo2T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                        giro_sobrante2T = (-saldo2T)
+                                                        ultimo_giro_incluido=len3
+                                                        saldo2T=0            
+                                                        fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha                               
                                                 }
                                                 }
- 
+        
+                                                
+                                                
+
+                                          
                                         } 
-                                        len3++
                                 }
 
                         }
 
-                        setGiro_sobrante(giro_sobranteb)
-                        setUltimo_giro_incluido(ultimo_giro_incluidob)
+                      
+                        len2=ultimo_giro_incluido-1
+                        saldo3T=defsub3
 
 
+                        while (len2<data_mme_giro_ordenado.length-1 && saldo3T!=0) {
+                                len2++
+                                //AÑADIR LA OPCION DE QUE SEAN OTROS TRIMETSRES
+                                //Si estamos hablando de que ese 1 trimestre validado es el primer trimestre dle año, evaluo giros que esten dentro de ese trimestre
+                                if(tri_tercer_tri_val===3 &&(data_mme_giro_ordenado[len2].fondo==='FSSRI' &&  parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===7||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===8||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===9) )){
+                                //Saldo será igual al saldo anterior menos ese giro
+                                var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
+                                var secondDate = new Date(maxa, 7, 1);
+                                //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
 
+                                if (len2===ultimo_giro_incluido){
+
+                                        saldo3T=saldo3T- giro_sobrante2T  
+                                        if (saldo3T>0){
+                                        
+                                                array_sub2M.push([3,giro_sobrante2T, Math.round(Math.abs((firstDate - secondDate) / oneDay)),giro_sobrante2T* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                                ultimo_giro_incluido=len2
+                                                giro_sobrante3T =0
+                                                
+                                        }
+                                        else{
+                                   
+                                                array_sub2M.push([3,(giro_sobrante2T+saldo3T), Math.round(Math.abs((firstDate - secondDate) / oneDay)),(giro_sobrante2T+saldo3T)* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                                giro_sobrante3T = (-saldo3T)
+                                                ultimo_giro_incluido=len2
+                                                saldo3T=0
+                                        }     
+                                }
+                                else{
+                                        saldo3T=saldo3T-data_mme_giro_ordenado[len2].giro_cop 
+                                        if (saldo3T>0){
+                                                array_sub2M.push([3,data_mme_giro_ordenado[len2].giro_cop, Math.round(Math.abs((firstDate - secondDate) / oneDay)),data_mme_giro_ordenado[len2].giro_cop* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                                ultimo_giro_incluido=len2
+                                                giro_sobrante3T =0
+                                                fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
+                                                
+                                        }
+                                        else{
+                                                array_sub2M.push([3,(data_mme_giro_ordenado[len2].giro_cop+saldo3T), Math.round(Math.abs((firstDate - secondDate) / oneDay)),(data_mme_giro_ordenado[len2].giro_cop+saldo3T)* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+                                                giro_sobrante3T = (-saldo3T)
+                                                ultimo_giro_incluido=len2
+                                                saldo3T=0
+                                                fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
+                                        }
+                                }
+                                 
+
+                                
+
+
+                                }
+                                
+                                }
+
+                                                        //Ya tengo SUb2 para ese trimestre, ahora miro sub 1, si aun hay saldo                         
+                        len3 = ultimo_giro_incluido
+
+                        while (len3<data_mme_giro_ordenado.length-1 && saldo3T>0) {
+                                len3++
+                                //Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre 
+
+                                if( tri_tercer_tri_val===3 && data_mme_giro_ordenado[len2].fondo==='FSSRI'){
+                                var fecha_fin_trimestre= new Date(maxa, 9, 30);
+                                var GiroDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+                                        if ( Math.round(((GiroDate - fecha_fin_trimestre) / oneDay))>0){
+                                                //Se descuenta del saldo ese giro
+                                                var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+                                                if (len3===ultimo_giro_incluido){
+                                                        saldo3T=saldo3T- giro_sobrante3T  
+                                                        if (saldo3T>0){
+                                                                array_sub1N.push([3,giro_sobrante3T, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),giro_sobrante3T* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                                ultimo_giro_incluido=len3
+                                                        }
+                                                        else{
+                                                                array_sub1N.push([3,(giro_sobrante3T+saldo3T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(giro_sobrante3T+saldo3T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                                giro_sobrante3T = (-saldo3T)
+                                                                ultimo_giro_incluido=len3
+                                                                saldo3T=0                                         
+                                                        }     
+                                                }
+                                                else{
+                                                        saldo3T=saldo3T-data_mme_giro_ordenado[len3].giro_cop 
+                                                        if (saldo3T>0){
+                                                                array_sub1N.push([3,data_mme_giro_ordenado[len3].giro_cop, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),data_mme_giro_ordenado[len3].giro_cop* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                                ultimo_giro_incluido=len3
+                                                                fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha  
+                                                        }
+                                                        else{
+                                                                array_sub1N.push([3,(data_mme_giro_ordenado[len3].giro_cop+saldo3T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(data_mme_giro_ordenado[len3].giro_cop+saldo3T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+                                                                giro_sobrante3T = (-saldo3T)
+                                                                ultimo_giro_incluido=len3
+                                                                saldo3T=0    
+                                                                fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha                                       
+                                                        }
+                                                }
+        
+                                        } 
+                                }
+
+                        }
+
+                        len2=ultimo_giro_incluido-1
+                        saldo4T=defsub4
+                        
+while (len2<data_mme_giro_ordenado.length-1 && saldo4T!=0) {
+len2++
+//AÑADIR LA OPCION DE QUE SEAN OTROS TRIMETSRES
+//Si estamos hablando de que ese 1 trimestre validado es el primer trimestre dle año, evaluo giros que esten dentro de ese trimestre
+if(tri_cuarto_tri_val===4 &&(data_mme_giro_ordenado[len2].fondo==='FSSRI' &&  parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4))===maxa && (parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===10||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===11||parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))===12) )){
+//Saldo será igual al saldo anterior menos ese giro
+var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
+var secondDate = new Date(maxa, 10, 1);
+if (len2===ultimo_giro_incluido){
+saldo4T=saldo4T- giro_sobrante3T    
+                        //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+if (saldo4T>0){
+array_sub2M.push([4,giro_sobrante3T, Math.round(Math.abs((firstDate - secondDate) / oneDay)),giro_sobrante3T*Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+ultimo_giro_incluido=len2
+giro_sobrante4T =0
+
+
+}
+else{
+array_sub2M.push([4,(giro_sobrante3T+saldo4T), Math.round(Math.abs((firstDate - secondDate) / oneDay)),(giro_sobrante3T+saldo4T)* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+giro_sobrante4T = (-saldo4T)
+ultimo_giro_incluido=len2
+saldo4T=0
+
+}
+
+}
+else{
+saldo4T=saldo4T-data_mme_giro_ordenado[len2].giro_cop 
+                        //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+if (saldo4T>0){
+array_sub2M.push([4,data_mme_giro_ordenado[len2].giro_cop, Math.round(Math.abs((firstDate - secondDate) / oneDay)),data_mme_giro_ordenado[len2].giro_cop*Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+ultimo_giro_incluido=len2
+giro_sobrante4T =0
+fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
+}
+else{
+array_sub2M.push([4,(data_mme_giro_ordenado[len2].giro_cop+saldo4T), Math.round(Math.abs((firstDate - secondDate) / oneDay)),(data_mme_giro_ordenado[len2].giro_cop+saldo4T)* Math.round(Math.abs((firstDate - secondDate) / oneDay))])
+giro_sobrante4T = (-saldo4T)
+ultimo_giro_incluido=len2
+saldo4T=0
+fecha_ultimo_giro_4T=data_mme_giro_ordenado[len2].fecha  
+}
+
+}
+}
+}
+
+//Ya tengo SUb2 para ese trimestre, ahora miro sub 1, si aun hay saldo                         
+len3 = ultimo_giro_incluido
+while (len3<data_mme_giro_ordenado.length-1 && saldo4T>0) {
+len3++
+//Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre 
+if( tri_cuarto_tri_val===4 && data_mme_giro_ordenado[len2].fondo==='FSSRI'){
+var fecha_fin_trimestre= new Date(maxa, 12, 31);
+var GiroDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+if ( Math.round(((GiroDate - fecha_fin_trimestre) / oneDay))>0){
+//Se descuenta del saldo ese giro
+var firstDate = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
+if (len3===ultimo_giro_incluido){
+saldo4T=saldo4T- giro_sobrante4T  
+if (saldo4T>0){
+array_sub1N.push([4,giro_sobrante4T, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),giro_sobrante4T* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+ultimo_giro_incluido=len3
+
+}
+else{
+array_sub1N.push([4,(giro_sobrante4T+saldo4T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(giro_sobrante4T+saldo4T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+giro_sobrante4T = (-saldo4T)
+ultimo_giro_incluido=len3
+saldo4T=0    
+                                     
+}     
+}
+else{
+saldo4T=saldo4T-data_mme_giro_ordenado[len3].giro_cop 
+if (saldo4T>0){
+array_sub1N.push([4,data_mme_giro_ordenado[len3].giro_cop, Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),data_mme_giro_ordenado[len3].giro_cop* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+ultimo_giro_incluido=len3
+fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha  
+}
+else{
+array_sub1N.push([4,(data_mme_giro_ordenado[len3].giro_cop+saldo4T), Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay)),(data_mme_giro_ordenado[len3].giro_cop+saldo4T)* Math.round(Math.abs((firstDate - fecha_fin_trimestre) / oneDay))])
+giro_sobrante4T = (-saldo4T)
+ultimo_giro_incluido=len3
+saldo4T=0
+fecha_ultimo_giro_4T=data_mme_giro_ordenado[len3].fecha                                
+}
+}
+} 
+}
+}
 
 
 var len1=0,len2=0,len3=0,sub2mt=[],sub1mt=[], sub2mpt=[],sub1npt=[],sub1p,sub2p,sub1np ,sub2mp
@@ -1854,20 +2136,9 @@ len3=0
 setSub1((sub1mt[0]+sub1mt[1]+sub1mt[2]+sub1mt[3])/4)
 setSub2((sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3])/4)
 
-if((sub1mt[0]+sub1mt[1]+sub1mt[2]+sub1mt[3])===0){
-setN_Sub1(0)
-}
-else{
-setN_Sub1(roundToTwo(((sub1npt[0]+sub1npt[1]+sub1npt[2]+sub1npt[3])/(sub1mt[0]+sub1mt[1]+sub1mt[2]+sub1mt[3]))/30))
-}
+setN_Sub1((sub1npt[0]+sub1npt[1]+sub1npt[2]+sub1npt[3])/(sub1mt[0]+sub1mt[1]+sub1mt[2]+sub1mt[3]))
+setM_Sub2((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))
 
-
-if((sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3])===0){
-setM_Sub2(0)
-}
-else{
-setM_Sub2(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))/30))
-}
 
 //r1 y r2:
 //1. Fecha del primer dia del segundo mes del ultimo trimestre 
@@ -1879,8 +2150,10 @@ setM_Sub2(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+s
 //2. Fecha del primer dia del ultimo giro que le pego al ultimo trmestre 
 
 
-var firstDate = new Date(tri_validados[3][5].setMonth(tri_validados[3][5].getMonth()+1)).getTime()
-var secondDate = new Date(parseFloat(fecha_ultimo_giro.substr(0,4)), parseFloat(fecha_ultimo_giro.substr(5,2))-1, 1).getTime();
+var firstDate = new Date(anho_cuarto_tri_val, seg_mes_cuarto_tri_val, 1 ).getTime();
+var secondDate = new Date(parseFloat(fecha_ultimo_giro_4T.substr(0,4)), parseFloat(fecha_ultimo_giro_4T.substr(5,2))-1, 1).getTime();
+
+
 
 var data_mme_giro_ordenado = [...data_mme_giro]
 data_mme_giro_ordenado.sort((a,b) => (a.fecha > b.fecha) ? 1 : ((b.fecha > a.fecha) ? -1 : 0))
@@ -1900,7 +2173,7 @@ while (len1<data_banrepublica_tcap.length-1){
         }
 }
 
-setR2(roundToTwo(((1+(sum_tasa_x_monto_cap/sum_monto_cap))**(1/12))-1))
+setR2(((1+(sum_tasa_x_monto_cap/sum_monto_cap))**(1/12))-1)
 
 const getSundayFromWeekNum = (weekNum, year) => {
         const sunday = new Date(year, 0, (1 + (weekNum - 1) * 7)-7);
@@ -1922,7 +2195,7 @@ while (len1<data_banrepublica_tco.length-1){
         }
 }
 
-setR1(roundToTwo(((1+((sum_tasa_x_monto_co/sum_monto_co)/100))**(1/12))-1))
+setR1(((1+((sum_tasa_x_monto_co/sum_monto_co)/100))**(1/12))-1)
                         //Últimos cuatro trimestres validados
                         //1. Ir a la tabla y coger los ultimos cuatro
                         //2. Promedio = Facturacióni,j,T:
@@ -1938,15 +2211,15 @@ setR1(roundToTwo(((1+((sum_tasa_x_monto_co/sum_monto_co)/100))**(1/12))-1))
                         // 1 para cada trimestre iniciando con el primero Deficit - Giro =Saldo || SI >0 || SI aun esta en trimestre => Dias desde inicio de trimestre hasta ese dia de giro    SUb 2 N 
                         // 2 para cada dato Deficit - Giro =Saldo || SI >0 || SI esta por fuera del trimestre => Dias desde fin  de trimestre hasta ese dia de giro    SUb 1 M
                         // 3 para cada dato Deficit - Giro =Saldo || SI <0 || Paso al siguiente trimestre con ese ultimo saldo de giro que quedo volviendo a 1 
-                        }
+                        // }
 
                         // 1. 
 
 
-                        catch( ex ) {
-                                console.log('No hay datos')
+                        // catch( ex ) {
+
                         //         // execution continues here when an error was thrown. You can also inspect the `ex`ception object
-                        }
+                        //     }
         
         
                 }
@@ -1991,7 +2264,7 @@ setR1(roundToTwo(((1+((sum_tasa_x_monto_co/sum_monto_co)/100))**(1/12))-1))
                 { !loading14? (data14.obtenerDataxmstn.filter(obtenerDataxmstn => obtenerDataxmstn.anho===anhom && obtenerDataxmstn.mes===mesm)).length>0? <p> Ok DATA_DATAXMSTN</p>:<p>No se encontraron insumos en DATA_DATAXMSTN</p>: null}
                 { !loading15? (data15.obtenerData_xm_cprog.filter(obtenerData_xm_cprog => obtenerData_xm_cprog.anho===anho && obtenerData_xm_cprog.mes===mes)).length>0? <p> Ok DATA_XM_CPROG</p>:<p>No se encontraron insumos en DATA_XM_CPROG</p>: null}
                 { !loading16? (data16.obtenerData_xm_ipr.filter(obtenerData_xm_ipr => obtenerData_xm_ipr.anho===anho && obtenerData_xm_ipr.mes===mes)).length>0? <p> Ok DATA_XM_IPR</p>:<p>No se encontraron insumos en DATA_XM_IPR</p>: null}
-                { !loading17? (data17.obtenerData_xm_d015.filter(obtenerData_xm_d015 => obtenerData_xm_d015.anho===anho && obtenerData_xm_d015.mes===mes)).length>0? <p> Ok DATA_XM_D015</p>:<p>No se encontraron insumos en DATA_XM_D015</p>: null}
+                { !loading17? (data17.obtenerData_xm_d015.filter(obtenerData_xm_d015 => obtenerData_xm_d015.anho===anhom && obtenerData_xm_d015.mes===mesm)).length>0? <p> Ok DATA_XM_D015</p>:<p>No se encontraron insumos en DATA_XM_D015</p>: null}
                 { !loading18? (data18.obtenerData_xm_dtun.filter(obtenerData_xm_dtun => obtenerData_xm_dtun.anho===anhom && obtenerData_xm_dtun.mes===mesm)).length>0? <p> Ok DATA_XM_DTUN</p>:<p>No se encontraron insumos en DATA_XM_DTUN</p>: null}
                 { !loading19? (data19.obtenerData_xm_guatape.filter(obtenerData_xm_guatape => obtenerData_xm_guatape.anho===anhom && obtenerData_xm_guatape.mes===mesm)).length>0? <p> Ok DATA_XM_GUATAPE</p>:<p>No se encontraron insumos en DATA_XM_GUATAPE</p>: null}
                 {/* { !loading20? (data20.obtenerRes_componentes_cu_tarifa.filter(obtenerRes_componentes_cu_tarifa => obtenerRes_componentes_cu_tarifa.anho===anhom && obtenerRes_componentes_cu_tarifa.mes===mesm)).length>0? <p> Ok RES_COMPONENTES_CU_TARIFA</p>:<p>No se encontraron insumos en RES_COMPONENTES_CU_TARIFA</p>: null} */}
@@ -3294,7 +3567,7 @@ onClick={e => setStatus(!status)}/>
 <div className="form-group row">
 <label htmlFor="pv" className="col-sm-7 col-form-label">PV (%)</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pv" placeholder="PV (%)"
-onChange={formik.handleChange,e => setPv(parseFloat(e.target.value))}
+onChange={formik.handleChange,e => setPv(e.target.value)}
 onBlur={formik.handleBlur}
 value={formik.values.pv}></input></div></div>
 { formik.touched.pv&& formik.errors.pv? (
@@ -3548,16 +3821,21 @@ value={formik.values.saldo_nt3_ot}></input>
 <div className="col-md-6">
 <div className="form-group row">
 <input type="number" min="0.01" step="any" readOnly className="form-control" id="saldo_total_ot" placeholder="Saldo_Total_ot"
-value={roundToTwo(saldo_total_ot)}></input>
+value={saldo_total_ot}></input>
+</div>
+
 </div>
 </div>
 </div>
 </div>
+    
+
 </div>
 </div>
+
 </div>
 </div>
-</div>
+
 :null } 
 <div className="container">
 <div className="row">
@@ -3587,6 +3865,7 @@ onClick={props.close}
 </Modal.Footer>
 </Modal>
 </div>
+
 )
 }
 

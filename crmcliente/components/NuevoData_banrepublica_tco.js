@@ -226,7 +226,7 @@ onHide={props.close}>
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-        <label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
+        <label htmlFor="creador" className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
         <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -237,7 +237,7 @@ value={formik.values.creador}></input></div></div>
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="anho_semana"className="col-sm-7 col-form-label">Anho_Semana</label><div className="col-sm-5">
+        <label htmlFor="anho_semana" className="col-sm-7 col-form-label">Anho_Semana</label><div className="col-sm-5">
         <input type="text" className="form-control" id="anho_semana" placeholder="Anho_Semana"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -248,7 +248,7 @@ value={formik.values.anho_semana}></input></div></div>
         <p>{formik.errors.anho_semana}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_cred_com_credito_consumo"className="col-sm-7 col-form-label">Tasa_Cred_Com_Credito_Consumo</label><div className="col-sm-5">
+        <label htmlFor="tasa_cred_com_credito_consumo" className="col-sm-7 col-form-label">Tasa_Cred_Com_Credito_Consumo</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_cred_com_credito_consumo" placeholder="Tasa_Cred_Com_Credito_Consumo"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -259,7 +259,7 @@ value={formik.values.tasa_cred_com_credito_consumo}></input></div></div>
         <p>{formik.errors.tasa_cred_com_credito_consumo}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_cred_com_credito_consumo"className="col-sm-7 col-form-label">Monto_Cred_Com_Credito_Consumo</label><div className="col-sm-5">
+        <label htmlFor="monto_cred_com_credito_consumo" className="col-sm-7 col-form-label">Monto_Cred_Com_Credito_Consumo</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_cred_com_credito_consumo" placeholder="Monto_Cred_Com_Credito_Consumo"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -270,7 +270,7 @@ value={formik.values.monto_cred_com_credito_consumo}></input></div></div>
         <p>{formik.errors.monto_cred_com_credito_consumo}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_cred_com_odinario"className="col-sm-7 col-form-label">Tasa_Cred_Com_Odinario</label><div className="col-sm-5">
+        <label htmlFor="tasa_cred_com_odinario" className="col-sm-7 col-form-label">Tasa_Cred_Com_Odinario</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_cred_com_odinario" placeholder="Tasa_Cred_Com_Odinario"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -281,7 +281,7 @@ value={formik.values.tasa_cred_com_odinario}></input></div></div>
         <p>{formik.errors.tasa_cred_com_odinario}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_cred_com_odinario"className="col-sm-7 col-form-label">Monto_Cred_Com_Odinario</label><div className="col-sm-5">
+        <label htmlFor="monto_cred_com_odinario" className="col-sm-7 col-form-label">Monto_Cred_Com_Odinario</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_cred_com_odinario" placeholder="Monto_Cred_Com_Odinario"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -292,7 +292,7 @@ value={formik.values.monto_cred_com_odinario}></input></div></div>
         <p>{formik.errors.monto_cred_com_odinario}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa__cred_com_preferencial_o_corporativo"className="col-sm-7 col-form-label">Tasa__Cred_Com_Preferencial_O_Corporativo</label><div className="col-sm-5">
+        <label htmlFor="tasa__cred_com_preferencial_o_corporativo" className="col-sm-7 col-form-label">Tasa__Cred_Com_Preferencial_O_Corporativo</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa__cred_com_preferencial_o_corporativo" placeholder="Tasa__Cred_Com_Preferencial_O_Corporativo"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -303,7 +303,7 @@ value={formik.values.tasa__cred_com_preferencial_o_corporativo}></input></div></
         <p>{formik.errors.tasa__cred_com_preferencial_o_corporativo}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto__cred_com_preferencial_o_corporativo"className="col-sm-7 col-form-label">Monto__Cred_Com_Preferencial_O_Corporativo</label><div className="col-sm-5">
+        <label htmlFor="monto__cred_com_preferencial_o_corporativo" className="col-sm-7 col-form-label">Monto__Cred_Com_Preferencial_O_Corporativo</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto__cred_com_preferencial_o_corporativo" placeholder="Monto__Cred_Com_Preferencial_O_Corporativo"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -314,7 +314,7 @@ value={formik.values.monto__cred_com_preferencial_o_corporativo}></input></div><
         <p>{formik.errors.monto__cred_com_preferencial_o_corporativo}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa__cred_com_tesoreria"className="col-sm-7 col-form-label">Tasa__Cred_Com_Tesoreria</label><div className="col-sm-5">
+        <label htmlFor="tasa__cred_com_tesoreria" className="col-sm-7 col-form-label">Tasa__Cred_Com_Tesoreria</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa__cred_com_tesoreria" placeholder="Tasa__Cred_Com_Tesoreria"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -325,7 +325,7 @@ value={formik.values.tasa__cred_com_tesoreria}></input></div></div>
         <p>{formik.errors.tasa__cred_com_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto__cred_com_tesoreria"className="col-sm-7 col-form-label">Monto__Cred_Com_Tesoreria</label><div className="col-sm-5">
+        <label htmlFor="monto__cred_com_tesoreria" className="col-sm-7 col-form-label">Monto__Cred_Com_Tesoreria</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto__cred_com_tesoreria" placeholder="Monto__Cred_Com_Tesoreria"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -336,7 +336,7 @@ value={formik.values.monto__cred_com_tesoreria}></input></div></div>
         <p>{formik.errors.monto__cred_com_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_colocacion_banco_republica"className="col-sm-7 col-form-label">Tasa_Colocacion_Banco_Republica</label><div className="col-sm-5">
+        <label htmlFor="tasa_colocacion_banco_republica" className="col-sm-7 col-form-label">Tasa_Colocacion_Banco_Republica</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_colocacion_banco_republica" placeholder="Tasa_Colocacion_Banco_Republica"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -347,7 +347,7 @@ value={formik.values.tasa_colocacion_banco_republica}></input></div></div>
         <p>{formik.errors.tasa_colocacion_banco_republica}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_colocacion_banco_republica"className="col-sm-7 col-form-label">Monto_Colocacion_Banco_Republica</label><div className="col-sm-5">
+        <label htmlFor="monto_colocacion_banco_republica" className="col-sm-7 col-form-label">Monto_Colocacion_Banco_Republica</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_colocacion_banco_republica" placeholder="Monto_Colocacion_Banco_Republica"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -358,7 +358,7 @@ value={formik.values.monto_colocacion_banco_republica}></input></div></div>
         <p>{formik.errors.monto_colocacion_banco_republica}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_colocacion_sin_tesoreria"className="col-sm-7 col-form-label">Tasa_Colocacion_Sin_Tesoreria</label><div className="col-sm-5">
+        <label htmlFor="tasa_colocacion_sin_tesoreria" className="col-sm-7 col-form-label">Tasa_Colocacion_Sin_Tesoreria</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_colocacion_sin_tesoreria" placeholder="Tasa_Colocacion_Sin_Tesoreria"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -369,7 +369,7 @@ value={formik.values.tasa_colocacion_sin_tesoreria}></input></div></div>
         <p>{formik.errors.tasa_colocacion_sin_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_colocacion_sin_tesoreria"className="col-sm-7 col-form-label">Monto_Colocacion_Sin_Tesoreria</label><div className="col-sm-5">
+        <label htmlFor="monto_colocacion_sin_tesoreria" className="col-sm-7 col-form-label">Monto_Colocacion_Sin_Tesoreria</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_colocacion_sin_tesoreria" placeholder="Monto_Colocacion_Sin_Tesoreria"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -380,7 +380,7 @@ value={formik.values.monto_colocacion_sin_tesoreria}></input></div></div>
         <p>{formik.errors.monto_colocacion_sin_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tasa_colocacion_total"className="col-sm-7 col-form-label">Tasa_Colocacion_Total</label><div className="col-sm-5">
+        <label htmlFor="tasa_colocacion_total" className="col-sm-7 col-form-label">Tasa_Colocacion_Total</label><div className="col-sm-5">
         <input type="number" className="form-control" id="tasa_colocacion_total" placeholder="Tasa_Colocacion_Total"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -391,7 +391,7 @@ value={formik.values.tasa_colocacion_total}></input></div></div>
         <p>{formik.errors.tasa_colocacion_total}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="monto_colocacion_total"className="col-sm-7 col-form-label">Monto_Colocacion_Total</label><div className="col-sm-5">
+        <label htmlFor="monto_colocacion_total" className="col-sm-7 col-form-label">Monto_Colocacion_Total</label><div className="col-sm-5">
         <input type="number" className="form-control" id="monto_colocacion_total" placeholder="Monto_Colocacion_Total"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -402,7 +402,7 @@ value={formik.values.monto_colocacion_total}></input></div></div>
         <p>{formik.errors.monto_colocacion_total}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
+        <label htmlFor="empresa_id" className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
         <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -419,14 +419,14 @@ value={formik.values.empresa_id ?
 <div className="col-sm">
 <input
 type="submit"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 />
 </div>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close}
 />

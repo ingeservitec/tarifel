@@ -172,6 +172,7 @@ valor_pago_ajuste_res_140_2017_cop: Float
 valor_cobro_ajuste_res_140_2017_cop: Float
 valor_pago_excedente_res_140_2017_cop: Float
 valor_cobro_faltante_res_140_2017_cop: Float
+compras_en_bolsa_ajustes_cop: Float
 }
 
 type Data_xm_adem  {
@@ -320,125 +321,6 @@ anho: Int
 mes: Int
 ipp_oferta_interna: Float
 ipc: Float
- }
-
- type Res_componentes_cu_tarifas  {
-    id: ID
-    creador: Int
-    anho: Int
-    mes: Int
-    qc: Float
-    pc: Float
-    ref_g: Float
-    max_g: Float
-    cr: Float
-    ad: Float
-    aj: Float
-    pb: Float
-    gc: Float
-    tx: Float
-    dtun_nt1_e: Float
-    dtun_nt1_c: Float
-    dtun_nt1_p: Float
-    dtun_nt2: Float
-    dtun_nt3: Float
-    cdi_100: Float
-    cdi_50: Float
-    cdm: Float
-    cd4: Float
-    cd3: Float
-    cd2: Float
-    dnt1: Float
-    dnt2: Float
-    dnt3: Float
-    dnt4: Float
-    crs: Float
-    rcal: Float
-    r: Float
-    iprstn: Float
-    pr_nt1: Float
-    pr_nt2: Float
-    pr_nt3: Float
-    pr_nt4: Float
-    cer: Float
-    cfm: Float
-    rc: Float
-    ul_trim_val_mme: Int
-    anho_ul_trim_val_mme: Int
-    sub1: Float
-    sub2: Float
-    n_sub1: Float
-    m_sub2: Float
-    facturacion_t: Float
-    r1: Float
-    r2: Float
-    sup_def: Float
-    cfs: Float
-    cfe: Float
-    c_ast: Float
-    cvr: Float
-    cv: Float
-    cu_nt1_100: Float
-    cu_nt1_50: Float
-    cu_nt1_0: Float
-    cu_nt2: Float
-    cu_nt3: Float
-    cu_nt4: Float
-    nt1_100_estrato_1_men_cs: Float
-    nt1_100_estrato_2_men_cs: Float
-    nt1_100_estrato_3_men_cs: Float
-    nt1_100_estrato_4_men_cs: Float
-    nt1_100_estrato_5_men_cs: Float
-    nt1_100_estrato_6_men_cs: Float
-    nt1_100_estrato_4: Float
-    nt1_100_estrato_5: Float
-    nt1_100_estrato_6: Float
-    nt1_100_c: Float
-    nt1_100_i_con_c: Float
-    nt1_100_i_sin_c: Float
-    nt1_100_p: Float
-    nt1_100_o: Float
-    nt1_50_100_estrato_1_men_cs: Float
-    nt1_50_100_estrato_2_men_cs: Float
-    nt1_50_100_estrato_3_men_cs: Float
-    nt1_50_100_estrato_4_men_cs: Float
-    nt1_50_100_estrato_5_men_cs: Float
-    nt1_50_100_estrato_6_men_cs: Float
-    nt1_50_100_estrato_4: Float
-    nt1_50_100_estrato_5: Float
-    nt1_50_100_estrato_6: Float
-    nt1_50_100_c: Float
-    nt1_50_100_i_con_c: Float
-    nt1_50_100_i_sin_c: Float
-    nt1_50_100_p: Float
-    nt1_50_100_o: Float
-    nt1_0_estrato_1_men_cs: Float
-    nt1_0_estrato_2_men_cs: Float
-    nt1_0_estrato_3_men_cs: Float
-    nt1_0_estrato_4_men_cs: Float
-    nt1_0_estrato_5_men_cs: Float
-    nt1_0_estrato_6_men_cs: Float
-    nt1_0_estrato_4: Float
-    nt1_0_estrato_5: Float
-    nt1_0_estrato_6: Float
-    nt1_0_c: Float
-    nt1_0_i_con_c: Float
-    nt1_0_i_sin_c: Float
-    nt1_0_p: Float
-    nt1_0_o: Float
-    nt2_c: Float
-    nt2_i_con_c: Float
-    nt2_i_sin_c: Float
-    nt2_o: Float
-    nt2_ap: Float
-    nt2_bsnmen_cs: Float
-    nt2_bsnmay_cs: Float
-    nt3_c: Float
-    nt3_i_con_c: Float
-    nt3_i_sin_c: Float
-    nt3_o: Float
-    nt3_ap: Float
-    empresa_id: Int
  }
 
 
@@ -600,6 +482,7 @@ input DataxmafacInput  {
    valor_cobro_ajuste_res_140_2017_cop: Float
    valor_pago_excedente_res_140_2017_cop: Float
    valor_cobro_faltante_res_140_2017_cop: Float
+   compras_en_bolsa_ajustes_cop: Float
 }
 
 input DataxmademInput  {
@@ -942,7 +825,7 @@ type Data_creg_cx{
                contribuciones: Int
                contrib_no_recaud_desp_6m: Int
                contrib_recaud_desp_de_conc: Int
-               giros_recibidos: Int
+               giros_recibidos: String
                
                }
                input Data_mme_validacionInput {
@@ -957,7 +840,7 @@ type Data_creg_cx{
                contribuciones: Int
                contrib_no_recaud_desp_6m: Int
                contrib_recaud_desp_de_conc: Int
-               giros_recibidos: Int
+               giros_recibidos: String
                
                }
                
@@ -1031,7 +914,7 @@ type Data_creg_cx{
                      sub2: Float
                      n_sub1: Float
                      m_sub2: Float
-                     facturacion_t: Float
+                     facturacion_t: String
                      r1: Float
                      r2: Float
                      sup_def: Float
@@ -1060,20 +943,20 @@ type Data_creg_cx{
                      nt1_100_i_sin_c: Float
                      nt1_100_p: Float
                      nt1_100_o: Float
-                     nt1_50_100_estrato_1_men_cs: Float
-                     nt1_50_100_estrato_2_men_cs: Float
-                     nt1_50_100_estrato_3_men_cs: Float
-                     nt1_50_100_estrato_4_men_cs: Float
-                     nt1_50_100_estrato_5_men_cs: Float
-                     nt1_50_100_estrato_6_men_cs: Float
-                     nt1_50_100_estrato_4: Float
-                     nt1_50_100_estrato_5: Float
-                     nt1_50_100_estrato_6: Float
-                     nt1_50_100_c: Float
-                     nt1_50_100_i_con_c: Float
-                     nt1_50_100_i_sin_c: Float
-                     nt1_50_100_p: Float
-                     nt1_50_100_o: Float
+                     nt1_50_estrato_1_men_cs: Float
+                     nt1_50_estrato_2_men_cs: Float
+                     nt1_50_estrato_3_men_cs: Float
+                     nt1_50_estrato_4_men_cs: Float
+                     nt1_50_estrato_5_men_cs: Float
+                     nt1_50_estrato_6_men_cs: Float
+                     nt1_50_estrato_4: Float
+                     nt1_50_estrato_5: Float
+                     nt1_50_estrato_6: Float
+                     nt1_50_c: Float
+                     nt1_50_i_con_c: Float
+                     nt1_50_i_sin_c: Float
+                     nt1_50_p: Float
+                     nt1_50_o: Float
                      nt1_0_estrato_1_men_cs: Float
                      nt1_0_estrato_2_men_cs: Float
                      nt1_0_estrato_3_men_cs: Float
@@ -1101,8 +984,21 @@ type Data_creg_cx{
                      nt3_o: Float
                      nt3_ap: Float
                      empresa_id: String
-                     
+                     cu_nt1_100_ot: Float
+                     cu_nt1_50_ot: Float
+                     cu_nt1_0_ot: Float
+                     cu_nt2_ot: Float
+                     cu_nt3_ot: Float
+                     saldo_nt1_100_ot: Float
+                     saldo_nt1_50_ot: Float
+                     saldo_nt1_0_ot: Float
+                     saldo_nt2_ot: Float
+                     saldo_nt3_ot: Float
+                     pv: Float
+                     giro_sobrante: Float
+                     ultimo_giro_incluido:Int
                      }
+                     
                      input Res_componentes_cu_tarifaInput {
                      id: ID
                      creador: Int
@@ -1150,7 +1046,7 @@ type Data_creg_cx{
                      sub2: Float
                      n_sub1: Float
                      m_sub2: Float
-                     facturacion_t: Float
+                     facturacion_t: String
                      r1: Float
                      r2: Float
                      sup_def: Float
@@ -1179,20 +1075,20 @@ type Data_creg_cx{
                      nt1_100_i_sin_c: Float
                      nt1_100_p: Float
                      nt1_100_o: Float
-                     nt1_50_100_estrato_1_men_cs: Float
-                     nt1_50_100_estrato_2_men_cs: Float
-                     nt1_50_100_estrato_3_men_cs: Float
-                     nt1_50_100_estrato_4_men_cs: Float
-                     nt1_50_100_estrato_5_men_cs: Float
-                     nt1_50_100_estrato_6_men_cs: Float
-                     nt1_50_100_estrato_4: Float
-                     nt1_50_100_estrato_5: Float
-                     nt1_50_100_estrato_6: Float
-                     nt1_50_100_c: Float
-                     nt1_50_100_i_con_c: Float
-                     nt1_50_100_i_sin_c: Float
-                     nt1_50_100_p: Float
-                     nt1_50_100_o: Float
+                     nt1_50_estrato_1_men_cs: Float
+                     nt1_50_estrato_2_men_cs: Float
+                     nt1_50_estrato_3_men_cs: Float
+                     nt1_50_estrato_4_men_cs: Float
+                     nt1_50_estrato_5_men_cs: Float
+                     nt1_50_estrato_6_men_cs: Float
+                     nt1_50_estrato_4: Float
+                     nt1_50_estrato_5: Float
+                     nt1_50_estrato_6: Float
+                     nt1_50_c: Float
+                     nt1_50_i_con_c: Float
+                     nt1_50_i_sin_c: Float
+                     nt1_50_p: Float
+                     nt1_50_o: Float
                      nt1_0_estrato_1_men_cs: Float
                      nt1_0_estrato_2_men_cs: Float
                      nt1_0_estrato_3_men_cs: Float
@@ -1220,7 +1116,19 @@ type Data_creg_cx{
                      nt3_o: Float
                      nt3_ap: Float
                      empresa_id: String
-                     
+                     cu_nt1_100_ot: Float
+                     cu_nt1_50_ot: Float
+                     cu_nt1_0_ot: Float
+                     cu_nt2_ot: Float
+                     cu_nt3_ot: Float
+                     saldo_nt1_100_ot: Float
+                     saldo_nt1_50_ot: Float
+                     saldo_nt1_0_ot: Float
+                     saldo_nt2_ot: Float
+                     saldo_nt3_ot: Float
+                     pv: Float
+                     giro_sobrante: Float
+                     ultimo_giro_incluido:Int
                      }
                      type Dataxmstn{
                         id: ID
@@ -1689,11 +1597,6 @@ type Data_creg_cx{
                                           contribuciones_sspd: Int
                                           
                                           }
-                                          
-                                 
-                              
-         
-         
 type Query {
     #Usuarios    
     obtenerUsuario : Usuario

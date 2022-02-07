@@ -304,7 +304,7 @@ const [nuevoDataxmdspctto]=useMutation(NUEVO_DATA_XMDSPCTTO, {
     return (
     <div>
     <Modal show={props.show}
-size="lg"
+    size="lg"
     aria-labelledby="contained-modal-title-vcenter"
     centered
     id="myModal"
@@ -334,7 +334,7 @@ size="lg"
     >
      
      <div className="form-group row">
-        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
+        <label htmlFor="anho" className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
         <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -346,7 +346,7 @@ value={formik.values.anho}></input></div>
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
+        <label htmlFor="mes" className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
         <input type="number" className="form-control" id="mes" placeholder="Mes"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -358,7 +358,7 @@ value={formik.values.mes}></input></div>
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="dia"className="col-sm-7 col-form-label">Dia</label><div className="col-sm-5">
+        <label htmlFor="dia" className="col-sm-7 col-form-label">Dia</label><div className="col-sm-5">
         <input type="number" className="form-control" id="dia" placeholder="Dia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -371,7 +371,7 @@ value={formik.values.dia}></input></div>
         </div>
         ) : null  }
         {/* <div className="form-group row">
-        <label htmlFor="creador"className="col-sm-7 col-form-label">Creador</label><div className="col-sm-5">
+        <label htmlFor="creador" className="col-sm-7 col-form-label">Creador</label><div className="col-sm-5">
         <input type="number" className="form-control" id="creador" placeholder="Creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -384,7 +384,7 @@ value={formik.values.creador}></input></div>
         </div>
         ) : null  }
         <div className="form-group row">
-        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">Empresa_Id</label><div className="col-sm-5">
+        <label htmlFor="empresa_id" className="col-sm-7 col-form-label">Empresa_Id</label><div className="col-sm-5">
         <input type="number" className="form-control" id="empresa_id" placeholder="Empresa_Id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -397,7 +397,7 @@ value={formik.values.empresa_id}></input></div>
         </div>
         ) : null  } */}
         <div className="form-group row">
-        <label htmlFor="contrato"className="col-sm-7 col-form-label">Contrato</label><div className="col-sm-5">
+        <label htmlFor="contrato" className="col-sm-7 col-form-label">Contrato</label><div className="col-sm-5">
         <input type="number" className="form-control" id="contrato" placeholder="Contrato"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -409,7 +409,7 @@ value={formik.values.contrato}></input></div>
         <p>{formik.errors.contrato}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="vendedor"className="col-sm-7 col-form-label">Vendedor</label><div className="col-sm-5">
+        <label htmlFor="vendedor" className="col-sm-7 col-form-label">Vendedor</label><div className="col-sm-5">
         <input type="text" className="form-control" id="vendedor" placeholder="Vendedor"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -421,7 +421,7 @@ value={formik.values.vendedor}></input></div>
         <p>{formik.errors.vendedor}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="comprador"className="col-sm-7 col-form-label">Comprador</label><div className="col-sm-5">
+        <label htmlFor="comprador" className="col-sm-7 col-form-label">Comprador</label><div className="col-sm-5">
         <input type="text" className="form-control" id="comprador" placeholder="Comprador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -433,7 +433,7 @@ value={formik.values.comprador}></input></div>
         <p>{formik.errors.comprador}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tipo"className="col-sm-7 col-form-label">Tipo</label><div className="col-sm-5">
+        <label htmlFor="tipo" className="col-sm-7 col-form-label">Tipo</label><div className="col-sm-5">
         <input type="text" className="form-control" id="tipo" placeholder="Tipo"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -445,7 +445,7 @@ value={formik.values.tipo}></input></div>
         <p>{formik.errors.tipo}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tipomerc"className="col-sm-7 col-form-label">Tipomerc</label><div className="col-sm-5">
+        <label htmlFor="tipomerc" className="col-sm-7 col-form-label">Tipomerc</label><div className="col-sm-5">
         <input type="text" className="form-control" id="tipomerc" placeholder="Tipomerc"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -457,7 +457,7 @@ value={formik.values.tipomerc}></input></div>
         <p>{formik.errors.tipomerc}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_1"className="col-sm-7 col-form-label">Desp_Hora_1</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_1" className="col-sm-7 col-form-label">Desp_Hora_1</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_1" placeholder="Desp_Hora_1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -469,7 +469,7 @@ value={formik.values.desp_hora_1}></input></div>
         <p>{formik.errors.desp_hora_1}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_2"className="col-sm-7 col-form-label">Desp_Hora_2</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_2" className="col-sm-7 col-form-label">Desp_Hora_2</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_2" placeholder="Desp_Hora_2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -481,7 +481,7 @@ value={formik.values.desp_hora_2}></input></div>
         <p>{formik.errors.desp_hora_2}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_3"className="col-sm-7 col-form-label">Desp_Hora_3</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_3" className="col-sm-7 col-form-label">Desp_Hora_3</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_3" placeholder="Desp_Hora_3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -493,7 +493,7 @@ value={formik.values.desp_hora_3}></input></div>
         <p>{formik.errors.desp_hora_3}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_4"className="col-sm-7 col-form-label">Desp_Hora_4</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_4" className="col-sm-7 col-form-label">Desp_Hora_4</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_4" placeholder="Desp_Hora_4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -505,7 +505,7 @@ value={formik.values.desp_hora_4}></input></div>
         <p>{formik.errors.desp_hora_4}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_5"className="col-sm-7 col-form-label">Desp_Hora_5</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_5" className="col-sm-7 col-form-label">Desp_Hora_5</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_5" placeholder="Desp_Hora_5"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -517,7 +517,7 @@ value={formik.values.desp_hora_5}></input></div>
         <p>{formik.errors.desp_hora_5}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_6"className="col-sm-7 col-form-label">Desp_Hora_6</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_6" className="col-sm-7 col-form-label">Desp_Hora_6</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_6" placeholder="Desp_Hora_6"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -529,7 +529,7 @@ value={formik.values.desp_hora_6}></input></div>
         <p>{formik.errors.desp_hora_6}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_7"className="col-sm-7 col-form-label">Desp_Hora_7</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_7" className="col-sm-7 col-form-label">Desp_Hora_7</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_7" placeholder="Desp_Hora_7"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -541,7 +541,7 @@ value={formik.values.desp_hora_7}></input></div>
         <p>{formik.errors.desp_hora_7}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_8"className="col-sm-7 col-form-label">Desp_Hora_8</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_8" className="col-sm-7 col-form-label">Desp_Hora_8</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_8" placeholder="Desp_Hora_8"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -553,7 +553,7 @@ value={formik.values.desp_hora_8}></input></div>
         <p>{formik.errors.desp_hora_8}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_9"className="col-sm-7 col-form-label">Desp_Hora_9</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_9" className="col-sm-7 col-form-label">Desp_Hora_9</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_9" placeholder="Desp_Hora_9"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -565,7 +565,7 @@ value={formik.values.desp_hora_9}></input></div>
         <p>{formik.errors.desp_hora_9}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_10"className="col-sm-7 col-form-label">Desp_Hora_10</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_10" className="col-sm-7 col-form-label">Desp_Hora_10</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_10" placeholder="Desp_Hora_10"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -577,7 +577,7 @@ value={formik.values.desp_hora_10}></input></div>
         <p>{formik.errors.desp_hora_10}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_11"className="col-sm-7 col-form-label">Desp_Hora_11</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_11" className="col-sm-7 col-form-label">Desp_Hora_11</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_11" placeholder="Desp_Hora_11"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -589,7 +589,7 @@ value={formik.values.desp_hora_11}></input></div>
         <p>{formik.errors.desp_hora_11}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_12"className="col-sm-7 col-form-label">Desp_Hora_12</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_12" className="col-sm-7 col-form-label">Desp_Hora_12</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_12" placeholder="Desp_Hora_12"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -601,7 +601,7 @@ value={formik.values.desp_hora_12}></input></div>
         <p>{formik.errors.desp_hora_12}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_13"className="col-sm-7 col-form-label">Desp_Hora_13</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_13" className="col-sm-7 col-form-label">Desp_Hora_13</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_13" placeholder="Desp_Hora_13"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -613,7 +613,7 @@ value={formik.values.desp_hora_13}></input></div>
         <p>{formik.errors.desp_hora_13}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_14"className="col-sm-7 col-form-label">Desp_Hora_14</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_14" className="col-sm-7 col-form-label">Desp_Hora_14</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_14" placeholder="Desp_Hora_14"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -625,7 +625,7 @@ value={formik.values.desp_hora_14}></input></div>
         <p>{formik.errors.desp_hora_14}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_15"className="col-sm-7 col-form-label">Desp_Hora_15</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_15" className="col-sm-7 col-form-label">Desp_Hora_15</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_15" placeholder="Desp_Hora_15"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -637,7 +637,7 @@ value={formik.values.desp_hora_15}></input></div>
         <p>{formik.errors.desp_hora_15}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_16"className="col-sm-7 col-form-label">Desp_Hora_16</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_16" className="col-sm-7 col-form-label">Desp_Hora_16</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_16" placeholder="Desp_Hora_16"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -649,7 +649,7 @@ value={formik.values.desp_hora_16}></input></div>
         <p>{formik.errors.desp_hora_16}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_17"className="col-sm-7 col-form-label">Desp_Hora_17</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_17" className="col-sm-7 col-form-label">Desp_Hora_17</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_17" placeholder="Desp_Hora_17"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -661,7 +661,7 @@ value={formik.values.desp_hora_17}></input></div>
         <p>{formik.errors.desp_hora_17}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_18"className="col-sm-7 col-form-label">Desp_Hora_18</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_18" className="col-sm-7 col-form-label">Desp_Hora_18</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_18" placeholder="Desp_Hora_18"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -673,7 +673,7 @@ value={formik.values.desp_hora_18}></input></div>
         <p>{formik.errors.desp_hora_18}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_19"className="col-sm-7 col-form-label">Desp_Hora_19</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_19" className="col-sm-7 col-form-label">Desp_Hora_19</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_19" placeholder="Desp_Hora_19"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -685,7 +685,7 @@ value={formik.values.desp_hora_19}></input></div>
         <p>{formik.errors.desp_hora_19}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_20"className="col-sm-7 col-form-label">Desp_Hora_20</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_20" className="col-sm-7 col-form-label">Desp_Hora_20</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_20" placeholder="Desp_Hora_20"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -697,7 +697,7 @@ value={formik.values.desp_hora_20}></input></div>
         <p>{formik.errors.desp_hora_20}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_21"className="col-sm-7 col-form-label">Desp_Hora_21</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_21" className="col-sm-7 col-form-label">Desp_Hora_21</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_21" placeholder="Desp_Hora_21"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -709,7 +709,7 @@ value={formik.values.desp_hora_21}></input></div>
         <p>{formik.errors.desp_hora_21}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_22"className="col-sm-7 col-form-label">Desp_Hora_22</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_22" className="col-sm-7 col-form-label">Desp_Hora_22</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_22" placeholder="Desp_Hora_22"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -721,7 +721,7 @@ value={formik.values.desp_hora_22}></input></div>
         <p>{formik.errors.desp_hora_22}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_23"className="col-sm-7 col-form-label">Desp_Hora_23</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_23" className="col-sm-7 col-form-label">Desp_Hora_23</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_23" placeholder="Desp_Hora_23"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -733,7 +733,7 @@ value={formik.values.desp_hora_23}></input></div>
         <p>{formik.errors.desp_hora_23}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="desp_hora_24"className="col-sm-7 col-form-label">Desp_Hora_24</label><div className="col-sm-5">
+        <label htmlFor="desp_hora_24" className="col-sm-7 col-form-label">Desp_Hora_24</label><div className="col-sm-5">
         <input type="number" className="form-control" id="desp_hora_24" placeholder="Desp_Hora_24"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -745,7 +745,7 @@ value={formik.values.desp_hora_24}></input></div>
         <p>{formik.errors.desp_hora_24}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_1"className="col-sm-7 col-form-label">Trf_Hora_1</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_1" className="col-sm-7 col-form-label">Trf_Hora_1</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_1" placeholder="Trf_Hora_1"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -757,7 +757,7 @@ value={formik.values.trf_hora_1}></input></div>
         <p>{formik.errors.trf_hora_1}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_2"className="col-sm-7 col-form-label">Trf_Hora_2</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_2" className="col-sm-7 col-form-label">Trf_Hora_2</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_2" placeholder="Trf_Hora_2"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -769,7 +769,7 @@ value={formik.values.trf_hora_2}></input></div>
         <p>{formik.errors.trf_hora_2}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_3"className="col-sm-7 col-form-label">Trf_Hora_3</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_3" className="col-sm-7 col-form-label">Trf_Hora_3</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_3" placeholder="Trf_Hora_3"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -781,7 +781,7 @@ value={formik.values.trf_hora_3}></input></div>
         <p>{formik.errors.trf_hora_3}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_4"className="col-sm-7 col-form-label">Trf_Hora_4</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_4" className="col-sm-7 col-form-label">Trf_Hora_4</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_4" placeholder="Trf_Hora_4"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -793,7 +793,7 @@ value={formik.values.trf_hora_4}></input></div>
         <p>{formik.errors.trf_hora_4}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_5"className="col-sm-7 col-form-label">Trf_Hora_5</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_5" className="col-sm-7 col-form-label">Trf_Hora_5</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_5" placeholder="Trf_Hora_5"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -805,7 +805,7 @@ value={formik.values.trf_hora_5}></input></div>
         <p>{formik.errors.trf_hora_5}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_6"className="col-sm-7 col-form-label">Trf_Hora_6</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_6" className="col-sm-7 col-form-label">Trf_Hora_6</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_6" placeholder="Trf_Hora_6"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -817,7 +817,7 @@ value={formik.values.trf_hora_6}></input></div>
         <p>{formik.errors.trf_hora_6}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_7"className="col-sm-7 col-form-label">Trf_Hora_7</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_7" className="col-sm-7 col-form-label">Trf_Hora_7</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_7" placeholder="Trf_Hora_7"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -829,7 +829,7 @@ value={formik.values.trf_hora_7}></input></div>
         <p>{formik.errors.trf_hora_7}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_8"className="col-sm-7 col-form-label">Trf_Hora_8</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_8" className="col-sm-7 col-form-label">Trf_Hora_8</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_8" placeholder="Trf_Hora_8"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -841,7 +841,7 @@ value={formik.values.trf_hora_8}></input></div>
         <p>{formik.errors.trf_hora_8}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_9"className="col-sm-7 col-form-label">Trf_Hora_9</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_9" className="col-sm-7 col-form-label">Trf_Hora_9</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_9" placeholder="Trf_Hora_9"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -853,7 +853,7 @@ value={formik.values.trf_hora_9}></input></div>
         <p>{formik.errors.trf_hora_9}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_10"className="col-sm-7 col-form-label">Trf_Hora_10</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_10" className="col-sm-7 col-form-label">Trf_Hora_10</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_10" placeholder="Trf_Hora_10"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -865,7 +865,7 @@ value={formik.values.trf_hora_10}></input></div>
         <p>{formik.errors.trf_hora_10}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_11"className="col-sm-7 col-form-label">Trf_Hora_11</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_11" className="col-sm-7 col-form-label">Trf_Hora_11</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_11" placeholder="Trf_Hora_11"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -877,7 +877,7 @@ value={formik.values.trf_hora_11}></input></div>
         <p>{formik.errors.trf_hora_11}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_12"className="col-sm-7 col-form-label">Trf_Hora_12</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_12" className="col-sm-7 col-form-label">Trf_Hora_12</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_12" placeholder="Trf_Hora_12"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -889,7 +889,7 @@ value={formik.values.trf_hora_12}></input></div>
         <p>{formik.errors.trf_hora_12}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_13"className="col-sm-7 col-form-label">Trf_Hora_13</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_13" className="col-sm-7 col-form-label">Trf_Hora_13</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_13" placeholder="Trf_Hora_13"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -901,7 +901,7 @@ value={formik.values.trf_hora_13}></input></div>
         <p>{formik.errors.trf_hora_13}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_14"className="col-sm-7 col-form-label">Trf_Hora_14</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_14" className="col-sm-7 col-form-label">Trf_Hora_14</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_14" placeholder="Trf_Hora_14"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -913,7 +913,7 @@ value={formik.values.trf_hora_14}></input></div>
         <p>{formik.errors.trf_hora_14}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_15"className="col-sm-7 col-form-label">Trf_Hora_15</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_15" className="col-sm-7 col-form-label">Trf_Hora_15</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_15" placeholder="Trf_Hora_15"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -925,7 +925,7 @@ value={formik.values.trf_hora_15}></input></div>
         <p>{formik.errors.trf_hora_15}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_16"className="col-sm-7 col-form-label">Trf_Hora_16</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_16" className="col-sm-7 col-form-label">Trf_Hora_16</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_16" placeholder="Trf_Hora_16"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -937,7 +937,7 @@ value={formik.values.trf_hora_16}></input></div>
         <p>{formik.errors.trf_hora_16}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_17"className="col-sm-7 col-form-label">Trf_Hora_17</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_17" className="col-sm-7 col-form-label">Trf_Hora_17</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_17" placeholder="Trf_Hora_17"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -949,7 +949,7 @@ value={formik.values.trf_hora_17}></input></div>
         <p>{formik.errors.trf_hora_17}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_18"className="col-sm-7 col-form-label">Trf_Hora_18</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_18" className="col-sm-7 col-form-label">Trf_Hora_18</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_18" placeholder="Trf_Hora_18"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -961,7 +961,7 @@ value={formik.values.trf_hora_18}></input></div>
         <p>{formik.errors.trf_hora_18}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_19"className="col-sm-7 col-form-label">Trf_Hora_19</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_19" className="col-sm-7 col-form-label">Trf_Hora_19</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_19" placeholder="Trf_Hora_19"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -973,7 +973,7 @@ value={formik.values.trf_hora_19}></input></div>
         <p>{formik.errors.trf_hora_19}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_20"className="col-sm-7 col-form-label">Trf_Hora_20</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_20" className="col-sm-7 col-form-label">Trf_Hora_20</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_20" placeholder="Trf_Hora_20"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -985,7 +985,7 @@ value={formik.values.trf_hora_20}></input></div>
         <p>{formik.errors.trf_hora_20}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_21"className="col-sm-7 col-form-label">Trf_Hora_21</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_21" className="col-sm-7 col-form-label">Trf_Hora_21</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_21" placeholder="Trf_Hora_21"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -997,7 +997,7 @@ value={formik.values.trf_hora_21}></input></div>
         <p>{formik.errors.trf_hora_21}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_22"className="col-sm-7 col-form-label">Trf_Hora_22</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_22" className="col-sm-7 col-form-label">Trf_Hora_22</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_22" placeholder="Trf_Hora_22"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1009,7 +1009,7 @@ value={formik.values.trf_hora_22}></input></div>
         <p>{formik.errors.trf_hora_22}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_23"className="col-sm-7 col-form-label">Trf_Hora_23</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_23" className="col-sm-7 col-form-label">Trf_Hora_23</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_23" placeholder="Trf_Hora_23"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1021,7 +1021,7 @@ value={formik.values.trf_hora_23}></input></div>
         <p>{formik.errors.trf_hora_23}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="trf_hora_24"className="col-sm-7 col-form-label">Trf_Hora_24</label><div className="col-sm-5">
+        <label htmlFor="trf_hora_24" className="col-sm-7 col-form-label">Trf_Hora_24</label><div className="col-sm-5">
         <input type="number" className="form-control" id="trf_hora_24" placeholder="Trf_Hora_24"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -1038,14 +1038,14 @@ value={formik.values.trf_hora_24}></input></div>
         <div className="col-sm">
         <input
         type="submit"
-        className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+        className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
         value="Guardar"
         />
         </div>
         <div className="col-sm">
         <input
         type="button"
-        className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+        className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
         value="Cancelar"
         onClick={props.close}
     />

@@ -706,7 +706,12 @@ const Data_xm_afacsSchema = sequelize.define('Data_xm_afac', {
     type: DataTypes.FLOAT,  
     allowNull: false,  
     trim: true  
-    }
+    },
+    compras_en_bolsa_ajustes_cop: {  
+      type: DataTypes.FLOAT,  
+      allowNull: false,  
+      trim: true  
+      }
 }
 );
 module.exports = Data_xm_afacsSchema;

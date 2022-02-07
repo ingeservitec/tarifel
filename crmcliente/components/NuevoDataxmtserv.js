@@ -159,7 +159,7 @@ const NuevoDataxmtserv =(props) => {
     return (
     <div>
     <Modal show={props.show}
-size="lg"
+    size="lg"
     aria-labelledby="contained-modal-title-vcenter"
     centered
     id="myModal"
@@ -188,7 +188,7 @@ size="lg"
     onSubmit={formik.handleSubmit}
     >
      <div className="form-group row">
-        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
+        <label htmlFor="anho" className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
         <input type="number" className="form-control" id="anho" placeholder="Anho"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -201,7 +201,7 @@ size="lg"
         </div>
         ) : null  }
         <div className="form-group row">
-        <label htmlFor="mes"className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
+        <label htmlFor="mes" className="col-sm-7 col-form-label">Mes</label><div className="col-sm-5">
         <input type="number" className="form-control" id="mes" placeholder="Mes"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -214,7 +214,7 @@ value={formik.values.mes}></input></div>
         </div>
         ) : null  }
         {/* <div className="form-group row">
-        <label htmlFor="creador"className="col-sm-7 col-form-label">Creador</label><div className="col-sm-5">
+        <label htmlFor="creador" className="col-sm-7 col-form-label">Creador</label><div className="col-sm-5">
         <input type="number" className="form-control" id="creador" placeholder="Creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -227,7 +227,7 @@ value={formik.values.creador}></input></div>
         </div>
         ) : null  } */}
         {/* <div className="form-group row">
-        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">Empresa_Id</label><div className="col-sm-5">
+        <label htmlFor="empresa_id" className="col-sm-7 col-form-label">Empresa_Id</label><div className="col-sm-5">
         <input type="text" className="form-control" id="empresa_id" placeholder="Empresa_Id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -240,7 +240,7 @@ value={formik.values.empresa_id}></input></div>
         </div>
         ) : null  } */}
         <div className="form-group row">
-        <label htmlFor="fecha"className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-5">
+        <label htmlFor="fecha" className="col-sm-7 col-form-label">Fecha</label><div className="col-sm-5">
         <input type="date" className="form-control" id="fecha" placeholder="Fecha"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -252,7 +252,7 @@ value={formik.values.fecha}></input></div>
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="agente"className="col-sm-7 col-form-label">Agente</label><div className="col-sm-5">
+        <label htmlFor="agente" className="col-sm-7 col-form-label">Agente</label><div className="col-sm-5">
         <input type="text" className="form-control" id="agente" placeholder="Agente"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -264,7 +264,7 @@ value={formik.values.agente}></input></div>
         <p>{formik.errors.agente}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="beneficiario"className="col-sm-7 col-form-label">Beneficiario</label><div className="col-sm-5">
+        <label htmlFor="beneficiario" className="col-sm-7 col-form-label">Beneficiario</label><div className="col-sm-5">
         <input type="text" className="form-control" id="beneficiario" placeholder="Beneficiario"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -276,7 +276,7 @@ value={formik.values.beneficiario}></input></div>
         <p>{formik.errors.beneficiario}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="concepto"className="col-sm-7 col-form-label">Concepto</label><div className="col-sm-5">
+        <label htmlFor="concepto" className="col-sm-7 col-form-label">Concepto</label><div className="col-sm-5">
         <input type="text" className="form-control" id="concepto" placeholder="Concepto"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -288,7 +288,7 @@ value={formik.values.concepto}></input></div>
         <p>{formik.errors.concepto}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tipopago"className="col-sm-7 col-form-label">Tipopago</label><div className="col-sm-5">
+        <label htmlFor="tipopago" className="col-sm-7 col-form-label">Tipopago</label><div className="col-sm-5">
         <input type="text" className="form-control" id="tipopago" placeholder="Tipopago"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -300,7 +300,7 @@ value={formik.values.tipopago}></input></div>
         <p>{formik.errors.tipopago}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="valor"className="col-sm-7 col-form-label">Valor</label><div className="col-sm-5">
+        <label htmlFor="valor" className="col-sm-7 col-form-label">Valor</label><div className="col-sm-5">
         <input type="number" className="form-control" id="valor" placeholder="Valor"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -312,7 +312,7 @@ value={formik.values.valor}></input></div>
         <p>{formik.errors.valor}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="magnitud"className="col-sm-7 col-form-label">Magnitud</label><div className="col-sm-5">
+        <label htmlFor="magnitud" className="col-sm-7 col-form-label">Magnitud</label><div className="col-sm-5">
         <input type="number" className="form-control" id="magnitud" placeholder="Magnitud"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -330,14 +330,14 @@ value={formik.values.magnitud}></input></div>
         <div className="col-sm">
         <input
         type="submit"
-        className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+        className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
         value="Guardar"
         />
         </div>
         <div className="col-sm">
         <input
         type="button"
-        className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+        className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
         value="Cancelar"
         onClick={props.close}
     />

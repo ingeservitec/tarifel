@@ -152,10 +152,9 @@ const NuevoDataxmtserv2 =(props) => {
         
         
         const Datacsv2=csvJSON(datacsv)  
-        console.log(fileNames[0].substr(5,2))
-        console.log(Datacsv2)
+
         var arreglado = Datacsv2.map( item => { 
-          return {anho:parseFloat(item["FECHA"].substr(0,4)),mes:parseFloat(item["FECHA"].substr(6,2)),creador:(item["creador"]),empresa_id:(item["empresa_id"]),fecha:(item["FECHA"]),agente:(item["AGENTE"]),beneficiario:(item["BENEFICIARIO"]),concepto:(item["CONCEPTO"]),tipopago:(item["TIPOPAGO"]),valor:parseFloat(item["VALOR"]),magnitud:parseFloat(item["MAGNITUD"])}; 
+          return {anho:parseFloat(item["FECHA"].substr(0,4)),mes:parseFloat(item["FECHA"].substr(5,2)),creador:(item["creador"]),empresa_id:(item["empresa_id"]),fecha:(item["FECHA"]),agente:(item["AGENTE"]),beneficiario:(item["BENEFICIARIO"]),concepto:(item["CONCEPTO"]),tipopago:(item["TIPOPAGO"]),valor:parseFloat(item["VALOR"]),magnitud:parseFloat(item["MAGNITUD"])}; 
         });
         console.log(arreglado)
         const {results} = await Promise.all(arreglado.map(object => {  
@@ -223,7 +222,7 @@ const NuevoDataxmtserv2 =(props) => {
     <div className="col-sm">
     <input
     type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+    className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
     value="Guardar"
     onClick={handleSubmit}
     />
@@ -231,7 +230,7 @@ const NuevoDataxmtserv2 =(props) => {
     <div className="col-sm">
     <input
     type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+    className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
     value="Cancelar"
     onClick={props.close2}
     />

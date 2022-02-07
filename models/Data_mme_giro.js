@@ -8,7 +8,7 @@ fecha:{type: DataTypes.STRING,allowNull: false,trim: true},
 fondo:{type: DataTypes.STRING,allowNull: false,trim: true},
 resolucion:{type: DataTypes.STRING,allowNull: false,trim: true},
 link_resolucion:{type: DataTypes.STRING,allowNull: false,trim: true},
-giro_cop:{type: DataTypes.INTEGER,allowNull: false,trim: true},
+giro_cop:{type: DataTypes.STRING,allowNull: false,trim: true},
 
 })
 module.exports = Data_mme_giroSchema;

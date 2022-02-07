@@ -165,7 +165,6 @@ const handleSubmit = async () => {
 try {
 if (loading1) return null; // Si no hay informacion
 const Datacsv2=csvJSON(datacsv)
-console.log(fileNames[0].substr(4,2))
 var arreglado = Datacsv2.map( item => {
     return {creador:creador,anho_semana:(item["Anho_Semana"]).toString(),tasa_cred_com_credito_consumo:(item["Credito_de_consumo_Tasa"]),monto_cred_com_credito_consumo:(item["Credito_de_consumo_Monto"]),tasa_cred_com_odinario:(item["Ordinario_Tasa"]),monto_cred_com_odinario:(item["Ordinario_Monto"]),tasa__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Tasa"]),monto__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Monto"]),tasa__cred_com_tesoreria:(item["Tesoreria_Tasa"]),monto__cred_com_tesoreria:(item["Tesoreria_Monto"]),tasa_colocacion_banco_republica:(item["Banco_de_la_Republica_Tasa"]),monto_colocacion_banco_republica:(item["Banco_de_la_Republica_Monto"]),tasa_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Tasa"]),monto_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Monto"]),tasa_colocacion_total:(item["Total_Tasa"]),monto_colocacion_total:(item["Total_Monto"]),empresa_id:empresa_id}
 });
@@ -225,7 +224,7 @@ onHide={props.close2}>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 onClick={handleSubmit}
 />
@@ -233,7 +232,7 @@ onClick={handleSubmit}
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close2}
 />

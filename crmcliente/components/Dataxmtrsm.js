@@ -38,7 +38,7 @@ const Dataxmtrsm  = () => {
   const [showLogin2, setShowLogin2] = useState(false);
 
 
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 3;
   const headers = [
       { name: "Id", field: "id", sortable: true},{ name: "Creador", field: "creador", sortable: true},{ name: "Fecha", field: "fecha", sortable: true},{ name: "Codigo", field: "codigo", sortable: true},{ name: "Descripcion", field: "descripcion", sortable: true},{ name: "Valor", field: "valor", sortable: true}
   ];

@@ -29,8 +29,20 @@ magnitud
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Dataxmtserv  = () => {
   const { data, error, loading} = useQuery(OBTENER_DATA_XM_TSERV);
+  const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
   const [comments, setComments] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,8 +58,12 @@ const Dataxmtserv  = () => {
   ];
    useEffect(() => {
                   if(loading) return 'Cargando....';
-                  setComments(data.obtenerData_xm_tserv);
-     });
+                  if(loading1) return 'Cargando....';
+                //   setComments(data.obtenerData_xm_tserv);
+                  const data_xm_tserv=data.obtenerData_xm_tserv
+                  const data_xm_tservm=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.agente===data1.obtenerUsuario.empresa)
+                  setComments(data_xm_tservm);
+                },[loading]);   
       const commentsData = useMemo(() => {
       let computedComments = comments;
       if (search) {

@@ -2,7 +2,7 @@
 
 
 import Layout from '../components/Layout';
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useMutation } from '@apollo/client'
 import { useRouter } from 'next/router';
 import React, { PureComponent,useEffect, useState, useMemo } from "react"
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -15,6 +15,7 @@ import TableHeader from '../components/DataTable/TableHeader';
 import 'font-awesome/css/font-awesome.min.css';
 import NuevoDataempresa from '../components/NuevoDataempresa';
 import NuevoDataempresa2 from '../components/NuevoDataempresa2';
+import Swal from 'sweetalert2'
 
 const OBTENER_DATA_EMPRESAS = gql`
 query obtenerData_empresa {
@@ -42,9 +43,36 @@ query obtenerData_empresa {
 `;
 
 
+const ELIMINAR_DATA_EMPRESAS = gql`
+mutation eliminarDataEmpresa ($eliminarDataEmpresaId: ID!) {
+    eliminarDataEmpresa(id: $eliminarDataEmpresaId)
+}
+`;
+
+
 const Dataempresa  = () => {
 
    const { data, error, loading} = useQuery(OBTENER_DATA_EMPRESAS);
+   const [id1, setId1] = useState(0);
+  
+   const [ eliminarDataEmpresa] = useMutation(ELIMINAR_DATA_EMPRESAS, {
+    update(cache) {
+        const { obtenerData_empresa} = cache.readQuery({
+            query: OBTENER_DATA_EMPRESAS
+        });
+
+
+        cache.writeQuery({
+            query: OBTENER_DATA_EMPRESAS,
+            data: {
+                obtenerData_empresa: obtenerData_empresa.filter( obtenerData_empresa => obtenerData_empresa.id !== id1.toString() )
+            }
+        })
+    }
+})
+
+
+
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const [comments, setComments] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
@@ -58,6 +86,7 @@ const Dataempresa  = () => {
     const ITEMS_PER_PAGE = 10;
     const headers = [
         { name: "Id", field: "id", sortable: false },
+        { name: "Eliminar", field: "eliminar", sortable: true },
         { name: "Año", field: "anho", sortable: true },
         { name: "Mes", field: "mes", sortable: true },
         { name: "Mercado", field: "mercado", sortable: true },
@@ -123,7 +152,47 @@ const Dataempresa  = () => {
       );
 }, [comments, currentPage, search, sorting])
 
+const confirmarEliminarRegistro=(eliminarDataEmpresaId)=>{
+    setId1(eliminarDataEmpresaId)
+    Swal.fire({
+        title: '¿Deseas eliminar a este registro?',
+        text: "Esta acción no se puede deshacer",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar',
+        cancelButtonText: 'No, Cancelar'
+      }).then( async (result) => {
+        if (result.value) {
+            try {
+                console.log(eliminarDataEmpresaId)
+                const data1 = await eliminarDataEmpresa({
+                    variables: {
+                        eliminarDataEmpresaId
+                    }
+                });
 
+                Swal.fire(
+                    'Eliminado',
+                    data1.eliminarDataEmpresa,
+                    'success'
+                   
+                );
+               
+                
+            } catch (error) {
+                console.log(error)
+            }
+            
+        }
+      })
+}
+
+// const handleChanges2 = (event) => {
+//     console.log('Aca');
+//     console.log(event);
+//   };
 
 return (
     <div>
@@ -166,13 +235,18 @@ return (
                     onSorting={(field, order) =>
                     setSorting({ field, order })
                     }/>
-                    <tbody>
+                    <tbody >
                       
                     {commentsData.map(comment => (
                         <tr key={comment.id}>
                             <th scope="row" >
                             {comment.id}
                             </th>
+                                <td ><button 
+                                className="bg-yellow-400 w-20  text-white uppercas hover:cursor-pointer hover:bg-red-900 rounded"
+                                onClick={()=>confirmarEliminarRegistro(comment.id)}
+                                >Eliminar</button></td>
+                                {/* <td className="pt-3-half" contentEditable="true"onInput={(e) => handleChanges2(e.currentTarget.textContent)}>{comment.anho}</td> */}
                                 <td>{comment.anho}</td>
                                 <td>{comment.mes}</td>
                                 <td>{comment.mercado}</td>

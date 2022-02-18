@@ -24,7 +24,6 @@ vendedor
 comprador
 tipo
 tipomerc
-empresa_id
 desp_hora_1
 desp_hora_2
 desp_hora_3
@@ -77,22 +76,8 @@ trf_hora_24
 }
 `;
 
-const OBTENER_USUARIO = gql`
-query obtenerUsuario{
-obtenerUsuario {
-id
-nombre
-apellido
-empresa
-}
-}
-`;
-
-
-
 const Dataxmdspcttos  = () => {
   const { data, error, loading} = useQuery(OBTENER_DATA_XM_DSPCTTO);
-  const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
   const [comments, setComments] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -104,18 +89,13 @@ const Dataxmdspcttos  = () => {
 
   const ITEMS_PER_PAGE = 10;
   const headers = [
-    { name: "Id", field: "id", sortable: true},{ name: "Año", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},
-      { name: "Contrato", field: "contrato", sortable: true},{ name: "Vendedor", field: "vendedor", sortable: true},
-      { name: "Tipomerc", field: "tipomerc", sortable: true},
-      { name: "Costo $", field: "costo_energia_contrato_mes", sortable: true},
-      { name: "Energía comprada", field: "energia_contrato_mes", sortable: true}
+      { name: "Id", field: "id", sortable: true},{ name: "Año", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Dia", field: "dia", sortable: true},{ name: "Creador", field: "creador", sortable: true},{ name: "Contrato", field: "contrato", sortable: true},{ name: "Vendedor", field: "vendedor", sortable: true},{ name: "Comprador", field: "comprador", sortable: true},{ name: "Tipo", field: "tipo", sortable: true},{ name: "Tipomerc", field: "tipomerc", sortable: true},{ name: "Desp_Hora 01", field: "desp_hora_1", sortable: true},{ name: "Desp_Hora 02", field: "desp_hora_2", sortable: true},{ name: "Desp_Hora 03", field: "desp_hora_3", sortable: true},{ name: "Desp_Hora 04", field: "desp_hora_4", sortable: true},{ name: "Desp_Hora 05", field: "desp_hora_5", sortable: true},{ name: "Desp_Hora 06", field: "desp_hora_6", sortable: true},{ name: "Desp_Hora 07", field: "desp_hora_7", sortable: true},{ name: "Desp_Hora 08", field: "desp_hora_8", sortable: true},{ name: "Desp_Hora 09", field: "desp_hora_9", sortable: true},{ name: "Desp_Hora 10", field: "desp_hora_10", sortable: true},{ name: "Desp_Hora 11", field: "desp_hora_11", sortable: true},{ name: "Desp_Hora 12", field: "desp_hora_12", sortable: true},{ name: "Desp_Hora 13", field: "desp_hora_13", sortable: true},{ name: "Desp_Hora 14", field: "desp_hora_14", sortable: true},{ name: "Desp_Hora 15", field: "desp_hora_15", sortable: true},{ name: "Desp_Hora 16", field: "desp_hora_16", sortable: true},{ name: "Desp_Hora 17", field: "desp_hora_17", sortable: true},{ name: "Desp_Hora 18", field: "desp_hora_18", sortable: true},{ name: "Desp_Hora 19", field: "desp_hora_19", sortable: true},{ name: "Desp_Hora 20", field: "desp_hora_20", sortable: true},{ name: "Desp_Hora 21", field: "desp_hora_21", sortable: true},{ name: "Desp_Hora 22", field: "desp_hora_22", sortable: true},{ name: "Desp_Hora 23", field: "desp_hora_23", sortable: true},{ name: "Desp_Hora 24", field: "desp_hora_24", sortable: true},{ name: "Trf_Hora 01", field: "trf_hora_1", sortable: true},{ name: "Trf_Hora 02", field: "trf_hora_2", sortable: true},{ name: "Trf_Hora 03", field: "trf_hora_3", sortable: true},{ name: "Trf_Hora 04", field: "trf_hora_4", sortable: true},{ name: "Trf_Hora 05", field: "trf_hora_5", sortable: true},{ name: "Trf_Hora 06", field: "trf_hora_6", sortable: true},{ name: "Trf_Hora 07", field: "trf_hora_7", sortable: true},{ name: "Trf_Hora 08", field: "trf_hora_8", sortable: true},{ name: "Trf_Hora 09", field: "trf_hora_9", sortable: true},{ name: "Trf_Hora 10", field: "trf_hora_10", sortable: true},{ name: "Trf_Hora 11", field: "trf_hora_11", sortable: true},{ name: "Trf_Hora 12", field: "trf_hora_12", sortable: true},{ name: "Trf_Hora 13", field: "trf_hora_13", sortable: true},{ name: "Trf_Hora 14", field: "trf_hora_14", sortable: true},{ name: "Trf_Hora 15", field: "trf_hora_15", sortable: true},{ name: "Trf_Hora 16", field: "trf_hora_16", sortable: true},{ name: "Trf_Hora 17", field: "trf_hora_17", sortable: true},{ name: "Trf_Hora 18", field: "trf_hora_18", sortable: true},{ name: "Trf_Hora 19", field: "trf_hora_19", sortable: true},{ name: "Trf_Hora 20", field: "trf_hora_20", sortable: true},{ name: "Trf_Hora 21", field: "trf_hora_21", sortable: true},{ name: "Trf_Hora 22", field: "trf_hora_22", sortable: true},{ name: "Trf_Hora 23", field: "trf_hora_23", sortable: true},{ name: "Trf_Hora 24", field: "trf_hora_24", sortable: true}
   ];
    useEffect(() => {
 
 if(loading) return 'Cargando....';
-if(loading1) return 'Cargando....';
 
-// setComments(data.obtenerData_xm_dspctto);
+setComments(data.obtenerData_xm_dspctto);
 
 // Recorrer fila a fila 
 // En cada fila multiplicar las energias por las tarifas
@@ -164,21 +144,21 @@ for (let index = 0; index < data.obtenerData_xm_dspctto.length; index++) {
     data.obtenerData_xm_dspctto[index].desp_hora_21+data.obtenerData_xm_dspctto[index].desp_hora_22+
     data.obtenerData_xm_dspctto[index].desp_hora_23+data.obtenerData_xm_dspctto[index].desp_hora_24
 
-    if(consolidado_dspcttos.length===0 && data.obtenerData_xm_dspctto[index].empresa_id===data1.obtenerUsuario.empresa )
+    if(consolidado_dspcttos.length===0)
     {
-    consolidado_dspcttos.push({"id":1, "anho": data.obtenerData_xm_dspctto[index].anho, "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": costo_energia_dia_contrato,"energia_contrato_mes": energia_dia_contrato,"vendedor": data.obtenerData_xm_dspctto[index].vendedor,"tipomerc": data.obtenerData_xm_dspctto[index].tipomerc, "empresa_id": data.obtenerData_xm_dspctto[index].empresa_id})
+        consolidado_dspcttos.push({ "anho": data.obtenerData_xm_dspctto[index].anho, "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": costo_energia_dia_contrato,"energia_contrato_mes": energia_dia_contrato })
     }
 else{
     var index1=0
     var long_consolidado_dspcttos= consolidado_dspcttos.length
     while (index1<long_consolidado_dspcttos) {
         
-        if(consolidado_dspcttos[index1].anho===data.obtenerData_xm_dspctto[index].anho && consolidado_dspcttos[index1].mes===data.obtenerData_xm_dspctto[index].mes && consolidado_dspcttos[index1].contrato===data.obtenerData_xm_dspctto[index].contrato &&  data.obtenerData_xm_dspctto[index].empresa_id===data1.obtenerUsuario.empresa){
-            consolidado_dspcttos[index1]={"id":index1+1,  "anho": data.obtenerData_xm_dspctto[index].anho  , "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": consolidado_dspcttos[index1].costo_energia_contrato_mes+costo_energia_dia_contrato,"energia_contrato_mes": consolidado_dspcttos[index1].energia_contrato_mes+energia_dia_contrato ,"vendedor": data.obtenerData_xm_dspctto[index].vendedor,"tipomerc": data.obtenerData_xm_dspctto[index].tipomerc }
+        if(consolidado_dspcttos[index1].anho===data.obtenerData_xm_dspctto[index].anho && consolidado_dspcttos[index1].mes===data.obtenerData_xm_dspctto[index].mes && consolidado_dspcttos[index1].contrato===data.obtenerData_xm_dspctto[index].contrato){
+            consolidado_dspcttos[index1]={ "anho": data.obtenerData_xm_dspctto[index].anho  , "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": consolidado_dspcttos[index1].costo_energia_contrato_mes+costo_energia_dia_contrato,"energia_contrato_mes": consolidado_dspcttos[index1].energia_contrato_mes+energia_dia_contrato }
             index1=Infinity
         }
-       if(index1===long_consolidado_dspcttos-1 && data.obtenerData_xm_dspctto[index].empresa_id===data1.obtenerUsuario.empresa){
-            consolidado_dspcttos.push({ "id":index1+1, "anho": data.obtenerData_xm_dspctto[index].anho, "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": costo_energia_dia_contrato,"energia_contrato_mes": energia_dia_contrato ,"vendedor": data.obtenerData_xm_dspctto[index].vendedor,"tipomerc": data.obtenerData_xm_dspctto[index].tipomerc })
+       if(index1===long_consolidado_dspcttos-1){
+            consolidado_dspcttos.push({ "anho": data.obtenerData_xm_dspctto[index].anho, "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": costo_energia_dia_contrato,"energia_contrato_mes": energia_dia_contrato })
             index1=Infinity
         }
         index1++
@@ -192,14 +172,10 @@ else{
     // {
 
     // }
-   
 }
 console.log(consolidado_dspcttos)
-setComments(consolidado_dspcttos);
-     },[loading, loading1]);
 
-
-
+     });
       const commentsData = useMemo(() => {
       let computedComments = comments;
       if (search) {
@@ -283,12 +259,61 @@ return (
 </th>
 <td>{comment.anho}</td>
 <td>{comment.mes}</td>
+<td>{comment.dia}</td>
+<td>{comment.creador}</td>
 <td>{comment.contrato}</td>
 <td>{comment.vendedor}</td>
+<td>{comment.comprador}</td>
+<td>{comment.tipo}</td>
 <td>{comment.tipomerc}</td>
-<td>{comment.costo_energia_contrato_mes}</td>
-<td>{comment.energia_contrato_mes}</td>
-
+<td>{comment.desp_hora_1}</td>
+<td>{comment.desp_hora_2}</td>
+<td>{comment.desp_hora_3}</td>
+<td>{comment.desp_hora_4}</td>
+<td>{comment.desp_hora_5}</td>
+<td>{comment.desp_hora_6}</td>
+<td>{comment.desp_hora_7}</td>
+<td>{comment.desp_hora_8}</td>
+<td>{comment.desp_hora_9}</td>
+<td>{comment.desp_hora_10}</td>
+<td>{comment.desp_hora_11}</td>
+<td>{comment.desp_hora_12}</td>
+<td>{comment.desp_hora_13}</td>
+<td>{comment.desp_hora_14}</td>
+<td>{comment.desp_hora_15}</td>
+<td>{comment.desp_hora_16}</td>
+<td>{comment.desp_hora_17}</td>
+<td>{comment.desp_hora_18}</td>
+<td>{comment.desp_hora_19}</td>
+<td>{comment.desp_hora_20}</td>
+<td>{comment.desp_hora_21}</td>
+<td>{comment.desp_hora_22}</td>
+<td>{comment.desp_hora_23}</td>
+<td>{comment.desp_hora_24}</td>
+<td>{comment.trf_hora_1}</td>
+<td>{comment.trf_hora_2}</td>
+<td>{comment.trf_hora_3}</td>
+<td>{comment.trf_hora_4}</td>
+<td>{comment.trf_hora_5}</td>
+<td>{comment.trf_hora_6}</td>
+<td>{comment.trf_hora_7}</td>
+<td>{comment.trf_hora_8}</td>
+<td>{comment.trf_hora_9}</td>
+<td>{comment.trf_hora_10}</td>
+<td>{comment.trf_hora_11}</td>
+<td>{comment.trf_hora_12}</td>
+<td>{comment.trf_hora_13}</td>
+<td>{comment.trf_hora_14}</td>
+<td>{comment.trf_hora_15}</td>
+<td>{comment.trf_hora_16}</td>
+<td>{comment.trf_hora_17}</td>
+<td>{comment.trf_hora_18}</td>
+<td>{comment.trf_hora_19}</td>
+<td>{comment.trf_hora_20}</td>
+<td>{comment.trf_hora_21}</td>
+<td>{comment.trf_hora_22}</td>
+<td>{comment.trf_hora_23}</td>
+<td>{comment.trf_hora_24}</td>
                         </tr>
                     ))}
                     </tbody>

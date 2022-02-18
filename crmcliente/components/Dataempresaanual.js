@@ -19,7 +19,8 @@ empresa_id
 anho
 contribuciones_creg
 contribuciones_sspd
-
+porc_contribucion_creg
+porc_contribucion_sspd
 }
 }
 `;
@@ -38,7 +39,12 @@ const [showLogin2, setShowLogin2] = useState(false);
 
 const ITEMS_PER_PAGE = 3;
 const headers = [
-{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Contribuciones_Creg", field: "contribuciones_creg", sortable: true},{ name: "Contribuciones_Sspd", field: "contribuciones_sspd", sortable: true}
+{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},
+{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},
+{ name: "Contribuciones_CREG", field: "contribuciones_creg", sortable: true},
+{ name: "Contribuciones_SSPD", field: "contribuciones_sspd", sortable: true},
+{ name: "Porcentaje_Contribuciones_CREG", field: "porc_contribucion_creg", sortable: true},
+{ name: "Porcentaje_Contribuciones_SSPD", field: "porc_contribucion_sspd", sortable: true}
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
@@ -127,7 +133,8 @@ setSorting({ field, order })
 <td>{comment.anho}</td>
 <td>{comment.contribuciones_creg}</td>
 <td>{comment.contribuciones_sspd}</td>
-
+<td>{comment.porc_contribucion_creg}</td>
+<td>{comment.porc_contribucion_sspd}</td>
 </tr>
 ))}
 </tbody>

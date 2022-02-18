@@ -54,8 +54,37 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_banrepublica_tco[0]);
+setComments(data.obtenerData_banrepublica_tco);
 });
+const commentsData = useMemo(() => {
+let computedComments = comments;
+if (search) {
+computedComments = computedComments.filter(
+comment=>
+// comment.anho.toLowerCase().includes(search.toLowerCase()) ||
+// comment.mes.toLowerCase().includes(search.toLowerCase())
+(comment.anho).toString()+'-'+(comment.mes).toString()===search ||
+(comment.anho).toString()===search ||
+(comment.mes).toString()===search
+);
+}
+setTotalItems(computedComments.length);
+//Sorting comments
+if (sorting.field) {
+const reversed = sorting.order === "asc" ? 1 : -1;
+// console.log(computedComments)
+computedComments = computedComments.sort(
+(a, b) =>
+// reversed * a[sorting.field].localeCompare(b[sorting.field])
+parseInt(reversed * a[sorting.field])-parseInt(b[sorting.field])
+);
+}
+//Current Page slice
+return computedComments.slice(
+(currentPage - 1) * ITEMS_PER_PAGE,
+(currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+);
+}, [comments, currentPage, search, sorting])
 
 
 
@@ -100,31 +129,31 @@ onSorting={(field, order) =>
 setSorting({ field, order })
 }/>
 <tbody>
-
-<tr key={comments.id}>
+{commentsData.map(comment => (
+<tr key={comment.id}>
 <th scope="row" >
-{comments.id}
+{comment.id}
 </th>
-<td>{comments.creador}</td>
-<td>{comments.anho_semana}</td>
-<td>{comments.tasa_cred_com_credito_consumo}</td>
-<td>{comments.monto_cred_com_credito_consumo}</td>
-<td>{comments.tasa_cred_com_odinario}</td>
-<td>{comments.monto_cred_com_odinario}</td>
-<td>{comments.tasa__cred_com_preferencial_o_corporativo}</td>
-<td>{comments.monto__cred_com_preferencial_o_corporativo}</td>
-<td>{comments.tasa__cred_com_tesoreria}</td>
-<td>{comments.monto__cred_com_tesoreria}</td>
-<td>{comments.tasa_colocacion_banco_republica}</td>
-<td>{comments.monto_colocacion_banco_republica}</td>
-<td>{comments.tasa_colocacion_sin_tesoreria}</td>
-<td>{comments.monto_colocacion_sin_tesoreria}</td>
-<td>{comments.tasa_colocacion_total}</td>
-<td>{comments.monto_colocacion_total}</td>
-<td>{comments.empresa_id}</td>
+<td>{comment.creador}</td>
+<td>{comment.anho_semana}</td>
+<td>{comment.tasa_cred_com_credito_consumo}</td>
+<td>{comment.monto_cred_com_credito_consumo}</td>
+<td>{comment.tasa_cred_com_odinario}</td>
+<td>{comment.monto_cred_com_odinario}</td>
+<td>{comment.tasa__cred_com_preferencial_o_corporativo}</td>
+<td>{comment.monto__cred_com_preferencial_o_corporativo}</td>
+<td>{comment.tasa__cred_com_tesoreria}</td>
+<td>{comment.monto__cred_com_tesoreria}</td>
+<td>{comment.tasa_colocacion_banco_republica}</td>
+<td>{comment.monto_colocacion_banco_republica}</td>
+<td>{comment.tasa_colocacion_sin_tesoreria}</td>
+<td>{comment.monto_colocacion_sin_tesoreria}</td>
+<td>{comment.tasa_colocacion_total}</td>
+<td>{comment.monto_colocacion_total}</td>
+<td>{comment.empresa_id}</td>
 
 </tr>
-
+))}
 </tbody>
 </table>
 </div>

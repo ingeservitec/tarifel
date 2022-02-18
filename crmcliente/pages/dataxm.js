@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import Dataxmipr from '../components/Dataxmipr';
 import Dataxmd015 from '../components/Dataxmd015';
 import Dataxmdtun from '../components/Dataxmdtun';
+import Dataxmstr from '../components/Dataxmstr'
 const Dataxm =(props) => {
     return (
         <div>
@@ -21,6 +22,7 @@ const Dataxm =(props) => {
         <Dataxmtserv/>
         <Dataxmtrsm/>
         <Dataxmstn/>
+        <Dataxmstr/>
         <Dataxmcprog/>
         <Dataxmipr/>
         <Dataxmd015/>

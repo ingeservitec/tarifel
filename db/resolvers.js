@@ -98,14 +98,7 @@ const resolvers={
             console.log(error)
         }
     },
-    obtenerData_xm_str: async () => {
-        try {
-        const data_xm_str =await Data_xm_str.findAll()
-        return data_xm_str;
-        } catch (error) {
-            console.log(error)
-        }
-    },  
+
     obtenerData_xm_stn: async () => {
         try {
         const data_xm_stn =await Data_xm_stn.findAll()
@@ -282,7 +275,17 @@ return data_empresa_anual;
 } catch (error) {
 console.log(error)
 }
-}
+},
+//Query
+obtenerData_xm_str: async () => {
+    try {
+    const data_xm_str=await Data_xm_str.findAll()
+    return data_xm_str;
+    } catch (error) {
+    console.log(error)
+    }
+    }
+    
 
 
     },
@@ -581,6 +584,19 @@ console.log(error)
 },
 //Mutation
 
+nuevoData_xm_str:async (_,{input})=> {
+
+    try {
+    const data_xm_str=new Data_xm_str(input);
+    const resultado = await data_xm_str.save();
+    return resultado
+    } catch (error) {
+    console.log(error)
+    }
+    },
+    
+//Mutation
+
 nuevoData_empresa_anual:async (_,{input})=> {
 
 try {
@@ -590,10 +606,34 @@ return resultado
 } catch (error) {
 console.log(error)
 }
+},
+
+actualizarData_mme_validacion:async (_,{id, input})=> {
+    let data_mme_validacion=await Data_mme_validacion.findByPk(id)
+if(!data_mme_validacion){
+    throw new Error ('Registro no existe')
 }
+resultado = await data_mme_validacion.update(input,{
+    where:{
+id:id,
+}})
 
-
+return resultado
+    },
+    eliminarDataEmpresa:async (_,{id})=> {
+        let data_empresa=await Data_empresa.findByPk(id)
+      
+    if(!data_empresa){
+        throw new Error ('Registro no existe')
+    }
+    resultado =await data_empresa.destroy({
+        where:{
+    id:id,
+    }})
     
+    return "Pedido Eliminado"
+        }
     }
 }
 module.exports=resolvers;
+

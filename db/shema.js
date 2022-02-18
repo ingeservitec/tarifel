@@ -808,7 +808,7 @@ type Data_creg_cx{
             tasa_colocacion_sin_tesoreria: Float
             monto_colocacion_sin_tesoreria: Float
             tasa_colocacion_total: Float
-            monto_colocacion_total: Float
+            monto_colocacion_tointal: Float
             empresa_id: String
             
             }
@@ -826,7 +826,8 @@ type Data_creg_cx{
                contrib_no_recaud_desp_6m: Int
                contrib_recaud_desp_de_conc: Int
                giros_recibidos: String
-               
+               giro_sobrante: String
+               ultimo_giro_incluido: Int
                }
                input Data_mme_validacionInput {
                id: ID
@@ -841,7 +842,8 @@ type Data_creg_cx{
                contrib_no_recaud_desp_6m: Int
                contrib_recaud_desp_de_conc: Int
                giros_recibidos: String
-               
+               giro_sobrante: String
+               ultimo_giro_incluido: Int
                }
                
                type Data_mme_giro{
@@ -983,6 +985,12 @@ type Data_creg_cx{
                      nt3_i_sin_c: Float
                      nt3_o: Float
                      nt3_ap: Float
+                     nt2_estrato_1_men_cs:Float
+                     nt3_estrato_1_men_cs:Float
+                     nt4_estrato_1_men_cs:Float
+                     nt2_estrato_2_men_cs:Float
+                     nt3_estrato_2_men_cs:Float
+                     nt4_estrato_2_men_cs:Float
                      empresa_id: String
                      cu_nt1_100_ot: Float
                      cu_nt1_50_ot: Float
@@ -997,6 +1005,8 @@ type Data_creg_cx{
                      pv: Float
                      giro_sobrante: Float
                      ultimo_giro_incluido:Int
+                     cg: Float
+                     cgcu: Float
                      }
                      
                      input Res_componentes_cu_tarifaInput {
@@ -1115,6 +1125,12 @@ type Data_creg_cx{
                      nt3_i_sin_c: Float
                      nt3_o: Float
                      nt3_ap: Float
+                     nt2_estrato_1_men_cs:Float
+                     nt3_estrato_1_men_cs:Float
+                     nt4_estrato_1_men_cs:Float
+                     nt2_estrato_2_men_cs:Float
+                     nt3_estrato_2_men_cs:Float
+                     nt4_estrato_2_men_cs:Float
                      empresa_id: String
                      cu_nt1_100_ot: Float
                      cu_nt1_50_ot: Float
@@ -1129,6 +1145,8 @@ type Data_creg_cx{
                      pv: Float
                      giro_sobrante: Float
                      ultimo_giro_incluido:Int
+                     cg: Float
+                     cgcu: Float
                      }
                      type Dataxmstn{
                         id: ID
@@ -1586,6 +1604,8 @@ type Data_creg_cx{
                                           anho: Int
                                           contribuciones_creg: Int
                                           contribuciones_sspd: Int
+                                          porc_contribucion_creg: Float
+                                          porc_contribucion_sspd: Float                                          
                                           
                                           }
                                           input Data_empresa_anualInput {
@@ -1595,8 +1615,57 @@ type Data_creg_cx{
                                           anho: Int
                                           contribuciones_creg: Int
                                           contribuciones_sspd: Int
+                                          porc_contribucion_creg: Float
+                                          porc_contribucion_sspd: Float   
                                           
                                           }
+
+                                           type Data_xm_str{
+                                             id: ID
+                                             creador: Int
+                                             empresa_id: String
+                                             anho: Int
+                                             mes: Int
+                                             total_ingreso_mensual_bruto_str_cop_norte: Float
+                                             energia_del_str_kwh_norte: Float
+                                             cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte: Float
+                                             cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte: Float
+                                             cargo_por_uso_dt4_cop_kwh_norte: Float
+                                             factor_para_referir_las_medidas_de_energia_del_nt_4_norte: Float
+                                             valor_diferencial_despues_de_compensacion_cop_kwh_norte: Float
+                                             total_ingreso_mensual_bruto_str_cop_sur: Float
+                                             energia_del_str_kwh_sur: Float
+                                             cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur: Float
+                                             cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur: Float
+                                             cargo_por_uso_dt4_cop_kwh_sur: Float
+                                             factor_para_referir_las_medidas_de_energia_del_nt_4_sur: Float
+                                             valor_diferencial_despues_de_compensacion_cop_kwh_sur: Float
+                                             
+                                             }
+                                             input Data_xm_strInput {
+                                             id: ID
+                                             creador: Int
+                                             empresa_id: String
+                                             anho: Int
+                                             mes: Int
+                                             total_ingreso_mensual_bruto_str_cop_norte: Float
+                                             energia_del_str_kwh_norte: Float
+                                             cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte: Float
+                                             cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte: Float
+                                             cargo_por_uso_dt4_cop_kwh_norte: Float
+                                             factor_para_referir_las_medidas_de_energia_del_nt_4_norte: Float
+                                             valor_diferencial_despues_de_compensacion_cop_kwh_norte: Float
+                                             total_ingreso_mensual_bruto_str_cop_sur: Float
+                                             energia_del_str_kwh_sur: Float
+                                             cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur: Float
+                                             cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur: Float
+                                             cargo_por_uso_dt4_cop_kwh_sur: Float
+                                             factor_para_referir_las_medidas_de_energia_del_nt_4_sur: Float
+                                             valor_diferencial_despues_de_compensacion_cop_kwh_sur: Float
+                                             
+                                             }
+                                             
+
 type Query {
     #Usuarios    
     obtenerUsuario : Usuario
@@ -1614,8 +1683,6 @@ type Query {
     obtenerData_xm_tserv : [Data_xm_tserv]
     #Data_xm_trsm
     obtenerData_xm_trsm: [Data_xm_trsm]
-    #Data_xm_str
-    obtenerData_xm_str: [Data_xm_str]
     #Data_xm_stn
     obtenerData_xm_stn: [Data_xm_stn]
     #Data_creg_cx
@@ -1646,6 +1713,8 @@ obtenerData_xm_d015: [Data_xm_d015]
 obtenerData_xm_dtun: [Data_xm_dtun]
 #Query Data_empresa_anual
 obtenerData_empresa_anual: [Data_empresa_anual]
+#Query Data_xm_str
+obtenerData_xm_str: [Data_xm_str]
 }
 type Mutation {  
     #Usuarios
@@ -1693,6 +1762,12 @@ nuevoData_xm_d015(input:Data_xm_d015Input):Data_xm_d015
 nuevoData_xm_dtun(input:Data_xm_dtunInput):Data_xm_dtun
 #MutationData_empresa_anual
 nuevoData_empresa_anual(input:Data_empresa_anualInput):Data_empresa_anual
+#MutationData_mme_validacion Actualizar
+actualizarData_mme_validacion(id: ID!, input:Data_mme_validacionInput):Data_mme_validacion
+#Mutation DataEmpresa Eliminar 
+eliminarDataEmpresa(id: ID!):String
+#MutationData_xm_str
+nuevoData_xm_str(input:Data_xm_strInput):Data_xm_str
     }
 `;
 

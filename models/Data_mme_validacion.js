@@ -13,5 +13,7 @@ contribuciones:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 contrib_no_recaud_desp_6m:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 contrib_recaud_desp_de_conc:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 giros_recibidos:{type: DataTypes.INTEGER,allowNull: false,trim: true},
+giro_sobrante:{type: DataTypes.STRING,allowNull: true,trim: true},
+ultimo_giro_incluido:{type: DataTypes.INTEGER,allowNull: true,trim: true},
 })
 module.exports = Data_mme_validacionSchema;

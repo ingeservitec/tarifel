@@ -1116,11 +1116,11 @@ setSorting({ field, order })
 {comment.id}
 </th>
 <td ><button 
-className="bg-gray-400 w-20  text-white uppercas hover:cursor-pointer hover:bg-green-900 rounded"
+className="bg-gray-400 w-20  text-white uppercase hover:cursor-pointer hover:bg-green-900 rounded"
 onClick={()=>exportarMemorias(comment.id)}
 >XLS</button></td>
 <td ><button 
-className="bg-gray-400 w-20  text-white uppercas hover:cursor-pointer hover:bg-green-900 rounded"
+className="bg-gray-400 w-20  text-white uppercase hover:cursor-pointer hover:bg-green-900 rounded"
 onClick={()=>exportarFormatosSSPD(comment.id)}
 >XLS</button></td>
 <td>{comment.creador}</td>

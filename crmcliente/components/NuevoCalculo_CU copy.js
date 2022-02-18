@@ -3554,7 +3554,7 @@ formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slic
 ) : null  }
 
     <input type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
 value={status?"Aplicación Opción Tarifaria: SI":"Aplicación Opción Tarifaria: NO" } 
 onClick={e => setStatus(!status)}/> 
 
@@ -3842,14 +3842,14 @@ value={saldo_total_ot}></input>
 <div className="col-sm">
 <input
 type="submit"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 />
 </div>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close}
 />

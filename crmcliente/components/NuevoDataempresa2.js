@@ -212,7 +212,7 @@ const NuevoDataempresa2 =(props) => {
     <div className="col-sm">
     <input
     type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
+    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
     value="Guardar"
     onClick={handleSubmit}
     />
@@ -220,7 +220,7 @@ const NuevoDataempresa2 =(props) => {
     <div className="col-sm">
     <input
     type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
+    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
     value="Cancelar"
     onClick={props.close2}
     />

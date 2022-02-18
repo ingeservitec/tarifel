@@ -243,7 +243,7 @@ return (
                             {comment.id}
                             </th>
                                 <td ><button 
-                                className="bg-yellow-400 w-20  text-white uppercas hover:cursor-pointer hover:bg-red-900 rounded"
+                                className="bg-yellow-400 w-20  text-white uppercase hover:cursor-pointer hover:bg-red-900 rounded"
                                 onClick={()=>confirmarEliminarRegistro(comment.id)}
                                 >Eliminar</button></td>
                                 {/* <td className="pt-3-half" contentEditable="true"onInput={(e) => handleChanges2(e.currentTarget.textContent)}>{comment.anho}</td> */}

@@ -126,6 +126,12 @@ nt3_i_con_c
 nt3_i_sin_c
 nt3_o
 nt3_ap
+nt2_estrato_1_men_cs
+nt3_estrato_1_men_cs
+nt4_estrato_1_men_cs
+nt2_estrato_2_men_cs
+nt3_estrato_2_men_cs
+nt4_estrato_2_men_cs
 empresa_id
 cu_nt1_100_ot
 cu_nt1_50_ot
@@ -140,6 +146,8 @@ saldo_nt3_ot
 pv
 giro_sobrante
 ultimo_giro_incluido
+cg
+cgcu
 }
 }
 `;
@@ -275,6 +283,8 @@ saldo_nt3_ot
 pv
 giro_sobrante
 ultimo_giro_incluido
+cg
+cgcu
 }
 }
 `;
@@ -606,6 +616,8 @@ contribuciones
 contrib_no_recaud_desp_6m
 contrib_recaud_desp_de_conc
 giros_recibidos
+giro_sobrante
+ultimo_giro_incluido
 }
 }
 `;
@@ -984,10 +996,23 @@ empresa_id
 anho
 contribuciones_creg
 contribuciones_sspd
-
+porc_contribucion_creg
+porc_contribucion_sspd
 }
 }
 `;
+
+const ACTUALIZATDATA_MME_VALIDACION= gql`
+mutation actualizarData_mme_validacion($actualizarDataMmeValidacionId: ID!, $input:Data_mme_validacionInput){
+actualizarData_mme_validacion(id: $actualizarDataMmeValidacionId,input: $input){
+giro_sobrante
+ultimo_giro_incluido
+}
+}
+`;
+
+
+
 
 const NuevoCalculo_CU= (props) => {
 const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_DATA_DANE);
@@ -1011,7 +1036,7 @@ const { data:data18, error:error18, loading:loading18} = useQuery(OBTENER_DATA_X
 const { data:data19, error:error19, loading:loading19} = useQuery(OBTENER_DATA_XM_GUATAPE);
 const { data:data20, error:error20, loading:loading20} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const { data:data21, error:error21, loading:loading21} = useQuery(OBTENER_DATA_EMPRESA_ANUAL);
-
+const [actualizarData_mme_validacion]=useMutation(ACTUALIZATDATA_MME_VALIDACION)
 
 const [nuevoRes_componentes_cu_tarifa]=useMutation(NUEVO_DATA_RES_COMPONENTES_CU_TARIFA, {
   update(cache, { data: { nuevoRes_componentes_cu_tarifa} } ) {
@@ -1043,7 +1068,8 @@ const [cer, setCer] = useState(0);const [cfm, setCfm] = useState(0);const [x, se
 const [anho_ul_trim_val_mme, setAnho_Ul_Trim_Val_Mme] = useState(0);const [sub1, setSub1] = useState(0);const [sub2, setSub2] = useState(0);
 const [n_sub1, setN_Sub1] = useState(0);const [m_sub2, setM_Sub2] = useState(0);const [facturacion_t, setFacturacion_T] = useState(0);
 const [r1, setR1] = useState(0);const [r2, setR2] = useState(0);const [sup_def, setSup_Def] = useState(0);const [cfs, setCfs] = useState(0);
-const [cfe, setCfe] = useState(0);const [c_ast, setC_Ast] = useState(0);const [cvr, setCvr] = useState(0);const [cv, setCv] = useState(0);
+const [cfe, setCfe] = useState(0);const [c_ast, setC_Ast] = useState(0);const [cg, setCg] = useState(0);const [cgcu, setCgcu] = useState(0)
+const [cvr, setCvr] = useState(0);const [cv, setCv] = useState(0);
 const [cu_nt1_100, setCu_Nt1_100] = useState(0);const [cu_nt1_50, setCu_Nt1_50] = useState(0);const [cu_nt1_0, setCu_Nt1_0] = useState(0);
 const [cu_nt2, setCu_Nt2] = useState(0);const [cu_nt3, setCu_Nt3] = useState(0);const [cu_nt4, setCu_Nt4] = useState(0);
 const [nt1_100_estrato_1_men_cs, setNt1_100_Estrato_1_Men_Cs] = useState(0);const [nt1_100_estrato_2_men_cs, setNt1_100_Estrato_2_Men_Cs] = useState(0);
@@ -1070,13 +1096,26 @@ const [nt1_0_p, setNt1_0_P] = useState(0);const [nt1_0_o, setNt1_0_O] = useState
 const [nt2_i_con_c, setNt2_I_Con_C] = useState(0);const [nt2_i_sin_c, setNt2_I_Sin_C] = useState(0);const [nt2_o, setNt2_O] = useState(0);
 const [nt2_ap, setNt2_Ap] = useState(0);const [nt2_bsnmen_cs, setNt2_Bsnmen_Cs] = useState(0);const [nt2_bsnmay_cs, setNt2_Bsnmay_Cs] = useState(0);
 const [nt3_c, setNt3_C] = useState(0);const [nt3_i_con_c, setNt3_I_Con_C] = useState(0);const [nt3_i_sin_c, setNt3_I_Sin_C] = useState(0);
-const [nt3_o, setNt3_O] = useState(0);const [nt3_ap, setNt3_Ap] = useState(0);const [empresa_id, setempresa_id] = useState(0);
+const [nt3_o, setNt3_O] = useState(0);const [nt3_ap, setNt3_Ap] = useState(0);
+const [nt2_estrato_1_men_cs, setNt2_estrato_1_men_cs] = useState(0);
+const [nt3_estrato_1_men_cs, setNt3_estrato_1_men_cs] = useState(0)
+const [nt4_estrato_1_men_cs, setNt4_estrato_1_men_cs] = useState(0)
+const [nt2_estrato_2_men_cs, setNt2_estrato_2_men_cs] = useState(0)
+const [nt3_estrato_2_men_cs, setNt3_estrato_2_men_cs] = useState(0)
+const [nt4_estrato_2_men_cs, setNt4_estrato_2_men_cs] = useState(0)
+const [empresa_id, setempresa_id] = useState(0);
 const [porc_subE1_100, setPorc_subE1_100] = useState(0);
 const [porc_subE2_100, setPorc_subE2_100] = useState(0)
 const [porc_subE1_50, setPorc_subE1_50] = useState(0)
 const [porc_subE2_50, setPorc_subE2_50] = useState(0)
 const [porc_subE1_0, setPorc_subE1_0] = useState(0)
 const [porc_subE2_0, setPorc_subE2_0] = useState(0)
+const [porc_subE1_NT2, setPorc_subE1_NT2] = useState(0);
+const [porc_subE1_NT3, setPorc_subE1_NT3] = useState(0);
+const [porc_subE1_NT4, setPorc_subE1_NT4] = useState(0);
+const [porc_subE2_NT2, setPorc_subE2_NT2] = useState(0);
+const [porc_subE2_NT3, setPorc_subE2_NT3] = useState(0);
+const [porc_subE2_NT4, setPorc_subE2_NT4] = useState(0);
 const [pv, setPv] = useState(0);
 const [cu_nt1_100_ot, setCu_Nt1_100_ot] = useState(0);const [cu_nt1_50_ot, setCu_Nt1_50_ot] = useState(0);const [cu_nt1_0_ot, setCu_Nt1_0_ot] = useState(0);
 const [cu_nt2_ot, setCu_Nt2_ot] = useState(0);const [cu_nt3_ot, setCu_Nt3_ot] = useState(0);
@@ -1092,7 +1131,7 @@ const [ultimo_giro_incluido, setUltimo_giro_incluido] = useState(0);
         const [status, setStatus] = useState(false);
         let text = "";
 
-porc_subE2_0
+
 
 var data_empresa, data_empresam, data_dane, data_danem
 if (mes===1){
@@ -1134,7 +1173,8 @@ creador:creador,anho:anho,mes:mes,qc:qc,pc:pc,ref_g:ref_g,max_g:max_g,cr:cr,ad:a
 pb:pb,gc:gc,tx:tx,dtun_nt1_e:dtun_nt1_e,dtun_nt1_c:dtun_nt1_c,dtun_nt1_p:dtun_nt1_p,dtun_nt2:dtun_nt2,dtun_nt3:dtun_nt3,
 cdi_100:cdi_100,cdi_50:cdi_50,cdm:cdm,cd4:cd4,cd3:cd3,cd2:cd2,dnt1:dnt1,dnt2:dnt2,dnt3:dnt3,dnt4:dnt4,crs:crs,rcal:rcal,r:r,iprstn:iprstn,pr_nt1:pr_nt1,
 pr_nt2:pr_nt2,pr_nt3:pr_nt3,pr_nt4:pr_nt4,cer:cer,cfm:cfm,rc:rc,ul_trim_val_mme:ul_trim_val_mme,anho_ul_trim_val_mme:anho_ul_trim_val_mme,sub1:sub1,sub2:sub2,
-n_sub1:n_sub1,m_sub2:m_sub2,facturacion_t:facturacion_t.toString(),r1:r1,r2:r2,sup_def:sup_def,cfs:cfs,cfe:cfe,c_ast:c_ast,cvr:cvr,cv:cv,cu_nt1_100:cu_nt1_100,cu_nt1_50:cu_nt1_50,
+n_sub1:n_sub1,m_sub2:m_sub2,facturacion_t:facturacion_t.toString(),r1:r1,r2:r2,sup_def:sup_def,cfs:cfs,cfe:cfe,c_ast:c_ast,
+cg:cg,cgcu:cgcu,cvr:cvr,cv:cv,cu_nt1_100:cu_nt1_100,cu_nt1_50:cu_nt1_50,
 cu_nt1_0:cu_nt1_0,cu_nt2:cu_nt2,cu_nt3:cu_nt3,cu_nt4:cu_nt4,nt1_100_estrato_1_men_cs:nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs:nt1_100_estrato_2_men_cs,
 nt1_100_estrato_3_men_cs:nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs:nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs:nt1_100_estrato_5_men_cs,
 nt1_100_estrato_6_men_cs:nt1_100_estrato_6_men_cs,nt1_100_estrato_4:nt1_100_estrato_4,nt1_100_estrato_5:nt1_100_estrato_5,nt1_100_estrato_6:nt1_100_estrato_6,
@@ -1147,7 +1187,8 @@ nt1_0_estrato_2_men_cs:nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs:nt1_0_estra
 nt1_0_estrato_5_men_cs:nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs:nt1_0_estrato_6_men_cs,nt1_0_estrato_4:nt1_0_estrato_4,nt1_0_estrato_5:nt1_0_estrato_5,
 nt1_0_estrato_6:nt1_0_estrato_6,nt1_0_c:nt1_0_c,nt1_0_i_con_c:nt1_0_i_con_c,nt1_0_i_sin_c:nt1_0_i_sin_c,nt1_0_p:nt1_0_p,nt1_0_o:nt1_0_o,nt2_c:nt2_c,nt2_i_con_c:nt2_i_con_c,
 nt2_i_sin_c:nt2_i_sin_c,nt2_o:nt2_o,nt2_ap:nt2_ap,nt2_bsnmen_cs:nt2_bsnmen_cs,nt2_bsnmay_cs:nt2_bsnmay_cs,nt3_c:nt3_c,nt3_i_con_c:nt3_i_con_c,nt3_i_sin_c:nt3_i_sin_c,
-nt3_o:nt3_o,nt3_ap:nt3_ap,empresa_id:empresa_id,pv:pv,cu_nt1_100_ot:cu_nt1_100_ot,cu_nt1_50_ot:cu_nt1_50_ot,cu_nt1_0_ot:cu_nt1_0_ot,cu_nt2_ot:cu_nt2_ot,
+nt3_o:nt3_o,nt3_ap:nt3_ap,nt2_estrato_1_men_cs:nt2_estrato_1_men_cs,nt3_estrato_1_men_cs:nt3_estrato_1_men_cs,nt4_estrato_1_men_cs:nt4_estrato_1_men_cs,
+nt2_estrato_2_men_cs:nt2_estrato_2_men_cs,nt3_estrato_2_men_cs:nt3_estrato_2_men_cs,nt4_estrato_2_men_cs:nt4_estrato_2_men_cs,empresa_id:empresa_id,pv:pv,cu_nt1_100_ot:cu_nt1_100_ot,cu_nt1_50_ot:cu_nt1_50_ot,cu_nt1_0_ot:cu_nt1_0_ot,cu_nt2_ot:cu_nt2_ot,
 cu_nt3_ot:cu_nt3_ot,saldo_nt1_100_ot:saldo_nt1_100_ot,saldo_nt1_50_ot:saldo_nt1_50_ot,saldo_nt1_0_ot:saldo_nt1_0_ot,saldo_nt2_ot:saldo_nt2_ot,saldo_nt3_ot:saldo_nt3_ot,
 giro_sobrante:giro_sobrante, ultimo_giro_incluido:ultimo_giro_incluido
 },
@@ -1157,25 +1198,69 @@ creador: Yup.string()
 .required('El creador es obligatorio'),
 }),
 onSubmit: async valores => {
-const{creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido}=valores
+const{creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,
+        cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,
+        anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cg,cgcu,cvr,cv,cu_nt1_100,cu_nt1_50,
+        cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,
+        nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,
+        nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,
+        nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,
+        nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,
+        nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,
+        nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,
+        nt2_estrato_1_men_cs,nt3_estrato_1_men_cs,nt4_estrato_1_men_cs,nt2_estrato_2_men_cs,nt3_estrato_2_men_cs,nt4_estrato_2_men_cs,
+        empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido}=valores
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()
 try {
-console.log(valores)
 const{data}=await nuevoRes_componentes_cu_tarifa({
 variables:{
 input:{
-        creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido
+        creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,
+        cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,
+        sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cg,cgcu,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,
+        cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,
+        nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,
+        nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,
+        nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,
+        nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,
+        nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,
+        nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,
+        nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,nt2_estrato_1_men_cs,nt3_estrato_1_men_cs,nt4_estrato_1_men_cs,nt2_estrato_2_men_cs,
+        nt3_estrato_2_men_cs,nt4_estrato_2_men_cs,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,
+        saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido
 }
 }
 });
 } catch (error) {
 console.log(valores)
 console.log(error);
-console.log(creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cvr,cv,cu_nt1_100,cu_nt1_50,cu_nt1_0,cu_nt2,cu_nt3,cu_nt4,nt1_100_estrato_1_men_cs,nt1_100_estrato_2_men_cs,nt1_100_estrato_3_men_cs,nt1_100_estrato_4_men_cs,nt1_100_estrato_5_men_cs,nt1_100_estrato_6_men_cs,nt1_100_estrato_4,nt1_100_estrato_5,nt1_100_estrato_6,nt1_100_c,nt1_100_i_con_c,nt1_100_i_sin_c,nt1_100_p,nt1_100_o,nt1_50_estrato_1_men_cs,nt1_50_estrato_2_men_cs,nt1_50_estrato_3_men_cs,nt1_50_estrato_4_men_cs,nt1_50_estrato_5_men_cs,nt1_50_estrato_6_men_cs,nt1_50_estrato_4,nt1_50_estrato_5,nt1_50_estrato_6,nt1_50_c,nt1_50_i_con_c,nt1_50_i_sin_c,nt1_50_p,nt1_50_o,nt1_0_estrato_1_men_cs,nt1_0_estrato_2_men_cs,nt1_0_estrato_3_men_cs,nt1_0_estrato_4_men_cs,nt1_0_estrato_5_men_cs,nt1_0_estrato_6_men_cs,nt1_0_estrato_4,nt1_0_estrato_5,nt1_0_estrato_6,nt1_0_c,nt1_0_i_con_c,nt1_0_i_sin_c,nt1_0_p,nt1_0_o,nt2_c,nt2_i_con_c,nt2_i_sin_c,nt2_o,nt2_ap,nt2_bsnmen_cs,nt2_bsnmay_cs,nt3_c,nt3_i_con_c,nt3_i_sin_c,nt3_o,nt3_ap,empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido);
 }
 }
 })
+
+
+const actualizarData_mme_validaciogirosob = async (id_val,giro_sobranteb,ultimo_giro_incluidob) => {
+        // console.log('Rev3')
+        // console.log(id_val)
+        // console.log(giro_sobranteb)
+        // console.log(ultimo_giro_incluidob)
+        try{
+                const {Resultado} = await actualizarData_mme_validacion({ variables:{
+                        actualizarDataMmeValidacionId:id_val,
+                        input:
+                        {
+                        ultimo_giro_incluido:ultimo_giro_incluidob,
+                        giro_sobrante:giro_sobranteb
+                        }
+                        }
+                })
+        }
+        catch (error) {
+        console.log(error)
+        // Handle any errors as appropriate
+        }
+         }
 
 useEffect(() => {
         if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
@@ -1266,60 +1351,66 @@ setCu_Nt3(roundToTwo(gc+tx+r+cv+pr_nt3+dnt3))
 useEffect(() => {
         if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
                 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){     
-setNt1_100_Estrato_1_Men_Cs(cu_nt1_100*(1-porc_subE1_100))
-setNt1_100_Estrato_2_Men_Cs(cu_nt1_100*(1-porc_subE2_100))
-setNt1_100_Estrato_3_Men_Cs(cu_nt1_100*(1-0.15))
-setNt1_100_Estrato_4_Men_Cs(cu_nt1_100)
-setNt1_100_Estrato_5_Men_Cs(cu_nt1_100*1.2)
-setNt1_100_Estrato_6_Men_Cs(cu_nt1_100*1.2)
-setNt1_100_Estrato_4(cu_nt1_100)
-setNt1_100_Estrato_5(cu_nt1_100*1.2)
-setNt1_100_Estrato_6(cu_nt1_100*1.2)
-setNt1_100_C (cu_nt1_100*1.2)
-setNt1_100_I_Con_C (cu_nt1_100*1.2)
-setNt1_100_I_Sin_C (cu_nt1_100)
-setNt1_100_P (cu_nt1_100)
-setNt1_100_O (cu_nt1_100)
-setNt1_50__Estrato_1_Men_Cs((cu_nt1_100-cdi_100/2)*(1-porc_subE1_50))
-setNt1_50__Estrato_2_Men_Cs((cu_nt1_100-cdi_100/2)*(1-porc_subE2_50))
-setNt1_50__Estrato_3_Men_Cs((cu_nt1_100-cdi_100/2)*(1-0.15))
-setNt1_50__Estrato_4_Men_Cs((cu_nt1_100-cdi_100/2))
-setNt1_50__Estrato_5_Men_Cs((cu_nt1_100-cdi_100/2)*(1.2))
+setNt1_100_Estrato_1_Men_Cs(roundToTwo(cu_nt1_100*(1-porc_subE1_100)))
+setNt1_100_Estrato_2_Men_Cs(roundToTwo(cu_nt1_100*(1-porc_subE2_100)))
+setNt1_100_Estrato_3_Men_Cs(roundToTwo(cu_nt1_100*(1-0.15)))
+setNt1_100_Estrato_4_Men_Cs(roundToTwo(cu_nt1_100))
+setNt1_100_Estrato_5_Men_Cs(roundToTwo(cu_nt1_100*1.2))
+setNt1_100_Estrato_6_Men_Cs(roundToTwo(cu_nt1_100*1.2))
+setNt1_100_Estrato_4(roundToTwo(cu_nt1_100))
+setNt1_100_Estrato_5(roundToTwo(cu_nt1_100*1.2))
+setNt1_100_Estrato_6(roundToTwo(cu_nt1_100*1.2))
+setNt1_100_C (roundToTwo(cu_nt1_100*1.2))
+setNt1_100_I_Con_C (roundToTwo(cu_nt1_100*1.2))
+setNt1_100_I_Sin_C (roundToTwo(cu_nt1_100))
+setNt1_100_P (roundToTwo(cu_nt1_100))
+setNt1_100_O (roundToTwo(cu_nt1_100))
+setNt1_50__Estrato_1_Men_Cs(roundToTwo((cu_nt1_100-cdi_100/2)*(1-porc_subE1_50)))
+setNt1_50__Estrato_2_Men_Cs(roundToTwo((cu_nt1_100-cdi_100/2)*(1-porc_subE2_50)))
+setNt1_50__Estrato_3_Men_Cs(roundToTwo((cu_nt1_100-cdi_100/2)*(1-0.15)))
+setNt1_50__Estrato_4_Men_Cs(roundToTwo((cu_nt1_100-cdi_100/2)))
+setNt1_50__Estrato_5_Men_Cs(roundToTwo(roundToTwo((cu_nt1_100-cdi_100/2)*(1.2))))
 setNt1_50__Estrato_6_Men_Cs((cu_nt1_100-cdi_100/2)*(1.2))
-setNt1_50__Estrato_4((cu_nt1_100-cdi_100/2)*(1))
-setNt1_50__Estrato_5((cu_nt1_100-cdi_100/2)*(1.2))
-setNt1_50__Estrato_6((cu_nt1_100-cdi_100/2)*(1.2))
-setNt1_50__C((cu_nt1_100-cdi_100/2)*(1.2))
-setNt1_50__I_Con_C((cu_nt1_100-cdi_100/2)*(1.2))
-setNt1_50__I_Sin_C((cu_nt1_100-cdi_100/2)*(1))
-setNt1_50__P((cu_nt1_100-cdi_100/2)*(1))
- setNt1_50__O((cu_nt1_100-cdi_100/2)*(1))
- setNt1_0_Estrato_1_Men_Cs((cu_nt1_100-cdi_100)*(1-porc_subE1_0))
- setNt1_0_Estrato_2_Men_Cs((cu_nt1_100-cdi_100)*(1-porc_subE2_0))
- setNt1_0_Estrato_3_Men_Cs((cu_nt1_100-cdi_100)*(1-0.15))
- setNt1_0_Estrato_4_Men_Cs((cu_nt1_100-cdi_100)*(1))
- setNt1_0_Estrato_5_Men_Cs((cu_nt1_100-cdi_100)*(1.2))
- setNt1_0_Estrato_6_Men_Cs((cu_nt1_100-cdi_100)*(1.2))
- setNt1_0_Estrato_4((cu_nt1_100-cdi_100))
- setNt1_0_Estrato_5((cu_nt1_100-cdi_100)*1.2)
- setNt1_0_Estrato_6((cu_nt1_100-cdi_100)*1.2)
- setNt1_0_C((cu_nt1_100-cdi_100)*1.2)
- setNt1_0_I_Con_C((cu_nt1_100-cdi_100)*1.2)
- setNt1_0_I_Sin_C((cu_nt1_100-cdi_100)*1)
- setNt1_0_P((cu_nt1_100-cdi_100)*1)
- setNt1_0_O((cu_nt1_100-cdi_100)*1)
- setNt2_C(cu_nt2*1.2)
- setNt2_I_Con_C(cu_nt2*1.2)
- setNt2_I_Sin_C(cu_nt2)
- setNt2_O(cu_nt2)
- setNt2_Ap(cu_nt2)
- setNt2_Bsnmen_Cs(cu_nt2*(1-0.60))
- setNt2_Bsnmay_Cs(cu_nt2)
- setNt3_C(cu_nt3)
- setNt3_I_Con_C(cu_nt3*1.2)
- setNt3_I_Sin_C(cu_nt3)
- setNt3_O(cu_nt3)
- setNt3_Ap(cu_nt3)
+setNt1_50__Estrato_4(roundToTwo((cu_nt1_100-cdi_100/2)*(1)))
+setNt1_50__Estrato_5(roundToTwo((cu_nt1_100-cdi_100/2)*(1.2)))
+setNt1_50__Estrato_6(roundToTwo((cu_nt1_100-cdi_100/2)*(1.2)))
+setNt1_50__C(roundToTwo((cu_nt1_100-cdi_100/2)*(1.2)))
+setNt1_50__I_Con_C(roundToTwo((cu_nt1_100-cdi_100/2)*(1.2)))
+setNt1_50__I_Sin_C(roundToTwo((cu_nt1_100-cdi_100/2)*(1)))
+setNt1_50__P(roundToTwo((cu_nt1_100-cdi_100/2)*(1)))
+ setNt1_50__O(roundToTwo((cu_nt1_100-cdi_100/2)*(1)))
+ setNt1_0_Estrato_1_Men_Cs(roundToTwo((cu_nt1_100-cdi_100)*(1-porc_subE1_0)))
+ setNt1_0_Estrato_2_Men_Cs(roundToTwo((cu_nt1_100-cdi_100)*(1-porc_subE2_0)))
+ setNt1_0_Estrato_3_Men_Cs(roundToTwo((cu_nt1_100-cdi_100)*(1-0.15)))
+ setNt1_0_Estrato_4_Men_Cs(roundToTwo((cu_nt1_100-cdi_100)*(1)))
+ setNt1_0_Estrato_5_Men_Cs(roundToTwo((cu_nt1_100-cdi_100)*(1.2)))
+ setNt1_0_Estrato_6_Men_Cs(roundToTwo((cu_nt1_100-cdi_100)*(1.2)))
+ setNt1_0_Estrato_4(roundToTwo((cu_nt1_100-cdi_100)))
+ setNt1_0_Estrato_5(roundToTwo((cu_nt1_100-cdi_100)*1.2))
+ setNt1_0_Estrato_6(roundToTwo((cu_nt1_100-cdi_100)*1.2))
+ setNt1_0_C(roundToTwo((cu_nt1_100-cdi_100)*1.2))
+ setNt1_0_I_Con_C(roundToTwo((cu_nt1_100-cdi_100)*1.2))
+ setNt1_0_I_Sin_C(roundToTwo((cu_nt1_100-cdi_100)*1))
+ setNt1_0_P(roundToTwo((cu_nt1_100-cdi_100)*1))
+ setNt1_0_O(roundToTwo((cu_nt1_100-cdi_100)*1))
+ setNt2_C(roundToTwo(cu_nt2*1.2))
+ setNt2_I_Con_C(roundToTwo(cu_nt2*1.2))
+ setNt2_I_Sin_C(roundToTwo(cu_nt2))
+ setNt2_O(roundToTwo(cu_nt2))
+ setNt2_Ap(roundToTwo(cu_nt2))
+ setNt2_Bsnmen_Cs(roundToTwo(cu_nt2*(1-porc_subE1_NT2)))
+ setNt2_Bsnmay_Cs(roundToTwo(cu_nt2))
+ setNt3_C(roundToTwo(cu_nt3))
+ setNt3_I_Con_C(roundToTwo(cu_nt3*1.2))
+ setNt3_I_Sin_C(roundToTwo(cu_nt3))
+ setNt3_O(roundToTwo(cu_nt3))
+ setNt3_Ap(roundToTwo(cu_nt3))
+ setNt2_estrato_1_men_cs(roundToTwo(cu_nt2*(1-porc_subE1_NT2)))
+ setNt3_estrato_1_men_cs(roundToTwo(cu_nt3*(1-porc_subE1_NT3)))
+ setNt4_estrato_1_men_cs(roundToTwo(cu_nt4*(1-porc_subE1_NT4)))
+ setNt2_estrato_2_men_cs(roundToTwo(cu_nt2*(1-porc_subE2_NT2)))
+ setNt3_estrato_2_men_cs(roundToTwo(cu_nt3*(1-porc_subE2_NT3)))
+ setNt4_estrato_2_men_cs(roundToTwo(cu_nt4*(1-porc_subE2_NT4)))
  setempresa_id(data2.obtenerUsuario.empresa);
 }
 },[porc_subE1_100,porc_subE2_100,porc_subE1_50,porc_subE2_50,porc_subE1_0,porc_subE2_0]);
@@ -1358,7 +1449,7 @@ if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 &&
         try {
                 
 
-        const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
+const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
 const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
 data_dane=data1.obtenerData_dane
 data_danem=data_dane.filter(data_dane => data_dane.anho===anhom && data_dane.mes===mesm)
@@ -1369,6 +1460,13 @@ const tarifamc1_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*d
 const tarifamc2_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
 const tarifamc1_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
 const tarifamc2_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc1_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc1_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc1_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc2_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc2_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc2_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+
 if ((1-(tarifamc1_100/cu_nt1_100))<0.6){
 setPorc_subE1_100(1-(tarifamc1_100/cu_nt1_100))
 }
@@ -1405,6 +1503,42 @@ setPorc_subE2_0(1-(tarifamc2_0/cu_nt1_0))
 else{
 setPorc_subE2_0(0.5)
 }
+if ((1-(tarifamc1_NT2/cu_nt2))<0.6){
+setPorc_subE1_NT2(1-(tarifamc1_NT2/cu_nt2))
+}
+else{
+setPorc_subE1_NT2(0.6)
+}
+if ((1-(tarifamc1_NT3/cu_nt3))<0.6){
+setPorc_subE1_NT3(1-(tarifamc1_NT3/cu_nt3))
+}
+else{
+setPorc_subE1_NT3(0.6)
+}
+if ((1-(tarifamc1_NT4/cu_nt4))<0.6){
+setPorc_subE1_NT4(1-(tarifamc1_NT4/cu_nt4))
+}
+else{
+setPorc_subE1_NT4(0.6)
+}
+if ((1-(tarifamc2_NT2/cu_nt2))<0.5){
+setPorc_subE2_NT2(1-(tarifamc2_NT2/cu_nt2))
+}
+else{
+setPorc_subE2_NT2(0.5)
+}
+if ((1-(tarifamc2_NT3/cu_nt3))<0.5){
+setPorc_subE2_NT3(1-(tarifamc2_NT3/cu_nt3))
+}
+else{
+setPorc_subE2_NT3(0.5)
+}
+if ((1-(tarifamc2_NT4/cu_nt4))<0.5){
+setPorc_subE2_NT4(1-(tarifamc2_NT4/cu_nt4))
+}
+else{
+setPorc_subE2_NT4(0.5)
+}
 } catch (error) {
         console.log('no hay datos')
 }
@@ -1426,11 +1560,11 @@ try {
         data_empresa=data3.obtenerData_empresa
         data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm)
 
-        setCu_Nt1_100_ot(data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot*(1+pv/100))
-        setCu_Nt1_50_ot(data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot*(1+pv/100))
-        setCu_Nt1_0_ot(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100))
-        setCu_Nt2_ot(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100))
-        setCu_Nt3_ot(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100))
+        setCu_Nt1_100_ot(roundToTwo((data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot*(1+pv/100))))
+        setCu_Nt1_50_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot*(1+pv/100)))
+        setCu_Nt1_0_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100)))
+        setCu_Nt2_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))
+        setCu_Nt3_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100)))
 } catch (error) {
         console.log('no hay datos')
 }
@@ -1500,7 +1634,7 @@ try {
                         
                          const data_xm_tservmcnd=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.anho===anhom && data_xm_tserv.mes===mesm && data_xm_tserv.agente===data2.obtenerUsuario.empresa && data_xm_tserv.concepto==="CND")                
                          const data_xm_tservmsiciva=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.anho===anhom && data_xm_tserv.mes===mesm && data_xm_tserv.agente===data2.obtenerUsuario.empresa && data_xm_tserv.concepto==="SIC_IVA")   
-                         setCer((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)
+                         setCer((data_empresaanualm[0].contribuciones_creg*data_empresaanualm[0].porc_contribucion_creg/100+data_empresaanualm[0].contribuciones_sspd*data_empresaanualm[0].contribuciones_sspd/100)/12)
    
                 setCv(roundToTwo(c_ast+cvr+(((((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)+
                 data_xm_tservmcnd[0].magnitud+data_xm_tservmsiciva[0].magnitud+data_empresam[0].costo_garantias_mem_cop)/(data_empresam[0].ventas_usuarios_r_nt1_e+
@@ -1540,7 +1674,7 @@ useEffect(() => {
                         
                         const data_xm_mme_validacion=data9.obtenerData_mme_validacion
                         data_dane=data1.obtenerData_dane
-                       data_danem=data_dane.filter(data_dane => data_dane.anho===anhom && data_dane.mes===mesm)
+                        data_danem=data_dane.filter(data_dane => data_dane.anho===anhom && data_dane.mes===mesm)
                         const data_xm_adem=data8.obtenerData_xm_adem
                         const data_xm_ademm=data_xm_adem.filter(data_xm_adem => data_xm_adem.anho===anhom && data_xm_adem.mes===mesm)       
                         const data_mme_giro=data10.obtenerData_mme_giro       
@@ -1575,10 +1709,10 @@ useEffect(() => {
                         setPc(roundToTwo(Costo_contratos/Energia_contratos))
                        
                         setTx(roundToTwo(data_xm_stnm[0].t_prima_cop_kwh+data_xm_stnm[0].delta_t_cop_kwh))
-                        console.log('ACA')
+
                         console.log(data_xm_guatapem[0].crs_variable_guatape_cop)
                         setCrs((data_xm_afacm[0].restricciones_aliviadas_cop)-(data_xm_afacm[0].ventas_en_desviacion_cop+data_xm_guatapem[0].crs_variable_guatape_cop))
-                        console.log('ACA2')
+ 
                         setR(roundToTwo((data_xm_afacm[0].restricciones_aliviadas_cop-data_xm_afacm[0].ventas_en_desviacion_cop+data_xm_guatapem[0].crs_variable_guatape_cop)/(data_empresam[0].ventas_usuarios_r_nt1_e+
                                 data_empresam[0].ventas_usuarios_r_nt1_c+
                                 data_empresam[0].ventas_usuarios_r_nt1_u+
@@ -1609,11 +1743,14 @@ useEffect(() => {
                                 setX(0.00725*4)
                         }
                         setCfm(roundToTwo(data_creg_cxm[0].Cf*data_danem[0].ipc/79.56))
-                        setCvr(roundToTwo((((1-0)*data_creg_cxm[0].Cf*data_empresam[0].numero_usuarios_r)+(data_empresam[0].costo_garantias_str_sdl_cop)+(data_empresam[0].pui_cop_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
+                        setCvr(roundToTwo((((1-0)*roundToTwo(data_creg_cxm[0].Cf*data_danem[0].ipc/79.56)*data_empresam[0].numero_usuarios_r)+(data_empresam[0].costo_garantias_str_sdl_cop)+(data_empresam[0].pui_cop_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
                         data_empresam[0].ventas_usuarios_r_nt1_c+
                         data_empresam[0].ventas_usuarios_r_nt1_u+
                         data_empresam[0].ventas_usuarios_r_nt2+
                         data_empresam[0].ventas_usuarios_r_nt3)))
+                        setCg(data_empresam[0].costo_garantias_mem_cop)
+                        setCgcu(data_empresam[0].costo_garantias_str_sdl_cop)
+
                         setRc(roundToTwo((data_creg_cxm[0].RCT*((data_empresam[0].ventas_usuarios_r_nt1_e+data_empresam[0].ventas_usuarios_r_nt1_c+data_empresam[0].ventas_usuarios_r_nt1_u+data_empresam[0].ventas_usuarios_r_nt2+data_empresam[0].ventas_usuarios_r_nt3)-data_empresam[0].vae_kwh-data_empresam[0].vnu_kwh-data_empresam[0].vsne_kwh)+
                         data_creg_cxm[0].RCAE*(data_empresam[0].vae_kwh)+data_creg_cxm[0].RCSNE*(data_empresam[0].vsne_kwh)+data_creg_cxm[0].RCNU*(data_empresam[0].vnu_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
                                 data_empresam[0].ventas_usuarios_r_nt1_c+
@@ -1694,30 +1831,40 @@ useEffect(() => {
 
                         var len1 = 0, len2, len3, summ = 0, array_sub2M=[],array_sub1N=[],saldo,giro_sobranteb,ultimo_giro_incluidob,fecha_ultimo_giro;
                         
-                        
-                        giro_sobranteb=data_Res_componentes_cu_tarifam[0].giro_sobrante
-                        ultimo_giro_incluidob=data_Res_componentes_cu_tarifam[0].ultimo_giro_incluido
+                   
+                        if (tri_validados[0][1]===1){
+                        giro_sobranteb=parseFloat((data_xm_mme_validacion.filter(data_xm_mme_validacion => data_xm_mme_validacion.anho===tri_validados[0][2]-1 && data_xm_mme_validacion.trimestre===4))[0].giro_sobrante)
+                        ultimo_giro_incluidob=(data_xm_mme_validacion.filter(data_xm_mme_validacion => data_xm_mme_validacion.anho===tri_validados[0][2]-1 && data_xm_mme_validacion.trimestre===4))[0].ultimo_giro_incluido      
+                        }
+                        else{
+                                giro_sobranteb=parseFloat((data_xm_mme_validacion.filter(data_xm_mme_validacion => data_xm_mme_validacion.anho===tri_validados[0][2] && data_xm_mme_validacion.trimestre===tri_validados[0][1]-1))[0].giro_sobrante)
+                                ultimo_giro_incluidob=(data_xm_mme_validacion.filter(data_xm_mme_validacion => data_xm_mme_validacion.anho===tri_validados[0][2] && data_xm_mme_validacion.trimestre===tri_validados[0][1]-1))[0].ultimo_giro_incluido       
+                        }
+
+
                         if(giro_sobranteb===null || ultimo_giro_incluidob===null){
                                 giro_sobranteb=0
                                 ultimo_giro_incluidob=0
                         }
 
+
+
                         for (let index = 0; index < 4; index++) {
                                 saldo=tri_validados[index][3]
                                 len2=ultimo_giro_incluidob
                                 while (len2<data_mme_giro_ordenado.length-1 && saldo!=0) {
-                                
+
                                 var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
                                 var fecha_inicial_giros = new Date(2019,1,1);
 
                                 if(data_mme_giro_ordenado[len2].fondo==='FSSRI' && Date.parse(fecha_giro) >= Date.parse(fecha_inicial_giros) && Date.parse(fecha_giro) <= Date.parse(tri_validados[index][6])){
-
-                                        
+                                       
                                         if (giro_sobranteb>0){
 
                                                 
                                         var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
                                         saldo=saldo- giro_sobranteb  
+  
                                       //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
                                         if (saldo>0){
                                                 array_sub2M.push([index+1,giro_sobranteb, Math.round(Math.abs((Date.parse(tri_validados[index][6]) - fecha_giro) / oneDay)),giro_sobranteb* Math.round(Math.abs(((tri_validados[index][6]) - fecha_giro) / oneDay))])
@@ -1759,6 +1906,7 @@ useEffect(() => {
                                 }
                                 len2++  
                         }
+
 
                         len3 = ultimo_giro_incluidob
                         
@@ -1810,14 +1958,12 @@ useEffect(() => {
                                         len3++
                                 }
 
+                        actualizarData_mme_validaciogirosob(((data_xm_mme_validacion.filter(data_xm_mme_validacion => data_xm_mme_validacion.anho===tri_validados[index][2] && data_xm_mme_validacion.trimestre===tri_validados[index][1]))[0].id),giro_sobranteb.toString(),ultimo_giro_incluidob)
                         }
 
-                        setGiro_sobrante(giro_sobranteb)
-                        setUltimo_giro_incluido(ultimo_giro_incluidob)
 
-
-
-
+setGiro_sobrante(giro_sobranteb)
+setUltimo_giro_incluido(ultimo_giro_incluidob)
 
 var len1=0,len2=0,len3=0,sub2mt=[],sub1mt=[], sub2mpt=[],sub1npt=[],sub1p,sub2p,sub1np ,sub2mp
 while (len1<4){  
@@ -1851,6 +1997,7 @@ len3=0
 }
 
 
+
 setSub1((sub1mt[0]+sub1mt[1]+sub1mt[2]+sub1mt[3])/4)
 setSub2((sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3])/4)
 
@@ -1867,6 +2014,8 @@ setM_Sub2(0)
 }
 else{
 setM_Sub2(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))/30))
+console.log(sub2mpt)
+console.log(sub2mt)
 }
 
 //r1 y r2:

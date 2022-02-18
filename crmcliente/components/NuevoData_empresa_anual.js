@@ -19,7 +19,8 @@ empresa_id
 anho
 contribuciones_creg
 contribuciones_sspd
-
+porc_contribucion_creg
+porc_contribucion_sspd
 }
 }
 `;
@@ -32,7 +33,8 @@ empresa_id
 anho
 contribuciones_creg
 contribuciones_sspd
-
+porc_contribucion_creg
+porc_contribucion_sspd
 }
 }
 `;
@@ -52,7 +54,11 @@ const NuevoData_empresa_anual= (props) => {
 const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [datacsv, setDatacsv] = useState("");
 const [fileNames, setFileNames] = useState([]);
-const [creador, setcreador] = useState("");const [empresa_id, setempresa_id] = useState("");const [anho, setAnho] = useState("");const [contribuciones_creg, setContribuciones_Creg] = useState("");const [contribuciones_sspd, setContribuciones_Sspd] = useState("");
+const [creador, setcreador] = useState("");const [empresa_id, setempresa_id] = useState("");
+const [anho, setAnho] = useState("");const [contribuciones_creg, setContribuciones_Creg] = useState("");
+const [contribuciones_sspd, setContribuciones_Sspd] = useState("");
+const [porc_contribucion_creg, setPorc_contribucion_creg] = useState("");
+const [porc_contribucion_sspd, setPorc_contribucion_sspd] = useState("");
 const [nuevoData_empresa_anual]=useMutation(NUEVO_DATA_EMPRESA_ANUAL, {
 update(cache, { data: { nuevoData_empresa_anual} } ) {
 // Obtener el objeto de cache que deseamos actualizar
@@ -118,7 +124,7 @@ return result; //JSON
 
 const formik=useFormik({
 initialValues: {
-creador:creador,empresa_id:empresa_id,anho:anho,contribuciones_creg:contribuciones_creg,contribuciones_sspd:contribuciones_sspd
+creador:creador,empresa_id:empresa_id,anho:anho,contribuciones_creg:contribuciones_creg,contribuciones_sspd:contribuciones_sspd,porc_contribucion_creg:porc_contribucion_creg,porc_contribucion_sspd:porc_contribucion_sspd
 },
 enableReinitialize: true,
 validationSchema: Yup.object({
@@ -128,14 +134,14 @@ anho: Yup.string()
 .required('El Año es obligatorio')
 }),
 onSubmit: async valores => {
-const{creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd}=valores
+const{creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd,porc_contribucion_creg,porc_contribucion_sspd}=valores
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()
 try {
 const{data}=await nuevoData_empresa_anual({
 variables:{
 input:{
-creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd
+creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd,porc_contribucion_creg,porc_contribucion_sspd
 }
 }
 });
@@ -150,7 +156,9 @@ if (datacsv) {
 var Position=(datacsv[0].indexOf(("Anho").toString()))
            setAnho(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Contribuciones_Creg").toString()))
            setContribuciones_Creg(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Contribuciones_Sspd").toString()))
-           setContribuciones_Sspd(parseFloat(datacsv[1][Position]));
+           setContribuciones_Sspd(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Porcentaje_Contribuciones_SSPD").toString()))
+           setPorc_contribucion_sspd(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("Porcentaje_Contribuciones_CREG").toString()))
+           setPorc_contribucion_creg(parseFloat(datacsv[1][Position]))
 } else {
 }
 }, [datacsv])
@@ -238,7 +246,8 @@ value={formik.values.contribuciones_creg}></input></div></div>
         <p className="font-bold">Error</p>
         <p>{formik.errors.contribuciones_creg}</p>
         </div>
-        ) : null  }<div className="form-group row">
+        ) : null  }
+        <div className="form-group row">
         <label htmlFor="contribuciones_sspd" className="col-sm-7 col-form-label">Contribuciones_Sspd</label><div className="col-sm-5">
         <input type="number" className="form-control" id="contribuciones_sspd" placeholder="Contribuciones_Sspd"
 onChange={formik.handleChange}
@@ -250,6 +259,32 @@ value={formik.values.contribuciones_sspd}></input></div></div>
         <p>{formik.errors.contribuciones_sspd}</p>
         </div>
         ) : null  }
+<div className="form-group row">
+        <label htmlFor="porc_contribucion_creg" className="col-sm-7 col-form-label">Porcentaje_Contribuciones_Sspd</label><div className="col-sm-5">
+        <input type="number" className="form-control" id="porc_contribucion_creg" placeholder="Porcentaje_Contribuciones_Sspd"
+onChange={formik.handleChange}
+onBlur={formik.handleBlur}
+value={formik.values.porc_contribucion_creg}></input></div></div>
+        { formik.touched.porc_contribucion_creg&& formik.errors.porc_contribucion_creg? (
+        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+        <p className="font-bold">Error</p>
+        <p>{formik.errors.porc_contribucion_creg}</p>
+        </div>
+        ) : null  }
+<div className="form-group row">
+        <label htmlFor="porc_contribucion_creg" className="col-sm-7 col-form-label">Porcentaje_Contribuciones_CREG</label><div className="col-sm-5">
+        <input type="number" className="form-control" id="porc_contribucion_creg" placeholder="Porcentaje_Contribuciones_CREG"
+onChange={formik.handleChange}
+onBlur={formik.handleBlur}
+value={formik.values.porc_contribucion_creg}></input></div></div>
+        { formik.touched.porc_contribucion_creg&& formik.errors.porc_contribucion_creg? (
+        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+        <p className="font-bold">Error</p>
+        <p>{formik.errors.porc_contribucion_creg}</p>
+        </div>
+        ) : null  }
+
+
 <div className="container">
 <div className="row">
 <div className="col-sm">

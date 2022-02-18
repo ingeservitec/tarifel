@@ -552,7 +552,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
     </div>
     ) : null  }
         <div className= "form-group row ">
-        <label htmlFor= "agente " className= "col-sm-7 col-form-label ">Agente</label><div className= "col-sm-3 ">
+        <label htmlFor="agente" className="col-sm-7 col-form-label ">Agente</label><div className="col-sm-5">
         <input type= "text" className= "form-control" id= "agente" placeholder= "Agente "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -565,7 +565,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         </div>
         ) : null  }
         <div className= "form-group row ">
-        <label htmlFor= "anho " className= "col-sm-7 col-form-label ">Anho</label><div className= "col-sm-3 ">
+        <label htmlFor="anho" className="col-sm-7 col-form-label ">Anho</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "anho" placeholder= "Anho "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -577,7 +577,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "mes " className= "col-sm-7 col-form-label ">Mes</label><div className= "col-sm-3 ">
+        <label htmlFor="mes" className="col-sm-7 col-form-label ">Mes</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "mes" placeholder= "Mes "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -590,7 +590,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         </div>
         ) : null  }
         {/* <div className= "form-group row ">
-        <label htmlFor= "creador " className= "col-sm-7 col-form-label ">Creador</label><div className= "col-sm-3 ">
+        <label htmlFor="creador" className="col-sm-7 col-form-label ">Creador</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "creador" placeholder= "Creador "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -603,7 +603,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         </div>
         ) : null  } */}
         <div className= "form-group row ">
-        <label htmlFor= "perdida_real_kwh " className= "col-sm-7 col-form-label ">Perdida_Real_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="perdida_real_kwh" className="col-sm-7 col-form-label ">Perdida_Real_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "perdida_real_kwh" placeholder= "Perdida_Real_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -615,7 +615,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.perdida_real_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "demanda_real_kwh " className= "col-sm-7 col-form-label ">Demanda_Real_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="demanda_real_kwh" className="col-sm-7 col-form-label ">Demanda_Real_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "demanda_real_kwh" placeholder= "Demanda_Real_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -627,7 +627,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.demanda_real_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "generacion_real_kwh " className= "col-sm-7 col-form-label ">Generacion_Real_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="generacion_real_kwh" className="col-sm-7 col-form-label ">Generacion_Real_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "generacion_real_kwh" placeholder= "Generacion_Real_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -639,7 +639,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.generacion_real_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_kwh " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_kwh" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_kwh" placeholder= "Compras_En_Bolsa_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -651,7 +651,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_cop " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_cop" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_cop" placeholder= "Compras_En_Bolsa_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -663,7 +663,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_kwh " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_kwh" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_kwh" placeholder= "Ventas_En_Bolsa_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -675,7 +675,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_cop " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_cop" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_cop" placeholder= "Ventas_En_Bolsa_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -687,7 +687,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_desviacion_kwh " className= "col-sm-7 col-form-label ">Compras_En_Desviacion_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_desviacion_kwh" className="col-sm-7 col-form-label ">Compras_En_Desviacion_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_desviacion_kwh" placeholder= "Compras_En_Desviacion_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -699,7 +699,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_desviacion_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_desviacion_cop " className= "col-sm-7 col-form-label ">Compras_En_Desviacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_desviacion_cop" className="col-sm-7 col-form-label ">Compras_En_Desviacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_desviacion_cop" placeholder= "Compras_En_Desviacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -711,7 +711,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_desviacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_desviacion_kwh " className= "col-sm-7 col-form-label ">Ventas_En_Desviacion_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_desviacion_kwh" className="col-sm-7 col-form-label ">Ventas_En_Desviacion_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_desviacion_kwh" placeholder= "Ventas_En_Desviacion_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -723,7 +723,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_desviacion_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_desviacion_cop " className= "col-sm-7 col-form-label ">Ventas_En_Desviacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_desviacion_cop" className="col-sm-7 col-form-label ">Ventas_En_Desviacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_desviacion_cop" placeholder= "Ventas_En_Desviacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -735,7 +735,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_desviacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_reconciliacion_kwh " className= "col-sm-7 col-form-label ">Compras_En_Reconciliacion_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_reconciliacion_kwh" className="col-sm-7 col-form-label ">Compras_En_Reconciliacion_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_reconciliacion_kwh" placeholder= "Compras_En_Reconciliacion_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -747,7 +747,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_reconciliacion_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_reconciliacion_cop " className= "col-sm-7 col-form-label ">Compras_En_Reconciliacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_reconciliacion_cop" className="col-sm-7 col-form-label ">Compras_En_Reconciliacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_reconciliacion_cop" placeholder= "Compras_En_Reconciliacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -759,7 +759,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_reconciliacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_reconciliacion_kwh " className= "col-sm-7 col-form-label ">Ventas_En_Reconciliacion_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_reconciliacion_kwh" className="col-sm-7 col-form-label ">Ventas_En_Reconciliacion_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_reconciliacion_kwh" placeholder= "Ventas_En_Reconciliacion_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -771,7 +771,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_reconciliacion_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_reconciliacion_cop " className= "col-sm-7 col-form-label ">Ventas_En_Reconciliacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_reconciliacion_cop" className="col-sm-7 col-form-label ">Ventas_En_Reconciliacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_reconciliacion_cop" placeholder= "Ventas_En_Reconciliacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -783,7 +783,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_reconciliacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_contratos_kwh " className= "col-sm-7 col-form-label ">Compras_En_Contratos_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_contratos_kwh" className="col-sm-7 col-form-label ">Compras_En_Contratos_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_contratos_kwh" placeholder= "Compras_En_Contratos_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -795,7 +795,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_contratos_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_contratos_kwh " className= "col-sm-7 col-form-label ">Ventas_En_Contratos_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_contratos_kwh" className="col-sm-7 col-form-label ">Ventas_En_Contratos_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_contratos_kwh" placeholder= "Ventas_En_Contratos_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -807,7 +807,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_contratos_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_energia_en_bolsa_kwh " className= "col-sm-7 col-form-label ">Compras_Energia_En_Bolsa_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_energia_en_bolsa_kwh" className="col-sm-7 col-form-label ">Compras_Energia_En_Bolsa_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_energia_en_bolsa_kwh" placeholder= "Compras_Energia_En_Bolsa_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -819,7 +819,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_energia_en_bolsa_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_energia_en_bolsa_cop " className= "col-sm-7 col-form-label ">Compras_Energia_En_Bolsa_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_energia_en_bolsa_cop" className="col-sm-7 col-form-label ">Compras_Energia_En_Bolsa_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_energia_en_bolsa_cop" placeholder= "Compras_Energia_En_Bolsa_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -831,7 +831,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_energia_en_bolsa_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_energia_en_bolsa_kwh " className= "col-sm-7 col-form-label ">Ventas_Energia_En_Bolsa_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_energia_en_bolsa_kwh" className="col-sm-7 col-form-label ">Ventas_Energia_En_Bolsa_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_energia_en_bolsa_kwh" placeholder= "Ventas_Energia_En_Bolsa_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -843,7 +843,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_energia_en_bolsa_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_energia_en_bolsa_cop " className= "col-sm-7 col-form-label ">Ventas_Energia_En_Bolsa_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_energia_en_bolsa_cop" className="col-sm-7 col-form-label ">Ventas_Energia_En_Bolsa_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_energia_en_bolsa_cop" placeholder= "Ventas_Energia_En_Bolsa_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -855,7 +855,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_energia_en_bolsa_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vr_cargo_por_confiabilidad_cop " className= "col-sm-7 col-form-label ">Vr_Cargo_Por_Confiabilidad_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="vr_cargo_por_confiabilidad_cop" className="col-sm-7 col-form-label ">Vr_Cargo_Por_Confiabilidad_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vr_cargo_por_confiabilidad_cop" placeholder= "Vr_Cargo_Por_Confiabilidad_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -867,7 +867,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vr_cargo_por_confiabilidad_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vd_cargo_por_confiabilidad_cop " className= "col-sm-7 col-form-label ">Vd_Cargo_Por_Confiabilidad_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="vd_cargo_por_confiabilidad_cop" className="col-sm-7 col-form-label ">Vd_Cargo_Por_Confiabilidad_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vd_cargo_por_confiabilidad_cop" placeholder= "Vd_Cargo_Por_Confiabilidad_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -879,7 +879,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vd_cargo_por_confiabilidad_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "neto_cxc_cop " className= "col-sm-7 col-form-label ">Neto_Cxc_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="neto_cxc_cop" className="col-sm-7 col-form-label ">Neto_Cxc_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "neto_cxc_cop" placeholder= "Neto_Cxc_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -891,7 +891,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.neto_cxc_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_cargo_por_confiabilidad_cop " className= "col-sm-7 col-form-label ">Compras_Cargo_Por_Confiabilidad_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_cargo_por_confiabilidad_cop" className="col-sm-7 col-form-label ">Compras_Cargo_Por_Confiabilidad_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_cargo_por_confiabilidad_cop" placeholder= "Compras_Cargo_Por_Confiabilidad_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -903,7 +903,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_cargo_por_confiabilidad_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_cargo_por_confiabilidad_cop " className= "col-sm-7 col-form-label ">Ventas_Cargo_Por_Confiabilidad_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_cargo_por_confiabilidad_cop" className="col-sm-7 col-form-label ">Ventas_Cargo_Por_Confiabilidad_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_cargo_por_confiabilidad_cop" placeholder= "Ventas_Cargo_Por_Confiabilidad_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -915,7 +915,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_cargo_por_confiabilidad_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_nacional_kwh " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Nacional_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_nacional_kwh" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Nacional_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_nacional_kwh" placeholder= "Compras_En_Bolsa_Nacional_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -927,7 +927,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_nacional_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_nacional_cop " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Nacional_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_nacional_cop" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Nacional_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_nacional_cop" placeholder= "Compras_En_Bolsa_Nacional_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -939,7 +939,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_nacional_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_nacional_kwh " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Nacional_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_nacional_kwh" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Nacional_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_nacional_kwh" placeholder= "Ventas_En_Bolsa_Nacional_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -951,7 +951,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_nacional_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_nacional_cop " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Nacional_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_nacional_cop" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Nacional_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_nacional_cop" placeholder= "Ventas_En_Bolsa_Nacional_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -963,7 +963,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_nacional_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_internacional_kwh " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Internacional_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_internacional_kwh" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Internacional_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_internacional_kwh" placeholder= "Compras_En_Bolsa_Internacional_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -975,7 +975,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_internacional_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_internacional_cop " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Internacional_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_internacional_cop" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Internacional_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_internacional_cop" placeholder= "Compras_En_Bolsa_Internacional_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -987,7 +987,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_internacional_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_internacional_kwh " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Internacional_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_internacional_kwh" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Internacional_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_internacional_kwh" placeholder= "Ventas_En_Bolsa_Internacional_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -999,7 +999,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_internacional_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_internacional_cop " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Internacional_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_internacional_cop" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Internacional_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_internacional_cop" placeholder= "Ventas_En_Bolsa_Internacional_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1011,7 +1011,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_internacional_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "servicios_agc_cop " className= "col-sm-7 col-form-label ">Servicios_Agc_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="servicios_agc_cop" className="col-sm-7 col-form-label ">Servicios_Agc_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "servicios_agc_cop" placeholder= "Servicios_Agc_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1023,7 +1023,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.servicios_agc_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "responsabilidad_comercial_agc_kwh " className= "col-sm-7 col-form-label ">Responsabilidad_Comercial_Agc_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="responsabilidad_comercial_agc_kwh" className="col-sm-7 col-form-label ">Responsabilidad_Comercial_Agc_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "responsabilidad_comercial_agc_kwh" placeholder= "Responsabilidad_Comercial_Agc_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1035,7 +1035,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.responsabilidad_comercial_agc_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "responsabilidad_comercial_agc_cop " className= "col-sm-7 col-form-label ">Responsabilidad_Comercial_Agc_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="responsabilidad_comercial_agc_cop" className="col-sm-7 col-form-label ">Responsabilidad_Comercial_Agc_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "responsabilidad_comercial_agc_cop" placeholder= "Responsabilidad_Comercial_Agc_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1047,7 +1047,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.responsabilidad_comercial_agc_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "total_compras_cop " className= "col-sm-7 col-form-label ">Total_Compras_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="total_compras_cop" className="col-sm-7 col-form-label ">Total_Compras_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "total_compras_cop" placeholder= "Total_Compras_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1059,7 +1059,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.total_compras_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "total_ventas_cop " className= "col-sm-7 col-form-label ">Total_Ventas_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="total_ventas_cop" className="col-sm-7 col-form-label ">Total_Ventas_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "total_ventas_cop" placeholder= "Total_Ventas_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1071,7 +1071,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.total_ventas_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_pagar_por_srpf_cop " className= "col-sm-7 col-form-label ">Valor_A_Pagar_Por_Srpf_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_pagar_por_srpf_cop" className="col-sm-7 col-form-label ">Valor_A_Pagar_Por_Srpf_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_pagar_por_srpf_cop" placeholder= "Valor_A_Pagar_Por_Srpf_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1083,7 +1083,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_pagar_por_srpf_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_recibir_por_srpf_cop " className= "col-sm-7 col-form-label ">Valor_A_Recibir_Por_Srpf_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_recibir_por_srpf_cop" className="col-sm-7 col-form-label ">Valor_A_Recibir_Por_Srpf_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_recibir_por_srpf_cop" placeholder= "Valor_A_Recibir_Por_Srpf_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1095,7 +1095,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_recibir_por_srpf_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "total_restricciones_cop " className= "col-sm-7 col-form-label ">Total_Restricciones_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="total_restricciones_cop" className="col-sm-7 col-form-label ">Total_Restricciones_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "total_restricciones_cop" placeholder= "Total_Restricciones_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1107,7 +1107,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.total_restricciones_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "rentas_de_congestion_cop " className= "col-sm-7 col-form-label ">Rentas_De_Congestion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="rentas_de_congestion_cop" className="col-sm-7 col-form-label ">Rentas_De_Congestion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "rentas_de_congestion_cop" placeholder= "Rentas_De_Congestion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1119,7 +1119,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.rentas_de_congestion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "restricciones_aliviadas_cop " className= "col-sm-7 col-form-label ">Restricciones_Aliviadas_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="restricciones_aliviadas_cop" className="col-sm-7 col-form-label ">Restricciones_Aliviadas_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "restricciones_aliviadas_cop" placeholder= "Restricciones_Aliviadas_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1131,7 +1131,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.restricciones_aliviadas_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vebo_kwh " className= "col-sm-7 col-form-label ">Vebo_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="vebo_kwh" className="col-sm-7 col-form-label ">Vebo_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vebo_kwh" placeholder= "Vebo_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1143,7 +1143,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vebo_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "rentas_de_congestion_por_importacion_cop " className= "col-sm-7 col-form-label ">Rentas_De_Congestion_Por_Importacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="rentas_de_congestion_por_importacion_cop" className="col-sm-7 col-form-label ">Rentas_De_Congestion_Por_Importacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "rentas_de_congestion_por_importacion_cop" placeholder= "Rentas_De_Congestion_Por_Importacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1155,7 +1155,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.rentas_de_congestion_por_importacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "distribucion_saldo_neto_tie_en_merito_cop " className= "col-sm-7 col-form-label ">Distribucion_Saldo_Neto_Tie_En_Merito_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="distribucion_saldo_neto_tie_en_merito_cop" className="col-sm-7 col-form-label ">Distribucion_Saldo_Neto_Tie_En_Merito_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "distribucion_saldo_neto_tie_en_merito_cop" placeholder= "Distribucion_Saldo_Neto_Tie_En_Merito_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1167,7 +1167,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.distribucion_saldo_neto_tie_en_merito_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "distribucion_saldo_neto_tie_fuera_de_merito_cop " className= "col-sm-7 col-form-label ">Distribucion_Saldo_Neto_Tie_Fuera_De_Merito_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="distribucion_saldo_neto_tie_fuera_de_merito_cop" className="col-sm-7 col-form-label ">Distribucion_Saldo_Neto_Tie_Fuera_De_Merito_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "distribucion_saldo_neto_tie_fuera_de_merito_cop" placeholder= "Distribucion_Saldo_Neto_Tie_Fuera_De_Merito_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1179,7 +1179,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.distribucion_saldo_neto_tie_fuera_de_merito_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_bolsa_con_saldo_neto_tie_merito_cop " className= "col-sm-7 col-form-label ">Compras_Bolsa_Con_Saldo_Neto_Tie_Merito_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_bolsa_con_saldo_neto_tie_merito_cop" className="col-sm-7 col-form-label ">Compras_Bolsa_Con_Saldo_Neto_Tie_Merito_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_bolsa_con_saldo_neto_tie_merito_cop" placeholder= "Compras_Bolsa_Con_Saldo_Neto_Tie_Merito_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1191,7 +1191,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_bolsa_con_saldo_neto_tie_merito_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "rendimientos_financieros_por_exportaciones_tie_cop " className= "col-sm-7 col-form-label ">Rendimientos_Financieros_Por_Exportaciones_Tie_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="rendimientos_financieros_por_exportaciones_tie_cop" className="col-sm-7 col-form-label ">Rendimientos_Financieros_Por_Exportaciones_Tie_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "rendimientos_financieros_por_exportaciones_tie_cop" placeholder= "Rendimientos_Financieros_Por_Exportaciones_Tie_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1203,7 +1203,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.rendimientos_financieros_por_exportaciones_tie_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "alivio_por_cioef_cop " className= "col-sm-7 col-form-label ">Alivio_Por_Cioef_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="alivio_por_cioef_cop" className="col-sm-7 col-form-label ">Alivio_Por_Cioef_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "alivio_por_cioef_cop" placeholder= "Alivio_Por_Cioef_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1215,7 +1215,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.alivio_por_cioef_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_ndc_cop " className= "col-sm-7 col-form-label ">Compras_Ndc_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_ndc_cop" className="col-sm-7 col-form-label ">Compras_Ndc_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_ndc_cop" placeholder= "Compras_Ndc_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1227,7 +1227,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_ndc_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_desviaciones_oefh_cop " className= "col-sm-7 col-form-label ">Ventas_Desviaciones_Oefh_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_desviaciones_oefh_cop" className="col-sm-7 col-form-label ">Ventas_Desviaciones_Oefh_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_desviaciones_oefh_cop" placeholder= "Ventas_Desviaciones_Oefh_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1239,7 +1239,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_desviaciones_oefh_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_desviaciones_oefh_cop " className= "col-sm-7 col-form-label ">Compras_Desviaciones_Oefh_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_desviaciones_oefh_cop" className="col-sm-7 col-form-label ">Compras_Desviaciones_Oefh_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_desviaciones_oefh_cop" placeholder= "Compras_Desviaciones_Oefh_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1254,7 +1254,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
 
 
         <div className= "form-group row ">
-        <label htmlFor= "devolucion_dineros_del_cargo_por_confiabilidad_cop " className= "col-sm-7 col-form-label ">Devolucion_Dineros_Del_Cargo_Por_Confiabilidad_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="devolucion_dineros_del_cargo_por_confiabilidad_cop" className="col-sm-7 col-form-label ">Devolucion_Dineros_Del_Cargo_Por_Confiabilidad_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "devolucion_dineros_del_cargo_por_confiabilidad_cop" placeholder= "Devolucion_Dineros_Del_Cargo_Por_Confiabilidad_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1266,7 +1266,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.devolucion_dineros_del_cargo_por_confiabilidad_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "cobro_dinero_cargo_por_confiabilidad_cop " className= "col-sm-7 col-form-label ">Cobro_Dinero_Cargo_Por_Confiabilidad_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="cobro_dinero_cargo_por_confiabilidad_cop" className="col-sm-7 col-form-label ">Cobro_Dinero_Cargo_Por_Confiabilidad_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "cobro_dinero_cargo_por_confiabilidad_cop" placeholder= "Cobro_Dinero_Cargo_Por_Confiabilidad_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1278,7 +1278,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.cobro_dinero_cargo_por_confiabilidad_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_arranque_y_parada_cop " className= "col-sm-7 col-form-label ">Compras_Arranque_Y_Parada_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_arranque_y_parada_cop" className="col-sm-7 col-form-label ">Compras_Arranque_Y_Parada_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_arranque_y_parada_cop" placeholder= "Compras_Arranque_Y_Parada_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1290,7 +1290,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_arranque_y_parada_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_arranque_y_parada_cop " className= "col-sm-7 col-form-label ">Ventas_Arranque_Y_Parada_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_arranque_y_parada_cop" className="col-sm-7 col-form-label ">Ventas_Arranque_Y_Parada_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_arranque_y_parada_cop" placeholder= "Ventas_Arranque_Y_Parada_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1302,7 +1302,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_arranque_y_parada_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_por_eeve_cop " className= "col-sm-7 col-form-label ">Ventas_Por_Eeve_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_por_eeve_cop" className="col-sm-7 col-form-label ">Ventas_Por_Eeve_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_por_eeve_cop" placeholder= "Ventas_Por_Eeve_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1314,7 +1314,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_por_eeve_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_por_eeve_cop " className= "col-sm-7 col-form-label ">Compras_Por_Eeve_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_por_eeve_cop" className="col-sm-7 col-form-label ">Compras_Por_Eeve_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_por_eeve_cop" placeholder= "Compras_Por_Eeve_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1326,7 +1326,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_por_eeve_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "restricciones_por_eeve_cop " className= "col-sm-7 col-form-label ">Restricciones_Por_Eeve_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="restricciones_por_eeve_cop" className="col-sm-7 col-form-label ">Restricciones_Por_Eeve_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "restricciones_por_eeve_cop" placeholder= "Restricciones_Por_Eeve_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1338,7 +1338,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.restricciones_por_eeve_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "cobro_uso_respaldo_cop " className= "col-sm-7 col-form-label ">Cobro_Uso_Respaldo_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="cobro_uso_respaldo_cop" className="col-sm-7 col-form-label ">Cobro_Uso_Respaldo_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "cobro_uso_respaldo_cop" placeholder= "Cobro_Uso_Respaldo_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1350,7 +1350,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.cobro_uso_respaldo_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "alivio_restricciones_res_05_2010_cop " className= "col-sm-7 col-form-label ">Alivio_Restricciones_Res_05_2010_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="alivio_restricciones_res_05_2010_cop" className="col-sm-7 col-form-label ">Alivio_Restricciones_Res_05_2010_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "alivio_restricciones_res_05_2010_cop" placeholder= "Alivio_Restricciones_Res_05_2010_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1362,7 +1362,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.alivio_restricciones_res_05_2010_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_ties_cop " className= "col-sm-7 col-form-label ">Compras_En_Bolsa_Ties_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_ties_cop" className="col-sm-7 col-form-label ">Compras_En_Bolsa_Ties_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_ties_cop" placeholder= "Compras_En_Bolsa_Ties_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1374,7 +1374,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.compras_en_bolsa_ties_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "ventas_en_bolsa_ties_cop " className= "col-sm-7 col-form-label ">Ventas_En_Bolsa_Ties_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="ventas_en_bolsa_ties_cop" className="col-sm-7 col-form-label ">Ventas_En_Bolsa_Ties_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "ventas_en_bolsa_ties_cop" placeholder= "Ventas_En_Bolsa_Ties_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1386,7 +1386,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.ventas_en_bolsa_ties_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "magnitud_en_kwh__de_compras_en_bolsa_de_ties " className= "col-sm-7 col-form-label ">Magnitud_En_Kwh__De_Compras_En_Bolsa_De_Ties</label><div className= "col-sm-3 ">
+        <label htmlFor="magnitud_en_kwh__de_compras_en_bolsa_de_ties" className="col-sm-7 col-form-label ">Magnitud_En_Kwh__De_Compras_En_Bolsa_De_Ties</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "magnitud_en_kwh__de_compras_en_bolsa_de_ties" placeholder= "Magnitud_En_Kwh__De_Compras_En_Bolsa_De_Ties "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1398,7 +1398,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.magnitud_en_kwh__de_compras_en_bolsa_de_ties}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "magnitud_en_kwh_de_ventas_en_bolsa_ties " className= "col-sm-7 col-form-label ">Magnitud_En_Kwh_De_Ventas_En_Bolsa_Ties</label><div className= "col-sm-3 ">
+        <label htmlFor="magnitud_en_kwh_de_ventas_en_bolsa_ties" className="col-sm-7 col-form-label ">Magnitud_En_Kwh_De_Ventas_En_Bolsa_Ties</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "magnitud_en_kwh_de_ventas_en_bolsa_ties" placeholder= "Magnitud_En_Kwh_De_Ventas_En_Bolsa_Ties "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1410,7 +1410,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.magnitud_en_kwh_de_ventas_en_bolsa_ties}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "alivio_por_ejecucion_de_garantia_cop " className= "col-sm-7 col-form-label ">Alivio_Por_Ejecucion_De_Garantia_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="alivio_por_ejecucion_de_garantia_cop" className="col-sm-7 col-form-label ">Alivio_Por_Ejecucion_De_Garantia_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "alivio_por_ejecucion_de_garantia_cop" placeholder= "Alivio_Por_Ejecucion_De_Garantia_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1422,7 +1422,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.alivio_por_ejecucion_de_garantia_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_total_ejecucion_de_garantia_cop " className= "col-sm-7 col-form-label ">Valor_Total_Ejecucion_De_Garantia_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_total_ejecucion_de_garantia_cop" className="col-sm-7 col-form-label ">Valor_Total_Ejecucion_De_Garantia_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_total_ejecucion_de_garantia_cop" placeholder= "Valor_Total_Ejecucion_De_Garantia_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1434,7 +1434,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_total_ejecucion_de_garantia_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "alivio_por_vcsrcfvd_cop " className= "col-sm-7 col-form-label ">Alivio_Por_Vcsrcfvd_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="alivio_por_vcsrcfvd_cop" className="col-sm-7 col-form-label ">Alivio_Por_Vcsrcfvd_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "alivio_por_vcsrcfvd_cop" placeholder= "Alivio_Por_Vcsrcfvd_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1446,7 +1446,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.alivio_por_vcsrcfvd_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "voefv_a_cargo_por_la_oefv_adquirida_en_la_srcfv_cop " className= "col-sm-7 col-form-label ">Voefv_A_Cargo_Por_La_Oefv_Adquirida_En_La_Srcfv_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="voefv_a_cargo_por_la_oefv_adquirida_en_la_srcfv_cop" className="col-sm-7 col-form-label ">Voefv_A_Cargo_Por_La_Oefv_Adquirida_En_La_Srcfv_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "voefv_a_cargo_por_la_oefv_adquirida_en_la_srcfv_cop" placeholder= "Voefv_A_Cargo_Por_La_Oefv_Adquirida_En_La_Srcfv_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1458,7 +1458,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.voefv_a_cargo_por_la_oefv_adquirida_en_la_srcfv_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vmoefv_a_cargo_al_margen_del_precio_mp_srcfv_cop " className= "col-sm-7 col-form-label ">Vmoefv_A_Cargo_Al_Margen_Del_Precio_Mp_Srcfv_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="vmoefv_a_cargo_al_margen_del_precio_mp_srcfv_cop" className="col-sm-7 col-form-label ">Vmoefv_A_Cargo_Al_Margen_Del_Precio_Mp_Srcfv_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vmoefv_a_cargo_al_margen_del_precio_mp_srcfv_cop" placeholder= "Vmoefv_A_Cargo_Al_Margen_Del_Precio_Mp_Srcfv_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1470,7 +1470,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vmoefv_a_cargo_al_margen_del_precio_mp_srcfv_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "costo_de_exportacion_cop " className= "col-sm-7 col-form-label ">Costo_De_Exportacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="costo_de_exportacion_cop" className="col-sm-7 col-form-label ">Costo_De_Exportacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "costo_de_exportacion_cop" placeholder= "Costo_De_Exportacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1482,7 +1482,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.costo_de_exportacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "total_costo_de_exportacion_cop " className= "col-sm-7 col-form-label ">Total_Costo_De_Exportacion_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="total_costo_de_exportacion_cop" className="col-sm-7 col-form-label ">Total_Costo_De_Exportacion_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "total_costo_de_exportacion_cop" placeholder= "Total_Costo_De_Exportacion_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1494,7 +1494,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.total_costo_de_exportacion_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "total_de_generacion_ideal_en_kwh_del_agente " className= "col-sm-7 col-form-label ">Total_De_Generacion_Ideal_En_Kwh_Del_Agente</label><div className= "col-sm-3 ">
+        <label htmlFor="total_de_generacion_ideal_en_kwh_del_agente" className="col-sm-7 col-form-label ">Total_De_Generacion_Ideal_En_Kwh_Del_Agente</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "total_de_generacion_ideal_en_kwh_del_agente" placeholder= "Total_De_Generacion_Ideal_En_Kwh_Del_Agente "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1506,7 +1506,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.total_de_generacion_ideal_en_kwh_del_agente}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "total_de_holgura_de_agc_en_kwh_asignados_al_agente " className= "col-sm-7 col-form-label ">Total_De_Holgura_De_Agc_En_Kwh_Asignados_Al_Agente</label><div className= "col-sm-3 ">
+        <label htmlFor="total_de_holgura_de_agc_en_kwh_asignados_al_agente" className="col-sm-7 col-form-label ">Total_De_Holgura_De_Agc_En_Kwh_Asignados_Al_Agente</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "total_de_holgura_de_agc_en_kwh_asignados_al_agente" placeholder= "Total_De_Holgura_De_Agc_En_Kwh_Asignados_Al_Agente "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1518,7 +1518,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.total_de_holgura_de_agc_en_kwh_asignados_al_agente}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "energia_vendida_y_embalsada_asignada_kwh " className= "col-sm-7 col-form-label ">Energia_Vendida_Y_Embalsada_Asignada_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="energia_vendida_y_embalsada_asignada_kwh" className="col-sm-7 col-form-label ">Energia_Vendida_Y_Embalsada_Asignada_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "energia_vendida_y_embalsada_asignada_kwh" placeholder= "Energia_Vendida_Y_Embalsada_Asignada_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1530,7 +1530,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.energia_vendida_y_embalsada_asignada_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vr_demanda_res_155_2014 " className= "col-sm-7 col-form-label ">Vr_Demanda_Res_155_2014</label><div className= "col-sm-3 ">
+        <label htmlFor="vr_demanda_res_155_2014" className="col-sm-7 col-form-label ">Vr_Demanda_Res_155_2014</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vr_demanda_res_155_2014" placeholder= "Vr_Demanda_Res_155_2014 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1542,7 +1542,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vr_demanda_res_155_2014}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "alivio_asociado_a_la_resolucion_creg_024_2015_en_cop " className= "col-sm-7 col-form-label ">Alivio_Asociado_A_La_Resolucion_Creg_024_2015_En_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="alivio_asociado_a_la_resolucion_creg_024_2015_en_cop" className="col-sm-7 col-form-label ">Alivio_Asociado_A_La_Resolucion_Creg_024_2015_En_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "alivio_asociado_a_la_resolucion_creg_024_2015_en_cop" placeholder= "Alivio_Asociado_A_La_Resolucion_Creg_024_2015_En_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1554,7 +1554,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.alivio_asociado_a_la_resolucion_creg_024_2015_en_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "cobro_autogeneradores_res_024_2015 " className= "col-sm-7 col-form-label ">Cobro_Autogeneradores_Res_024_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="cobro_autogeneradores_res_024_2015" className="col-sm-7 col-form-label ">Cobro_Autogeneradores_Res_024_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "cobro_autogeneradores_res_024_2015" placeholder= "Cobro_Autogeneradores_Res_024_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1566,7 +1566,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.cobro_autogeneradores_res_024_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_para_generador_res_178_2015 " className= "col-sm-7 col-form-label ">Valor_A_Favor_Para_Generador_Res_178_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_para_generador_res_178_2015" className="col-sm-7 col-form-label ">Valor_A_Favor_Para_Generador_Res_178_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_para_generador_res_178_2015" placeholder= "Valor_A_Favor_Para_Generador_Res_178_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1578,7 +1578,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_para_generador_res_178_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_para_comercializador_res_178_2015 " className= "col-sm-7 col-form-label ">Valor_A_Cargo_Para_Comercializador_Res_178_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_para_comercializador_res_178_2015" className="col-sm-7 col-form-label ">Valor_A_Cargo_Para_Comercializador_Res_178_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_para_comercializador_res_178_2015" placeholder= "Valor_A_Cargo_Para_Comercializador_Res_178_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1590,7 +1590,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_para_comercializador_res_178_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_para_generador_res_195_2015 " className= "col-sm-7 col-form-label ">Valor_A_Cargo_Para_Generador_Res_195_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_para_generador_res_195_2015" className="col-sm-7 col-form-label ">Valor_A_Cargo_Para_Generador_Res_195_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_para_generador_res_195_2015" placeholder= "Valor_A_Cargo_Para_Generador_Res_195_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1602,7 +1602,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_para_generador_res_195_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_para_generador_res_195_2015 " className= "col-sm-7 col-form-label ">Valor_A_Favor_Para_Generador_Res_195_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_para_generador_res_195_2015" className="col-sm-7 col-form-label ">Valor_A_Favor_Para_Generador_Res_195_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_para_generador_res_195_2015" placeholder= "Valor_A_Favor_Para_Generador_Res_195_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1614,7 +1614,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_para_generador_res_195_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_para_comercializador_res_195_2015 " className= "col-sm-7 col-form-label ">Valor_A_Favor_Para_Comercializador_Res_195_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_para_comercializador_res_195_2015" className="col-sm-7 col-form-label ">Valor_A_Favor_Para_Comercializador_Res_195_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_para_comercializador_res_195_2015" placeholder= "Valor_A_Favor_Para_Comercializador_Res_195_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1626,7 +1626,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_para_comercializador_res_195_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_para_comercializador_res_195_2015 " className= "col-sm-7 col-form-label ">Valor_A_Cargo_Para_Comercializador_Res_195_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_para_comercializador_res_195_2015" className="col-sm-7 col-form-label ">Valor_A_Cargo_Para_Comercializador_Res_195_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_para_comercializador_res_195_2015" placeholder= "Valor_A_Cargo_Para_Comercializador_Res_195_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1638,7 +1638,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_para_comercializador_res_195_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_pagos_de_energia_excedentaria_cop " className= "col-sm-7 col-form-label ">Valor_A_Cargo_Pagos_De_Energia_Excedentaria_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_pagos_de_energia_excedentaria_cop" className="col-sm-7 col-form-label ">Valor_A_Cargo_Pagos_De_Energia_Excedentaria_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_pagos_de_energia_excedentaria_cop" placeholder= "Valor_A_Cargo_Pagos_De_Energia_Excedentaria_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1650,7 +1650,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_pagos_de_energia_excedentaria_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_por_energia_excedentaria_cop " className= "col-sm-7 col-form-label ">Valor_A_Favor_Por_Energia_Excedentaria_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_por_energia_excedentaria_cop" className="col-sm-7 col-form-label ">Valor_A_Favor_Por_Energia_Excedentaria_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_por_energia_excedentaria_cop" placeholder= "Valor_A_Favor_Por_Energia_Excedentaria_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1662,7 +1662,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_por_energia_excedentaria_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vc_rd_resolucion_011_de_2015 " className= "col-sm-7 col-form-label ">Vc_Rd_Resolucion_011_De_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="vc_rd_resolucion_011_de_2015" className="col-sm-7 col-form-label ">Vc_Rd_Resolucion_011_De_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vc_rd_resolucion_011_de_2015" placeholder= "Vc_Rd_Resolucion_011_De_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1674,7 +1674,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vc_rd_resolucion_011_de_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "vf_rd_resolucion_011_de_2015 " className= "col-sm-7 col-form-label ">Vf_Rd_Resolucion_011_De_2015</label><div className= "col-sm-3 ">
+        <label htmlFor="vf_rd_resolucion_011_de_2015" className="col-sm-7 col-form-label ">Vf_Rd_Resolucion_011_De_2015</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "vf_rd_resolucion_011_de_2015" placeholder= "Vf_Rd_Resolucion_011_De_2015 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1686,7 +1686,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.vf_rd_resolucion_011_de_2015}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_delta_ajuste_rd " className= "col-sm-7 col-form-label ">Valor_A_Favor_Delta_Ajuste_Rd</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_delta_ajuste_rd" className="col-sm-7 col-form-label ">Valor_A_Favor_Delta_Ajuste_Rd</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_delta_ajuste_rd" placeholder= "Valor_A_Favor_Delta_Ajuste_Rd "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1698,7 +1698,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_delta_ajuste_rd}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_delta_ajuste_rd " className= "col-sm-7 col-form-label ">Valor_A_Cargo_Delta_Ajuste_Rd</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_delta_ajuste_rd" className="col-sm-7 col-form-label ">Valor_A_Cargo_Delta_Ajuste_Rd</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_delta_ajuste_rd" placeholder= "Valor_A_Cargo_Delta_Ajuste_Rd "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1710,7 +1710,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_delta_ajuste_rd}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_r026_2016_cop " className= "col-sm-7 col-form-label ">Valor_A_Cargo_R026_2016_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_r026_2016_cop" className="col-sm-7 col-form-label ">Valor_A_Cargo_R026_2016_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_r026_2016_cop" placeholder= "Valor_A_Cargo_R026_2016_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1722,7 +1722,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_r026_2016_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_r026_2016_cop " className= "col-sm-7 col-form-label ">Valor_A_Favor_R026_2016_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_r026_2016_cop" className="col-sm-7 col-form-label ">Valor_A_Favor_R026_2016_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_r026_2016_cop" placeholder= "Valor_A_Favor_R026_2016_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1734,7 +1734,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_r026_2016_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_r029_2016_cop " className= "col-sm-7 col-form-label ">Valor_A_Favor_R029_2016_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_r029_2016_cop" className="col-sm-7 col-form-label ">Valor_A_Favor_R029_2016_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_r029_2016_cop" placeholder= "Valor_A_Favor_R029_2016_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1746,7 +1746,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_r029_2016_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "rf039_resolucion_039_de_2016 " className= "col-sm-7 col-form-label ">Rf039_Resolucion_039_De_2016</label><div className= "col-sm-3 ">
+        <label htmlFor="rf039_resolucion_039_de_2016" className="col-sm-7 col-form-label ">Rf039_Resolucion_039_De_2016</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "rf039_resolucion_039_de_2016" placeholder= "Rf039_Resolucion_039_De_2016 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1758,7 +1758,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.rf039_resolucion_039_de_2016}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "rc039_resolucion_039_de_2016 " className= "col-sm-7 col-form-label ">Rc039_Resolucion_039_De_2016</label><div className= "col-sm-3 ">
+        <label htmlFor="rc039_resolucion_039_de_2016" className="col-sm-7 col-form-label ">Rc039_Resolucion_039_De_2016</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "rc039_resolucion_039_de_2016" placeholder= "Rc039_Resolucion_039_De_2016 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1770,7 +1770,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.rc039_resolucion_039_de_2016}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "balance_final_029_de_2016 " className= "col-sm-7 col-form-label ">Balance_Final_029_De_2016</label><div className= "col-sm-3 ">
+        <label htmlFor="balance_final_029_de_2016" className="col-sm-7 col-form-label ">Balance_Final_029_De_2016</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "balance_final_029_de_2016" placeholder= "Balance_Final_029_De_2016 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1782,7 +1782,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.balance_final_029_de_2016}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_cargo_para_comercializador_res_062_2013 " className= "col-sm-7 col-form-label ">Valor_A_Cargo_Para_Comercializador_Res_062_2013</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_cargo_para_comercializador_res_062_2013" className="col-sm-7 col-form-label ">Valor_A_Cargo_Para_Comercializador_Res_062_2013</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_cargo_para_comercializador_res_062_2013" placeholder= "Valor_A_Cargo_Para_Comercializador_Res_062_2013 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1794,7 +1794,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_cargo_para_comercializador_res_062_2013}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_a_favor_para_generador_res_062_2013 " className= "col-sm-7 col-form-label ">Valor_A_Favor_Para_Generador_Res_062_2013</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_a_favor_para_generador_res_062_2013" className="col-sm-7 col-form-label ">Valor_A_Favor_Para_Generador_Res_062_2013</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_a_favor_para_generador_res_062_2013" placeholder= "Valor_A_Favor_Para_Generador_Res_062_2013 "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1806,7 +1806,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_a_favor_para_generador_res_062_2013}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_del_de_tie_res_049_2018_kwh " className= "col-sm-7 col-form-label ">Valor_Del_De_Tie_Res_049_2018_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_del_de_tie_res_049_2018_kwh" className="col-sm-7 col-form-label ">Valor_Del_De_Tie_Res_049_2018_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_del_de_tie_res_049_2018_kwh" placeholder= "Valor_Del_De_Tie_Res_049_2018_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1818,7 +1818,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_del_de_tie_res_049_2018_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_del_de_tie_res_049_2018_cop " className= "col-sm-7 col-form-label ">Valor_Del_De_Tie_Res_049_2018_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_del_de_tie_res_049_2018_cop" className="col-sm-7 col-form-label ">Valor_Del_De_Tie_Res_049_2018_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_del_de_tie_res_049_2018_cop" placeholder= "Valor_Del_De_Tie_Res_049_2018_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1830,7 +1830,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_del_de_tie_res_049_2018_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "magnitud_desviacion_despacho_res_060_2019_kwh " className= "col-sm-7 col-form-label ">Magnitud_Desviacion_Despacho_Res_060_2019_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="magnitud_desviacion_despacho_res_060_2019_kwh" className="col-sm-7 col-form-label ">Magnitud_Desviacion_Despacho_Res_060_2019_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "magnitud_desviacion_despacho_res_060_2019_kwh" placeholder= "Magnitud_Desviacion_Despacho_Res_060_2019_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1842,7 +1842,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.magnitud_desviacion_despacho_res_060_2019_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_desviacion_despacho_res_060_2019_cop " className= "col-sm-7 col-form-label ">Valor_Desviacion_Despacho_Res_060_2019_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_desviacion_despacho_res_060_2019_cop" className="col-sm-7 col-form-label ">Valor_Desviacion_Despacho_Res_060_2019_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_desviacion_despacho_res_060_2019_cop" placeholder= "Valor_Desviacion_Despacho_Res_060_2019_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1854,7 +1854,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_desviacion_despacho_res_060_2019_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "magnitud_desviacion_redespacho_res_060_2019_kwh " className= "col-sm-7 col-form-label ">Magnitud_Desviacion_Redespacho_Res_060_2019_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="magnitud_desviacion_redespacho_res_060_2019_kwh" className="col-sm-7 col-form-label ">Magnitud_Desviacion_Redespacho_Res_060_2019_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "magnitud_desviacion_redespacho_res_060_2019_kwh" placeholder= "Magnitud_Desviacion_Redespacho_Res_060_2019_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1866,7 +1866,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.magnitud_desviacion_redespacho_res_060_2019_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_desviacion_redespacho_res_060_2019_kwh " className= "col-sm-7 col-form-label ">Valor_Desviacion_Redespacho_Res_060_2019_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_desviacion_redespacho_res_060_2019_kwh" className="col-sm-7 col-form-label ">Valor_Desviacion_Redespacho_Res_060_2019_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_desviacion_redespacho_res_060_2019_kwh" placeholder= "Valor_Desviacion_Redespacho_Res_060_2019_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1878,7 +1878,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_desviacion_redespacho_res_060_2019_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "desviacion_generacion_variable_res_060_2019_kwh " className= "col-sm-7 col-form-label ">Desviacion_Generacion_Variable_Res_060_2019_Kwh</label><div className= "col-sm-3 ">
+        <label htmlFor="desviacion_generacion_variable_res_060_2019_kwh" className="col-sm-7 col-form-label ">Desviacion_Generacion_Variable_Res_060_2019_Kwh</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "desviacion_generacion_variable_res_060_2019_kwh" placeholder= "Desviacion_Generacion_Variable_Res_060_2019_Kwh "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1890,7 +1890,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.desviacion_generacion_variable_res_060_2019_kwh}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "alivio_desviaciones_res_creg_060_2019_cop " className= "col-sm-7 col-form-label ">Alivio_Desviaciones_Res_Creg_060_2019_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="alivio_desviaciones_res_creg_060_2019_cop" className="col-sm-7 col-form-label ">Alivio_Desviaciones_Res_Creg_060_2019_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "alivio_desviaciones_res_creg_060_2019_cop" placeholder= "Alivio_Desviaciones_Res_Creg_060_2019_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1902,7 +1902,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.alivio_desviaciones_res_creg_060_2019_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_pago_ajuste_res_140_2017_cop " className= "col-sm-7 col-form-label ">Valor_Pago_Ajuste_Res_140_2017_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_pago_ajuste_res_140_2017_cop" className="col-sm-7 col-form-label ">Valor_Pago_Ajuste_Res_140_2017_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_pago_ajuste_res_140_2017_cop" placeholder= "Valor_Pago_Ajuste_Res_140_2017_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1914,7 +1914,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_pago_ajuste_res_140_2017_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_cobro_ajuste_res_140_2017_cop " className= "col-sm-7 col-form-label ">Valor_Cobro_Ajuste_Res_140_2017_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_cobro_ajuste_res_140_2017_cop" className="col-sm-7 col-form-label ">Valor_Cobro_Ajuste_Res_140_2017_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_cobro_ajuste_res_140_2017_cop" placeholder= "Valor_Cobro_Ajuste_Res_140_2017_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1926,7 +1926,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_cobro_ajuste_res_140_2017_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_pago_excedente_res_140_2017_cop " className= "col-sm-7 col-form-label ">Valor_Pago_Excedente_Res_140_2017_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_pago_excedente_res_140_2017_cop" className="col-sm-7 col-form-label ">Valor_Pago_Excedente_Res_140_2017_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_pago_excedente_res_140_2017_cop" placeholder= "Valor_Pago_Excedente_Res_140_2017_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1938,7 +1938,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         <p>{formik.errors.valor_pago_excedente_res_140_2017_cop}</p>
         </div>
         ) : null  }<div className= "form-group row ">
-        <label htmlFor= "valor_cobro_faltante_res_140_2017_cop " className= "col-sm-7 col-form-label ">Valor_Cobro_Faltante_Res_140_2017_Cop</label><div className= "col-sm-3 ">
+        <label htmlFor="valor_cobro_faltante_res_140_2017_cop" className="col-sm-7 col-form-label ">Valor_Cobro_Faltante_Res_140_2017_Cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "valor_cobro_faltante_res_140_2017_cop" placeholder= "Valor_Cobro_Faltante_Res_140_2017_Cop "
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -1952,7 +1952,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
         ) : null  }
 
         <div className= "form-group row ">
-        <label htmlFor= "compras_en_bolsa_ajustes_cop" className= "col-sm-7 col-form-label ">Compras_en_Bolsa_Ajustes_cop</label><div className= "col-sm-3 ">
+        <label htmlFor="compras_en_bolsa_ajustes_cop"className= "col-sm-7 col-form-label ">Compras_en_Bolsa_Ajustes_cop</label><div className="col-sm-5">
         <input type= "number" className= "form-control" id= "compras_en_bolsa_ajustes_cop" placeholder= "Compras_en_Bolsa_Ajustes_cop"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}

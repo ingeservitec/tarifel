@@ -139,6 +139,7 @@ cu_nt1_50_ot
 cu_nt1_0_ot
 cu_nt2_ot
 cu_nt3_ot
+cu_nt4_ot
 saldo_nt1_100_ot
 saldo_nt1_50_ot
 saldo_nt1_0_ot
@@ -330,7 +331,7 @@ onHide={props.close}>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1-data_Res_componentes_cu_tarifam[0].cdi_100):null }</td>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt2):null }</td>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt3):null }</td>
-      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt3):null }</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt4):null }</td>
     </tr>
     <tr>
       <th scope="row">Comercialización</th>
@@ -375,7 +376,7 @@ onHide={props.close}>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot):null }</td>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt2_ot):null }</td>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt3_ot):null }</td>
-      <td>0</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt4_ot):null }</td>
     </tr>
   </tbody>
 </table>
@@ -387,6 +388,7 @@ onHide={props.close}>
 </div>
 <table class="table">
   <thead>
+
     <tr>
       <th scope="col">ESTRATO</th>
       <th scope="col">Empresa</th>
@@ -458,7 +460,15 @@ onHide={props.close}>
     </tr>
   </tbody>
 </table>
+
 <table class="table">
+<thead>
+    <tr>
+      <th scope="col"></th>
+      <th colspan="3" class="text-center">Comercial e industrial con contribución</th>
+      <th colspan="3" class="text-center">Oficial, alumbrado público e industrial sin contribución</th>
+    </tr>
+  </thead>
   <thead>
     <tr>
       <th scope="col">NIVEL DE TENSION</th>
@@ -502,6 +512,12 @@ onHide={props.close}>
   </tbody>
 </table>
 <table class="table">
+<thead>
+    <tr>
+
+      <th colspan="4" class="text-center">Costo transporte de energía reactiva en exceso</th>
+    </tr>
+  </thead>
   <thead>
     <tr>
       <th scope="col">NIVEL DE TENSION</th>

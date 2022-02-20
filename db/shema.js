@@ -997,6 +997,7 @@ type Data_creg_cx{
                      cu_nt1_0_ot: Float
                      cu_nt2_ot: Float
                      cu_nt3_ot: Float
+                     cu_nt4_ot: Float
                      saldo_nt1_100_ot: Float
                      saldo_nt1_50_ot: Float
                      saldo_nt1_0_ot: Float
@@ -1137,6 +1138,7 @@ type Data_creg_cx{
                      cu_nt1_0_ot: Float
                      cu_nt2_ot: Float
                      cu_nt3_ot: Float
+                     cu_nt4_ot: Float
                      saldo_nt1_100_ot: Float
                      saldo_nt1_50_ot: Float
                      saldo_nt1_0_ot: Float
@@ -1642,6 +1644,9 @@ type Data_creg_cx{
                                              valor_diferencial_despues_de_compensacion_cop_kwh_sur: Float
                                              
                                              }
+
+
+                                             
                                              input Data_xm_strInput {
                                              id: ID
                                              creador: Int
@@ -1665,7 +1670,37 @@ type Data_creg_cx{
                                              
                                              }
                                              
-
+                                             type Data_empresa_garantia{
+                                                id: ID
+                                                creador: Int
+                                                empresa_id: String
+                                                tipo_garantia: String
+                                                nit_beneficiario: Int
+                                                dv_beneficiario: Int
+                                                emisor_banco: String
+                                                numero_garantia: Int
+                                                fecha_inicio_vigencia: String
+                                                fecha_fin_vigencia: String
+                                                valor_garantia: Int
+                                                costo_garantia: Int
+                                                
+                                                }
+                                                input Data_empresa_garantiaInput {
+                                                id: ID
+                                                creador: Int
+                                                empresa_id: String
+                                                tipo_garantia: String
+                                                nit_beneficiario: Int
+                                                dv_beneficiario: Int
+                                                emisor_banco: String
+                                                numero_garantia: Int
+                                                fecha_inicio_vigencia: String
+                                                fecha_fin_vigencia: String
+                                                valor_garantia: Int
+                                                costo_garantia: Int
+                                                
+                                                }
+                                                
 type Query {
     #Usuarios    
     obtenerUsuario : Usuario
@@ -1715,6 +1750,8 @@ obtenerData_xm_dtun: [Data_xm_dtun]
 obtenerData_empresa_anual: [Data_empresa_anual]
 #Query Data_xm_str
 obtenerData_xm_str: [Data_xm_str]
+#Query data_empresa_garantia
+obtenerData_empresa_garantia: [Data_empresa_garantia]
 }
 type Mutation {  
     #Usuarios
@@ -1768,6 +1805,8 @@ actualizarData_mme_validacion(id: ID!, input:Data_mme_validacionInput):Data_mme_
 eliminarDataEmpresa(id: ID!):String
 #MutationData_xm_str
 nuevoData_xm_str(input:Data_xm_strInput):Data_xm_str
+#Mutationdata_empresa_garantia
+nuevoData_empresa_garantia(input:Data_empresa_garantiaInput):Data_empresa_garantia
     }
 `;
 

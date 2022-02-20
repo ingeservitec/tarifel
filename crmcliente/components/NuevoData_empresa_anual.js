@@ -138,6 +138,7 @@ const{creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd,porc_contr
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()
 try {
+        console.log(creador,empresa_id,anho,contribuciones_creg,contribuciones_sspd,porc_contribucion_creg,porc_contribucion_sspd)
 const{data}=await nuevoData_empresa_anual({
 variables:{
 input:{
@@ -173,7 +174,6 @@ console.log(empresa_id)
 return (
 <div>
 <Modal show={props.show}
-size="lg"
 aria-labelledby="contained-modal-title-vcenter"
 centered
 id="myModal"
@@ -202,7 +202,7 @@ onHide={props.close}>
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-        <label htmlFor="creador" className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
+        <label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-3">
         <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -213,7 +213,7 @@ value={formik.values.creador}></input></div></div>
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="empresa_id" className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
+        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-3">
         <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -225,7 +225,7 @@ value={formik.values.empresa_id ?
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="anho" className="col-sm-7 col-form-label">Anho</label><div className="col-sm-5">
+        <label htmlFor="anho"className="col-sm-7 col-form-label">Anho</label><div className="col-sm-3">
         <input type="number" className="form-control" id="anho" placeholder="Anho"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -236,7 +236,7 @@ value={formik.values.anho}></input></div></div>
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="contribuciones_creg" className="col-sm-7 col-form-label">Contribuciones_Creg</label><div className="col-sm-5">
+        <label htmlFor="contribuciones_creg"className="col-sm-7 col-form-label">Contribuciones_Creg</label><div className="col-sm-3">
         <input type="number" className="form-control" id="contribuciones_creg" placeholder="Contribuciones_Creg"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -248,7 +248,7 @@ value={formik.values.contribuciones_creg}></input></div></div>
         </div>
         ) : null  }
         <div className="form-group row">
-        <label htmlFor="contribuciones_sspd" className="col-sm-7 col-form-label">Contribuciones_Sspd</label><div className="col-sm-5">
+        <label htmlFor="contribuciones_sspd"className="col-sm-7 col-form-label">Contribuciones_Sspd</label><div className="col-sm-3">
         <input type="number" className="form-control" id="contribuciones_sspd" placeholder="Contribuciones_Sspd"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -260,19 +260,19 @@ value={formik.values.contribuciones_sspd}></input></div></div>
         </div>
         ) : null  }
 <div className="form-group row">
-        <label htmlFor="porc_contribucion_creg" className="col-sm-7 col-form-label">Porcentaje_Contribuciones_Sspd</label><div className="col-sm-5">
-        <input type="number" className="form-control" id="porc_contribucion_creg" placeholder="Porcentaje_Contribuciones_Sspd"
+        <label htmlFor="porc_contribucion_sspd"className="col-sm-7 col-form-label">Porcentaje_Contribuciones_Sspd</label><div className="col-sm-3">
+        <input type="number" className="form-control" id="porc_contribucion_sspd" placeholder="Porcentaje_Contribuciones_Sspd"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
-value={formik.values.porc_contribucion_creg}></input></div></div>
-        { formik.touched.porc_contribucion_creg&& formik.errors.porc_contribucion_creg? (
+value={formik.values.porc_contribucion_sspd}></input></div></div>
+        { formik.touched.porc_contribucion_sspd&& formik.errors.porc_contribucion_sspd? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
         <p className="font-bold">Error</p>
-        <p>{formik.errors.porc_contribucion_creg}</p>
+        <p>{formik.errors.porc_contribucion_sspd}</p>
         </div>
         ) : null  }
 <div className="form-group row">
-        <label htmlFor="porc_contribucion_creg" className="col-sm-7 col-form-label">Porcentaje_Contribuciones_CREG</label><div className="col-sm-5">
+        <label htmlFor="porc_contribucion_creg"className="col-sm-7 col-form-label">Porcentaje_Contribuciones_CREG</label><div className="col-sm-3">
         <input type="number" className="form-control" id="porc_contribucion_creg" placeholder="Porcentaje_Contribuciones_CREG"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -290,14 +290,14 @@ value={formik.values.porc_contribucion_creg}></input></div></div>
 <div className="col-sm">
 <input
 type="submit"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 />
 </div>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close}
 />

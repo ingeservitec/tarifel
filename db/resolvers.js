@@ -21,7 +21,7 @@ const Data_xm_ipr= require ('../models/Data_xm_ipr');
 const Data_xm_d015= require ('../models/Data_xm_d015');	
 const Data_xm_dtun= require ('../models/Data_xm_dtun');
 const Data_empresa_anual= require ('../models/Data_empresa_anual');
-
+const Data_empresa_garantia= require ('../models/Data_empresa_garantia');
 const bcryptjs = require ('bcryptjs');
 const jwt = require ('jsonwebtoken');
 const { afterCreate } = require('../models/Usuario');
@@ -284,7 +284,17 @@ obtenerData_xm_str: async () => {
     } catch (error) {
     console.log(error)
     }
-    }
+    },
+    //Query
+obtenerData_empresa_garantia: async () => {
+try {
+const data_empresa_garantia=await Data_empresa_garantia.findAll()
+return data_empresa_garantia;
+} catch (error) {
+console.log(error)
+}
+}
+
     
 
 
@@ -594,6 +604,20 @@ nuevoData_xm_str:async (_,{input})=> {
     console.log(error)
     }
     },
+    //Mutation
+
+    nuevoData_empresa_garantia:async (_,{input})=> {
+    
+    try {
+    const data_empresa_garantia=new Data_empresa_garantia(input);
+    const resultado = await data_empresa_garantia.save();
+    return resultado
+    } catch (error) {
+    console.log(error)
+    }
+    },
+    
+
     
 //Mutation
 

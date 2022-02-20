@@ -7,6 +7,7 @@ import { useDropzone } from "react-dropzone";
 import readXlsxFile from 'read-excel-file'
 import Swal from 'sweetalert2'
 import XLSX from 'xlsx';
+
 const NUEVO_DATA_XM_STR= gql`
 mutation nuevoData_xm_str($input:Data_xm_strInput ){
 nuevoData_xm_str(input:$input){
@@ -29,7 +30,6 @@ cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur
 cargo_por_uso_dt4_cop_kwh_sur
 factor_para_referir_las_medidas_de_energia_del_nt_4_sur
 valor_diferencial_despues_de_compensacion_cop_kwh_sur
-
 }
 }
 `;
@@ -55,7 +55,6 @@ cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur
 cargo_por_uso_dt4_cop_kwh_sur
 factor_para_referir_las_medidas_de_energia_del_nt_4_sur
 valor_diferencial_despues_de_compensacion_cop_kwh_sur
-
 }
 }
 `;
@@ -153,23 +152,9 @@ const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 // }, [datacsv])
 
 const handleSubmit = async () => {
-
+    Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+    props.close2() 
 try {
-    console.log(total_ingreso_mensual_bruto_str_cop_norte)
-    console.log(energia_del_str_kwh_norte)
-    console.log(cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte)
-    console.log(cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte)
-    console.log(cargo_por_uso_dt4_cop_kwh_norte)
-    console.log(factor_para_referir_las_medidas_de_energia_del_nt_4_norte)
-    console.log(valor_diferencial_despues_de_compensacion_cop_kwh_norte)
-    console.log(total_ingreso_mensual_bruto_str_cop_sur)
-    console.log(cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur)
-    console.log(cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur)
-    console.log(energia_del_str_kwh_sur)
-    console.log(cargo_por_uso_dt4_cop_kwh_sur)
-    console.log(factor_para_referir_las_medidas_de_energia_del_nt_4_sur)
-    console.log(valor_diferencial_despues_de_compensacion_cop_kwh_sur)
-
 const{data}=await nuevoData_xm_str({
 variables:{
 input:
@@ -234,7 +219,7 @@ onHide={props.close2}>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Guardar"
 onClick={handleSubmit}
 />
@@ -242,7 +227,7 @@ onClick={handleSubmit}
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
 onClick={props.close2}
 />

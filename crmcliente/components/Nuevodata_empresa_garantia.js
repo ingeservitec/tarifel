@@ -181,6 +181,7 @@ console.log(empresa_id)
 return (
 <div>
 <Modal show={props.show}
+size="lg"
 aria-labelledby="contained-modal-title-vcenter"
 centered
 id="myModal"
@@ -209,7 +210,7 @@ onHide={props.close}>
 onSubmit={formik.handleSubmit}
 >
 <div className="form-group row">
-        <label htmlFor="creador"className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
+        <label htmlFor="creador" className="col-sm-7 col-form-label">creador</label><div className="col-sm-5">
         <input type="number" className="form-control" id="creador" placeholder="creador"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -220,7 +221,7 @@ value={formik.values.creador}></input></div></div>
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="empresa_id"className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
+        <label htmlFor="empresa_id" className="col-sm-7 col-form-label">empresa_id</label><div className="col-sm-5">
         <input type="text" className="form-control" id="empresa_id" placeholder="empresa_id"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -232,7 +233,7 @@ value={formik.values.empresa_id ?
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="tipo_garantia"className="col-sm-7 col-form-label">Tipo_Garantia</label><div className="col-sm-5">
+        <label htmlFor="tipo_garantia" className="col-sm-7 col-form-label">Tipo_Garantia</label><div className="col-sm-5">
         <select type="text" className="form-control" id="tipo_garantia" placeholder="Tipo_Garantia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -257,7 +258,7 @@ value={formik.values.tipo_garantia}>
         <p>{formik.errors.tipo_garantia}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="nit_beneficiario"className="col-sm-7 col-form-label">Nit_Beneficiario</label><div className="col-sm-5">
+        <label htmlFor="nit_beneficiario" className="col-sm-7 col-form-label">Nit_Beneficiario</label><div className="col-sm-5">
         <input type="number" className="form-control" id="nit_beneficiario" placeholder="Nit_Beneficiario"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -268,7 +269,7 @@ value={formik.values.nit_beneficiario}></input></div></div>
         <p>{formik.errors.nit_beneficiario}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="dv_beneficiario"className="col-sm-7 col-form-label">Dv_Beneficiario</label><div className="col-sm-5">
+        <label htmlFor="dv_beneficiario" className="col-sm-7 col-form-label">Dv_Beneficiario</label><div className="col-sm-5">
         <input type="number" className="form-control" id="dv_beneficiario" placeholder="Dv_Beneficiario"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -279,7 +280,7 @@ value={formik.values.dv_beneficiario}></input></div></div>
         <p>{formik.errors.dv_beneficiario}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="emisor_banco"className="col-sm-7 col-form-label">Emisor_Banco</label><div className="col-sm-5">
+        <label htmlFor="emisor_banco" className="col-sm-7 col-form-label">Emisor_Banco</label><div className="col-sm-5">
         <input type="text" className="form-control" id="emisor_banco" placeholder="Emisor_Banco"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -290,7 +291,7 @@ value={formik.values.emisor_banco}></input></div></div>
         <p>{formik.errors.emisor_banco}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="numero_garantia"className="col-sm-7 col-form-label">Numero_Garantia</label><div className="col-sm-5">
+        <label htmlFor="numero_garantia" className="col-sm-7 col-form-label">Numero_Garantia</label><div className="col-sm-5">
         <input type="number" className="form-control" id="numero_garantia" placeholder="Numero_Garantia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -301,7 +302,7 @@ value={formik.values.numero_garantia}></input></div></div>
         <p>{formik.errors.numero_garantia}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="fecha_inicio_vigencia"className="col-sm-7 col-form-label">Fecha_Inicio_Vigencia</label><div className="col-sm-5">
+        <label htmlFor="fecha_inicio_vigencia" className="col-sm-7 col-form-label">Fecha_Inicio_Vigencia</label><div className="col-sm-5">
         <input type="date" className="form-control" id="fecha_inicio_vigencia" placeholder="Fecha_Inicio_Vigencia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -312,7 +313,7 @@ value={formik.values.fecha_inicio_vigencia}></input></div></div>
         <p>{formik.errors.fecha_inicio_vigencia}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="fecha_fin_vigencia"className="col-sm-7 col-form-label">Fecha_Fin_Vigencia</label><div className="col-sm-5">
+        <label htmlFor="fecha_fin_vigencia" className="col-sm-7 col-form-label">Fecha_Fin_Vigencia</label><div className="col-sm-5">
         <input type="date" className="form-control" id="fecha_fin_vigencia" placeholder="Fecha_Fin_Vigencia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -323,7 +324,7 @@ value={formik.values.fecha_fin_vigencia}></input></div></div>
         <p>{formik.errors.fecha_fin_vigencia}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="valor_garantia"className="col-sm-7 col-form-label">Valor_Garantia</label><div className="col-sm-5">
+        <label htmlFor="valor_garantia" className="col-sm-7 col-form-label">Valor_Garantia</label><div className="col-sm-5">
         <input type="number" className="form-control" id="valor_garantia" placeholder="Valor_Garantia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
@@ -334,7 +335,7 @@ value={formik.values.valor_garantia}></input></div></div>
         <p>{formik.errors.valor_garantia}</p>
         </div>
         ) : null  }<div className="form-group row">
-        <label htmlFor="costo_garantia"className="col-sm-7 col-form-label">Costo_Garantia</label><div className="col-sm-5">
+        <label htmlFor="costo_garantia" className="col-sm-7 col-form-label">Costo_Garantia</label><div className="col-sm-5">
         <input type="number" className="form-control" id="costo_garantia" placeholder="Costo_Garantia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}

@@ -8,24 +8,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Swal from 'sweetalert2'
 
 
-const OBTENER_DATA_DATA_EMPRESA_GARANTIA = gql`
-query obtenerData_data_empresa_garantia{
-obtenerData_data_empresa_garantia{
-id
-creador
-empresa_id
-tipo_garantia
-nit_beneficiario
-dv_beneficiario
-emisor_banco
-numero_garantia
-fecha_inicio_vigencia
-fecha_fin_vigencia
-valor_garantia
-costo_garantia
-}
-}
-`;
+
 
 
 const NUEVO_DATA_RES_COMPONENTES_CU_TARIFA= gql`
@@ -1058,8 +1041,24 @@ valor_diferencial_despues_de_compensacion_cop_kwh_sur
 }
 }
 `;
-
-
+const OBTENER_DATA_EMPRESA_GARANTIA = gql`
+query obtenerData_empresa_garantia{
+obtenerData_empresa_garantia{
+id
+creador
+empresa_id
+tipo_garantia
+nit_beneficiario
+dv_beneficiario
+emisor_banco
+numero_garantia
+fecha_inicio_vigencia
+fecha_fin_vigencia
+valor_garantia
+costo_garantia
+}
+}
+`;
 
 
 const NuevoCalculo_CU= (props) => {
@@ -1085,7 +1084,7 @@ const { data:data19, error:error19, loading:loading19} = useQuery(OBTENER_DATA_X
 const { data:data20, error:error20, loading:loading20} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const { data:data21, error:error21, loading:loading21} = useQuery(OBTENER_DATA_EMPRESA_ANUAL);
 const { data:data22, error:error22, loading:loading22} = useQuery(OBTENER_DATA_XM_STR);
-const { data:data23, error:error23, loading:loading23} = useQuery(OBTENER_DATA_DATA_EMPRESA_GARANTIA);
+const { data:data23, error:error23, loading:loading23} = useQuery(OBTENER_DATA_EMPRESA_GARANTIA);
 const [actualizarData_mme_validacion]=useMutation(ACTUALIZATDATA_MME_VALIDACION)
 
 const [nuevoRes_componentes_cu_tarifa]=useMutation(NUEVO_DATA_RES_COMPONENTES_CU_TARIFA, {
@@ -1219,6 +1218,25 @@ function roundToTwo(num) {
         return +(Math.round(num + "e+5")  + "e-5");
     }
 
+    function dateRange(startDate, endDate) {
+        var start      = startDate.split('-');
+        var end        = endDate.split('-');
+        var startYear  = parseInt(start[0]);
+        var endYear    = parseInt(end[0]);
+        var dates      = [];
+      
+        for(var i = startYear; i <= endYear; i++) {
+          var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
+          var startMon = i === startYear ? parseInt(start[1])-1 : 0;
+          for(var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j+1) {
+            var month = j+1;
+            var displayMonth = month < 10 ? '0'+month : month;
+            dates.push([i, displayMonth, '01'].join('-'));
+          }
+        }
+        return dates;
+      }
+
 useEffect(() => {
 
 
@@ -1335,16 +1353,14 @@ useEffect(() => {
         
         
         const Alfa=0.036578428408 //***************************** */
-        console.log('Calculo G')
-        console.log(pc)
-        console.log(((kwhBilaterales/(kwhSubasta+kwhBilaterales))*(qc*(Alfa*pc+(1-Alfa)*mc))))
-        console.log(pcSub)
-        console.log(((3298812/12)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))
-        console.log((1-qc)*pb)
-        console.log(((kwhSubasta/(kwhSubasta+kwhBilaterales))*pcSub*qc))
-        console.log(((3298812/12)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))
-        console.log(roundToTwo(((kwhBilaterales/(kwhSubasta+kwhBilaterales))*(qc*(Alfa*pc+(1-Alfa)*mc)))+(1-qc)*pb+aj+((kwhSubasta/(kwhSubasta+kwhBilaterales))*pcSub*qc)+((3298812/12)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh)))))
-        setGc(roundToTwo(((kwhBilaterales/(kwhSubasta+kwhBilaterales))*(qc*(Alfa*pc+(1-Alfa)*mc)))+(1-qc)*pb+aj+((kwhSubasta/(kwhSubasta+kwhBilaterales))*pcSub*qc)+((3298812/12)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh)))))
+
+                if(((cgsubasta)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh)))>1){
+                        setGc(roundToTwo(((kwhBilaterales/(kwhSubasta+kwhBilaterales))*(qc*(Alfa*pc+(1-Alfa)*mc)))+(1-qc)*pb+aj+((kwhSubasta/(kwhSubasta+kwhBilaterales))*pcSub*qc)+1))
+                }
+                else{
+                setGc(roundToTwo(((kwhBilaterales/(kwhSubasta+kwhBilaterales))*(qc*(Alfa*pc+(1-Alfa)*mc)))+(1-qc)*pb+aj+((kwhSubasta/(kwhSubasta+kwhBilaterales))*pcSub*qc)+((cgsubasta)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh)))))
+                }
+        
         setRef_G(roundToTwo(qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*mc))
         setMax_G(roundToTwo((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*mc)*1.3))
         setCr(roundToTwo((qc*(Alfa*pc+(1-Alfa)*mc)+(1-qc)*pb)))
@@ -1867,11 +1883,29 @@ useEffect(() => {
                         const data_banrepublica_tcap=data13.obtenerData_banrepublica_tcap
                         const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
                         const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
-                        const data_empresa_garantias=data23.obtenerData_data_empresa_garantia
-                        const data_empresa_garantiasm=data_empresa_garantias.filter(data_empresa_garantias => Date.parse( data_empresa_garantias.fecha_inicio_vigencia)<=Date.parse(new Date(anhom, mesm, 30))  && Date.parse(data_empresa_garantias.fecha_fin_vigencia)>=Date.parse(new Date(anhom, mesm, 30)))   
-                       
-
-
+                        const data_empresa_garantias=data23.obtenerData_empresa_garantia
+                        const data_empresa_garantiasm=data_empresa_garantias.filter(data_empresa_garantias => Date.parse( data_empresa_garantias.fecha_inicio_vigencia)<=Date.parse(new Date(anhom2, mesm2, 30))  && Date.parse(data_empresa_garantias.fecha_fin_vigencia)>=Date.parse(new Date(anhom2, mesm2, 30)))   
+                        
+                        var cgsubasta_acu=0,cgcu_acu=0,cg_acu=0
+                        for (let index = 0; index < data_empresa_garantiasm.length; index++) {
+                                console.log(data_empresa_garantiasm.length)
+                        var meses_garantizados=dateRange(data_empresa_garantias[index].fecha_inicio_vigencia, data_empresa_garantias[index].fecha_fin_vigencia)
+                        console.log(meses_garantizados)
+                        if (data_empresa_garantias[index].tipo_garantia==='Subasta_FERNC') {
+                                cgsubasta_acu=+data_empresa_garantias[index].costo_garantia/(meses_garantizados.length-1)   
+                        }
+                        if (data_empresa_garantias[index].tipo_garantia==='MEM') {
+                                cg_acu=+data_empresa_garantias[index].costo_garantia/(meses_garantizados.length-1)  
+                 
+                        }                 
+                        if (data_empresa_garantias[index].tipo_garantia==='STR') {
+                                cgcu_acu=+data_empresa_garantias[index].costo_garantia/(meses_garantizados.length-1)   
+                        }                                           
+                        }
+                        setCgsubasta(cgsubasta_acu) 
+                        setCg(cg_acu)
+                        setCgcu(cgcu_acu)
+                        console.log(cgsubasta_acu)
 
                         setQc(roundToTwo((Math.min(1,(data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))))
                      
@@ -1953,8 +1987,7 @@ if(isNaN(pcSub)){
                         data_empresam[0].ventas_usuarios_r_nt1_u+
                         data_empresam[0].ventas_usuarios_r_nt2+
                         data_empresam[0].ventas_usuarios_r_nt3)))
-                        setCg(data_empresam[0].costo_garantias_mem_cop)
-                        setCgcu(data_empresam[0].costo_garantias_str_sdl_cop)
+   
 
                         setRc(roundToTwo((data_creg_cxm[0].RCT*((data_empresam[0].ventas_usuarios_r_nt1_e+data_empresam[0].ventas_usuarios_r_nt1_c+data_empresam[0].ventas_usuarios_r_nt1_u+data_empresam[0].ventas_usuarios_r_nt2+data_empresam[0].ventas_usuarios_r_nt3)-data_empresam[0].vae_kwh-data_empresam[0].vnu_kwh-data_empresam[0].vsne_kwh)+
                         data_creg_cxm[0].RCAE*(data_empresam[0].vae_kwh)+data_creg_cxm[0].RCSNE*(data_empresam[0].vsne_kwh)+data_creg_cxm[0].RCNU*(data_empresam[0].vnu_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+

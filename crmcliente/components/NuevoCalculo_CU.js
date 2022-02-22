@@ -8,6 +8,26 @@ import 'font-awesome/css/font-awesome.min.css';
 import Swal from 'sweetalert2'
 
 
+const OBTENER_DATA_DATA_EMPRESA_GARANTIA = gql`
+query obtenerData_data_empresa_garantia{
+obtenerData_data_empresa_garantia{
+id
+creador
+empresa_id
+tipo_garantia
+nit_beneficiario
+dv_beneficiario
+emisor_banco
+numero_garantia
+fecha_inicio_vigencia
+fecha_fin_vigencia
+valor_garantia
+costo_garantia
+}
+}
+`;
+
+
 const NUEVO_DATA_RES_COMPONENTES_CU_TARIFA= gql`
 mutation nuevoRes_componentes_cu_tarifa($input:Res_componentes_cu_tarifaInput ){
 nuevoRes_componentes_cu_tarifa(input:$input){
@@ -1065,6 +1085,7 @@ const { data:data19, error:error19, loading:loading19} = useQuery(OBTENER_DATA_X
 const { data:data20, error:error20, loading:loading20} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const { data:data21, error:error21, loading:loading21} = useQuery(OBTENER_DATA_EMPRESA_ANUAL);
 const { data:data22, error:error22, loading:loading22} = useQuery(OBTENER_DATA_XM_STR);
+const { data:data23, error:error23, loading:loading23} = useQuery(OBTENER_DATA_DATA_EMPRESA_GARANTIA);
 const [actualizarData_mme_validacion]=useMutation(ACTUALIZATDATA_MME_VALIDACION)
 
 const [nuevoRes_componentes_cu_tarifa]=useMutation(NUEVO_DATA_RES_COMPONENTES_CU_TARIFA, {
@@ -1101,7 +1122,10 @@ const [cer, setCer] = useState(0);const [cfm, setCfm] = useState(0);const [x, se
 const [anho_ul_trim_val_mme, setAnho_Ul_Trim_Val_Mme] = useState(0);const [sub1, setSub1] = useState(0);const [sub2, setSub2] = useState(0);
 const [n_sub1, setN_Sub1] = useState(0);const [m_sub2, setM_Sub2] = useState(0);const [facturacion_t, setFacturacion_T] = useState(0);
 const [r1, setR1] = useState(0);const [r2, setR2] = useState(0);const [sup_def, setSup_Def] = useState(0);const [cfs, setCfs] = useState(0);
-const [cfe, setCfe] = useState(0);const [c_ast, setC_Ast] = useState(0);const [cg, setCg] = useState(0);const [cgcu, setCgcu] = useState(0)
+const [cfe, setCfe] = useState(0);const [c_ast, setC_Ast] = useState(0);
+const [cg, setCg] = useState(0);
+const [cgcu, setCgcu] = useState(0);
+const [cgsubasta, setCgsubasta] = useState(0);
 const [cvr, setCvr] = useState(0);const [cv, setCv] = useState(0);
 const [cu_nt1_100, setCu_Nt1_100] = useState(0);const [cu_nt1_50, setCu_Nt1_50] = useState(0);const [cu_nt1_0, setCu_Nt1_0] = useState(0);
 const [cu_nt2, setCu_Nt2] = useState(0);const [cu_nt3, setCu_Nt3] = useState(0);const [cu_nt4, setCu_Nt4] = useState(0);
@@ -1158,7 +1182,6 @@ const [saldo_nt1_100_ot, setSaldo_Nt1_100_ot] = useState(0);const [saldo_nt1_50_
 const [saldo_nt2_ot, setSaldo_Nt2_ot] = useState(0);const [saldo_nt3_ot, setSaldo_Nt3_ot] = useState(0);
 const [saldo_total_ot, setSaldo_Total_ot] = useState(0);const [giro_sobrante, setGiro_sobrante] = useState(0);
 const [ultimo_giro_incluido, setUltimo_giro_incluido] = useState(0);
-
 
 
 
@@ -1844,8 +1867,12 @@ useEffect(() => {
                         const data_banrepublica_tcap=data13.obtenerData_banrepublica_tcap
                         const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
                         const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
-                      
+                        const data_empresa_garantias=data23.obtenerData_data_empresa_garantia
+                        const data_empresa_garantiasm=data_empresa_garantias.filter(data_empresa_garantias => Date.parse( data_empresa_garantias.fecha_inicio_vigencia)<=Date.parse(new Date(anhom, mesm, 30))  && Date.parse(data_empresa_garantias.fecha_fin_vigencia)>=Date.parse(new Date(anhom, mesm, 30)))   
                        
+
+
+
                         setQc(roundToTwo((Math.min(1,(data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))))
                      
                         if (data_xm_afacm[0].compras_en_bolsa_nacional_kwh===0){
@@ -3599,7 +3626,7 @@ value={formik.values.nt3_ap}></input></div></div>
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
 value={formik.values.empresa_id ?
-formik.values.empresa_id.charAt(0).touppercasee() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
+formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
 { formik.touched.empresa_id&& formik.errors.empresa_id? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
 <p className="font-bold">Error</p>

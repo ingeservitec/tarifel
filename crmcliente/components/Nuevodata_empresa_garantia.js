@@ -240,13 +240,13 @@ value={formik.values.tipo_garantia}>
     <option value="">
     Seleccione {" "}
     </option>
-    <option value="AIR-E">
+    <option value="STR">
     STR
     </option>
-    <option value="ANTIOQUIA CREG 078/07">
+    <option value="MEM">
     MEM
     </option>
-    <option value="ARAUCA">
+    <option value="Subasta_FERNC">
     Subasta FERNC
     </option>
 

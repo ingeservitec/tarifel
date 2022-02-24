@@ -41,8 +41,6 @@ type Data_empresa  {
     ventas_usuarios_r_nt2: Float	
     ventas_usuarios_r_nt3: Float	
     ventas_usuarios_nr_kwh: Float
-    costo_garantias_mem_cop: Float
-    costo_garantias_str_sdl_cop: Float
     pui_cop_kwh: Float
     vsne_kwh: Float
     vnu_kwh: Float
@@ -356,8 +354,6 @@ input DataempresaInput  {
    ventas_usuarios_r_nt2: Float	
    ventas_usuarios_r_nt3: Float	
    ventas_usuarios_nr_kwh: Float
-   costo_garantias_mem_cop: Float
-   costo_garantias_str_sdl_cop: Float
    pui_cop_kwh: Float
    vsne_kwh: Float
    vnu_kwh: Float

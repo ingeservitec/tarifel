@@ -29,8 +29,6 @@ mutation nuevoDataempresa($input:DataempresaInput){
     ventas_usuarios_r_nt2
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
-    costo_garantias_mem_cop
-    costo_garantias_str_sdl_cop
     pui_cop_kwh
     vsne_kwh
     vnu_kwh
@@ -54,8 +52,6 @@ query obtenerData_empresa {
     ventas_usuarios_r_nt2
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
-    costo_garantias_mem_cop
-    costo_garantias_str_sdl_cop
     pui_cop_kwh
     vsne_kwh
     vnu_kwh
@@ -116,7 +112,7 @@ const NuevoDataempresa =(props) => {
       const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
       const formik=useFormik({
       initialValues: {
-        creador:creador,anho:anho,mes:mes,empresa_id:empresa_id,mercado:mercado,numero_usuarios_r:numero_usuarios_r,numero_usuarios_nr:numero_usuarios_nr,ventas_usuarios_r_nt1_e:ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c:ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u:ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2:ventas_usuarios_r_nt2,ventas_usuarios_r_nt3:ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh:ventas_usuarios_nr_kwh,costo_garantias_mem_cop:costo_garantias_mem_cop,costo_garantias_str_sdl_cop:costo_garantias_str_sdl_cop,pui_cop_kwh:pui_cop_kwh,vsne_kwh:vsne_kwh,vnu_kwh:vnu_kwh,vae_kwh:vae_kwh
+        creador:creador,anho:anho,mes:mes,empresa_id:empresa_id,mercado:mercado,numero_usuarios_r:numero_usuarios_r,numero_usuarios_nr:numero_usuarios_nr,ventas_usuarios_r_nt1_e:ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c:ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u:ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2:ventas_usuarios_r_nt2,ventas_usuarios_r_nt3:ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh:ventas_usuarios_nr_kwh,pui_cop_kwh:pui_cop_kwh,vsne_kwh:vsne_kwh,vnu_kwh:vnu_kwh,vae_kwh:vae_kwh
       }, 
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -127,15 +123,15 @@ const NuevoDataempresa =(props) => {
     }), 
     
     onSubmit: async valores => {
-    const{creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,costo_garantias_mem_cop,costo_garantias_str_sdl_cop,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh}=valores
+    const{creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh}=valores
     Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
     props.close()
     try {
-      console.log(creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,costo_garantias_mem_cop,costo_garantias_str_sdl_cop,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh)
+      console.log(creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh)
     const{data}=await nuevoDataempresa({
     variables:{
         input:{
-            creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,costo_garantias_mem_cop,costo_garantias_str_sdl_cop,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh
+            creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh
          }
     }
     });
@@ -173,8 +169,6 @@ const NuevoDataempresa =(props) => {
            var Position=(datacsv[0].indexOf(("ventas_usuarios_r_nt3").toString()))
            setVentasUsuariosRNt3(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("ventas_usuarios_nr_kwh").toString()))
            setVentasUsuariosNrKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("costo_garantias_mem_cop").toString()))
-           setCostoGarantiasMemCop(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("costo_garantias_str_sdl_cop").toString()))
-           setCostoGarantiasStrSdlCop(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("pui_cop_kwh").toString()))
            setPUICopKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vsne_kwh").toString()))
            setVSNEKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vnu_kwh").toString()))
            setVNUKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vae_kwh").toString()))
@@ -482,30 +476,6 @@ const NuevoDataempresa =(props) => {
     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
     <p className="font-bold">Error</p>
     <p>{formik.errors.ventas_usuarios_nr_kwh}</p>
-    </div>
-    ) : null  }<div className="form-group row">
-    <label htmlFor="costo_garantias_mem_cop" className="col-sm-7 col-form-label">Costo Garantias MEM Cop</label><div className="col-sm-5">
-    <input type="number" className="form-control" id="costo_garantias_mem_cop" placeholder="Costo Garantias Mem Cop"
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    value={formik.values.costo_garantias_mem_cop}></input></div>
-    </div>
-    { formik.touched.costo_garantias_mem_cop&& formik.errors.costo_garantias_mem_cop? (
-    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-    <p className="font-bold">Error</p>
-    <p>{formik.errors.costo_garantias_mem_cop}</p>
-    </div>
-    ) : null  }<div className="form-group row">
-    <label htmlFor="costo_garantias_str_sdl_cop" className="col-sm-7 col-form-label">Costo Garantias STR SDL Cop</label><div className="col-sm-5">
-    <input type="number" className="form-control" id="costo_garantias_str_sdl_cop" placeholder="Costo Garantias Str Sdl Cop"
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-    value={formik.values.costo_garantias_str_sdl_cop}></input></div>
-    </div>
-    { formik.touched.costo_garantias_str_sdl_cop&& formik.errors.costo_garantias_str_sdl_cop? (
-    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-    <p className="font-bold">Error</p>
-    <p>{formik.errors.costo_garantias_str_sdl_cop}</p>
     </div>
     ) : null  }<div className="form-group row">
     <label htmlFor="pui_cop_kwh" className="col-sm-7 col-form-label">PUI Cop Kwh</label><div className="col-sm-5">

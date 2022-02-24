@@ -74,18 +74,6 @@ const Data_empresaSchema = sequelize.define('data_empresa', {
     trim: true
     // sin espacios en blanco al inicio o al final
   },
-  costo_garantias_mem_cop: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-    trim: true
-    // sin espacios en blanco al inicio o al final
-  },
-  costo_garantias_str_sdl_cop: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-    trim: true
-    // sin espacios en blanco al inicio o al final
-  },
   pui_cop_kwh: {
     type: DataTypes.INTEGER,
     allowNull: false,

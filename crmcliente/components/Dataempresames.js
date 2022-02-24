@@ -32,8 +32,6 @@ query obtenerData_empresa {
     ventas_usuarios_r_nt2
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
-    costo_garantias_mem_cop
-    costo_garantias_str_sdl_cop
     pui_cop_kwh
     vsne_kwh
     vnu_kwh
@@ -98,8 +96,6 @@ const Dataempresa  = () => {
         { name: "Ventas Usuarios R NT2", field: "ventas_usuarios_r_nt2", sortable: false },
         { name: "Ventas Usuarios R NT3", field: "ventas_usuarios_r_nt3", sortable: false },
         { name: "Ventas Usuarios NR Kwh", field: "ventas_usuarios_nr_kwh", sortable: false },
-        { name: "Costo Garantias MEM Cop", field: "costo_garantias_mem_cop", sortable: false },
-        { name: "Costo Garantias STR SDL Cop", field: "costo_garantias_str_sdl_cop", sortable: false },
         { name: "PUI Cop Kwh", field: "pui_cop_kwh", sortable: false },
         { name: "VSNE Kwh", field: "vsne_kwh", sortable: false },
         { name: "VNU Kwh", field: "vnu_kwh", sortable: false },
@@ -258,8 +254,6 @@ return (
                                 <td>{comment.ventas_usuarios_r_nt2}</td>
                                 <td>{comment.ventas_usuarios_r_nt3}</td>
                                 <td>{comment.ventas_usuarios_nr_kwh}</td>
-                                <td>{comment.costo_garantias_mem_cop}</td>
-                                <td>{comment.costo_garantias_str_sdl_cop}</td>
                                 <td>{comment.pui_cop_kwh}</td>
                                 <td>{comment.vsne_kwh}</td>
                                 <td>{comment.vnu_kwh}</td>

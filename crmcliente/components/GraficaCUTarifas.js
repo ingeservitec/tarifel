@@ -457,26 +457,67 @@ const Index  = () => {
   const { data:data3, error:error3, loading:loading3} = useQuery(OBTENER_DATA_XM_ADEM);
   const [data_xm_ademfs,setData_xm_ademfs] = useState([]);
   const [dataCU, setcomponenteDatosCU] = useState([]);
+  const [dataTarifas, setDataTarifas] = useState([]);
   const [SiexisteCU, setSiexisteCU] = useState(0);
   const [showLogin, setShowLogin] = useState(false);
   const [showLogin2, setShowLogin2] = useState(false);
    var mes = startDate.getMonth()+1;
   var anho = startDate.getFullYear();
+
+  if (mes===1){
+    var mesm=12
+    var anhom=anho-1  
+    var mesm2=11
+    var anhom2=anho-1 
+
+}
+else{
+    if(mes===2){
+    var mesm=mes-1
+    var anhom=anho  
+    var mesm2=12
+    var anhom2=anho-1      
+
+    }
+    else{
+    var mesm=mes-1
+    var anhom=anho   
+    var mesm2=mes-2
+    var anhom2=anho       
+}
+}
+
   useEffect(() => {
   if(loading0) return null;
-  console.log(data0)
+
   const data_res_cu_tarifas=data0.obtenerRes_componentes_cu_tarifa
-  const data_res_cu_tarifasm=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anho && data_res_cu_tarifas.mes===(mes))
+  const data_res_cu_tarifasm=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anho && data_res_cu_tarifas.mes===mes)
+  const data_res_cu_tarifasm2=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anhom && data_res_cu_tarifas.mes===mesm)
   if (data_res_cu_tarifasm.length>0) {
     setcomponenteDatosCU([
-      { name: 'G', Periodo: data_res_cu_tarifasm[0].gc, Avg: 232.7890957},
-      { name: 'T', Periodo: data_res_cu_tarifasm[0].tx, Avg: 36.32},
-      { name: 'D', Periodo: data_res_cu_tarifasm[0].dtun_nt1_e , Avg:  195.85},
-      { name: 'R', Periodo: data_res_cu_tarifasm[0].r, Avg: 27.35042279},
-      { name: 'PR', Periodo:data_res_cu_tarifasm[0].gc,Avg: 11.62256869},
-      { name: 'C', Periodo: data_res_cu_tarifasm[0].cv,Avg:   73.19},
-      { name: 'CU',Periodo: data_res_cu_tarifasm[0].cu_nt1_100, Avg:   610.2621},
+      { name: 'G', "Periodo m": data_res_cu_tarifasm[0].gc, "Periodo m-1": data_res_cu_tarifasm2[0].gc},
+      { name: 'T', "Periodo m": data_res_cu_tarifasm[0].tx, "Periodo m-1": data_res_cu_tarifasm2[0].tx},
+      { name: 'D', "Periodo m": data_res_cu_tarifasm[0].dnt1 , "Periodo m-1":  data_res_cu_tarifasm2[0].dnt1},
+      { name: 'R', "Periodo m": data_res_cu_tarifasm[0].r, "Periodo m-1": data_res_cu_tarifasm2[0].r},
+      { name: 'PR', "Periodo m":data_res_cu_tarifasm[0].pr_nt1,"Periodo m-1": data_res_cu_tarifasm2[0].pr_nt1},
+      { name: 'C', "Periodo m": data_res_cu_tarifasm[0].cv,"Periodo m-1":   data_res_cu_tarifasm2[0].cv},
+      { name: 'CU',"Periodo m": data_res_cu_tarifasm[0].cu_nt1_100, "Periodo m-1":   data_res_cu_tarifasm2[0].cu_nt1_100},
     ])
+
+    setDataTarifas([
+            {name: 'E1', "Periodo m": data_res_cu_tarifasm[0].nt1_100_estrato_1_men_cs, "Periodo m-1": data_res_cu_tarifasm2[0].nt1_100_estrato_1_men_cs,amt: 2400,},
+            {name: 'E2', "Periodo m": data_res_cu_tarifasm[0].nt1_100_estrato_2_men_cs, "Periodo m-1":  data_res_cu_tarifasm2[0].nt1_100_estrato_2_men_cs, amt: 2210,},
+            {name: 'E3', "Periodo m":  data_res_cu_tarifasm[0].nt1_100_estrato_3_men_cs, "Periodo m-1":   data_res_cu_tarifasm2[0].nt1_100_estrato_3_men_cs, amt: 2290,},
+            {name: 'E4', "Periodo m": data_res_cu_tarifasm[0].nt1_100_estrato_4_men_cs, "Periodo m-1": data_res_cu_tarifasm2[0].nt1_100_estrato_4_men_cs, amt: 2290,},
+            {name: 'E5', "Periodo m": data_res_cu_tarifasm[0].nt1_100_estrato_5_men_cs, "Periodo m-1":  data_res_cu_tarifasm2[0].nt1_100_estrato_5_men_cs, amt: 2000,},
+            {name: 'E6', "Periodo m":   data_res_cu_tarifasm[0].nt1_100_estrato_6_men_cs, "Periodo m-1":    data_res_cu_tarifasm2[0].nt1_100_estrato_6_men_cs, amt: 2181,},
+            {name: 'C',"Periodo m":   data_res_cu_tarifasm[0].nt1_100_c,"Periodo m-1":    data_res_cu_tarifasm2[0].nt1_100_c,amt: 2500,},
+            {name: 'I', "Periodo m":   data_res_cu_tarifasm[0].nt1_100_i_sin_c, "Periodo m-1":    data_res_cu_tarifasm2[0].nt1_100_i_sin_c, amt: 2500,},
+            {name: 'O', "Periodo m":   data_res_cu_tarifasm[0].nt1_100_o, "Periodo m-1":    data_res_cu_tarifasm2[0].nt1_100_o, amt: 2500,},
+            {name: 'AP', "Periodo m":  data_res_cu_tarifasm[0].nt2_ap, "Periodo m-1":    data_res_cu_tarifasm2[0].nt2_ap, amt: 2500,}
+          ]);
+    
+
     setSiexisteCU(1)
   }
   else{
@@ -509,20 +550,7 @@ const data_xm_afacfsm = data_xm_afacfs.filter(data_xm_afacf => data_xm_afacf.anh
 //const data_xm_ademfs_dnr_m = data_xm_ademfs.filter(data_xm_ademf => data_xm_ademf.anho===anho && data_xm_ademf.mes===(mes) && data_xm_ademf.mes==="Demanda no regulada, en kWh.");
 //const data_xm_ademfs_pdnr_m = data_xm_ademfs.filter(data_xm_ademf => data_xm_ademf.anho===anho && data_xm_ademf.mes===(mes) && data_xm_ademf.mes==="Pérdida asociada a la demanda no regulada, en kWh.");
 
-let numeros = [1, 2, 3, 4, 5];
-let total = numeros.reduce((a, b) => a + b, 0);
-      const dataTarifas = [
-        {name: 'E1', Periodo: 263.463, Avg: 260.849,amt: 2400,},
-        {name: 'E2', Periodo: 329.329, Avg: 326.061, amt: 2210,},
-        {name: 'E3', Periodo:  533.995, Avg:  518.723, amt: 2290,},
-        {name: 'E4', Periodo: 628.229, Avg: 610.262, amt: 2290,},
-        {name: 'E5', Ago_2021: 753.875, Avg: 732.315, amt: 2000,},
-        {name: 'E6', Ago_2021:   753.875, Avg:   732.315, amt: 2181,},
-        {name: 'C',Ago_2021:   732.315,Avg:   732.315,amt: 2500,},
-        {name: 'I', Ago_2021:   628.229, Avg:   610.262, amt: 2500,},
-        {name: 'O', Ago_2021:   628.229, Avg:   610.2621, amt: 2500,},
-        {name: 'AP', Ago_2021:   628.229, Avg:   610.2621, amt: 2500,}
-      ];
+
 
 return (
     <div className="card">
@@ -569,8 +597,8 @@ return (
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Avg" fill="#8884d8" />
-          <Bar dataKey="Periodo" fill="#82ca9d" />
+          <Bar dataKey="Periodo m-1" fill="#8884d8" />
+          <Bar dataKey="Periodo m" fill="#82ca9d" />
         </BarChart>
     
       </div>
@@ -598,8 +626,8 @@ return (
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Avg" fill="#8884d8" background={{ fill: '#eee' }} />
-          <Bar dataKey="Ago_2021" fill="#82ca9d" />
+          <Bar dataKey="Periodo m-1" fill="#8884d8" background={{ fill: '#eee' }} />
+          <Bar dataKey="Periodo m" fill="#82ca9d" />
         </BarChart>
       </div>
     </div>

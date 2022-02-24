@@ -332,8 +332,6 @@ query obtenerData_empresa {
     ventas_usuarios_r_nt2
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
-    costo_garantias_mem_cop
-    costo_garantias_str_sdl_cop
     pui_cop_kwh
     vsne_kwh
     vnu_kwh
@@ -356,7 +354,6 @@ agente
 beneficiario
 concepto
 tipopago
- 
 magnitud
   }
 }
@@ -1518,8 +1515,8 @@ useEffect(() => {
 if(!loading1 && !loading2 && !loading3 && !loading4 && !loading5 && !loading6 && !loading7 && !loading8 && !loading9 && !loading9 && !loading10 && !loading11
 && !loading12 && !loading13  && !loading14  && !loading15  && !loading16  && !loading17 && !loading18 && !loading19 && !loading20 && !loading21){    
 if(sub1>=0 || sub2>=0){
-setCfs(((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/facturacion_t)
-setCfe((((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/facturacion_t)+0.00042)
+setCfs(roundToTwo((((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/facturacion_t)*100))
+setCfe(roundToTwo(((((sub1*(((1+r1)**(n_sub1+0.63))-1))-(sub2*(((1+r2)**(m_sub2))-1)))/facturacion_t)+0.00042)*100))
 } 
 }
 },[n_sub1,m_sub2,r1,r2,sub1,sub2,facturacion_t,porc_subE1_100]);
@@ -1554,21 +1551,21 @@ data_dane=data1.obtenerData_dane
 data_danem=data_dane.filter(data_dane => data_dane.anho===anhom && data_dane.mes===mesm)
 data_danem2=data_dane.filter(data_dane => data_dane.anho===anhom2 && data_dane.mes===mesm2)        
 
-const tarifamc1_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc1_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
 
-const tarifamc2_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc2_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
 
-const tarifamc1_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc2_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc1_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc2_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc1_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc2_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc1_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc2_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
 
-const tarifamc1_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc1_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc1_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_1_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc2_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc2_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
-const tarifamc2_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_2_men_cs*data_danem[0].ipc/data_danem2[0].ipc
+const tarifamc1_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc1_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc1_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc2_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc2_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
+const tarifamc2_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
 
 if ((1-(tarifamc1_100/cu_nt1_100))<0.6){
 setPorc_subE1_100(1-(tarifamc1_100/cu_nt1_100))
@@ -1835,10 +1832,9 @@ try {
                         
                          const data_xm_tservmcnd=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.anho===anhom && data_xm_tserv.mes===mesm && data_xm_tserv.agente===data2.obtenerUsuario.empresa && data_xm_tserv.concepto==="CND")                
                          const data_xm_tservmsiciva=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.anho===anhom && data_xm_tserv.mes===mesm && data_xm_tserv.agente===data2.obtenerUsuario.empresa && data_xm_tserv.concepto==="SIC_IVA")   
-                         setCer((data_empresaanualm[0].contribuciones_creg*data_empresaanualm[0].porc_contribucion_creg/100+data_empresaanualm[0].contribuciones_sspd*data_empresaanualm[0].contribuciones_sspd/100)/12)
-   
-                setCv(roundToTwo(c_ast+cvr+(((((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)+
-                data_xm_tservmcnd[0].magnitud+data_xm_tservmsiciva[0].magnitud+data_empresam[0].costo_garantias_mem_cop)/(data_empresam[0].ventas_usuarios_r_nt1_e+
+                         setCer((((data_empresaanualm[0].contribuciones_creg*data_empresaanualm[0].porc_contribucion_creg/100)+(data_empresaanualm[0].contribuciones_sspd*data_empresaanualm[0].porc_contribucion_sspd/100)))/12)
+                         setCv(roundToTwo(c_ast+cvr+(((((data_empresaanualm[0].contribuciones_creg+data_empresaanualm[0].contribuciones_sspd)/12)+
+                data_xm_tservmcnd[0].magnitud+data_xm_tservmsiciva[0].magnitud+cg)/(data_empresam[0].ventas_usuarios_r_nt1_e+
                         data_empresam[0].ventas_usuarios_r_nt1_c+
                         data_empresam[0].ventas_usuarios_r_nt1_u+
                         data_empresam[0].ventas_usuarios_r_nt2+
@@ -1862,6 +1858,7 @@ useEffect(() => {
                         const data_xm_dspcttomsub=data_xm_dspctto.filter(data_xm_dspctto => data_xm_dspctto.anho===anhom && data_xm_dspctto.mes===mesm && data_xm_dspctto.comprador===data2.obtenerUsuario.empresa && data_xm_dspctto.tipomerc==='R' && data_xm_dspctto.contrato!=53393 )//53393
                         const data_xm_trsm=data5.obtenerData_xm_trsm
                         const data_xm_trsmm=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom && data_xm_trsm.mes===mesm)
+                        const data_xm_trsmm2=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom2 && data_xm_trsm.mes===mesm)
                         const data_xm_stn=data14.obtenerDataxmstn
                         const data_xm_stnm=data_xm_stn.filter(data_xm_stn => data_xm_stn.anho===anho && data_xm_stn.mes===mes)
                         const data_xm_guatape=data19.obtenerData_xm_guatape
@@ -1888,9 +1885,9 @@ useEffect(() => {
                         
                         var cgsubasta_acu=0,cgcu_acu=0,cg_acu=0
                         for (let index = 0; index < data_empresa_garantiasm.length; index++) {
-                                console.log(data_empresa_garantiasm.length)
+                               
                         var meses_garantizados=dateRange(data_empresa_garantias[index].fecha_inicio_vigencia, data_empresa_garantias[index].fecha_fin_vigencia)
-                        console.log(meses_garantizados)
+                       
                         if (data_empresa_garantias[index].tipo_garantia==='Subasta_FERNC') {
                                 cgsubasta_acu=+data_empresa_garantias[index].costo_garantia/(meses_garantizados.length-1)   
                         }
@@ -1905,7 +1902,7 @@ useEffect(() => {
                         setCgsubasta(cgsubasta_acu) 
                         setCg(cg_acu)
                         setCgcu(cgcu_acu)
-                        console.log(cgsubasta_acu)
+                
 
                         setQc(roundToTwo((Math.min(1,(data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))))
                      
@@ -1981,8 +1978,8 @@ if(isNaN(pcSub)){
                         {
                                 setX(0.00725*4)
                         }
-                        setCfm(roundToTwo(data_creg_cxm[0].Cf*data_danem[0].ipc/79.56))
-                        setCvr(roundToTwo((((1-0)*roundToTwo(data_creg_cxm[0].Cf*data_danem[0].ipc/79.56)*data_empresam[0].numero_usuarios_r)+(data_empresam[0].costo_garantias_str_sdl_cop)+(data_empresam[0].pui_cop_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
+                        setCfm(roundToTwo(data_creg_cxm[0].Cf*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/79.56))
+                        setCvr(roundToTwo((((1-0)*roundToTwo(data_creg_cxm[0].Cf*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/79.56)*data_empresam[0].numero_usuarios_r)+(cgcu)+(data_empresam[0].pui_cop_kwh))/(data_empresam[0].ventas_usuarios_r_nt1_e+
                         data_empresam[0].ventas_usuarios_r_nt1_c+
                         data_empresam[0].ventas_usuarios_r_nt1_u+
                         data_empresam[0].ventas_usuarios_r_nt2+

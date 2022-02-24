@@ -369,8 +369,6 @@ query obtenerData_empresa {
     ventas_usuarios_r_nt2
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
-    costo_garantias_mem_cop
-    costo_garantias_str_sdl_cop
     pui_cop_kwh
     vsne_kwh
     vnu_kwh
@@ -413,6 +411,25 @@ porc_contribucion_sspd
 }
 `;
 
+const OBTENER_DATA_EMPRESA_GARANTIA = gql`
+query obtenerData_empresa_garantia{
+obtenerData_empresa_garantia{
+id
+creador
+empresa_id
+tipo_garantia
+nit_beneficiario
+dv_beneficiario
+emisor_banco
+numero_garantia
+fecha_inicio_vigencia
+fecha_fin_vigencia
+valor_garantia
+costo_garantia
+}
+}
+`;
+
 
 const Res_componentes_cu_tarifa= () => {
 const { data, error, loading} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
@@ -422,6 +439,8 @@ const { data:data4, error:error4, loading:loading4} = useQuery(OBTENER_DATA_XM_A
 const { data:data5, error:error5, loading:loading5} = useQuery(OBTENER_DATA_EMPRESAS);
 const { data:data6, error:error6, loading:loading6} = useQuery(OBTENER_DATA_CREG_CX);
 const { data:data7, error:error7, loading:loading7} = useQuery(OBTENER_DATA_EMPRESA_ANUAL);
+const { data:data8, error:error8, loading:loading8} = useQuery(OBTENER_DATA_EMPRESA_GARANTIA);
+
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -459,24 +478,33 @@ const headers = [
 { name: "Cvr", field: "cvr", sortable: true},{ name: "Cv", field: "cv", sortable: true},
 { name: "Cu_Nt1_100", field: "cu_nt1_100", sortable: true},{ name: "Cu_Nt1_50", field: "cu_nt1_50", sortable: true},
 { name: "Cu_Nt1_0", field: "cu_nt1_0", sortable: true},{ name: "Cu_Nt2", field: "cu_nt2", sortable: true},
-{ name: "Cu_Nt3", field: "cu_nt3", sortable: true},{ name: "Cu_Nt4", field: "cu_nt4", sortable: true},
-{ name: "Cu_Nt1_100_ot", field: "cu_nt1_100_ot", sortable: true},{ name: "Cu_Nt1_50_ot", field: "cu_nt1_50_ot", sortable: true},
-{ name: "Cu_Nt1_0_ot", field: "cu_nt1_0_ot", sortable: true},{ name: "Cu_Nt2_ot", field: "cu_nt2_ot", sortable: true},
+{ name: "Cu_Nt3", field: "cu_nt3", sortable: true},
+{ name: "Cu_Nt4", field: "cu_nt4", sortable: true},
+{ name: "Cu_Nt1_100_ot", field: "cu_nt1_100_ot", sortable: true},
+{ name: "Cu_Nt1_50_ot", field: "cu_nt1_50_ot", sortable: true},
+{ name: "Cu_Nt1_0_ot", field: "cu_nt1_0_ot", sortable: true},
+{ name: "Cu_Nt2_ot", field: "cu_nt2_ot", sortable: true},
 { name: "Cu_Nt3_ot", field: "cu_nt3_ot", sortable: true},
-{ name: "Saldo_Nt1_100_ot", field: "saldo_nt1_100_ot", sortable: true},{ name: "Saldo_Nt1_50_ot", field: "saldo_nt1_50_ot", sortable: true},
-{ name: "Saldo_Nt1_0_ot", field: "saldo_nt1_0_ot", sortable: true},{ name: "Saldo_Nt2_ot", field: "saldo_nt2_ot", sortable: true},
-{ name: "Saldo_Nt3_ot", field: "saldo_nt3_ot", sortable: true},
 { name: "PV", field: "pv", sortable: true},
+{ name: "Saldo_Nt1_100_ot", field: "saldo_nt1_100_ot", sortable: true},
+{ name: "Saldo_Nt1_50_ot", field: "saldo_nt1_50_ot", sortable: true},
+{ name: "Saldo_Nt1_0_ot", field: "saldo_nt1_0_ot", sortable: true},
+{ name: "Saldo_Nt2_ot", field: "saldo_nt2_ot", sortable: true},
+{ name: "Saldo_Nt3_ot", field: "saldo_nt3_ot", sortable: true},
 { name: "Nt1_100_Estrato_1_Men_Cs", field: "nt1_100_estrato_1_men_cs", sortable: true},
 { name: "Nt1_100_Estrato_2_Men_Cs", field: "nt1_100_estrato_2_men_cs", sortable: true},
 { name: "Nt1_100_Estrato_3_Men_Cs", field: "nt1_100_estrato_3_men_cs", sortable: true},
 { name: "Nt1_100_Estrato_4_Men_Cs", field: "nt1_100_estrato_4_men_cs", sortable: true},
 { name: "Nt1_100_Estrato_5_Men_Cs", field: "nt1_100_estrato_5_men_cs", sortable: true},
 { name: "Nt1_100_Estrato_6_Men_Cs", field: "nt1_100_estrato_6_men_cs", sortable: true},
-{ name: "Nt1_100_Estrato_4", field: "nt1_100_estrato_4", sortable: true},{ name: "Nt1_100_Estrato_5", field: "nt1_100_estrato_5", sortable: true},
-{ name: "Nt1_100_Estrato_6", field: "nt1_100_estrato_6", sortable: true},{ name: "Nt1_100_C", field: "nt1_100_c", sortable: true},
-{ name: "Nt1_100_I_Con_C", field: "nt1_100_i_con_c", sortable: true},{ name: "Nt1_100_I_Sin_C", field: "nt1_100_i_sin_c", sortable: true},
-{ name: "Nt1_100_P", field: "nt1_100_p", sortable: true},{ name: "Nt1_100_O", field: "nt1_100_o", sortable: true},
+{ name: "Nt1_100_Estrato_4", field: "nt1_100_estrato_4", sortable: true},
+{ name: "Nt1_100_Estrato_5", field: "nt1_100_estrato_5", sortable: true},
+{ name: "Nt1_100_Estrato_6", field: "nt1_100_estrato_6", sortable: true},
+{ name: "Nt1_100_C", field: "nt1_100_c", sortable: true},
+{ name: "Nt1_100_I_Con_C", field: "nt1_100_i_con_c", sortable: true},
+{ name: "Nt1_100_I_Sin_C", field: "nt1_100_i_sin_c", sortable: true},
+{ name: "Nt1_100_P", field: "nt1_100_p", sortable: true},
+{ name: "Nt1_100_O", field: "nt1_100_o", sortable: true},
 { name: "Nt1_50_Estrato_1_Men_Cs", field: "nt1_50_estrato_1_men_cs", sortable: true},
 { name: "Nt1_50_Estrato_2_Men_Cs", field: "nt1_50_estrato_2_men_cs", sortable: true},
 { name: "Nt1_50_Estrato_3_Men_Cs", field: "nt1_50_estrato_3_men_cs", sortable: true},
@@ -486,29 +514,45 @@ const headers = [
 { name: "Nt1_50_Estrato_4", field: "nt1_50_estrato_4", sortable: true},
 { name: "Nt1_50_Estrato_5", field: "nt1_50_estrato_5", sortable: true},
 { name: "Nt1_50_Estrato_6", field: "nt1_50_estrato_6", sortable: true},
-{ name: "Nt1_50_C", field: "nt1_50_c", sortable: true},{ name: "Nt1_50_I_Con_C", field: "nt1_50_i_con_c", sortable: true},
-{ name: "Nt1_50_I_Sin_C", field: "nt1_50_i_sin_c", sortable: true},{ name: "Nt1_50_P", field: "nt1_50_p", sortable: true},
-{ name: "Nt1_50_O", field: "nt1_50_o", sortable: true},{ name: "Nt1_0_Estrato_1_Men_Cs", field: "nt1_0_estrato_1_men_cs", sortable: true},
-{ name: "Nt1_0_Estrato_2_Men_Cs", field: "nt1_0_estrato_2_men_cs", sortable: true},{ name: "Nt1_0_Estrato_3_Men_Cs", field: "nt1_0_estrato_3_men_cs", sortable: true},
-{ name: "Nt1_0_Estrato_4_Men_Cs", field: "nt1_0_estrato_4_men_cs", sortable: true},{ name: "Nt1_0_Estrato_5_Men_Cs", field: "nt1_0_estrato_5_men_cs", sortable: true},
-{ name: "Nt1_0_Estrato_6_Men_Cs", field: "nt1_0_estrato_6_men_cs", sortable: true},{ name: "Nt1_0_Estrato_4", field: "nt1_0_estrato_4", sortable: true},
-{ name: "Nt1_0_Estrato_5", field: "nt1_0_estrato_5", sortable: true},{ name: "Nt1_0_Estrato_6", field: "nt1_0_estrato_6", sortable: true},
-{ name: "Nt1_0_C", field: "nt1_0_c", sortable: true},{ name: "Nt1_0_I_Con_C", field: "nt1_0_i_con_c", sortable: true},
-{ name: "Nt1_0_I_Sin_C", field: "nt1_0_i_sin_c", sortable: true},{ name: "Nt1_0_P", field: "nt1_0_p", sortable: true},
-{ name: "Nt1_0_O", field: "nt1_0_o", sortable: true},{ name: "Nt2_C", field: "nt2_c", sortable: true},{ name: "Nt2_I_Con_C", field: "nt2_i_con_c", sortable: true},
-{ name: "Nt2_I_Sin_C", field: "nt2_i_sin_c", sortable: true},{ name: "Nt2_O", field: "nt2_o", sortable: true},{ name: "Nt2_Ap", field: "nt2_ap", sortable: true},
-{ name: "Nt2_Bsnmen_Cs", field: "nt2_bsnmen_cs", sortable: true},{ name: "Nt2_Bsnmay_Cs", field: "nt2_bsnmay_cs", sortable: true},
-{ name: "Nt3_C", field: "nt3_c", sortable: true},{ name: "Nt3_I_Con_C", field: "nt3_i_con_c", sortable: true},{ name: "Nt3_I_Sin_C", field: "nt3_i_sin_c", sortable: true},
+{ name: "Nt1_50_C", field: "nt1_50_c", sortable: true},
+{ name: "Nt1_50_I_Con_C", field: "nt1_50_i_con_c", sortable: true},
+{ name: "Nt1_50_I_Sin_C", field: "nt1_50_i_sin_c", sortable: true},
+{ name: "Nt1_50_P", field: "nt1_50_p", sortable: true},
+{ name: "Nt1_50_O", field: "nt1_50_o", sortable: true},
+{ name: "Nt1_0_Estrato_1_Men_Cs", field: "nt1_0_estrato_1_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_2_Men_Cs", field: "nt1_0_estrato_2_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_3_Men_Cs", field: "nt1_0_estrato_3_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_4_Men_Cs", field: "nt1_0_estrato_4_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_5_Men_Cs", field: "nt1_0_estrato_5_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_6_Men_Cs", field: "nt1_0_estrato_6_men_cs", sortable: true},
+{ name: "Nt1_0_Estrato_4", field: "nt1_0_estrato_4", sortable: true},
+{ name: "Nt1_0_Estrato_5", field: "nt1_0_estrato_5", sortable: true},
+{ name: "Nt1_0_Estrato_6", field: "nt1_0_estrato_6", sortable: true},
+{ name: "Nt1_0_C", field: "nt1_0_c", sortable: true},
+{ name: "Nt1_0_I_Con_C", field: "nt1_0_i_con_c", sortable: true},
+{ name: "Nt1_0_I_Sin_C", field: "nt1_0_i_sin_c", sortable: true},
+{ name: "Nt1_0_P", field: "nt1_0_p", sortable: true},
+{ name: "Nt1_0_O", field: "nt1_0_o", sortable: true},
+{ name: "Nt2_C", field: "nt2_c", sortable: true},
+{ name: "Nt2_I_Con_C", field: "nt2_i_con_c", sortable: true},
+{ name: "Nt2_I_Sin_C", field: "nt2_i_sin_c", sortable: true},
+{ name: "Nt2_O", field: "nt2_o", sortable: true},
+{ name: "Nt2_Ap", field: "nt2_ap", sortable: true},
+{ name: "Nt2_Bsnmen_Cs", field: "nt2_bsnmen_cs", sortable: true},
+{ name: "Nt2_Bsnmay_Cs", field: "nt2_bsnmay_cs", sortable: true},
+{ name: "Nt3_C", field: "nt3_c", sortable: true},
+{ name: "Nt3_I_Con_C", field: "nt3_i_con_c", sortable: true},
+{ name: "Nt3_I_Sin_C", field: "nt3_i_sin_c", sortable: true},
+{ name: "Nt3_Ap", field: "nt3_ap", sortable: true},
 { name: "Nt2_estrato_1_men_cs", field: "nt2_estrato_1_men_cs", sortable: true},
 { name: "Nt3_estrato_1_men_cs", field: "nt3_estrato_1_men_cs", sortable: true},
 { name: "Nt4_estrato_1_men_cs", field: "nt4_estrato_1_men_cs", sortable: true},
 { name: "Nt2_estrato_2_men_cs", field: "nt2_estrato_2_men_cs", sortable: true},
 { name: "Nt3_estrato_2_men_cs", field: "nt3_estrato_2_men_cs", sortable: true},
 { name: "Nt4_estrato_2_men_cs", field: "nt4_estrato_2_men_cs", sortable: true},
-{ name: "giro_sobrante", field: "giro_sobrante", sortable: true},{ name: "ultimo_giro_incluido", field: "ultimo_giro_incluido", sortable: true},
-{ name: "saldo_nt1_100_ot", field: "saldo_nt1_100_ot", sortable: true},{ name: "saldo_nt1_50_ot", field: "saldo_nt1_50_ot", sortable: true},
-{ name: "saldo_nt1_0_ot", field: "saldo_nt1_0_ot", sortable: true},{ name: "saldo_nt2_ot", field: "saldo_nt2_ot", sortable: true},
-{ name: "saldo_nt3_ot", field: "saldo_nt3_ot", sortable: true},{ name: "pv", field: "pv", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true}
+{ name: "giro_sobrante", field: "giro_sobrante", sortable: true},
+{ name: "ultimo_giro_incluido", field: "ultimo_giro_incluido", sortable: true},
+{ name: "empresa_id", field: "empresa_id", sortable: true}
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
@@ -539,9 +583,6 @@ parseInt(reversed * a[sorting.field])-parseInt(b[sorting.field])
 }
 //Current Page slice
 
-
-
-
 return computedComments.slice(
 (currentPage - 1) * ITEMS_PER_PAGE,
 (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
@@ -556,6 +597,25 @@ function roundToFive(num) {
     return +(Math.round(num + "e+5")  + "e-5");
 }
 
+function dateRange(startDate, endDate) {
+    var start      = startDate.split('-');
+    var end        = endDate.split('-');
+    var startYear  = parseInt(start[0]);
+    var endYear    = parseInt(end[0]);
+    var dates      = [];
+  
+    for(var i = startYear; i <= endYear; i++) {
+      var endMonth = i != endYear ? 11 : parseInt(end[1]) - 1;
+      var startMon = i === startYear ? parseInt(start[1])-1 : 0;
+      for(var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j+1) {
+        var month = j+1;
+        var displayMonth = month < 10 ? '0'+month : month;
+        dates.push([i, displayMonth, '01'].join('-'));
+      }
+    }
+    return dates;
+  }
+  
 
 const exportarMemorias=(id)=>{
 
@@ -608,8 +668,7 @@ const exportarFormatosSSPD=(id)=>{
                 
                 const data_Res_componentes_cu_tarifa=data.obtenerRes_componentes_cu_tarifa
                 const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.id===id) 
-                console.log(data_Res_componentes_cu_tarifam)
-
+            
                 var mesm,anhom,mesm2,anhom2
 
                 if (data_Res_componentes_cu_tarifam[0].mes===1){
@@ -635,7 +694,7 @@ const data_empresa=data5.obtenerData_empresa
 const data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm)
                 
 var mercado
-console.log(data_empresam)
+
 if(data_empresam[0].mercado==="GUAVIARE"){
 mercado=681
 }
@@ -650,25 +709,47 @@ mercado=681
                                    var recuperacionGarantias="No"
                     var observaciónRecuperacionGarantias="La empresa cubre los cargos por uso del MEM y STR a través de prepago con cuenta custodia"
                   }
-                  
-               
+                                 
                 const formulario_1_sspd=
                 [{"¿Recuperará la empresa a través del componente de comercialización el costo de las garantías financieras constituidas?":
                 recuperacionGarantias,
                 "Observación":observaciónRecuperacionGarantias}]
-                const formato_2_sspd=
-                [{"Tipo de Garantía":1,
-                "NIT Beneficiario":2,
-                "DV Beneficiario":1,
-                "Emisor":2,
-                "Número Garantía":1,
-                "Mes Cobertura":2,
-                "Fecha Inicio Vigencia":1,
-                "Fecha Finalización Vigencia":2,
-                "Valor Total Garantía":1,
-                "Costo Garantía":2,
-                "Costo a Recuperar":1            
-                }]
+
+            
+                const data_empresa_garantias=data8.obtenerData_empresa_garantia
+                const data_empresa_garantiasm=data_empresa_garantias.filter(data_empresa_garantias => Date.parse( data_empresa_garantias.fecha_inicio_vigencia)<=Date.parse(new Date(anhom2, mesm2, 30))  && Date.parse(data_empresa_garantias.fecha_fin_vigencia)>=Date.parse(new Date(anhom2, mesm2, 30)))   
+            
+                var formato_2_sspd=[], tipo_garantia,meses_garantizados=[]
+
+                for (let index = 0; index < data_empresa_garantiasm.length; index++) {
+
+                meses_garantizados=dateRange(data_empresa_garantias[index].fecha_inicio_vigencia, data_empresa_garantias[index].fecha_fin_vigencia)
+                console.log(meses_garantizados)
+                if (data_empresa_garantias[index].tipo_garantia==='Subasta_FERNC') {
+                    tipo_garantia=1   
+                }
+                if (data_empresa_garantias[index].tipo_garantia==='MEM') {
+                    tipo_garantia=1 
+                }                 
+                if (data_empresa_garantias[index].tipo_garantia==='STR') {
+                    tipo_garantia=4 
+                }  
+
+
+                formato_2_sspd.push({
+                    "Tipo de Garantía":tipo_garantia,
+                    "NIT Beneficiario":data_empresa_garantiasm[index].nit_beneficiario,
+                    "DV Beneficiario":data_empresa_garantiasm[index].dv_beneficiario,
+                    "Emisor":data_empresa_garantiasm[index].dv_beneficiario,
+                    "Número Garantía":data_empresa_garantiasm[index].numero_garantia,
+                    "Mes de Recuperación":data_Res_componentes_cu_tarifam[0].mes,
+                    "Fecha Inicio Vigencia":data_empresa_garantiasm[index].fecha_inicio_vigencia,
+                    "Fecha Finalización Vigencia":data_empresa_garantiasm[index].fecha_fin_vigencia,
+                    "Valor Total Garantía":data_empresa_garantiasm[index].valor_garantia,
+                    "Costo Garantía":data_empresa_garantiasm[index].costo_garantia,
+                    "Costo a Recuperar":data_empresa_garantiasm[index].costo_garantia/(meses_garantizados.length-1)                            
+                })
+                }
 
                 if (data_Res_componentes_cu_tarifam[0].cg>0 ||data_Res_componentes_cu_tarifam[0].cgcu>0) {
                     var recuperacionGarantias="Si"
@@ -689,7 +770,7 @@ mercado=681
 
                   
                   var formato_3_sspd=[], Tarifa_100, Tarifa_50,Tarifa_0,Tarifa_NT2,Tarifa_NT3,Tarifa_NT4
-         
+      
                   for (let index = 0; index < 11; index++) {
                
                     if (index===0) {
@@ -1260,12 +1341,6 @@ onClick={()=>exportarFormatosSSPD(comment.id)}
 <td>{comment.nt4_estrato_2_men_cs}</td>
 <td>{comment.giro_sobrante}</td>
 <td>{comment.ultimo_giro_incluido}</td>
-<td>{comment.saldo_nt1_100_ot}</td>
-<td>{comment.saldo_nt1_50_ot}</td>
-<td>{comment.saldo_nt1_0_ot}</td>
-<td>{comment.saldo_nt2_ot}</td>
-<td>{comment.saldo_nt3_ot}</td>
-<td>{comment.pv}</td>
 <td>{comment.empresa_id}</td>
 
 </tr>

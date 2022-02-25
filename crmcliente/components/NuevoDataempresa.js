@@ -92,7 +92,8 @@ const NuevoDataempresa =(props) => {
   })
     const [datacsv, setDatacsv] = useState("");
     const [fileNames, setFileNames] = useState([]);
-    const [creador, setCreador] = useState("");const [anho, setAño] = useState("");const [empresa_id, setEmpresa_id] = useState("");const [mes, setMes] = useState("");const [mercado, setMercado] = useState("");const [numero_usuarios_r, setNúmeroUsuariosR] = useState("");const [numero_usuarios_nr, setNúmeroUsuariosNR] = useState("");const [ventas_usuarios_r_nt1_e, setVentasUsuariosRNt1E] = useState("");const [ventas_usuarios_r_nt1_c, setVentasUsuariosRNt1C] = useState("");const [ventas_usuarios_r_nt1_u, setVentasUsuariosRNt1U] = useState("");const [ventas_usuarios_r_nt2, setVentasUsuariosRNt2] = useState("");const [ventas_usuarios_r_nt3, setVentasUsuariosRNt3] = useState("");const [ventas_usuarios_nr_kwh, setVentasUsuariosNrKwh] = useState("");const [costo_garantias_mem_cop, setCostoGarantiasMemCop] = useState("");const [costo_garantias_str_sdl_cop, setCostoGarantiasStrSdlCop] = useState("");const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = useState("");const [vnu_kwh, setVNUKwh] = useState("");const [vae_kwh, setVAEKwh] = useState("");
+    const [creador, setCreador] = useState("");const [anho, setAño] = useState("");const [empresa_id, setEmpresa_id] = useState("");const [mes, setMes] = useState("");const [mercado, setMercado] = useState("");const [numero_usuarios_r, setNúmeroUsuariosR] = useState("");const [numero_usuarios_nr, setNúmeroUsuariosNR] = useState("");const [ventas_usuarios_r_nt1_e, setVentasUsuariosRNt1E] = useState("");const [ventas_usuarios_r_nt1_c, setVentasUsuariosRNt1C] = useState("");const [ventas_usuarios_r_nt1_u, setVentasUsuariosRNt1U] = useState("");const [ventas_usuarios_r_nt2, setVentasUsuariosRNt2] = useState("");const [ventas_usuarios_r_nt3, setVentasUsuariosRNt3] = useState("");const [ventas_usuarios_nr_kwh, setVentasUsuariosNrKwh] = useState("");
+const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = useState("");const [vnu_kwh, setVNUKwh] = useState("");const [vae_kwh, setVAEKwh] = useState("");
     const onDrop = useCallback(acceptedFiles => {
       setFileNames(acceptedFiles.map(file => file.name));
      
@@ -168,7 +169,8 @@ const NuevoDataempresa =(props) => {
            setVentasUsuariosRNt2(parseFloat(datacsv[1][Position]));
            var Position=(datacsv[0].indexOf(("ventas_usuarios_r_nt3").toString()))
            setVentasUsuariosRNt3(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("ventas_usuarios_nr_kwh").toString()))
-           setVentasUsuariosNrKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("costo_garantias_mem_cop").toString()))
+           setVentasUsuariosNrKwh(parseFloat(datacsv[1][Position]));
+          
            setPUICopKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vsne_kwh").toString()))
            setVSNEKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vnu_kwh").toString()))
            setVNUKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vae_kwh").toString()))

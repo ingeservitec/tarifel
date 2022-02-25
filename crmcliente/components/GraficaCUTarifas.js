@@ -25,8 +25,6 @@ query obtenerData_empresa {
     ventas_usuarios_r_nt2
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
-    costo_garantias_mem_cop
-    costo_garantias_str_sdl_cop
     pui_cop_kwh
     vsne_kwh
     vnu_kwh

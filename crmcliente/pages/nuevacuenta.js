@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, gql } from '@apollo/client';
+import logo from '../public/img/logo.png'; // Tell webpack this JS file uses this image
 
 const NUEVA_CUENTA = gql`
     mutation nuevoUsuario($input: UsuarioInput) {
@@ -63,7 +64,7 @@ const NuevaCuenta = () => {
                             apellido,
                             email,
                             password,
-                            empresa
+                            empresa: 'EGVC'
                         }
                     }
                 });
@@ -103,16 +104,15 @@ const NuevaCuenta = () => {
 
         <>
             <Layout> 
+                {/* <h1 className="text-center text-2xl text-white font-light">Crear Nueva Cuenta</h1> */}
                 {mensaje && mostrarMensaje() }
-
-                <h1 className="text-center text-2xl text-white font-light">Crear Nueva Cuenta</h1>
-
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
                         <form
                             className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
                             onSubmit={formik.handleSubmit}
                         >
+                            <img src={logo.src} alt="Logo" className="mb-4" />
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
@@ -168,7 +168,7 @@ const NuevaCuenta = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo Usuario"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                 />
@@ -190,7 +190,7 @@ const NuevaCuenta = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
-                                    placeholder="Password Usuario"
+                                    placeholder="Contraseña Usuario"
                                     value={formik.values.password}
                                     onChange={formik.handleChange}
                                 />
@@ -203,7 +203,7 @@ const NuevaCuenta = () => {
                                 </div>
                             ) : null  }
 
-                            <div className="mb-4">
+                            {/* <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="empresa">
                                     Empresa
                                 </label>
@@ -232,7 +232,7 @@ const NuevaCuenta = () => {
                                     <p className="font-bold">Error</p>
                                     <p>{formik.errors.empresa}</p>
                                 </div>
-                            ) : null  }
+                            ) : null  } */}
 
 
                             <input

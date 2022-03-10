@@ -1,8 +1,9 @@
 
 const { Sequelize } = require('sequelize');
-request('dotenv').config({path:'variables.env'});
+request('dotenv').config({path:'variables.env');
 const conectarDB = async() => {
-const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres'});
+// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
+const sequelize = new Sequelize('postgres://tarifel:t4r1f3l@localhost:5432/tarifel');
       try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');

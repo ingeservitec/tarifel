@@ -132,7 +132,7 @@ if (data[0].__EMPTY==='CARGOS POR USO DEL STR NORTE') {
 }
 var meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
-console.log('Deltas '+meses[parseInt(fileNames[0].substr(16,2))-1]+'-'+parseInt(fileNames[0].substr(11,4)))
+
 const excelRows2 = XLSX.utils.sheet_to_row_object_array(workbook.Sheets['Deltas '+meses[parseInt(fileNames[0].substr(16,2))-1]+'-'+parseInt(fileNames[0].substr(11,4))]);
 const data2=excelRows2
 console.log(data2)

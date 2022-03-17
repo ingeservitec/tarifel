@@ -36,7 +36,6 @@ id
 anho
 mes
 creador
-empresa_id
 fecha
 agente
 beneficiario

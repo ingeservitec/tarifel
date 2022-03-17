@@ -25,7 +25,6 @@ const Data_empresa_garantia= require ('../models/Data_empresa_garantia');
 const bcryptjs = require ('bcryptjs');
 const jwt = require ('jsonwebtoken');
 const { afterCreate } = require('../models/Usuario');
-require('dotenv').config();
 
 
 const crearToken= (usuario,secreta, expiresIn)=> {

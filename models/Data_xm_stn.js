@@ -1,7 +1,7 @@
 
 const { Sequelize, DataTypes } = require('sequelize');
 // const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize('postgres://tarifel:t4r1f3l@localhost:5432/tarifel');
+const sequelize = new Sequelize(process.env.URI);
 const DataxmstnSchema = sequelize.define('Data_xm_stn', {
 // Model attributes are defined here
 creador:{type: DataTypes.INTEGER,allowNull: false,trim: true},

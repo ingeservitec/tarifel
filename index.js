@@ -1,4 +1,5 @@
 const {ApolloServer}= require('apollo-server');
+require('dotenv').config();
 const typeDefs= require('./db/shema')
 const resolvers= require('./db/resolvers')
 const jwt = require('jsonwebtoken');

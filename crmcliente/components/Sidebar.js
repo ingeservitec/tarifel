@@ -54,7 +54,7 @@ const Sidebar = () => {
                         </a>
                     </Link>
                 </li>
-                <li className={router.pathname === "/datadane" ? "bg-blue-800 p-2" : "p-2"}>
+                <li className={router.pathname === "/datamacros" ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/datamacros">
                         <a className="text-white block text-decoration-none">
                             Data Macros

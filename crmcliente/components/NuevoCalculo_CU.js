@@ -1434,7 +1434,7 @@ setCu_Nt2(roundToTwo(gc+tx+r+cv+pr_nt2+dnt2))
 setCu_Nt3(roundToTwo(gc+tx+r+cv+pr_nt3+dnt3))
 setCu_Nt4(roundToTwo(gc+tx+r+cv+pr_nt4+dnt4))
 }
-},[gc,cv,tx,r,pr_nt1]);
+},[gc,cv,tx,r,pr_nt1,dnt1,dnt2,dnt3,dnt4]);
 
 
 

@@ -174,53 +174,66 @@ const NuevoDataxmdspctto2 =(props) => {
 
     const onDrop = useCallback(acceptedFiles => {
       setFileNames(acceptedFiles.map(file => file.name));
-     
+      var data1=[]
+      for (let index = 0; index < (acceptedFiles.map(file => file)).length; index++) {
     const reader = new FileReader();
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading failed");
       reader.onload = () => {
         // Parse CSV file
         csv.parse(reader.result, {delimiter: ';'}, (err, data) => {
-          console.log("Parsed CSV data: ", data);
-          setDatacsv(data)
+          data1.push([acceptedFiles.map(file => file)[index].name,data])
+          console.log("Parsed CSV data: ", data1);
         });
       };
         // read file contents
-      acceptedFiles.forEach(file => reader.readAsBinaryString(file));
-      }, []);
+      reader.readAsBinaryString(acceptedFiles.map(file => file)[index]);
+      }  
+      setDatacsv(data1)
+    }, []);
       const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
       
+
+
+
         function csvJSON(csv2){
         var lines=csv2
         var result = [];
-      
         // NOTE: If your columns contain commas in their values, you'll need
         // to deal with those before doing the next step 
         // (you might convert them to &&& or something, then covert them back later)
         // jsfiddle showing the issue https://jsfiddle.net/
         // var headers=lines[0].toString().split(";");
-        var headers=lines[0];
-        for(var i=1;i<lines.length;i++){
+        
+        for(var k=0;k<lines.length;k++){
+        setMes(parseFloat(((lines[k][0]).substring(8)).substring(0,2)))
+        var headers=lines[k][1][0];
+        for(var i=1;i<lines[k][1].length;i++){
             var obj = {};
             // var currentline=lines[i].toString().split(";")
-            var currentline=lines[i]
-            for(var j=0;j<headers.length +2;j++){
+            var currentline=lines[k][1][i]
+            for(var j=0;j<headers.length +3;j++){
               if (j ==0){
                 obj['creador'] = (creador) 
               }
               if (j ==1){
                 obj['empresa_id'] = (empresa_id) 
               }
-              if (j >1){
-                if ((obj[headers[j-2]] ='VENDEDOR') || (obj[headers[j-2]] ='COMPRADOR') || (obj[headers[j-2]] ='TIPO') || (obj[headers[j-2]] ='TIPOMERC'))
-                obj[headers[j-2]] = (currentline[j-2]);
+              if (j ==2){
+                
+                obj['DIA'] = parseFloat(((lines[k][0]).substring(10)).substring(0,2))
+              }
+              if (j >2){
+                if ( (obj[headers[j-3]] ='VENDEDOR') || (obj[headers[j-3]] ='COMPRADOR') || (obj[headers[j-3]] ='TIPO') || (obj[headers[j-3]] ='TIPOMERC'))
+                obj[headers[j-3]] = (currentline[j-3]);
                 else{
-                  obj[headers[j-2]] = parseFloat(currentline[j-2]);
+                  obj[headers[j-3]] = parseFloat(currentline[j-3]);
                }    
              }      
             }
             result.push(obj);
         }
+      }
         //return result; //JavaScript object
         // parseFloat()
         return result; //JSON
@@ -297,7 +310,6 @@ const NuevoDataxmdspctto2 =(props) => {
       </div>
         </div>
         <input type="number" placeholder="Año" onChange={e => setAnho(e.target.value)} />
-    <input type="number" placeholder="Mes" onChange={e => setMes(e.target.value)} />
         </div>
         </div>
   

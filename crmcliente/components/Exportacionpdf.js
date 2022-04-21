@@ -381,6 +381,7 @@ onHide={props.close}>
   </tbody>
 </table>
 <div>
+<p>Cf,m,j: {data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cfm):null } Cvm,j:{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cvr):null }</p>
 <p>Propiedad Empresa: Cuando ENERGUAVIARE E es propietaria de la red de baja tensión (BT) y del transformador</p>
 <p>Propiedad compartida: Cuando la propiedad de la red de baja tensión (BT) o del transformador es del cliente.</p>
 <p>Propiedad Cliente: Cuando el CLIENTE es propietario de la red de baja tensión (BT) y del transformador es del cliente</p>

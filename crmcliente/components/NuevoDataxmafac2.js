@@ -279,6 +279,7 @@ const NuevoDataxmafac2 =(props) => {
     const [anho, setAnho]= useState()
     const [compras_en_bolsa_ajustes_cop, setCompras_en_bolsa_ajustes_cop]= useState()
     const [mes, setMes]= useState()
+    const [loading, setLoading]= useState(false)
     const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
       update(cache, { data: { nuevoDataxmafac } } ) {
           // Obtener el objeto de cache que deseamos actualizar
@@ -372,9 +373,8 @@ const NuevoDataxmafac2 =(props) => {
       const handleSubmit = async () => { 
      
       try {
+        setLoading(true)
         if (loading1) return null; // Si no hay informacion
-        
-        
         const Datacsv2=csvJSON(datacsv)  
         console.log(fileNames[0].substr(4,2))
         
@@ -389,12 +389,11 @@ const NuevoDataxmafac2 =(props) => {
             object
       }
     });
-        
         }
-        
         ));
         Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
     props.close2()
+    setLoading(false)
         // results will be an array of execution result objects (i.e. { data, error })
        // Do whatever here with the results
       } catch (error) {
@@ -447,18 +446,27 @@ const NuevoDataxmafac2 =(props) => {
     <div className="container">
     <div className="row">
     <div className="col-sm">
-    <input
+    <button
     type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+    className=
+    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+
     value="Guardar"
+    disabled={loading}
     onClick={handleSubmit}
-    />
+    >
+      {loading && <i className="fa fa-refresh fa-spin"></i>}
+      {loading && <span>  Loading</span>}
+      {!loading && <span>GUARDAR</span>}
+    </button>
     </div>
     <div className="col-sm">
     <input
     type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+    className=
+    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
     value="Cancelar"
+    disabled={loading}
     onClick={props.close2}
     />
     </div>

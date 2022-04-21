@@ -109,69 +109,67 @@ const NuevoDataxmadem2 =(props) => {
     const [empresa_id, setEmpresa_id]= useState("")
     const [anho, setAnho]= useState()
     const [mes, setMes]= useState()
-    const [nuevoDataxmadem]=useMutation(NUEVO_DATA_XMADEM, {
-      update(cache, { data: { nuevoDataxmadem } } ) {
-          // Obtener el objeto de cache que deseamos actualizar
-          const { obtenerData_xm_adem} = cache.readQuery({ query: OBTENER_DATA_XM_ADEM  });
-          // Reescribimos el cache ( el cache nunca se debe modificar )
-          cache.writeQuery({
-              query: OBTENER_DATA_XM_ADEM,
-              data: {
-                obtenerData_xm_adem : [...obtenerData_xm_adem, nuevoDataxmadem ]
-              }
-          })
-      }
-  })
+    const [nuevoDataxmadem]=useMutation(NUEVO_DATA_XMADEM)
 
-    const onDrop = useCallback(acceptedFiles => {
-      setFileNames(acceptedFiles.map(file => file.name));
-     
-    const reader = new FileReader();
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading failed");
-      reader.onload = () => {
-        // Parse CSV file
-        csv.parse(reader.result, {delimiter: ';'}, (err, data) => {
-          console.log("Parsed CSV data: ", data);
-          setDatacsv(data)
-        });
-      };
-        // read file contents
-      acceptedFiles.forEach(file => reader.readAsBinaryString(file));
-      }, []);
+  const onDrop = useCallback(acceptedFiles => {
+    setFileNames(acceptedFiles.map(file => file.name));
+    var data1=[]
+    for (let index = 0; index < (acceptedFiles.map(file => file)).length; index++) {
+  const reader = new FileReader();
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => console.log("file reading failed");
+    reader.onload = () => {
+      // Parse CSV file
+      csv.parse(reader.result, {delimiter: ';'}, (err, data) => {
+        data1.push([acceptedFiles.map(file => file)[index].name,data])
+        console.log("Parsed CSV data: ", data1);
+      });
+    };
+      // read file contents
+    reader.readAsBinaryString(acceptedFiles.map(file => file)[index]);
+    }  
+    setDatacsv(data1)
+  }, []);
       const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
       
-        function csvJSON(csv2){
+      function csvJSON(csv2){
         var lines=csv2
         var result = [];
-      
         // NOTE: If your columns contain commas in their values, you'll need
         // to deal with those before doing the next step 
         // (you might convert them to &&& or something, then covert them back later)
         // jsfiddle showing the issue https://jsfiddle.net/
         // var headers=lines[0].toString().split(";");
-        var headers=lines[0];
-        for(var i=1;i<lines.length;i++){
+        
+        for(var k=0;k<lines.length;k++){
+        setMes(parseFloat(((lines[k][0]).substring(8)).substring(0,2)))
+        var headers=lines[k][1][0];
+        for(var i=1;i<lines[k][1].length;i++){
             var obj = {};
             // var currentline=lines[i].toString().split(";")
-            var currentline=lines[i]
-            for(var j=0;j<headers.length +2;j++){
+            var currentline=lines[k][1][i]
+            for(var j=0;j<headers.length +3;j++){
               if (j ==0){
                 obj['creador'] = (creador) 
               }
               if (j ==1){
                 obj['empresa_id'] = (empresa_id) 
               }
-              if (j >1){
-                if (obj[headers[j-2]] ='AGENTE')
-                obj[headers[j-2]] = (currentline[j-2]);
+              if (j ==2){
+                
+                obj['DIA'] = parseFloat(((lines[k][0]).substring(6)).substring(0,2))
+              }
+              if (j >2){
+                if ( (obj[headers[j-3]] ='CODIGO') || (obj[headers[j-3]] ='AGENTE') || (obj[headers[j-3]] ='CONTENIDO'))
+                obj[headers[j-3]] = (currentline[j-3]);
                 else{
-                  obj[headers[j-2]] = parseFloat(currentline[j-2]);
+                  obj[headers[j-3]] = parseFloat(currentline[j-3]);
                }    
              }      
             }
             result.push(obj);
         }
+      }
         //return result; //JavaScript object
         // parseFloat()
         return result; //JSON
@@ -199,7 +197,9 @@ const NuevoDataxmadem2 =(props) => {
           cont_hora_21:parseFloat(item["HORA 21"]),cont_hora_22:parseFloat(item["HORA 22"]),cont_hora_23:parseFloat(item["HORA 23"]),
           cont_hora_24:parseFloat(item["HORA 24"])}; 
         });
-        const {results} = await Promise.all(arreglado.map(object => {  
+        console.log(arreglado)
+        const arreglado2=arreglado.filter(arreglado => arreglado.agente==='EGVC')   
+        const {results} = await Promise.all(arreglado2.map(object => {  
         return nuevoDataxmadem({ variables:{
           input:
             object

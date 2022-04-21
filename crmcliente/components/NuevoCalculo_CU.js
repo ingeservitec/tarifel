@@ -1434,7 +1434,7 @@ setCu_Nt2(roundToTwo(gc+tx+r+cv+pr_nt2+dnt2))
 setCu_Nt3(roundToTwo(gc+tx+r+cv+pr_nt3+dnt3))
 setCu_Nt4(roundToTwo(gc+tx+r+cv+pr_nt4+dnt4))
 }
-},[gc,cv,tx,r,pr_nt1,dnt1,dnt2,dnt3,dnt4]);
+},[gc,cv,tx,r,pr_nt1]);
 
 
 
@@ -1550,11 +1550,10 @@ const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data
 data_dane=data1.obtenerData_dane
 data_danem=data_dane.filter(data_dane => data_dane.anho===anhom && data_dane.mes===mesm)
 data_danem2=data_dane.filter(data_dane => data_dane.anho===anhom2 && data_dane.mes===mesm2)        
-
+var data_xm_trsm=data5.obtenerData_xm_trsm
+var data_xm_trsmm=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom && data_xm_trsm.mes===mesm)
 const tarifamc1_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
-
 const tarifamc2_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
-
 const tarifamc1_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
 const tarifamc2_50=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
 const tarifamc1_0=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs*data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='IPDC')[0].valor/data_danem2[0].ipc
@@ -1652,8 +1651,6 @@ useEffect(() => {
 if (status) 
 {
 try {
-        
-
         const data_Res_componentes_cu_tarifa=data20.obtenerRes_componentes_cu_tarifa
         const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
         data_empresa=data3.obtenerData_empresa
@@ -1668,8 +1665,6 @@ try {
         setCu_Nt1_50_ot(cu_nt1_50)
         setCu_Nt1_0_ot(cu_nt1_0)
         }
-        console.log("Saldo NT2")
-        console.log(saldo_nt2_ot)
         if(saldo_nt2_ot>0){
         setCu_Nt2_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))
         }
@@ -1682,6 +1677,8 @@ try {
         else{
         setCu_Nt3_ot(cu_nt3)
         }
+        console.log('Poniendo UNT4')
+        console.log(cu_nt4)
         setCu_Nt4_ot(cu_nt4)
 } catch (error) {
         console.log('no hay datos')
@@ -1856,9 +1853,9 @@ useEffect(() => {
                         const data_xm_dspctto=data6.obtenerData_xm_dspctto
                         const data_xm_dspcttom=data_xm_dspctto.filter(data_xm_dspctto => data_xm_dspctto.anho===anhom && data_xm_dspctto.mes===mesm && data_xm_dspctto.comprador===data2.obtenerUsuario.empresa && data_xm_dspctto.tipomerc==='R' && data_xm_dspctto.contrato===53393 )
                         const data_xm_dspcttomsub=data_xm_dspctto.filter(data_xm_dspctto => data_xm_dspctto.anho===anhom && data_xm_dspctto.mes===mesm && data_xm_dspctto.comprador===data2.obtenerUsuario.empresa && data_xm_dspctto.tipomerc==='R' && data_xm_dspctto.contrato!=53393 )//53393
-                        const data_xm_trsm=data5.obtenerData_xm_trsm
-                        const data_xm_trsmm=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom && data_xm_trsm.mes===mesm)
-                        const data_xm_trsmm2=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom2 && data_xm_trsm.mes===mesm)
+                        var data_xm_trsm=data5.obtenerData_xm_trsm
+                        var data_xm_trsmm=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom && data_xm_trsm.mes===mesm)
+                        var data_xm_trsmm2=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.anho===anhom2 && data_xm_trsm.mes===mesm)
                         const data_xm_stn=data14.obtenerDataxmstn
                         const data_xm_stnm=data_xm_stn.filter(data_xm_stn => data_xm_stn.anho===anho && data_xm_stn.mes===mes)
                         const data_xm_guatape=data19.obtenerData_xm_guatape
@@ -3664,7 +3661,7 @@ formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slic
 </div>
 ) : null  }
 
-    <input type="button"
+<input type="button"
 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
 value={status?"Aplicación Opción Tarifaria: SI":"Aplicación Opción Tarifaria: NO" } 
 onClick={e => setStatus(!status)}/> 

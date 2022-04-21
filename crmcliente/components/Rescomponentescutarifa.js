@@ -431,6 +431,8 @@ costo_garantia
 `;
 
 
+
+
 const Res_componentes_cu_tarifa= () => {
 const { data, error, loading} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_DATA_XM_DSPCTTO);
@@ -449,6 +451,8 @@ const [search, setSearch] = useState("");
 const [sorting, setSorting] = useState({ field: "", order: "" });
 const [showLogin, setShowLogin] = useState(false);
 const [showLogin2, setShowLogin2] = useState(false);
+const [creador, setcreador] = useState(0)
+const [empresa_id, setempresa_id] = useState(0);
 
 const ITEMS_PER_PAGE = 3;
 const headers = [
@@ -554,10 +558,16 @@ const headers = [
 { name: "ultimo_giro_incluido", field: "ultimo_giro_incluido", sortable: true},
 { name: "empresa_id", field: "empresa_id", sortable: true}
 ];
+
+
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerRes_componentes_cu_tarifa);
-});
+if(loading3) return 'Cargando....';
+const data_Res_componentes_cu_tarifaesp_=data.obtenerRes_componentes_cu_tarifa
+const data_Res_componentes_cu_tarifaesp=data_Res_componentes_cu_tarifaesp_.filter(data_Res_componentes_cu_tarifaesp_ => data_Res_componentes_cu_tarifaesp_.empresa_id===data3.obtenerUsuario.empresa) 
+setComments(data_Res_componentes_cu_tarifaesp);
+},[loading, loading3]);
+
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {
@@ -771,9 +781,13 @@ mercado=681
                   
                   var formato_3_sspd=[], Tarifa_100, Tarifa_50,Tarifa_0,Tarifa_NT2,Tarifa_NT3,Tarifa_NT4
       
-                  for (let index = 0; index < 11; index++) {
+                  for (let index = 1; index < 11; index++) {
                
-                    if (index===0) {
+
+                    if(opcionTarifaria==1){
+                    console.log('Viendo NT4')
+                    console.log(data_Res_componentes_cu_tarifam[0])
+                    if (index===1) {
                         Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs
                         Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_1_men_cs  
                         Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_1_men_cs  
@@ -793,37 +807,39 @@ mercado=681
                         Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_3_men_cs
                         Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_3_men_cs  
                         Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_3_men_cs  
-                        Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_o*(0.85)
-                        Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_o*(0.85)
-                        Tarifa_NT4= 1
+                        Tarifa_NT2= data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(0.85) 
+                        Tarifa_NT3= data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(0.85)
+                        Tarifa_NT4= data_Res_componentes_cu_tarifam[0].cu_nt4_ot*(0.85)
                         } 
                         if (index===4 || index===7 || index===9) {
                             Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4
                             Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4  
                             Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4  
-                            Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_o
-                            Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_o
-                            Tarifa_NT4= 1
+                            Tarifa_NT2= data_Res_componentes_cu_tarifam[0].cu_nt2_ot
+                            Tarifa_NT3= data_Res_componentes_cu_tarifam[0].cu_nt3_ot
+                            Tarifa_NT4= data_Res_componentes_cu_tarifam[0].cu_nt4_ot
 
                             } 
                         if (index===5 || index===6 || index===8 || index===10) {
                             Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_5
                             Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_5
                             Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_5  
-                            Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_c
-                            Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_c
-                            Tarifa_NT4= 1
+                            Tarifa_NT2= data_Res_componentes_cu_tarifam[0].cu_nt2_ot*1.2
+                            Tarifa_NT3= data_Res_componentes_cu_tarifam[0].cu_nt3_ot*1.2
+                            Tarifa_NT4= data_Res_componentes_cu_tarifam[0].cu_nt4_ot*1.2
+                            
                             } 
+                         
 
                             if (index<3) {
                                 formato_3_sspd.push({"ID Mercado":mercado,
                                 "Cargo Horario":4,
                                 "Inicio franja horaria":"0:00",
                                 "Fin franja horaria":"23:59",
-                                "Estrato o Sector":index+1,
-                                "% Subsidiado 100% OR":roundToTwo((1-(Tarifa_100/data_Res_componentes_cu_tarifam[0].cu_nt1_100))*100),
-                                "% Subsidiado 50% OR":roundToTwo((1-(Tarifa_50/data_Res_componentes_cu_tarifam[0].cu_nt1_100))*100),
-                                "% Subsidiado 0% OR":roundToTwo((1-(Tarifa_0/data_Res_componentes_cu_tarifam[0].cu_nt1_100))*100),
+                                "Estrato o Sector":index,
+                                "% Subsidiado 100% OR":roundToTwo((1-(Tarifa_100/data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot))*100),
+                                "% Subsidiado 50% OR":roundToTwo((1-(Tarifa_50/data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot))*100),
+                                "% Subsidiado 0% OR":roundToTwo((1-(Tarifa_0/data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot))*100),
                                 "Tarifa Nivel 1 100% OR":roundToFive(Tarifa_100),
                                 "Tarifa Nivel 1 50% OR":roundToFive(Tarifa_50),
                                 "Tarifa Nivel 1 0% OR":roundToFive(Tarifa_0),
@@ -841,7 +857,7 @@ mercado=681
                                 "Cargo Horario":4,
                                 "Inicio franja horaria":"0:00",
                                 "Fin franja horaria":"23:59",
-                                "Estrato o Sector":index+1,
+                                "Estrato o Sector":index,
                                 "% Subsidiado 100% OR":roundToTwo(0),
                                 "% Subsidiado 50% OR":roundToTwo(0),
                                 "% Subsidiado 0% OR":roundToTwo(0),
@@ -857,7 +873,96 @@ mercado=681
                                 "Tarifa OT":opcionTarifaria                               
                                 })
                             }
-                 
+                            
+                        
+                        }
+                        else {
+                            if (index===1) {
+                                Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs
+                                Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_1_men_cs  
+                                Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_1_men_cs  
+                                Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_estrato_1_men_cs
+                                Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_estrato_1_men_cs
+                                Tarifa_NT4= data_Res_componentes_cu_tarifam[0].nt4_estrato_1_men_cs
+                                } 
+                            if (index===2) {
+                                Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs
+                                Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_2_men_cs  
+                                Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_2_men_cs  
+                                Tarifa_NT2=data_Res_componentes_cu_tarifam[0].nt2_estrato_2_men_cs
+                                Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_estrato_2_men_cs
+                                Tarifa_NT4= data_Res_componentes_cu_tarifam[0].nt4_estrato_2_men_cs
+                                } 
+                            if (index===3) {
+                                Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_3_men_cs
+                                Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_3_men_cs  
+                                Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_3_men_cs  
+                                Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_o*(0.85)
+                                Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_o*(0.85)
+                                Tarifa_NT4= data_Res_componentes_cu_tarifam[0].cu_nt4*(0.85)
+                                } 
+                                if (index===4 || index===7 || index===9) {
+                                    Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4
+                                    Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4  
+                                    Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4  
+                                    Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_o
+                                    Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_o
+                                    
+        
+                                    } 
+                                if (index===5 || index===6 || index===8 || index===10) {
+                                    Tarifa_100=data_Res_componentes_cu_tarifam[0].nt1_100_estrato_5
+                                    Tarifa_50=data_Res_componentes_cu_tarifam[0].nt1_50_estrato_5
+                                    Tarifa_0=data_Res_componentes_cu_tarifam[0].nt1_0_estrato_5  
+                                    Tarifa_NT2= data_Res_componentes_cu_tarifam[0].nt2_c
+                                    Tarifa_NT3= data_Res_componentes_cu_tarifam[0].nt3_c
+                                    
+                                    } 
+                                 
+        
+                                    if (index<3) {
+                                        formato_3_sspd.push({"ID Mercado":mercado,
+                                        "Cargo Horario":4,
+                                        "Inicio franja horaria":"0:00",
+                                        "Fin franja horaria":"23:59",
+                                        "Estrato o Sector":index+1,
+                                        "% Subsidiado 100% OR":roundToTwo((1-(Tarifa_100/data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot))*100),
+                                        "% Subsidiado 50% OR":roundToTwo((1-(Tarifa_50/data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot))*100),
+                                        "% Subsidiado 0% OR":roundToTwo((1-(Tarifa_0/data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot))*100),
+                                        "Tarifa Nivel 1 100% OR":roundToFive(Tarifa_100),
+                                        "Tarifa Nivel 1 50% OR":roundToFive(Tarifa_50),
+                                        "Tarifa Nivel 1 0% OR":roundToFive(Tarifa_0),
+                                        "Tarifa Nivel 2":roundToFive(Tarifa_NT2),
+                                        "Tarifa Nivel 3":roundToFive(Tarifa_NT3),
+                                        "Tarifa Nivel 4":roundToFive(Tarifa_NT4),
+                                        "cfm":data_Res_componentes_cu_tarifam[0].cfm.toFixed(4),   
+                                        "Fecha Publicación":"",
+                                        "Diario Publicación":"",
+                                        "Tarifa OT":opcionTarifaria                              
+                                        })
+                                    }
+                                    if (index>2) {
+                                        formato_3_sspd.push({"ID Mercado":mercado,
+                                        "Cargo Horario":4,
+                                        "Inicio franja horaria":"0:00",
+                                        "Fin franja horaria":"23:59",
+                                        "Estrato o Sector":index+1,
+                                        "% Subsidiado 100% OR":roundToTwo(0),
+                                        "% Subsidiado 50% OR":roundToTwo(0),
+                                        "% Subsidiado 0% OR":roundToTwo(0),
+                                        "Tarifa Nivel 1 100% OR":roundToFive(Tarifa_100),
+                                        "Tarifa Nivel 1 50% OR":roundToFive(Tarifa_50),
+                                        "Tarifa Nivel 1 0% OR":roundToFive(Tarifa_0),
+                                        "Tarifa Nivel 2":roundToFive(Tarifa_NT2),
+                                        "Tarifa Nivel 3":roundToFive(Tarifa_NT3),
+                                        "Tarifa Nivel 4":roundToFive(Tarifa_NT4),
+                                        "cfm":data_Res_componentes_cu_tarifam[0].cfm.toFixed(4),   
+                                        "Fecha Publicación":"",
+                                        "Diario Publicación":"",
+                                        "Tarifa OT":opcionTarifaria                               
+                                        })
+                                    } 
+                        }
                     }
 
                 const formato_4_sspd=
@@ -935,18 +1040,7 @@ for (let index = 0; index < 5; index++) {
                 "SAm":sam.toFixed(0)                           
                 })
             }
-            formato_7_sspd.push(
-                {"ID Mercado":"SE APLICO OPCIÓN TARIFARIA",
-                "NT y PROP":"",
-                "Gm":"",
-                "Tm":"",
-                "Prnm":"",
-                "Dnm":"",
-                "Cvm":"",
-                "Rm":"",
-                "CUvm":"",
-                "Cargo Horario":""                       
-                })
+            
         }
 else{
     formato_6_sspd.push(
@@ -963,49 +1057,50 @@ else{
         "SAm":""                           
         })
 
-        for (let index = 0; index < 5; index++) {
-            if (index===0) {
-                nt_prop="1-100"
+
+}
+for (let index = 0; index < 5; index++) {
+    if (index===0) {
+        nt_prop="1-100"
+        Prnm=data_Res_componentes_cu_tarifam[0].pr_nt1
+        Dnm=data_Res_componentes_cu_tarifam[0].dnt1
+        CUvm=data_Res_componentes_cu_tarifam[0].cu_nt1_100
+        } 
+        if (index===1) {
+            nt_prop="1-50"
+            Prnm=data_Res_componentes_cu_tarifam[0].pr_nt1
+            Dnm=data_Res_componentes_cu_tarifam[0].dnt1 - data_Res_componentes_cu_tarifam[0].cdi_50
+            CUvm=data_Res_componentes_cu_tarifam[0].cu_nt1_50
+            } 
+            if (index===2) {
+                nt_prop="1-0"
                 Prnm=data_Res_componentes_cu_tarifam[0].pr_nt1
-                Dnm=data_Res_componentes_cu_tarifam[0].dnt1
-                CUvm=data_Res_componentes_cu_tarifam[0].cu_nt1_100
+                Dnm=data_Res_componentes_cu_tarifam[0].dnt1 - data_Res_componentes_cu_tarifam[0].cdi_100
+                CUvm=data_Res_componentes_cu_tarifam[0].cu_nt1_0
                 } 
-                if (index===1) {
-                    nt_prop="1-50"
-                    Prnm=data_Res_componentes_cu_tarifam[0].pr_nt1
-                    Dnm=data_Res_componentes_cu_tarifam[0].dnt1 - data_Res_componentes_cu_tarifam[0].cdi_50
-                    CUvm=data_Res_componentes_cu_tarifam[0].cu_nt1_50
+                if (index===3) {
+                    nt_prop="2"
+                    Prnm=data_Res_componentes_cu_tarifam[0].pr_nt2
+                    Dnm=data_Res_componentes_cu_tarifam[0].dnt2
+                    CUvm=data_Res_componentes_cu_tarifam[0].cu_nt2
                     } 
-                    if (index===2) {
-                        nt_prop="1-0"
-                        Prnm=data_Res_componentes_cu_tarifam[0].pr_nt1
-                        Dnm=data_Res_componentes_cu_tarifam[0].dnt1 - data_Res_componentes_cu_tarifam[0].cdi_100
-                        CUvm=data_Res_componentes_cu_tarifam[0].cu_nt1_0
+                    if (index===4) {
+                        nt_prop="3"
+                        Prnm=data_Res_componentes_cu_tarifam[0].pr_nt3
+                        Dnm=data_Res_componentes_cu_tarifam[0].dnt3
+                        CUvm=data_Res_componentes_cu_tarifam[0].cu_nt3
                         } 
-                        if (index===3) {
-                            nt_prop="2"
-                            Prnm=data_Res_componentes_cu_tarifam[0].pr_nt2
-                            Dnm=data_Res_componentes_cu_tarifam[0].dnt2
-                            CUvm=data_Res_componentes_cu_tarifam[0].cu_nt2
-                            } 
-                            if (index===4) {
-                                nt_prop="3"
-                                Prnm=data_Res_componentes_cu_tarifam[0].pr_nt3
-                                Dnm=data_Res_componentes_cu_tarifam[0].dnt3
-                                CUvm=data_Res_componentes_cu_tarifam[0].cu_nt3
-                                } 
-        formato_7_sspd.push({"ID Mercado":mercado,
-        "NT y PROP":nt_prop,
-        "Gm":data_Res_componentes_cu_tarifam[0].gc,
-        "Tm":data_Res_componentes_cu_tarifam[0].tx,
-        "Prnm":Prnm,
-        "Dnm":Dnm,
-        "Cvm":data_Res_componentes_cu_tarifam[0].cv,
-        "Rm":data_Res_componentes_cu_tarifam[0].r,
-        "CUvm":CUvm,
-        "Cargo Horario":4                       
-        })
-    }
+formato_7_sspd.push({"ID Mercado":mercado,
+"NT y PROP":nt_prop,
+"Gm":data_Res_componentes_cu_tarifam[0].gc,
+"Tm":data_Res_componentes_cu_tarifam[0].tx,
+"Prnm":Prnm,
+"Dnm":Dnm,
+"Cvm":data_Res_componentes_cu_tarifam[0].cv,
+"Rm":data_Res_componentes_cu_tarifam[0].r,
+"CUvm":CUvm,
+"Cargo Horario":4                       
+})
 }
 
 
@@ -1028,6 +1123,7 @@ else{
 
                 const data_xm_dspctto=data2.obtenerData_xm_dspctto
                 const data_xm_dspcttom=data_xm_dspctto.filter(data_xm_dspctto => data_xm_dspctto.anho===anhom && data_xm_dspctto.mes===mesm && data_xm_dspctto.comprador===data3.obtenerUsuario.empresa && data_xm_dspctto.tipomerc==='R')
+                
                 var Energia_contratos = 0, Costo_contratos = 0;
                   data_xm_dspcttom.forEach(function (obj) {
                     Energia_contratos += parseFloat(obj.desp_hora_1)+parseFloat(obj.desp_hora_2)+parseFloat(obj.desp_hora_3)+parseFloat(obj.desp_hora_4)+parseFloat(obj.desp_hora_5)+parseFloat(obj.desp_hora_6)+parseFloat(obj.desp_hora_7)+parseFloat(obj.desp_hora_8)+parseFloat(obj.desp_hora_9)+parseFloat(obj.desp_hora_10)+parseFloat(obj.desp_hora_11)+parseFloat(obj.desp_hora_12)+parseFloat(obj.desp_hora_13)+parseFloat(obj.desp_hora_14)+parseFloat(obj.desp_hora_15)+parseFloat(obj.desp_hora_16)+parseFloat(obj.desp_hora_17)+parseFloat(obj.desp_hora_18)+parseFloat(obj.desp_hora_19)+parseFloat(obj.desp_hora_20)+parseFloat(obj.desp_hora_21)+parseFloat(obj.desp_hora_22)+parseFloat(obj.desp_hora_23)+parseFloat(obj.desp_hora_24);
@@ -1041,15 +1137,11 @@ else{
                     w=((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))/Energia_contratos 
                 }
                 
-
-                
                 const data_creg_cx=data6.obtenerData_creg_cx
                 const data_creg_cxm=data_creg_cx
                 
                 const data_empresa_anual=data7.obtenerData_empresa_anual
                 const data_empresaanualm=data_empresa_anual.filter(data_empresa_anual => data_empresa_anual.anho===data_Res_componentes_cu_tarifam[0].anho-1)
-
-
 
                 const formato_9_sspd=
                 [{"ID Mercado":mercado,

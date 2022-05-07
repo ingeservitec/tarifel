@@ -1098,7 +1098,8 @@ data: {
 }
 })
 
-const [creador, setcreador] = useState(0);const [anho, setAnho] = useState(props.anho);const [mes, setMes] = useState(props.mes);const [qc, setQc] = useState(0);
+const [creador, setcreador] = useState(0);
+const [anho, setAnho] = useState(props.anho);const [mes, setMes] = useState(props.mes);const [qc, setQc] = useState(0);
 const [mc, setMc] = useState(0);
 const [pc, setPc] = useState(0);
 const [pcSub, setPcSub] = useState(0);
@@ -1177,6 +1178,7 @@ const [cu_nt4_ot, setCu_Nt4_ot] = useState(0);
 const [saldo_nt1_100_ot, setSaldo_Nt1_100_ot] = useState(0);const [saldo_nt1_50_ot, setSaldo_Nt1_50_ot] = useState(0);const [saldo_nt1_0_ot, setSaldo_Nt1_0_ot] = useState(0);
 const [saldo_nt2_ot, setSaldo_Nt2_ot] = useState(0);const [saldo_nt3_ot, setSaldo_Nt3_ot] = useState(0);
 const [saldo_total_ot, setSaldo_Total_ot] = useState(0);const [giro_sobrante, setGiro_sobrante] = useState(0);
+const [tasaOt, setTasaot] = useState(0);
 const [ultimo_giro_incluido, setUltimo_giro_incluido] = useState(0);
 
 
@@ -1655,7 +1657,9 @@ try {
         const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
         data_empresa=data3.obtenerData_empresa
         data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm)
-        if(saldo_nt1_100_ot>0){
+        console.log(data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot)
+        if(data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot>0){
+      
         setCu_Nt1_100_ot(roundToTwo((data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot*(1+pv/100))))
         setCu_Nt1_50_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot*(1+pv/100)))
         setCu_Nt1_0_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100)))
@@ -1665,13 +1669,13 @@ try {
         setCu_Nt1_50_ot(cu_nt1_50)
         setCu_Nt1_0_ot(cu_nt1_0)
         }
-        if(saldo_nt2_ot>0){
+        if(data_Res_componentes_cu_tarifam[0].saldo_nt2_ot>0){
         setCu_Nt2_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))
         }
         else{
                 setCu_Nt2_ot(cu_nt2)
         }
-        if(saldo_nt3_ot>0){
+        if(data_Res_componentes_cu_tarifam[0].saldo_nt3_ot>0){
         setCu_Nt3_ot(roundToTwo(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100)))
         }
         else{
@@ -1792,15 +1796,20 @@ try {
                 data_empresa=data3.obtenerData_empresa
                 data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm)
         
-                setSaldo_Nt1_100_ot(((cu_nt1_100-(data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_e)+data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot)
-                setSaldo_Nt1_50_ot(((cu_nt1_50-(data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_c)+data_Res_componentes_cu_tarifam[0].saldo_nt1_50_ot)
-                setSaldo_Nt1_0_ot(((cu_nt1_0-(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_u)+data_Res_componentes_cu_tarifam[0].saldo_nt1_0_ot)
-                setSaldo_Nt2_ot(((cu_nt2-(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt2)+data_Res_componentes_cu_tarifam[0].saldo_nt2_ot)
-                setSaldo_Nt3_ot(((cu_nt3-(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt3)+data_Res_componentes_cu_tarifam[0].saldo_nt3_ot)
-
-
-        }
-                }},[cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot]);
+                setSaldo_Nt1_100_ot((((cu_nt1_100-(data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_e)+data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot)*(1+tasaOt))
+                setSaldo_Nt1_50_ot((((cu_nt1_50-(data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_c)+data_Res_componentes_cu_tarifam[0].saldo_nt1_50_ot)*(1+tasaOt))
+                setSaldo_Nt1_0_ot((((cu_nt1_0-(data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt1_u)+data_Res_componentes_cu_tarifam[0].saldo_nt1_0_ot)*(1+tasaOt))
+                
+                
+                if((((cu_nt2-(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt2)+data_Res_componentes_cu_tarifam[0].saldo_nt2_ot)<0){
+                setSaldo_Nt2_ot(0)
+                }
+                else(
+                setSaldo_Nt2_ot((((cu_nt2-(data_Res_componentes_cu_tarifam[0].cu_nt2_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt2)+data_Res_componentes_cu_tarifam[0].saldo_nt2_ot)*(1+tasaOt))   
+                )
+                setSaldo_Nt3_ot((((cu_nt3-(data_Res_componentes_cu_tarifam[0].cu_nt3_ot*(1+pv/100)))*data_empresam[0].ventas_usuarios_r_nt3)+data_Res_componentes_cu_tarifam[0].saldo_nt3_ot)*(1+tasaOt))
+                }
+                }},[cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,pv]);
 
 
 
@@ -2250,6 +2259,28 @@ console.log(sub2mpt)
 console.log(sub2mt)
 }
 
+
+function subtractWeeks(numOfWeeks, date = new Date()) {
+        date.setDate(date.getDate() - numOfWeeks * 7);
+      
+        return date;
+      }
+
+
+var firstDate = subtractWeeks(26);
+
+var len1=0, date_tcap,sum_tasa_x_monto_cap=0,sum_monto_cap=0,date_tcap
+
+while (len1<data_banrepublica_tcap.length-1){  
+        len1++
+        date_tcap = new Date(parseFloat(data_banrepublica_tcap[len1].fecha.split("-")[0]), parseFloat(data_banrepublica_tcap[len1].fecha.split("-")[1])-1, data_banrepublica_tcap[len1].fecha.split("-")[2]).getTime();
+        if(date_tcap>=firstDate){
+                sum_tasa_x_monto_cap=(data_banrepublica_tcap[len1].tasa_a_30_cdats_cdat_bancos_comerciales*data_banrepublica_tcap[len1].monto_a_30_cdat_bancos_comerciales)+sum_tasa_x_monto_cap
+                sum_monto_cap=(data_banrepublica_tcap[len1].monto_a_30_cdat_bancos_comerciales)+sum_monto_cap
+        }
+}
+setTasaot(roundToTwo(((1+(sum_tasa_x_monto_cap/sum_monto_cap))**(1/12))-1))
+
 //r1 y r2:
 //1. Fecha del primer dia del segundo mes del ultimo trimestre 
 //2. Fecha del primer dia del ultimo giro que le pego al ultimo trmestre 
@@ -2282,6 +2313,9 @@ while (len1<data_banrepublica_tcap.length-1){
 }
 
 setR2(roundToTwo(((1+(sum_tasa_x_monto_cap/sum_monto_cap))**(1/12))-1))
+
+
+
 
 const getSundayFromWeekNum = (weekNum, year) => {
         const sunday = new Date(year, 0, (1 + (weekNum - 1) * 7)-7);
@@ -2337,6 +2371,13 @@ setR1(roundToTwo(((1+((sum_tasa_x_monto_co/sum_monto_co)/100))**(1/12))-1))
             Object.keys(obj)
                   .filter( key => predicate(obj[key]) )
                   .reduce( (res, key) => (res[key] = obj[key], res), {} );
+
+                  const onChange=e=>{
+                       formik.handleChange
+                       
+                       setPv(parseFloat(e.target.value))
+                            }
+
 
           return (
             <div>
@@ -2511,7 +2552,41 @@ value={formik.values.pb}></input></div></div>
 <p className="font-bold">Error</p>
 <p>{formik.errors.pb}</p>
 </div>
-) : null  }<div className="form-group row">
+) : null  }
+
+
+
+
+{/* <div className="form-group row">
+<div class="row ">
+    <div class="col-md-6">
+
+    <label htmlFor="gc" className="col-form-label">Gc</label>
+
+    </div>
+    <div class="col-md-3">
+    <input type="number" className="form-control" id="gc" placeholder="Gc"
+onChange={formik.handleChange}
+onBlur={formik.handleBlur}
+value={formik.values.gc}></input>
+
+   
+    </div>
+    <div class="col-md-2 px-1">
+    <button className="px-2"><i className="fa fa-sliders white"></i></button>
+    <button className="px-2"><i className="fa fa-info mr-2 white"></i></button>
+    </div>
+    
+    </div>
+</div>
+{ formik.touched.gc&& formik.errors.gc? (
+<div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+<p className="font-bold">Error</p>
+<p>{formik.errors.gc}</p>
+</div>
+) : null  } */}
+
+<div className="form-group row">
 <label htmlFor="gc" className="col-sm-7 col-form-label">Gc</label><div className="col-sm-5">
 <input type="number" className="form-control" id="gc" placeholder="Gc"
 onChange={formik.handleChange}
@@ -2522,7 +2597,9 @@ value={formik.values.gc}></input></div></div>
 <p className="font-bold">Error</p>
 <p>{formik.errors.gc}</p>
 </div>
-) : null  }<div className="form-group row">
+) : null  }
+
+<div className="form-group row">
 <label htmlFor="tx" className="col-sm-7 col-form-label">Tx</label><div className="col-sm-5">
 <input type="number" className="form-control" id="tx" placeholder="Tx"
 onChange={formik.handleChange}
@@ -3675,7 +3752,7 @@ onClick={e => setStatus(!status)}/>
 <div className="form-group row">
 <label htmlFor="pv" className="col-sm-7 col-form-label">PV (%)</label><div className="col-sm-5">
 <input type="number" className="form-control" id="pv" placeholder="PV (%)"
-onChange={formik.handleChange,e => setPv(parseFloat(e.target.value))}
+onChange={onChange}
 onBlur={formik.handleBlur}
 value={formik.values.pv}></input></div></div>
 { formik.touched.pv&& formik.errors.pv? (

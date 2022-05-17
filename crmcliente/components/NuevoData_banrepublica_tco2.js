@@ -110,13 +110,19 @@ var i=0
 var fin=0
 while (fin==0) {
 i ++;
+console.log(lines[i][0])
 if (lines[i][0] > 40000 ){
+
+
 var inicio=i
 var k=inicio
+console.log(inicio)
 }
 while (fin==0 && inicio>0) {
+    console.log(lines[k][0])
 k ++;
 if (lines[k][0] === null ){
+    console.log('ACAA')
 fin=k
 }
 }
@@ -168,6 +174,7 @@ const Datacsv2=csvJSON(datacsv)
 var arreglado = Datacsv2.map( item => {
     return {creador:creador,anho_semana:(item["Anho_Semana"]).toString(),tasa_cred_com_credito_consumo:(item["Credito_de_consumo_Tasa"]),monto_cred_com_credito_consumo:(item["Credito_de_consumo_Monto"]),tasa_cred_com_odinario:(item["Ordinario_Tasa"]),monto_cred_com_odinario:(item["Ordinario_Monto"]),tasa__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Tasa"]),monto__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Monto"]),tasa__cred_com_tesoreria:(item["Tesoreria_Tasa"]),monto__cred_com_tesoreria:(item["Tesoreria_Monto"]),tasa_colocacion_banco_republica:(item["Banco_de_la_Republica_Tasa"]),monto_colocacion_banco_republica:(item["Banco_de_la_Republica_Monto"]),tasa_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Tasa"]),monto_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Monto"]),tasa_colocacion_total:(item["Total_Tasa"]),monto_colocacion_total:(item["Total_Monto"]),empresa_id:empresa_id}
 });
+console.log('Arreglado')
 console.log(arreglado)
 const {results} = await Promise.all(arreglado.map(object => {
 return nuevoData_banrepublica_tco({ variables:{

@@ -54,7 +54,20 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_banrepublica_tco[0]);
+const data2=data.obtenerData_banrepublica_tco
+
+console.log(data2.length-1)
+var maximo=0
+var maximo_i=0
+for(var i = 0; i <= data2.length-1; i++) {
+    
+   if ( parseInt(data2[i].anho_semana)>maximo) {
+   maximo = parseInt(data2[i].anho_semana)
+   maximo_i=i
+   }
+  }
+
+setComments(data.obtenerData_banrepublica_tco[maximo_i]);
 });
 
 

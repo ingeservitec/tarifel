@@ -804,7 +804,7 @@ type Data_creg_cx{
             tasa_colocacion_sin_tesoreria: Float
             monto_colocacion_sin_tesoreria: Float
             tasa_colocacion_total: Float
-            monto_colocacion_tointal: Float
+            monto_colocacion_total: Float
             empresa_id: String
             
             }
@@ -1674,10 +1674,10 @@ type Data_creg_cx{
                                                 nit_beneficiario: Int
                                                 dv_beneficiario: Int
                                                 emisor_banco: String
-                                                numero_garantia: Int
+                                                numero_garantia: String
                                                 fecha_inicio_vigencia: String
                                                 fecha_fin_vigencia: String
-                                                valor_garantia: Int
+                                                valor_garantia: String
                                                 costo_garantia: Int
                                                 
                                                 }
@@ -1689,10 +1689,10 @@ type Data_creg_cx{
                                                 nit_beneficiario: Int
                                                 dv_beneficiario: Int
                                                 emisor_banco: String
-                                                numero_garantia: Int
+                                                numero_garantia: String
                                                 fecha_inicio_vigencia: String
                                                 fecha_fin_vigencia: String
-                                                valor_garantia: Int
+                                                valor_garantia: String
                                                 costo_garantia: Int
                                                 
                                                 }

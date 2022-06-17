@@ -30,8 +30,21 @@ valor
 }
 `;
 
+
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_xm_ipr= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_XM_IPR);
+const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -46,10 +59,24 @@ const ITEMS_PER_PAGE = 3;
 const headers = [
 { name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Strid", field: "strID", sortable: true},{ name: "Agrupaormercado", field: "agrupaORMercado", sortable: true},{ name: "Fechavigencia", field: "fechavigencia", sortable: true},{ name: "Conceptoid", field: "conceptoID", sortable: true},{ name: "Nivelentrada", field: "nivelEntrada", sortable: true},{ name: "Nivelsalida", field: "nivelSalida", sortable: true},{ name: "Valor", field: "valor", sortable: true}
 ];
+
 useEffect(() => {
-if(loading) return 'Cargando....';
-setComments(data.obtenerData_xm_ipr);
-});
+    if(loading) return 'Cargando....';
+   
+    const ipr=data.obtenerData_xm_ipr
+    var iprm=ipr.filter(ipr => ipr.empresa_id===data1.obtenerUsuario.empresa)
+
+    iprm=iprm.sort(
+      function(a, b) {
+      if (a.anho === b.anho) {
+      return b.mes > a.mes ? 1 : -1;                  
+      }
+      return b.anho > a.anho ? 1 : -1;
+      });
+    setComments(iprm);
+  },[loading]); 
+
+
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

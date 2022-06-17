@@ -25,8 +25,20 @@ empresa_id
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_dane= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_DANE);
+const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -42,9 +54,21 @@ const headers = [
 { name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Ipp_Oferta_Interna", field: "ipp_oferta_interna", sortable: true},{ name: "Ipc", field: "ipc", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true}
 ];
 useEffect(() => {
-if(loading) return 'Cargando....';
-setComments(data.obtenerData_dane);
-});
+    if(loading) return 'Cargando....';
+   
+    const data_dane=data.obtenerData_dane
+    var data_danem=data_dane.filter(data_dane => data_dane.empresa_id===data1.obtenerUsuario.empresa)
+
+    data_danem=data_danem.sort(
+      function(a, b) {
+      if (a.anho === b.anho) {
+      return b.mes > a.mes ? 1 : -1;                  
+      }
+      return b.anho > a.anho ? 1 : -1;
+      });
+    setComments(data_danem);
+  },[loading]);
+
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

@@ -8,11 +8,12 @@ import 'font-awesome/css/font-awesome.min.css';
 import Swal from 'sweetalert2'
 import jsPDF from "jspdf";
 import html2canvas from 'html2canvas';
-import TableHeader from './DataTable/TableHeader';
-import logo_energuaviare from '../images/logo_energuaviare.jpg';
-import pie_energuaviare from '../images/pie_energuaviare.jpg';
-import b1 from '../images/1.jpg';
-import * as htmlToImage from 'html-to-image';
+
+import logo_energuaviare from '../images/logos_clientes/logo_energuaviare.png'
+
+import pie_logo_energuaviare from '../images/logos_clientes/pie_energuaviare.jpg'
+
+
 
 
 const OBTENER_RES_COMPONENTES_CU_TARIFA= gql`
@@ -152,24 +153,60 @@ ultimo_giro_incluido
 }
 `;
 
-
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
 
 
 const Pruebapdf = (props) => {
   const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
+  const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_USUARIO);
   const [anho, setAnho] = useState(props.anho);
   const [mes, setMes] = useState(props.mes)
-  
+  const [empresa_id, setempresa_id] = useState(0);
+  const [logo_, setLogo_] = useState(null);
+  const [logopie_, setLogopie_] = useState(null);
   const [data_Res_componentes_cu_tarifam, setData_Res_componentes_cu_tarifam] = useState([])
 
   useEffect(() => {
-    console.log(loading1)
-    if(!loading1){    
-      const data_Res_componentes_cu_tarifa=data1.obtenerRes_componentes_cu_tarifa
-      console.log(data_Res_componentes_cu_tarifa)
-      setData_Res_componentes_cu_tarifam(data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anho && data_Res_componentes_cu_tarifa.mes===mes))
 
-            }},[loading1])
+    if(!loading1 && !loading2){  
+      const data_Res_componentes_cu_tarifa=data1.obtenerRes_componentes_cu_tarifa
+      setData_Res_componentes_cu_tarifam(data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.anho===anho && data_Res_componentes_cu_tarifa.mes===mes&& data_Res_componentes_cu_tarifa.empresa_id===data2.obtenerUsuario.empresa))
+      setempresa_id(data2.obtenerUsuario.empresa);
+            }},[loading1,loading2])
+
+            useEffect(()=>{
+
+              switch (empresa_id) {  
+                 case "EGVC":  
+                  setLogo_(logo_energuaviare.src)
+                  setLogopie_(pie_logo_energuaviare.src)
+
+                  break;  
+                 case "ENIC":  
+                  setLogo_(logo_enelar.src);
+                  setLogopie_(pie_logo_enelar.src)
+                  break;  
+                 case "SEIP":  
+                 setLogo_(logo_seip.src);
+                 setLogopie_(pie_logo_seip.src)
+                  break;  
+                 case "EMRI":
+                  setLogo_(logo_elecmuri.src);  
+                  setLogopie_(pie_logo_elecmuri.src)
+                  break;  
+
+              }
+          },[empresa_id])
+
 
   const print = () => {
 
@@ -177,32 +214,32 @@ const Pruebapdf = (props) => {
     const input = document.getElementById('divToPrint');
 
 
-    // htmlToImage.toPng(input)
+    // htmlToImage.tojpg(input)
     // .then(function (dataUrl) {
-    //   saveAs(dataUrl, 'my-node.png');
+    //   saveAs(dataUrl, 'my-node.jpg');
 
-    //   const imgData = saveAs(dataUrl, 'my-node.png', crossOrigin="anonymous");
+    //   const imgData = saveAs(dataUrl, 'my-node.jpg', crossOrigin="anonymous");
     //   imgData.setAttribute('src', `url/timestamp=${new Date().getTime()}`);
     html2canvas(input,{ logging: true, letterRendering: 1, allowTaint: true, useCORS: true } )
       .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
+        const imgData = canvas.toDataURL('image/jpg');
         const pdf = new jsPDF();
         var width = pdf.internal.pageSize.getWidth();
       var height = pdf.internal.pageSize.getHeight();
         pdf.addImage(imgData, 'JPEG', 5, 5, width-10, height-10);
         
         // pdf.output('dataurlnewwindow');
-        pdf.save("download.pdf");
+        pdf.save("Publicación_"+(mes_letras)+"-"+(anho)+".pdf");
       })
 
 
     // const divToDisplay = document.getElementById('divToPrint')
     // // html2canvas(divToDisplay).then(function(canvas) { 
-    // // const divImage = canvas .toDataURL("image/png"); 
+    // // const divImage = canvas .toDataURL("image/jpg"); 
         
     //     const doc = new jsPDF();
 
-    //     // doc.addImage(divImage, 'PNG', 0, 0); 
+    //     // doc.addImage(divImage, 'jpg', 0, 0); 
 
     //     doc.text(body,10 , 10)
         
@@ -276,11 +313,7 @@ onHide={props.close}>
 <div className="row ">
 
 <div className="col-md-3">
-<img 
-      src="https://energuaviare.com/sites/all/themes/bootstrap/images/logo.png"
-      alt="new"
-      
-      />
+<img src={logo_} alt="Logo" className="img-fluid w-75 p-2" />
 </div>
 <div className="col-md-9 text-center p-4">
 <h3>TARIFAS A COBRAR A USUARIOS REGULADOS PERIODO DE FACTURACIÓN MES DE {mes_letras} DE {anho}</h3>
@@ -326,11 +359,11 @@ onHide={props.close}>
     </tr>
     <tr>
       <th scope="row">Distribución Dn,m</th>
-      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1):null }</td>
-      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1-data_Res_componentes_cu_tarifam[0].cdi_50):null }</td>
-      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1-data_Res_componentes_cu_tarifam[0].cdi_100):null }</td>
-      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt2):null }</td>
-      <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt3):null }</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? data_Res_componentes_cu_tarifam[0].dtun_nt1_e>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dtun_nt1_e) :roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1):null }</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? data_Res_componentes_cu_tarifam[0].dtun_nt1_e>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dtun_nt1_e-data_Res_componentes_cu_tarifam[0].cdi_50) :roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1-data_Res_componentes_cu_tarifam[0].cdi_50):null }</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? data_Res_componentes_cu_tarifam[0].dtun_nt1_e>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dtun_nt1_e-data_Res_componentes_cu_tarifam[0].cdi_100) :roundToTwo(data_Res_componentes_cu_tarifam[0].dnt1-data_Res_componentes_cu_tarifam[0].cdi_100):null }</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? data_Res_componentes_cu_tarifam[0].dtun_nt1_e>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dtun_nt2) :roundToTwo(data_Res_componentes_cu_tarifam[0].dnt2):null }</td>
+      <td>{data_Res_componentes_cu_tarifam.length>0? data_Res_componentes_cu_tarifam[0].dtun_nt1_e>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dtun_nt3) :roundToTwo(data_Res_componentes_cu_tarifam[0].dnt3):null }</td>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt4):null }</td>
     </tr>
     <tr>
@@ -381,8 +414,7 @@ onHide={props.close}>
   </tbody>
 </table>
 <div>
-<p>Cf,m,j: {data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cfm):null } Cvm,j:{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].cvr):null }</p>
-<p>Propiedad Empresa: Cuando ENERGUAVIARE E es propietaria de la red de baja tensión (BT) y del transformador</p>
+<p>Propiedad Empresa: Cuando la empresa es propietaria de la red de baja tensión (BT) y del transformador</p>
 <p>Propiedad compartida: Cuando la propiedad de la red de baja tensión (BT) o del transformador es del cliente.</p>
 <p>Propiedad Cliente: Cuando el CLIENTE es propietario de la red de baja tensión (BT) y del transformador es del cliente</p>
 <p>CS: Consumo de subsistencia que es hasta 173 kWh/mes. (UPME)</p>
@@ -547,14 +579,41 @@ onHide={props.close}>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt3):null }</td>
       <td>{data_Res_componentes_cu_tarifam.length>0? roundToTwo(data_Res_componentes_cu_tarifam[0].dnt3):null }</td>
     </tr>
-  
+    
   </tbody>
 </table>
-<p>Conforme artículo 15 y Numeral 6.7 de la resolución CREG 097 de 2008</p>
+<p>Conforme lo dispuesto en la resolución CREG 015 de 2018</p>
+<table class="table">
+<thead>
+    <tr>
 
+      <th colspan="4" class="text-center">TARIFAS PARA EL SERVICIO DE ENERGÍA ELÉCTRICA EN LAS ZONAS NO INTERCONECTADAS (SFVI>0.5 kW)</th>
+    </tr>
+  </thead>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">G</th>
+      <th scope="col">C</th>
+      <th scope="col">CU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{mes_letras}-{anho}</th>
+      <td> {roundToTwo(86525*162.89/122.59)} 	</td>
+      <td> {roundToTwo(23181*117.71/104.97)} 	</td>
+      <td>{roundToTwo(86525*162.89/122.59)+roundToTwo(23181*117.71/104.97)}</td>
+
+    </tr>
+    
+    
+  </tbody>
+</table>
+<p>De acuerdo con lo definido en la resolución CREG 166 de 2020</p>
 <div>
 <img 
-      src='http://drive.google.com/uc?export=view&id=1rJ0jKgN-8nXUGJyKIzx66GuTdDKhyrq0'
+      src={logopie_}
       alt="pie"
       width="1100"
       />

@@ -180,7 +180,16 @@ const Dataxmafac  = () => {
                   // setComments(data.obtenerData_xm_afac);
 
                   const data_xm_afac=data.obtenerData_xm_afac
-                  const data_xm_afacm=data_xm_afac.filter(data_xm_afac => data_xm_afac.agente===data1.obtenerUsuario.empresa)
+                  var data_xm_afacm=data_xm_afac.filter(data_xm_afac => data_xm_afac.agente===data1.obtenerUsuario.empresa)
+
+                  data_xm_afacm=data_xm_afacm.sort(
+                    function(a, b) {
+                    if (a.anho === b.anho) {
+                    return b.mes > a.mes ? 1 : -1;                  
+                    }
+                    return b.anho > a.anho ? 1 : -1;
+                    });
+
                   setComments(data_xm_afacm);
 
      },[loading]);

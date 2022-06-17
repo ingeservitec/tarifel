@@ -61,7 +61,16 @@ const Dataxmtserv  = () => {
                   if(loading1) return 'Cargando....';
                 //   setComments(data.obtenerData_xm_tserv);
                   const data_xm_tserv=data.obtenerData_xm_tserv
-                  const data_xm_tservm=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.agente===data1.obtenerUsuario.empresa)
+                  var data_xm_tservm=data_xm_tserv.filter(data_xm_tserv => data_xm_tserv.agente===data1.obtenerUsuario.empresa)
+
+                  data_xm_tservm=data_xm_tservm.sort(
+                    function(a, b) {
+                    if (a.anho === b.anho) {
+                    return b.mes > a.mes ? 1 : -1;                  
+                    }
+                    return b.anho > a.anho ? 1 : -1;
+                    });
+                  
                   setComments(data_xm_tservm);
                 },[loading]);   
       const commentsData = useMemo(() => {

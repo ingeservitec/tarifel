@@ -132,16 +132,13 @@ if (data[0].__EMPTY==='CARGOS POR USO DEL STR NORTE') {
 }
 var meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
-console.log(fileNames[0])
-const excelRows2 = XLSX.utils.sheet_to_row_object_array(workbook.Sheets['Deltas '+meses[parseInt(fileNames[0].substr(16,2))-1]+'-'+parseInt(fileNames[0].substr(11,4))]);
+
+const excelRows2 = XLSX.utils.sheet_to_row_object_array(workbook.Sheets['Deltas '+meses[parseInt(acceptedFiles.map(file => file.name)[0].substr(16,2))-1]+'-'+parseInt(acceptedFiles.map(file => file.name)[0].substr(11,4))]);
 const data2=excelRows2
 console.log(data2)
 
     setValor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Norte(data2[4].__EMPTY)
     setValor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Sur(data2[4].__EMPTY_1)
-
-
-
 //HASTA ACA
 };
 // read file contents

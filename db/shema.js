@@ -13,6 +13,7 @@ type Usuario  {
              email: String
              creado: String
              empresa: String
+             sector: String
              }
 
 type Token  {
@@ -44,7 +45,12 @@ type Data_empresa  {
     pui_cop_kwh: Float
     vsne_kwh: Float
     vnu_kwh: Float
-    vae_kwh: Float    
+    vae_kwh: Float 
+    g_exc1: Float
+    g_exc1_21: Float
+    g_exc2: Float
+    g_exc3: Float
+    ggd: Float   
     }
 
 type Token  {
@@ -222,6 +228,7 @@ cont_hora_24: Float
     comprador: String
     tipo: String
     tipomerc: String
+    tipoasigna: String
     desp_hora_1: Float
     desp_hora_2: Float
     desp_hora_3: Float
@@ -328,6 +335,7 @@ input UsuarioInput  {
     email: String!
     password:String!
     empresa:String!
+    sector: String!
 }
 
 input AutenticarInput  {
@@ -358,6 +366,12 @@ input DataempresaInput  {
    vsne_kwh: Float
    vnu_kwh: Float
    vae_kwh: Float 
+   g_exc1: Float
+   g_exc1_21: Float
+   g_exc2: Float
+   g_exc3: Float
+   ggd: Float
+
 }
 input DataxmafacInput  {
    id: ID
@@ -529,6 +543,7 @@ cont_hora_24: Float
     comprador: String
     tipo: String
     tipomerc: String
+    tipoasigna: String
     desp_hora_1: Float
     desp_hora_2: Float
     desp_hora_3: Float
@@ -817,7 +832,7 @@ type Data_creg_cx{
                trimestre: Int
                anho: Int
                facturacion: String
-               subsidios: Int
+               subsidios: String
                contribuciones: Int
                contrib_no_recaud_desp_6m: Int
                contrib_recaud_desp_de_conc: Int
@@ -825,6 +840,7 @@ type Data_creg_cx{
                giro_sobrante: String
                ultimo_giro_incluido: Int
                }
+
                input Data_mme_validacionInput {
                id: ID
                creador: Int
@@ -832,7 +848,7 @@ type Data_creg_cx{
                fecha: String
                trimestre: Int
                anho: Int
-               subsidios: Int
+               subsidios: String
                facturacion: String
                contribuciones: Int
                contrib_no_recaud_desp_6m: Int
@@ -843,27 +859,27 @@ type Data_creg_cx{
                }
                
                type Data_mme_giro{
-                  id: ID
-                  creador: Int
-                  empresa_id: String
-                  fecha: String
-                  fondo: String
-                  resolucion: String
-                  link_resolucion: String
-                  giro_cop: Int
+               id: ID
+               creador: Int
+               empresa_id: String
+               fecha: String
+               fondo: String
+               resolucion: String
+               link_resolucion: String
+               giro_cop: String
                   
-                  }
-                  input Data_mme_giroInput {
-                  id: ID
-                  creador: Int
-                  empresa_id: String
-                  fecha: String
-                  fondo: String
-                  resolucion: String
-                  link_resolucion: String
-                  giro_cop: Int
-                  
-                  }
+               }
+               input Data_mme_giroInput {
+               id: ID
+               creador: Int
+               empresa_id: String
+               fecha: String
+               fondo: String
+               resolucion: String
+               link_resolucion: String
+               giro_cop: String
+               
+               }
                   
                   type Res_componentes_cu_tarifa{
                      id: ID
@@ -1696,6 +1712,155 @@ type Data_creg_cx{
                                                 costo_garantia: Int
                                                 
                                                 }
+
+
+         
+         type Data_xm_trsd{
+            id: ID
+            creador: Int
+            empresa_id: String
+            anho: Int
+            mes: Int
+            dia: Int
+            codigo: String
+            contenido: String
+            hora_01: Float
+            hora_02: Float
+            hora_03: Float
+            hora_04: Float
+            hora_05: Float
+            hora_06: Float
+            hora_07: Float
+            hora_08: Float
+            hora_09: Float
+            hora_10: Float
+            hora_11: Float
+            hora_12: Float
+            hora_13: Float
+            hora_14: Float
+            hora_15: Float
+            hora_16: Float
+            hora_17: Float
+            hora_18: Float
+            hora_19: Float
+            hora_20: Float
+            hora_21: Float
+            hora_22: Float
+            hora_23: Float
+            hora_24: Float
+            
+            }
+            input Data_xm_trsdInput {
+            id: ID
+            creador: Int
+            empresa_id: String
+            anho: Int
+            mes: Int
+            dia: Int
+            codigo: String
+            contenido: String
+            hora_01: Float
+            hora_02: Float
+            hora_03: Float
+            hora_04: Float
+            hora_05: Float
+            hora_06: Float
+            hora_07: Float
+            hora_08: Float
+            hora_09: Float
+            hora_10: Float
+            hora_11: Float
+            hora_12: Float
+            hora_13: Float
+            hora_14: Float
+            hora_15: Float
+            hora_16: Float
+            hora_17: Float
+            hora_18: Float
+            hora_19: Float
+            hora_20: Float
+            hora_21: Float
+            hora_22: Float
+            hora_23: Float
+            hora_24: Float
+            
+            }
+            
+            type Data_empresa_agpe{
+               id: ID
+               creador: Int
+               empresa_id: String
+               niu: Int
+               anho: Int
+               mes: Int
+               dia: Int
+               tipo_ene: String
+               hora_01: Float
+               hora_02: Float
+               hora_03: Float
+               hora_04: Float
+               hora_05: Float
+               hora_06: Float
+               hora_07: Float
+               hora_08: Float
+               hora_09: Float
+               hora_10: Float
+               hora_11: Float
+               hora_12: Float
+               hora_13: Float
+               hora_14: Float
+               hora_15: Float
+               hora_16: Float
+               hora_17: Float
+               hora_18: Float
+               hora_19: Float
+               hora_20: Float
+               hora_21: Float
+               hora_22: Float
+               hora_23: Float
+               hora_24: Float
+               
+               }
+               input Data_empresa_agpeInput {
+               id: ID
+               creador: Int
+               empresa_id: String
+               niu: Int
+               anho: Int
+               mes: Int
+               dia: Int
+               tipo_ene: String
+               hora_01: Float
+               hora_02: Float
+               hora_03: Float
+               hora_04: Float
+               hora_05: Float
+               hora_06: Float
+               hora_07: Float
+               hora_08: Float
+               hora_09: Float
+               hora_10: Float
+               hora_11: Float
+               hora_12: Float
+               hora_13: Float
+               hora_14: Float
+               hora_15: Float
+               hora_16: Float
+               hora_17: Float
+               hora_18: Float
+               hora_19: Float
+               hora_20: Float
+               hora_21: Float
+               hora_22: Float
+               hora_23: Float
+               hora_24: Float
+               
+               }
+               
+               
+
+                                                   
+
                                                 
 type Query {
     #Usuarios    
@@ -1748,6 +1913,11 @@ obtenerData_empresa_anual: [Data_empresa_anual]
 obtenerData_xm_str: [Data_xm_str]
 #Query data_empresa_garantia
 obtenerData_empresa_garantia: [Data_empresa_garantia]
+#Query Data_xm_trsd
+obtenerData_xm_trsd: [Data_xm_trsd]
+#Query data_empresa_agpe
+obtenerData_empresa_agpe: [Data_empresa_agpe]
+
 }
 type Mutation {  
     #Usuarios
@@ -1803,6 +1973,12 @@ eliminarDataEmpresa(id: ID!):String
 nuevoData_xm_str(input:Data_xm_strInput):Data_xm_str
 #Mutationdata_empresa_garantia
 nuevoData_empresa_garantia(input:Data_empresa_garantiaInput):Data_empresa_garantia
+
+#MutationData_xm_trsd
+nuevoData_xm_trsd(input:Data_xm_trsdInput):Data_xm_trsd
+
+#MutationData_empresa_agpe
+nuevoData_empresa_agpe(input:Data_empresa_agpeInput):Data_empresa_agpe
     }
 `;
 

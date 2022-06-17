@@ -24,6 +24,7 @@ query obtenerData_empresa {
     anho
     mes
     mercado
+    empresa_id
     numero_usuarios_r
     numero_usuarios_nr
     ventas_usuarios_r_nt1_e
@@ -33,9 +34,10 @@ query obtenerData_empresa {
     ventas_usuarios_r_nt3
     ventas_usuarios_nr_kwh
     pui_cop_kwh
-    vsne_kwh
+    vsne_kwh    
     vnu_kwh
     vae_kwh
+    
   }
 }
 `;
@@ -47,10 +49,21 @@ mutation eliminarDataEmpresa ($eliminarDataEmpresaId: ID!) {
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
 
 const Dataempresa  = () => {
 
    const { data, error, loading} = useQuery(OBTENER_DATA_EMPRESAS);
+   const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
    const [id1, setId1] = useState(0);
   
    const [ eliminarDataEmpresa] = useMutation(ELIMINAR_DATA_EMPRESAS, {
@@ -79,7 +92,7 @@ const Dataempresa  = () => {
     const [sorting, setSorting] = useState({ field: "", order: "" });
     const [showLogin, setShowLogin] = useState(false);
     const [showLogin2, setShowLogin2] = useState(false);
-
+    const [idmercado, setIdmercado] = useState("");
 
     const ITEMS_PER_PAGE = 10;
     const headers = [
@@ -104,10 +117,24 @@ const Dataempresa  = () => {
    
 
 
+
     useEffect(() => {
-                  if(loading) return 'Cargando....';
-                  setComments(data.obtenerData_empresa);
-     });
+        if(loading1) return 'Cargando....';
+        
+        setIdmercado(data1.obtenerUsuario.empresa)
+
+     },[loading1]);
+
+    useEffect(() => {
+        if(loading) return 'Cargando....';
+        if(loading1) return 'Cargando....';
+
+        const data_obtenerData_empresa_=data.obtenerData_empresa
+const data_obtenerData_empresa_esp=data_obtenerData_empresa_.filter(data_obtenerData_empresa_ => data_obtenerData_empresa_.empresa_id===data1.obtenerUsuario.empresa)   
+setComments(data_obtenerData_empresa_esp);
+
+        setId1(data1.obtenerUsuario.empresa)
+     },[loading]);
 
   
   

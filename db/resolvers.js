@@ -22,9 +22,14 @@ const Data_xm_d015= require ('../models/Data_xm_d015');
 const Data_xm_dtun= require ('../models/Data_xm_dtun');
 const Data_empresa_anual= require ('../models/Data_empresa_anual');
 const Data_empresa_garantia= require ('../models/Data_empresa_garantia');
+
+const Data_xm_trsd= require ('../models/Data_xm_trsd');
+const Data_empresa_agpe= require ('../models/Data_empresa_agpe');
+
 const bcryptjs = require ('bcryptjs');
 const jwt = require ('jsonwebtoken');
 const { afterCreate } = require('../models/Usuario');
+require('dotenv').config();
 
 
 const crearToken= (usuario,secreta, expiresIn)=> {
@@ -292,11 +297,40 @@ return data_empresa_garantia;
 } catch (error) {
 console.log(error)
 }
+},
+
+
+//Query
+obtenerData_xm_trsd: async () => {
+try {
+const data_xm_trsd=await Data_xm_trsd.findAll()
+return data_xm_trsd;
+} catch (error) {
+console.log(error)
+}
+},
+//Query
+obtenerData_empresa_agpe: async () => {
+try {
+const data_empresa_agpe=await Data_empresa_agpe.findAll()
+return data_empresa_agpe;
+} catch (error) {
+console.log(error)
+}
+},
+//Query
+obtenerData_empresa_agpe: async () => {
+try {
+const data_empresa_agpe=await Data_empresa_agpe.findAll()
+return data_empresa_agpe;
+} catch (error) {
+console.log(error)
+}
 }
 
-    
 
 
+//////////////////   
     },
 
     Mutation:{
@@ -631,6 +665,40 @@ console.log(error)
 }
 },
 
+//Mutation
+
+nuevoData_xm_trsd:async (_,{input})=> {
+
+try {
+const data_xm_trsd=new Data_xm_trsd(input);
+const resultado = await data_xm_trsd.save();
+return resultado
+} catch (error) {
+console.log(error)
+}
+}
+
+,
+//Mutation
+
+//Mutation
+
+nuevoData_empresa_agpe:async (_,{input})=> {
+
+    try {
+    const data_empresa_agpe=new Data_empresa_agpe(input);
+    const resultado = await data_empresa_agpe.save();
+    return resultado
+    } catch (error) {
+    console.log(error)
+    }
+    }
+    
+,
+
+
+//////////UPDATES
+
 actualizarData_mme_validacion:async (_,{id, input})=> {
     let data_mme_validacion=await Data_mme_validacion.findByPk(id)
 if(!data_mme_validacion){
@@ -643,6 +711,9 @@ id:id,
 
 return resultado
     },
+
+
+
     eliminarDataEmpresa:async (_,{id})=> {
         let data_empresa=await Data_empresa.findByPk(id)
       

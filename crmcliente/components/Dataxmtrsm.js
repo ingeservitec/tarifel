@@ -27,8 +27,20 @@ valor
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Dataxmtrsm  = () => {
   const { data, error, loading} = useQuery(OBTENER_DATA_XM_TRSM);
+  const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
   const [comments, setComments] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,12 +52,23 @@ const Dataxmtrsm  = () => {
 
   const ITEMS_PER_PAGE = 3;
   const headers = [
-      { name: "Id", field: "id", sortable: true},{ name: "Creador", field: "creador", sortable: true},{ name: "Fecha", field: "fecha", sortable: true},{ name: "Codigo", field: "codigo", sortable: true},{ name: "Descripcion", field: "descripcion", sortable: true},{ name: "Valor", field: "valor", sortable: true}
+      { name: "Id", field: "id", sortable: true},{ name: "Creador", field: "creador", sortable: true},{ name: "Fecha", field: "fecha", sortable: true},{ name: "Codigo", field: "codigo", sortable: true},{ name: "Valor", field: "valor", sortable: true}
   ];
    useEffect(() => {
                   if(loading) return 'Cargando....';
-                  setComments(data.obtenerData_xm_trsm);
-     });
+                 
+                  const data_xm_trsm=data.obtenerData_xm_trsm
+                  var data_xm_trsmm=data_xm_trsm.filter(data_xm_trsm => data_xm_trsm.empresa_id===data1.obtenerUsuario.empresa && data_xm_trsm.codigo==='MC')
+
+                  data_xm_trsmm=data_xm_trsmm.sort(
+                    function(a, b) {
+                    if (a.anho === b.anho) {
+                    return b.mes > a.mes ? 1 : -1;                  
+                    }
+                    return b.anho > a.anho ? 1 : -1;
+                    });
+                  setComments(data_xm_trsmm);
+                },[loading]); 
       const commentsData = useMemo(() => {
       let computedComments = comments;
       if (search) {
@@ -130,7 +153,6 @@ return (
 <td>{comment.creador}</td>
 <td>{comment.fecha}</td>
 <td>{comment.codigo}</td>
-<td>{comment.descripcion}</td>
 <td>{comment.valor}</td>
                         </tr>
                     ))}

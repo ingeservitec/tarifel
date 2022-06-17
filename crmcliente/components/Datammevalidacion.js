@@ -29,8 +29,20 @@ giros_recibidos
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_mme_validacion= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_MME_VALIDACION);
+const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -47,8 +59,11 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_mme_validacion);
-});
+if(loading1) return 'Cargando....';
+const data_obtenerData_mme_validacionesp_=data.obtenerData_mme_validacion
+const data_obtenerData_mme_validacionesp=data_obtenerData_mme_validacionesp_.filter(data_obtenerData_mme_validacionesp_ => data_obtenerData_mme_validacionesp_.empresa_id===data1.obtenerUsuario.empresa)   
+setComments(data_obtenerData_mme_validacionesp);
+},[loading,loading1]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

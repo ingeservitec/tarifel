@@ -24,8 +24,20 @@ cargo_cprog_cop_kwh
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_xm_cprog= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_XM_CPROG);
+const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -40,10 +52,25 @@ const ITEMS_PER_PAGE = 3;
 const headers = [
 { name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Agente", field: "agente", sortable: true},{ name: "Cargo_Cprog_Cop_Kwh", field: "cargo_cprog_cop_kwh", sortable: true},{ name: "Createdat", field: "createdAt", sortable: true},{ name: "Updatedat", field: "updatedAt", sortable: true}
 ];
+
 useEffect(() => {
-if(loading) return 'Cargando....';
-setComments(data.obtenerData_xm_cprog);
-});
+    if(loading) return 'Cargando....';
+   
+    const data_xm_cprog=data.obtenerData_xm_cprog
+    var data_xm_cprogm=data_xm_cprog.filter(data_xm_cprog => data_xm_cprog.empresa_id===data1.obtenerUsuario.empresa)
+
+    data_xm_cprogm=data_xm_cprogm.sort(
+      function(a, b) {
+      if (a.anho === b.anho) {
+      return b.mes > a.mes ? 1 : -1;                  
+      }
+      return b.anho > a.anho ? 1 : -1;
+      });
+    setComments(data_xm_cprogm);
+  },[loading]); 
+
+
+
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

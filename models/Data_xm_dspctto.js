@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
+const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres'});
 const Data_xm_dspcttosSchema = sequelize.define('Data_xm_dspctto', {
   // Model attributes are defined here
   anho: {  
@@ -61,6 +60,11 @@ const Data_xm_dspcttosSchema = sequelize.define('Data_xm_dspctto', {
     allowNull: false,  
     trim: true  
     },
+    tipoasigna: {  
+      type: DataTypes.STRING,  
+      allowNull: false,  
+      trim: true  
+      },
     
     desp_hora_1: {  
     type: DataTypes.FLOAT,  

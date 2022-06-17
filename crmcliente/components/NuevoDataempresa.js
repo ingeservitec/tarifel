@@ -33,6 +33,12 @@ mutation nuevoDataempresa($input:DataempresaInput){
     vsne_kwh
     vnu_kwh
     vae_kwh
+    g_exc1
+    g_exc1_21
+    g_exc2
+    g_exc3
+    ggd
+
   }
 }
 `;
@@ -56,6 +62,12 @@ query obtenerData_empresa {
     vsne_kwh
     vnu_kwh
     vae_kwh
+    g_exc1
+g_exc1_21
+g_exc2
+g_exc3
+ggd
+
   }
 }
 `;
@@ -92,8 +104,26 @@ const NuevoDataempresa =(props) => {
   })
     const [datacsv, setDatacsv] = useState("");
     const [fileNames, setFileNames] = useState([]);
-    const [creador, setCreador] = useState("");const [anho, setAño] = useState("");const [empresa_id, setEmpresa_id] = useState("");const [mes, setMes] = useState("");const [mercado, setMercado] = useState("");const [numero_usuarios_r, setNúmeroUsuariosR] = useState("");const [numero_usuarios_nr, setNúmeroUsuariosNR] = useState("");const [ventas_usuarios_r_nt1_e, setVentasUsuariosRNt1E] = useState("");const [ventas_usuarios_r_nt1_c, setVentasUsuariosRNt1C] = useState("");const [ventas_usuarios_r_nt1_u, setVentasUsuariosRNt1U] = useState("");const [ventas_usuarios_r_nt2, setVentasUsuariosRNt2] = useState("");const [ventas_usuarios_r_nt3, setVentasUsuariosRNt3] = useState("");const [ventas_usuarios_nr_kwh, setVentasUsuariosNrKwh] = useState("");
-const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = useState("");const [vnu_kwh, setVNUKwh] = useState("");const [vae_kwh, setVAEKwh] = useState("");
+    const [creador, setCreador] = useState("");const [anho, setAño] = useState("");const [empresa_id, setEmpresa_id] = useState("");
+    const [mes, setMes] = useState("");const [mercado, setMercado] = useState("");
+    const [numero_usuarios_r, setNúmeroUsuariosR] = useState("");const [numero_usuarios_nr, setNúmeroUsuariosNR] = useState("");
+    const [ventas_usuarios_r_nt1_e, setVentasUsuariosRNt1E] = useState("");
+    const [ventas_usuarios_r_nt1_c, setVentasUsuariosRNt1C] = useState("");
+    const [ventas_usuarios_r_nt1_u, setVentasUsuariosRNt1U] = useState("");
+    const [ventas_usuarios_r_nt2, setVentasUsuariosRNt2] = useState("");
+    const [ventas_usuarios_r_nt3, setVentasUsuariosRNt3] = useState("");
+    const [ventas_usuarios_nr_kwh, setVentasUsuariosNrKwh] = useState("");
+    const [pui_cop_kwh, setPUICopKwh] = useState("");
+    const [vsne_kwh, setVSNEKwh] = useState("");
+    const [vnu_kwh, setVNUKwh] = useState("");
+    const [vae_kwh, setVAEKwh] = useState("");
+    const [g_exc1, setG_exc1] = useState("");const [g_exc1_21, setG_exc1_21] = useState("")
+    const [g_exc2, setG_exc2] = useState("");const [g_exc3, setG_exc3] = useState("")
+    const [ggd, setGgd] = useState("");
+
+
+    
+
     const onDrop = useCallback(acceptedFiles => {
       setFileNames(acceptedFiles.map(file => file.name));
      
@@ -113,7 +143,7 @@ const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = 
       const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
       const formik=useFormik({
       initialValues: {
-        creador:creador,anho:anho,mes:mes,empresa_id:empresa_id,mercado:mercado,numero_usuarios_r:numero_usuarios_r,numero_usuarios_nr:numero_usuarios_nr,ventas_usuarios_r_nt1_e:ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c:ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u:ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2:ventas_usuarios_r_nt2,ventas_usuarios_r_nt3:ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh:ventas_usuarios_nr_kwh,pui_cop_kwh:pui_cop_kwh,vsne_kwh:vsne_kwh,vnu_kwh:vnu_kwh,vae_kwh:vae_kwh
+        creador:creador,anho:anho,mes:mes,empresa_id:empresa_id,mercado:mercado,numero_usuarios_r:numero_usuarios_r,numero_usuarios_nr:numero_usuarios_nr,ventas_usuarios_r_nt1_e:ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c:ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u:ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2:ventas_usuarios_r_nt2,ventas_usuarios_r_nt3:ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh:ventas_usuarios_nr_kwh,pui_cop_kwh:pui_cop_kwh,vsne_kwh:vsne_kwh,vnu_kwh:vnu_kwh,vae_kwh:vae_kwh,  g_exc1:g_exc1,g_exc1_21:g_exc1_21,g_exc2:g_exc2,g_exc3:g_exc3,ggd:ggd
       }, 
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -124,15 +154,15 @@ const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = 
     }), 
     
     onSubmit: async valores => {
-    const{creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh}=valores
+    const{creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh, g_exc1,g_exc1_21,g_exc2,g_exc3,ggd}=valores
     Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
     props.close()
     try {
-      console.log(creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh)
+      console.log(creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh,g_exc1,g_exc1_21,g_exc2,g_exc3,ggd)
     const{data}=await nuevoDataempresa({
     variables:{
         input:{
-            creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh
+            creador,anho,mes,empresa_id,mercado,numero_usuarios_r,numero_usuarios_nr,ventas_usuarios_r_nt1_e,ventas_usuarios_r_nt1_c,ventas_usuarios_r_nt1_u,ventas_usuarios_r_nt2,ventas_usuarios_r_nt3,ventas_usuarios_nr_kwh,pui_cop_kwh,vsne_kwh,vnu_kwh,vae_kwh,g_exc1,g_exc1_21,g_exc2,g_exc3,ggd
          }
     }
     });
@@ -168,13 +198,17 @@ const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = 
            var Position=(datacsv[0].indexOf(("ventas_usuarios_r_nt2").toString()))
            setVentasUsuariosRNt2(parseFloat(datacsv[1][Position]));
            var Position=(datacsv[0].indexOf(("ventas_usuarios_r_nt3").toString()))
-           setVentasUsuariosRNt3(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("ventas_usuarios_nr_kwh").toString()))
+           setVentasUsuariosRNt3(parseFloat(datacsv[1][Position]));
+           var Position=(datacsv[0].indexOf(("ventas_usuarios_nr_kwh").toString()))
            setVentasUsuariosNrKwh(parseFloat(datacsv[1][Position]));
-          
-           setPUICopKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vsne_kwh").toString()))
+                      setPUICopKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vsne_kwh").toString()))
            setVSNEKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vnu_kwh").toString()))
            setVNUKwh(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("vae_kwh").toString()))
-           setVAEKwh(parseFloat(datacsv[1][Position]));
+           setG_exc1(parseFloat(datacsv[1][Position])); var Position=(datacsv[0].indexOf(("g_exc1").toString()))
+           setG_exc1_21(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("g_exc1_21").toString()))
+           setG_exc2(parseFloat(datacsv[1][Position])); var Position=(datacsv[0].indexOf(("g_exc2").toString()))
+           setG_exc3(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("g_exc3").toString()))
+           setGgd(parseFloat(datacsv[1][Position]));var Position=(datacsv[0].indexOf(("ggd").toString()))
            console.log(mercado)
         } else {
         }  
@@ -515,7 +549,10 @@ const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = 
     <p className="font-bold">Error</p>
     <p>{formik.errors.vnu_kwh}</p>
     </div>
-    ) : null  }<div className="form-group row">
+    ) : null  }
+
+
+    <div className="form-group row">
     <label htmlFor="vae_kwh" className="col-sm-7 col-form-label">VAE Kwh</label><div className="col-sm-5">
     <input type="number" className="form-control" id="vae_kwh" placeholder="VAE Kwh"
     onChange={formik.handleChange}
@@ -528,6 +565,79 @@ const [pui_cop_kwh, setPUICopKwh] = useState("");const [vsne_kwh, setVSNEKwh] = 
     <p>{formik.errors.vae_kwh}</p>
     </div>
     ) : null  }
+
+<div className="form-group row">
+    <label htmlFor="g_exc1" className="col-sm-7 col-form-label">GExc1 Kwh</label><div className="col-sm-5">
+    <input type="number" className="form-control" id="g_exc1" placeholder="GExc1 Kwh"
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    value={formik.values.g_exc1}></input></div>
+    </div>
+    { formik.touched.g_exc1&& formik.errors.g_exc1? (
+    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+    <p className="font-bold">Error</p>
+    <p>{formik.errors.g_exc1}</p>
+    </div>
+    ) : null  }
+
+<div className="form-group row">
+    <label htmlFor="g_exc1_21" className="col-sm-7 col-form-label">GExc1_21 kWh</label><div className="col-sm-5">
+    <input type="number" className="form-control" id="g_exc1_21" placeholder="GExc1_21 kWh"
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    value={formik.values.g_exc1_21}></input></div>
+    </div>
+    { formik.touched.g_exc1_21&& formik.errors.g_exc1_21? (
+    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+    <p className="font-bold">Error</p>
+    <p>{formik.errors.g_exc1_21}</p>
+    </div>
+    ) : null  }
+
+
+<div className="form-group row">
+    <label htmlFor="g_exc2" className="col-sm-7 col-form-label">GExc2 kWh</label><div className="col-sm-5">
+    <input type="number" className="form-control" id="g_exc2" placeholder="GExc2 kWh"
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    value={formik.values.g_exc2}></input></div>
+    </div>
+    { formik.touched.g_exc2&& formik.errors.g_exc2? (
+    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+    <p className="font-bold">Error</p>
+    <p>{formik.errors.g_exc2}</p>
+    </div>
+    ) : null  }
+
+<div className="form-group row">
+    <label htmlFor="g_exc3" className="col-sm-7 col-form-label">GExc3 Kwh</label><div className="col-sm-5">
+    <input type="number" className="form-control" id="g_exc3" placeholder="GExc3 Kwh"
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    value={formik.values.g_exc3}></input></div>
+    </div>
+    { formik.touched.g_exc3&& formik.errors.g_exc3? (
+    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+    <p className="font-bold">Error</p>
+    <p>{formik.errors.g_exc3}</p>
+    </div>
+    ) : null  }
+
+<div className="form-group row">
+    <label htmlFor="ggd" className="col-sm-7 col-form-label">GGD Kwh</label><div className="col-sm-5">
+    <input type="number" className="form-control" id="ggd" placeholder="GGD Kwh"
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    value={formik.values.ggd}></input></div>
+    </div>
+    { formik.touched.ggd&& formik.errors.ggd? (
+    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+    <p className="font-bold">Error</p>
+    <p>{formik.errors.ggd}</p>
+    </div>
+    ) : null  }
+
+
     <div className="container">
     <div className="row">
     <div className="col-sm">

@@ -80,6 +80,8 @@ obtenerData_empresa_garantia: [...obtenerData_empresa_garantia, nuevoData_empres
 })
 }
 })
+
+
 const onDrop = useCallback(acceptedFiles => {
 setFileNames(acceptedFiles.map(file => file.name));
 const reader = new FileReader();
@@ -89,6 +91,7 @@ reader.onload = () => {
 // Parse CSV file
 csv.parse(reader.result, (err, data) => {
 console.log("Parsed CSV data: ", data);
+console.log('ACA431')
 setDatacsv(data)
 });
 };
@@ -130,7 +133,9 @@ return result; //JSON
 
 const formik=useFormik({
 initialValues: {
-creador:creador,empresa_id:empresa_id,tipo_garantia:tipo_garantia,nit_beneficiario:nit_beneficiario,dv_beneficiario:dv_beneficiario,emisor_banco:emisor_banco,numero_garantia:numero_garantia,fecha_inicio_vigencia:fecha_inicio_vigencia,fecha_fin_vigencia:fecha_fin_vigencia,valor_garantia:valor_garantia,costo_garantia:costo_garantia
+creador:creador,empresa_id:empresa_id,tipo_garantia:tipo_garantia,nit_beneficiario:nit_beneficiario,dv_beneficiario:dv_beneficiario,
+emisor_banco:emisor_banco,numero_garantia:numero_garantia,fecha_inicio_vigencia:fecha_inicio_vigencia,fecha_fin_vigencia:fecha_fin_vigencia,
+valor_garantia:valor_garantia,costo_garantia:costo_garantia
 },
 enableReinitialize: true,
 validationSchema: Yup.object({
@@ -138,11 +143,13 @@ creador: Yup.string()
 .required('El creador es obligatorio'),
 }),
 onSubmit: async valores => {
+console.log('ACA43')
 const{creador,empresa_id,tipo_garantia,nit_beneficiario,dv_beneficiario,emisor_banco,numero_garantia,fecha_inicio_vigencia,fecha_fin_vigencia,valor_garantia,costo_garantia}=valores
+console.log('ACA44')
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()
 try {
-  
+        console.log('ACA45')
 const{data}=await nuevoData_empresa_garantia({
 variables:{
 input:{
@@ -151,6 +158,7 @@ creador,empresa_id,tipo_garantia,nit_beneficiario,dv_beneficiario,emisor_banco,n
 }
 });
 } catch (error) {
+        console.log('ACA46')
 console.log(error);
 }
 }
@@ -292,7 +300,7 @@ value={formik.values.emisor_banco}></input></div></div>
         </div>
         ) : null  }<div className="form-group row">
         <label htmlFor="numero_garantia" className="col-sm-7 col-form-label">Numero_Garantia</label><div className="col-sm-5">
-        <input type="number" className="form-control" id="numero_garantia" placeholder="Numero_Garantia"
+        <input type="text" className="form-control" id="numero_garantia" placeholder="Numero_Garantia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
 value={formik.values.numero_garantia}></input></div></div>
@@ -325,7 +333,7 @@ value={formik.values.fecha_fin_vigencia}></input></div></div>
         </div>
         ) : null  }<div className="form-group row">
         <label htmlFor="valor_garantia" className="col-sm-7 col-form-label">Valor_Garantia</label><div className="col-sm-5">
-        <input type="number" className="form-control" id="valor_garantia" placeholder="Valor_Garantia"
+        <input type="text" className="form-control" id="valor_garantia" placeholder="Valor_Garantia"
 onChange={formik.handleChange}
 onBlur={formik.handleBlur}
 value={formik.values.valor_garantia}></input></div></div>

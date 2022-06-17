@@ -296,7 +296,6 @@ const NuevoDataxmafac2 =(props) => {
   })
 
 
-
     const onDrop = useCallback(acceptedFiles => {
       setFileNames(acceptedFiles.map(file => file.name));
      
@@ -383,7 +382,9 @@ const NuevoDataxmafac2 =(props) => {
           compras_en_bolsa_ajustes_cop:parseFloat(item["compras_en_bolsa_ajustes_cop"])}; 
         });
         console.log(arreglado)
-        const {results} = await Promise.all(arreglado.map(object => {  
+        const arreglado2=arreglado.filter(arreglado => arreglado.agente===empresa_id)   
+        console.log(arreglado2)
+        const {results} = await Promise.all(arreglado2.map(object => {  
         return nuevoDataxmafac({ variables:{
           input:
             object

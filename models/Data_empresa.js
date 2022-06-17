@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
+const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres'});
 const Data_empresaSchema = sequelize.define('data_empresa', {
   // Model attributes are defined here
     anho: {
@@ -104,6 +103,42 @@ const Data_empresaSchema = sequelize.define('data_empresa', {
     //ref: ProyectosSchema.hasOne(UsuariosSchema)
     // allowNull defaults to true
   },
+  ventas_usuarios_nr_kwh: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    trim: true
+    // sin espacios en blanco al inicio o al final
+  },
+  g_exc1: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    trim: true
+    // sin espacios en blanco al inicio o al final
+  },
+  g_exc1_21: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    trim: true
+    // sin espacios en blanco al inicio o al final
+  },
+  g_exc2: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    trim: true
+    // sin espacios en blanco al inicio o al final
+  },
+  g_exc3: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    trim: true
+    // sin espacios en blanco al inicio o al final
+  },
+  ggd: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    trim: true
+    // sin espacios en blanco al inicio o al final
+  },
   creador: {
     type: DataTypes.INTEGER,
     //ref: ProyectosSchema.hasOne(UsuariosSchema)
@@ -113,4 +148,5 @@ const Data_empresaSchema = sequelize.define('data_empresa', {
 );
 module.exports = Data_empresaSchema;
 //La tabla se llama usuario para sequalice en Postgres se llama usuarios 
+
 

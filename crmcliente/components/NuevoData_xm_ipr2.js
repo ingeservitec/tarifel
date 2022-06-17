@@ -137,8 +137,26 @@ console.log(fileNames[0].substr(4,2))
 var arreglado = Datacsv2.map( item => {
 return {creador:creador,empresa_id:empresa_id,anho:parseFloat(item["fechavigencia"].substr(6,4)),mes:parseFloat(item["fechavigencia"].substr(3,2)),strID:(item["strID"]),agrupaORMercado:(item["agrupaORMercado"]),fechavigencia:(item["fechavigencia"]),conceptoID:(item["conceptoID"]),nivelEntrada:parseFloat(item["nivelEntrada"]),nivelSalida:parseFloat(item["nivelSalida"]),valor:parseFloat(item["valor"])}
 });
-console.log(arreglado)
-const {results} = await Promise.all(arreglado.map(object => {
+
+var name_sistema_or
+var name_or
+switch (data1.obtenerUsuario.empresa) {
+        case 'ENIC':
+        name_sistema_or='ARAM'
+        name_or='ENID'
+                break;
+        case 'EGVC':
+        name_sistema_or='GUVM'
+        name_or='EGVD'
+                break;
+
+        default:
+                break;
+}
+
+const arreglado2=arreglado.filter(arreglado => arreglado.agrupaORMercado===name_sistema_or)   
+
+const {results} = await Promise.all(arreglado2.map(object => {
 return nuevoData_xm_ipr({ variables:{
 input:
 object

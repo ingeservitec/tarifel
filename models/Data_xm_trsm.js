@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
+const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres'});
 const Data_xm_trsmSchema = sequelize.define('Data_xm_trsm', {
   // Model attributes are defined here
      

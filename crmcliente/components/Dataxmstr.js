@@ -37,8 +37,20 @@ valor_diferencial_despues_de_compensacion_cop_kwh_sur
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_xm_str= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_XM_STR);
+const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -53,10 +65,24 @@ const ITEMS_PER_PAGE = 3;
 const headers = [
 { name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Total_Ingreso_Mensual_Bruto_Str_Cop_Norte", field: "total_ingreso_mensual_bruto_str_cop_norte", sortable: true},{ name: "Energia_Del_Str_Kwh_Norte", field: "energia_del_str_kwh_norte", sortable: true},{ name: "Cargo_Nt_Antes_De_Compensacion_Cd4_Cop_Kwh_Norte", field: "cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte", sortable: true},{ name: "Cargo_Nt_Despues_De_Compensacion_Cd4_Cop_Kwh_Norte", field: "cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte", sortable: true},{ name: "Cargo_Por_Uso_Dt4_Cop_Kwh_Norte", field: "cargo_por_uso_dt4_cop_kwh_norte", sortable: true},{ name: "Factor_Para_Referir_Las_Medidas_De_Energia_Del_Nt_4_Norte", field: "factor_para_referir_las_medidas_de_energia_del_nt_4_norte", sortable: true},{ name: "Valor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Norte", field: "valor_diferencial_despues_de_compensacion_cop_kwh_norte", sortable: true},{ name: "Total_Ingreso_Mensual_Bruto_Str_Cop_Sur", field: "total_ingreso_mensual_bruto_str_cop_sur", sortable: true},{ name: "Energia_Del_Str_Kwh_Sur", field: "energia_del_str_kwh_sur", sortable: true},{ name: "Cargo_Nt_Antes_De_Compensacion_Cd4_Cop_Kwh_Sur", field: "cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur", sortable: true},{ name: "Cargo_Nt_Despues_De_Compensacion_Cd4_Cop_Kwh_Sur", field: "cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur", sortable: true},{ name: "Cargo_Por_Uso_Dt4_Cop_Kwh_Sur", field: "cargo_por_uso_dt4_cop_kwh_sur", sortable: true},{ name: "Factor_Para_Referir_Las_Medidas_De_Energia_Del_Nt_4_Sur", field: "factor_para_referir_las_medidas_de_energia_del_nt_4_sur", sortable: true},{ name: "Valor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Sur", field: "valor_diferencial_despues_de_compensacion_cop_kwh_sur", sortable: true}
 ];
+
 useEffect(() => {
-if(loading) return 'Cargando....';
-setComments(data.obtenerData_xm_str);
-});
+    if(loading) return 'Cargando....';
+   
+    const data_xm_str=data.obtenerData_xm_str
+    var data_xm_strm=data_xm_str.filter(data_xm_str => data_xm_str.empresa_id===data1.obtenerUsuario.empresa)
+
+    data_xm_strm=data_xm_strm.sort(
+      function(a, b) {
+      if (a.anho === b.anho) {
+      return b.mes > a.mes ? 1 : -1;                  
+      }
+      return b.anho > a.anho ? 1 : -1;
+      });
+    setComments(data_xm_strm);
+  },[loading]); 
+
+
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

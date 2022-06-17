@@ -30,8 +30,20 @@ costo_garantia
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const data_empresa_garantia= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_EMPRESA_GARANTIA);
+const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -47,9 +59,12 @@ const headers = [
 { name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Tipo_Garantia", field: "tipo_garantia", sortable: true},{ name: "Nit_Beneficiario", field: "nit_beneficiario", sortable: true},{ name: "Dv_Beneficiario", field: "dv_beneficiario", sortable: true},{ name: "Emisor_Banco", field: "emisor_banco", sortable: true},{ name: "Numero_Garantia", field: "numero_garantia", sortable: true},{ name: "Fecha_Inicio_Vigencia", field: "fecha_inicio_vigencia", sortable: true},{ name: "Fecha_Fin_Vigencia", field: "fecha_fin_vigencia", sortable: true},{ name: "Valor_Garantia", field: "valor_garantia", sortable: true},{ name: "Costo_Garantia", field: "costo_garantia", sortable: true}
 ];
 useEffect(() => {
-if(loading) return 'Cargando....';
-setComments(data.obtenerData_empresa_garantia);
-});
+    if(loading) return 'Cargando....';
+    if(loading1) return 'Cargando....';
+    const data_obtenerData_empresa_garantiaesp_=data.obtenerData_empresa_garantia
+    const data_obtenerData_empresa_garantiaesp=data_obtenerData_empresa_garantiaesp_.filter(data_obtenerData_empresa_garantiaesp_ => data_obtenerData_empresa_garantiaesp_.empresa_id===data1.obtenerUsuario.empresa)   
+setComments(data_obtenerData_empresa_garantiaesp);
+},[loading,loading1]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

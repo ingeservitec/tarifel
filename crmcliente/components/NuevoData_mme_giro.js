@@ -129,6 +129,7 @@ creador: Yup.string()
 .required('El creador es obligatorio'),
 }),
 onSubmit: async valores => {
+        console.log(creador,empresa_id,fecha,fondo,resolucion,link_resolucion,giro_cop)
 const{creador,empresa_id,fecha,fondo,resolucion,link_resolucion,giro_cop}=valores
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
 props.close()

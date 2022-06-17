@@ -135,7 +135,7 @@ if (loading1) return null; // Si no hay informacion
 const Datacsv2=csvJSON(datacsv)
 console.log(fileNames[0].substr(4,2))
 var arreglado = Datacsv2.map( item => {
-return {creador:creador,empresa_id:empresa_id,fecha:(item["fecha"]),trimestre:parseFloat(item["trimestre"]),anho:parseFloat(item["anho"]),facturacion:(item["facturacion"]).toString(),subsidios:(item["subsidios"]),contribuciones:parseFloat(item["contribuciones"]),contrib_no_recaud_desp_6m:parseFloat(item["contrib_no_recaud_desp_6m"]),contrib_recaud_desp_de_conc:parseFloat(item["contrib_recaud_desp_de_conc"]),giros_recibidos:parseFloat(item["giros_recibidos"]).toString()}
+return {creador:creador,empresa_id:empresa_id,fecha:(item["fecha"]),trimestre:parseFloat(item["trimestre"]),anho:parseFloat(item["anho"]),facturacion:(item["facturacion"]).toString(),subsidios:(item["subsidios"]).toString(),contribuciones:parseFloat(item["contribuciones"]),contrib_no_recaud_desp_6m:parseFloat(item["contrib_no_recaud_desp_6m"]),contrib_recaud_desp_de_conc:parseFloat(item["contrib_recaud_desp_de_conc"]),giros_recibidos:parseFloat(item["giros_recibidos"]).toString()}
 });
 console.log(arreglado)
 const {results} = await Promise.all(arreglado.map(object => {

@@ -70,6 +70,7 @@ empresa
 
 const NuevoDatabanrepublica_tco2= (props) => {
 const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
+const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_DATA_BANREPUBLICA_TCO);
 const [datacsv, setDatacsv] = useState("");
 const [fileNames, setFileNames] = useState([]);
 const [creador, setCreador] = useState();
@@ -95,7 +96,6 @@ reader.onerror = () => console.log("file reading failed");
 reader.onload = () => {
 // Parse CSV file
 readXlsxFile(reader.result).then((data) => {
-console.log("Parsed CSV data: ", data);
 setDatacsv(data)
 });
 };
@@ -104,25 +104,20 @@ acceptedFiles.forEach(file => reader.readAsBinaryString(file));
 }, []);
 const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 function csvJSON(csv2){
+
 var lines=csv2
 var inicio=0
 var i=0
 var fin=0
 while (fin==0) {
 i ++;
-console.log(lines[i][0])
 if (lines[i][0] > 40000 ){
-
-
 var inicio=i
 var k=inicio
-console.log(inicio)
 }
 while (fin==0 && inicio>0) {
-    console.log(lines[k][0])
 k ++;
 if (lines[k][0] === null ){
-    console.log('ACAA')
 fin=k
 }
 }
@@ -141,12 +136,13 @@ headers[j] = (headers[j-1].replace('Tasa', 'Monto')).replace('_%',"")
 }
 }
 }
-console.log(headers)
 for(i=inicio;i<lines.length-inicio;i++){
 var obj = {};
 //var currentline=lines[i].toString().split(",")
 var currentline=lines[i]
 for(var j=0;j<headers.length +2;j++){
+
+
 if (j ==0){
 obj['creador'] = (creador)
 }
@@ -174,9 +170,24 @@ const Datacsv2=csvJSON(datacsv)
 var arreglado = Datacsv2.map( item => {
     return {creador:creador,anho_semana:(item["Anho_Semana"]).toString(),tasa_cred_com_credito_consumo:(item["Credito_de_consumo_Tasa"]),monto_cred_com_credito_consumo:(item["Credito_de_consumo_Monto"]),tasa_cred_com_odinario:(item["Ordinario_Tasa"]),monto_cred_com_odinario:(item["Ordinario_Monto"]),tasa__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Tasa"]),monto__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Monto"]),tasa__cred_com_tesoreria:(item["Tesoreria_Tasa"]),monto__cred_com_tesoreria:(item["Tesoreria_Monto"]),tasa_colocacion_banco_republica:(item["Banco_de_la_Republica_Tasa"]),monto_colocacion_banco_republica:(item["Banco_de_la_Republica_Monto"]),tasa_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Tasa"]),monto_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Monto"]),tasa_colocacion_total:(item["Total_Tasa"]),monto_colocacion_total:(item["Total_Monto"]),empresa_id:empresa_id}
 });
-console.log('Arreglado')
 console.log(arreglado)
-const {results} = await Promise.all(arreglado.map(object => {
+
+const data_banrepublica_tco=data2.obtenerData_banrepublica_tco
+var data_banrepublica_tcom=data_banrepublica_tco.filter(data_banrepublica_tco => data_banrepublica_tco.empresa_id===data1.obtenerUsuario.empresa)
+var max=0, i=0, id_max=0
+
+for (i = 0; i < data_banrepublica_tcom.length; i++) {
+    var value = parseFloat(data_banrepublica_tcom[i].anho_semana);
+    if (value > max) {
+        max = value;
+        id_max =i
+    }
+
+}
+
+var arreglado2=arreglado.filter(arreglado => arreglado.anho_semana>data_banrepublica_tcom[id_max].anho_semana)
+
+const {results} = await Promise.all(arreglado2.map(object => {
 return nuevoData_banrepublica_tco({ variables:{
 input:
 object
@@ -255,5 +266,4 @@ onClick={props.close2}
 
 )
 }
-
 export default NuevoDatabanrepublica_tco2

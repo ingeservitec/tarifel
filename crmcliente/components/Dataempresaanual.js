@@ -25,8 +25,20 @@ porc_contribucion_sspd
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_empresa_anual= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_EMPRESA_ANUAL);
+const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -48,8 +60,11 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_empresa_anual);
-});
+if(loading1) return 'Cargando....';
+const data_obtenerData_empresa_anualesp_=data.obtenerData_empresa_anual
+const data_obtenerData_empresa_anual=data_obtenerData_empresa_anualesp_.filter(data_obtenerData_empresa_anualesp_ => data_obtenerData_empresa_anualesp_.empresa_id===data1.obtenerUsuario.empresa)   
+setComments(data_obtenerData_empresa_anual);
+},[loading,loading1]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

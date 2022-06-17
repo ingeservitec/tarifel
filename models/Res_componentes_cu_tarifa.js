@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
+const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres'});
 const Res_componentes_cu_tarifasSchema = sequelize.define('Res_componentes_cu_tarifa', {
 // Model attributes are defined here
 creador:{type: DataTypes.INTEGER,allowNull: false,trim: true},
@@ -129,6 +128,7 @@ cu_nt1_50_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 cu_nt1_0_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 cu_nt2_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 cu_nt3_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+cu_nt4_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 pv:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 saldo_nt1_100_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 saldo_nt1_50_ot:{type: DataTypes.FLOAT,allowNull: false,trim: true},

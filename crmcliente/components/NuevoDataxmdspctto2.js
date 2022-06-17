@@ -24,6 +24,7 @@ vendedor
 comprador
 tipo
 tipomerc
+tipoasigna
 desp_hora_1
 desp_hora_2
 desp_hora_3
@@ -88,6 +89,7 @@ vendedor
 comprador
 tipo
 tipomerc
+tipoasigna
 desp_hora_1
 desp_hora_2
 desp_hora_3
@@ -206,13 +208,14 @@ const NuevoDataxmdspctto2 =(props) => {
         // var headers=lines[0].toString().split(";");
         
         for(var k=0;k<lines.length;k++){
-        setMes(parseFloat(((lines[k][0]).substring(8)).substring(0,2)))
+        
+        console.log
         var headers=lines[k][1][0];
         for(var i=1;i<lines[k][1].length;i++){
             var obj = {};
             // var currentline=lines[i].toString().split(";")
             var currentline=lines[k][1][i]
-            for(var j=0;j<headers.length +3;j++){
+            for(var j=0;j<headers.length +4;j++){
               if (j ==0){
                 obj['creador'] = (creador) 
               }
@@ -223,11 +226,15 @@ const NuevoDataxmdspctto2 =(props) => {
                 
                 obj['DIA'] = parseFloat(((lines[k][0]).substring(10)).substring(0,2))
               }
-              if (j >2){
-                if ( (obj[headers[j-3]] ='VENDEDOR') || (obj[headers[j-3]] ='COMPRADOR') || (obj[headers[j-3]] ='TIPO') || (obj[headers[j-3]] ='TIPOMERC'))
-                obj[headers[j-3]] = (currentline[j-3]);
+              if (j ==3){
+                
+                obj['mes'] = parseFloat(((lines[k][0]).substring(8)).substring(0,2))
+              }
+              if (j >3){
+                if ( (obj[headers[j-4]] ='VENDEDOR') || (obj[headers[j-4]] ='COMPRADOR') || (obj[headers[j-4]] ='TIPO') || (obj[headers[j-4]] ='TIPOMERC')|| (obj[headers[j-4]] ='TIPO ASIGNA'))
+                obj[headers[j-4]] = (currentline[j-4]);
                 else{
-                  obj[headers[j-3]] = parseFloat(currentline[j-3]);
+                  obj[headers[j-4]] = parseFloat(currentline[j-4]);
                }    
              }      
             }
@@ -250,9 +257,10 @@ const NuevoDataxmdspctto2 =(props) => {
         const Datacsv2=csvJSON(datacsv)  
         //console.log(fileNames[0].substr(4,2))
         var arreglado = Datacsv2.map( item => { 
-          return {anho:parseFloat(anho),mes:parseFloat(mes),dia:parseFloat(((item["DIA"]))),creador:creador,
-            empresa_id:empresa_id,contrato:(parseFloat(item["CONTRATO"])),vendedor:((item["VENDEDOR"])),comprador:((item["COMPRADOR"])),tipo:((item["TIPO"])),tipomerc:((item["TIPOMERC"])),desp_hora_1:(parseFloat(item["DESP_HORA 01"])),desp_hora_2:(parseFloat(item["DESP_HORA 02"])),desp_hora_3:(parseFloat(item["DESP_HORA 03"])),desp_hora_4:(parseFloat(item["DESP_HORA 04"])),desp_hora_5:(parseFloat(item["DESP_HORA 05"])),desp_hora_6:(parseFloat(item["DESP_HORA 06"])),desp_hora_7:(parseFloat(item["DESP_HORA 07"])),desp_hora_8:(parseFloat(item["DESP_HORA 08"])),desp_hora_9:(parseFloat(item["DESP_HORA 09"])),desp_hora_10:(parseFloat(item["DESP_HORA 10"])),desp_hora_11:(parseFloat(item["DESP_HORA 11"])),desp_hora_12:(parseFloat(item["DESP_HORA 12"])),desp_hora_13:(parseFloat(item["DESP_HORA 13"])),desp_hora_14:(parseFloat(item["DESP_HORA 14"])),desp_hora_15:(parseFloat(item["DESP_HORA 15"])),desp_hora_16:(parseFloat(item["DESP_HORA 16"])),desp_hora_17:(parseFloat(item["DESP_HORA 17"])),desp_hora_18:(parseFloat(item["DESP_HORA 18"])),desp_hora_19:(parseFloat(item["DESP_HORA 19"])),desp_hora_20:(parseFloat(item["DESP_HORA 20"])),desp_hora_21:(parseFloat(item["DESP_HORA 21"])),desp_hora_22:(parseFloat(item["DESP_HORA 22"])),desp_hora_23:(parseFloat(item["DESP_HORA 23"])),desp_hora_24:(parseFloat(item["DESP_HORA 24"])),trf_hora_1:(parseFloat(item["TRF_HORA 01"])),trf_hora_2:(parseFloat(item["TRF_HORA 02"])),trf_hora_3:(parseFloat(item["TRF_HORA 03"])),trf_hora_4:(parseFloat(item["TRF_HORA 04"])),trf_hora_5:(parseFloat(item["TRF_HORA 05"])),trf_hora_6:(parseFloat(item["TRF_HORA 06"])),trf_hora_7:(parseFloat(item["TRF_HORA 07"])),trf_hora_8:(parseFloat(item["TRF_HORA 08"])),trf_hora_9:(parseFloat(item["TRF_HORA 09"])),trf_hora_10:(parseFloat(item["TRF_HORA 10"])),trf_hora_11:(parseFloat(item["TRF_HORA 11"])),trf_hora_12:(parseFloat(item["TRF_HORA 12"])),trf_hora_13:(parseFloat(item["TRF_HORA 13"])),trf_hora_14:(parseFloat(item["TRF_HORA 14"])),trf_hora_15:(parseFloat(item["TRF_HORA 15"])),trf_hora_16:(parseFloat(item["TRF_HORA 16"])),trf_hora_17:(parseFloat(item["TRF_HORA 17"])),trf_hora_18:(parseFloat(item["TRF_HORA 18"])),trf_hora_19:(parseFloat(item["TRF_HORA 19"])),trf_hora_20:(parseFloat(item["TRF_HORA 20"])),trf_hora_21:(parseFloat(item["TRF_HORA 21"])),trf_hora_22:(parseFloat(item["TRF_HORA 22"])),trf_hora_23:(parseFloat(item["TRF_HORA 23"])),trf_hora_24:(parseFloat(item["TRF_HORA 24"]))}; 
+          return {anho:parseFloat(anho),mes:parseFloat(((item["mes"]))),dia:parseFloat(((item["DIA"]))),creador:creador,
+            empresa_id:empresa_id,contrato:(parseFloat(item["CONTRATO"])),vendedor:((item["VENDEDOR"])),comprador:((item["COMPRADOR"])),tipo:((item["TIPO"])),tipomerc:((item["TIPOMERC"])),tipoasigna:((item["TIPO ASIGNA"])),desp_hora_1:(parseFloat(item["DESP_HORA 01"])),desp_hora_2:(parseFloat(item["DESP_HORA 02"])),desp_hora_3:(parseFloat(item["DESP_HORA 03"])),desp_hora_4:(parseFloat(item["DESP_HORA 04"])),desp_hora_5:(parseFloat(item["DESP_HORA 05"])),desp_hora_6:(parseFloat(item["DESP_HORA 06"])),desp_hora_7:(parseFloat(item["DESP_HORA 07"])),desp_hora_8:(parseFloat(item["DESP_HORA 08"])),desp_hora_9:(parseFloat(item["DESP_HORA 09"])),desp_hora_10:(parseFloat(item["DESP_HORA 10"])),desp_hora_11:(parseFloat(item["DESP_HORA 11"])),desp_hora_12:(parseFloat(item["DESP_HORA 12"])),desp_hora_13:(parseFloat(item["DESP_HORA 13"])),desp_hora_14:(parseFloat(item["DESP_HORA 14"])),desp_hora_15:(parseFloat(item["DESP_HORA 15"])),desp_hora_16:(parseFloat(item["DESP_HORA 16"])),desp_hora_17:(parseFloat(item["DESP_HORA 17"])),desp_hora_18:(parseFloat(item["DESP_HORA 18"])),desp_hora_19:(parseFloat(item["DESP_HORA 19"])),desp_hora_20:(parseFloat(item["DESP_HORA 20"])),desp_hora_21:(parseFloat(item["DESP_HORA 21"])),desp_hora_22:(parseFloat(item["DESP_HORA 22"])),desp_hora_23:(parseFloat(item["DESP_HORA 23"])),desp_hora_24:(parseFloat(item["DESP_HORA 24"])),trf_hora_1:(parseFloat(item["TRF_HORA 01"])),trf_hora_2:(parseFloat(item["TRF_HORA 02"])),trf_hora_3:(parseFloat(item["TRF_HORA 03"])),trf_hora_4:(parseFloat(item["TRF_HORA 04"])),trf_hora_5:(parseFloat(item["TRF_HORA 05"])),trf_hora_6:(parseFloat(item["TRF_HORA 06"])),trf_hora_7:(parseFloat(item["TRF_HORA 07"])),trf_hora_8:(parseFloat(item["TRF_HORA 08"])),trf_hora_9:(parseFloat(item["TRF_HORA 09"])),trf_hora_10:(parseFloat(item["TRF_HORA 10"])),trf_hora_11:(parseFloat(item["TRF_HORA 11"])),trf_hora_12:(parseFloat(item["TRF_HORA 12"])),trf_hora_13:(parseFloat(item["TRF_HORA 13"])),trf_hora_14:(parseFloat(item["TRF_HORA 14"])),trf_hora_15:(parseFloat(item["TRF_HORA 15"])),trf_hora_16:(parseFloat(item["TRF_HORA 16"])),trf_hora_17:(parseFloat(item["TRF_HORA 17"])),trf_hora_18:(parseFloat(item["TRF_HORA 18"])),trf_hora_19:(parseFloat(item["TRF_HORA 19"])),trf_hora_20:(parseFloat(item["TRF_HORA 20"])),trf_hora_21:(parseFloat(item["TRF_HORA 21"])),trf_hora_22:(parseFloat(item["TRF_HORA 22"])),trf_hora_23:(parseFloat(item["TRF_HORA 23"])),trf_hora_24:(parseFloat(item["TRF_HORA 24"]))}; 
         });
+        console.log('arreglado')
         console.log(arreglado)
         const {results} = await Promise.all(arreglado.map(object => {  
         return nuevoDataxmdspctto({ variables:{

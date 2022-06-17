@@ -36,8 +36,20 @@ empresa_id
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_banrepublica_tco= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_BANREPUBLICA_TCO);
+const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -54,21 +66,27 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-const data2=data.obtenerData_banrepublica_tco
+const data_banrepublica_tco=data.obtenerData_banrepublica_tco
+var data_banrepublica_tcom=data_banrepublica_tco.filter(data_banrepublica_tco => data_banrepublica_tco.empresa_id===data1.obtenerUsuario.empresa)
+var max=0
+var i=0
+var id_max=0
+for (i = 0; i < data_banrepublica_tcom.length; i++) {
+    var value = parseFloat(data_banrepublica_tcom[i].anho_semana);
+    if (value > max) {
+        max = value;
+        id_max =i
+    }
 
-console.log(data2.length-1)
-var maximo=0
-var maximo_i=0
-for(var i = 0; i <= data2.length-1; i++) {
-    
-   if ( parseInt(data2[i].anho_semana)>maximo) {
-   maximo = parseInt(data2[i].anho_semana)
-   maximo_i=i
-   }
-  }
+}
+if(id_max>0){
+    setComments(data_banrepublica_tcom[id_max]);
+}
+else{
+    setComments(data_banrepublica_tcom);
+}
 
-setComments(data.obtenerData_banrepublica_tco[maximo_i]);
-});
+},[loading]);
 
 
 

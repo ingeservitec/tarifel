@@ -24,6 +24,7 @@ vendedor
 comprador
 tipo
 tipomerc
+tipoasigna
 empresa_id
 desp_hora_1
 desp_hora_2
@@ -106,7 +107,7 @@ const Dataxmdspcttos  = () => {
   const headers = [
     { name: "Id", field: "id", sortable: true},{ name: "Año", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},
       { name: "Contrato", field: "contrato", sortable: true},{ name: "Vendedor", field: "vendedor", sortable: true},
-      { name: "Tipomerc", field: "tipomerc", sortable: true},
+      { name: "Tipomerc", field: "tipomerc", sortable: true},{ name: "Tipoasigna", field: "tipoasigna", sortable: true},
       { name: "Costo $", field: "costo_energia_contrato_mes", sortable: true},
       { name: "Energía comprada", field: "energia_contrato_mes", sortable: true}
   ];
@@ -174,7 +175,7 @@ else{
     while (index1<long_consolidado_dspcttos) {
         
         if(consolidado_dspcttos[index1].anho===data.obtenerData_xm_dspctto[index].anho && consolidado_dspcttos[index1].mes===data.obtenerData_xm_dspctto[index].mes && consolidado_dspcttos[index1].contrato===data.obtenerData_xm_dspctto[index].contrato &&  data.obtenerData_xm_dspctto[index].empresa_id===data1.obtenerUsuario.empresa){
-            consolidado_dspcttos[index1]={"id":index1+1,  "anho": data.obtenerData_xm_dspctto[index].anho  , "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": consolidado_dspcttos[index1].costo_energia_contrato_mes+costo_energia_dia_contrato,"energia_contrato_mes": consolidado_dspcttos[index1].energia_contrato_mes+energia_dia_contrato ,"vendedor": data.obtenerData_xm_dspctto[index].vendedor,"tipomerc": data.obtenerData_xm_dspctto[index].tipomerc }
+            consolidado_dspcttos[index1]={"id":index1+1,  "anho": data.obtenerData_xm_dspctto[index].anho  , "mes": data.obtenerData_xm_dspctto[index].mes,"contrato": data.obtenerData_xm_dspctto[index].contrato,"costo_energia_contrato_mes": consolidado_dspcttos[index1].costo_energia_contrato_mes+costo_energia_dia_contrato,"energia_contrato_mes": consolidado_dspcttos[index1].energia_contrato_mes+energia_dia_contrato ,"vendedor": data.obtenerData_xm_dspctto[index].vendedor,"tipomerc": data.obtenerData_xm_dspctto[index].tipomerc,"tipoasigna": data.obtenerData_xm_dspctto[index].tipoasigna }
             index1=Infinity
         }
        if(index1===long_consolidado_dspcttos-1 && data.obtenerData_xm_dspctto[index].empresa_id===data1.obtenerUsuario.empresa){
@@ -286,6 +287,7 @@ return (
 <td>{comment.contrato}</td>
 <td>{comment.vendedor}</td>
 <td>{comment.tipomerc}</td>
+<td>{comment.tipoasigna}</td>
 <td>{comment.costo_energia_contrato_mes}</td>
 <td>{comment.energia_contrato_mes}</td>
 

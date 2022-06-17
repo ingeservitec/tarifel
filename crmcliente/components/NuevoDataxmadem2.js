@@ -159,6 +159,10 @@ const NuevoDataxmadem2 =(props) => {
                 
                 obj['DIA'] = parseFloat(((lines[k][0]).substring(6)).substring(0,2))
               }
+              if (j ==3){
+                
+                obj['MES'] = parseFloat(((lines[k][0]).substring(4)).substring(0,2))
+              }
               if (j >2){
                 if ( (obj[headers[j-3]] ='CODIGO') || (obj[headers[j-3]] ='AGENTE') || (obj[headers[j-3]] ='CONTENIDO'))
                 obj[headers[j-3]] = (currentline[j-3]);
@@ -185,7 +189,7 @@ const NuevoDataxmadem2 =(props) => {
         if (loading1) return null; // Si no hay informacion
         const Datacsv2=csvJSON(datacsv)  
         var arreglado = Datacsv2.map( item => { 
-          return {anho:parseFloat(anho),mes:parseFloat(mes),dia:parseFloat(item["DIA"]),creador:creador,
+          return {anho:parseFloat(anho),mes:parseFloat(item["MES"]),dia:parseFloat(item["DIA"]),creador:creador,
           empresa_id:empresa_id,cod_contenido:item["CODIGO"],agente:item["AGENTE"],
           contenido:(item["CONTENIDO"]),cont_hora_1:parseFloat(item["HORA 01"]),cont_hora_2:parseFloat(item["HORA 02"]),
           cont_hora_3:parseFloat(item["HORA 03"]),cont_hora_4:parseFloat(item["HORA 04"]),cont_hora_5:parseFloat(item["HORA 05"]),
@@ -198,7 +202,7 @@ const NuevoDataxmadem2 =(props) => {
           cont_hora_24:parseFloat(item["HORA 24"])}; 
         });
         console.log(arreglado)
-        const arreglado2=arreglado.filter(arreglado => arreglado.agente==='EGVC')   
+        const arreglado2=arreglado.filter(arreglado => arreglado.agente===empresa_id)   
         const {results} = await Promise.all(arreglado2.map(object => {  
         return nuevoDataxmadem({ variables:{
           input:
@@ -276,7 +280,6 @@ const NuevoDataxmadem2 =(props) => {
     </div>
     </div>
     </div>
-
     </Modal.Body>
     <Modal.Footer>
     </Modal.Footer>

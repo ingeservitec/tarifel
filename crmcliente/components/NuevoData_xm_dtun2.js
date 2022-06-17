@@ -154,8 +154,27 @@ if(fileNames[0].includes("Definitivos")){
     setVersion("Definitivos")
 }
 
+var mes=parseInt(((fileNames[0].split('_'))[1]).substr(5,2))
+var anho=parseInt(((fileNames[0].split('_'))[1]).substr(0,4))
+switch (true) {
+    case (mes+2 < 13):
+        mes=mes+2
+        break;
+        case (mes+2 == 13):
+            mes=1
+            anho=anho+1
+            break;
+        case (mes+2 == 14):
+            mes=2
+            anho=anho+1
+            break;
+    default:
+        break;
+}
+
+
 var arreglado = Datacsv2.map( item => {
-return {creador:creador,empresa_id:empresa_id,anho:parseInt(((fileNames[0].split('_'))[1]).substr(0,4)),mes:parseInt(((fileNames[0].split('_'))[1]).substr(5,2)),area:datacsv[1][0],nivel_tension:parseInt(datacsv[1][0].charAt(datacsv[1][0].length-1)),valor:(item["Cargo Único Transitorio ($/kWh)"]),operador_red:(item["Operador de Red - Mercado"]),version:version}
+return {creador:creador,empresa_id:empresa_id,anho:anho,mes:mes,area:datacsv[1][0],nivel_tension:parseInt(datacsv[1][0].charAt(datacsv[1][0].length-1)),valor:(item["Cargo Único Transitorio ($/kWh)"]),operador_red:(item["Operador de Red - Mercado"]),version:version}
 });
 const {results} = await Promise.all(arreglado.map(object => {
 return nuevoData_xm_dtun({ variables:{

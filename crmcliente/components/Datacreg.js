@@ -29,8 +29,21 @@ PUI
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
+
 const Data_creg_cx= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_CREG_CX);
+const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -47,8 +60,13 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_creg_cx);
-});
+if(loading1) return 'Cargando....';
+const data_obtenerData_creg_cxesp_=data.obtenerData_creg_cx
+const data_obtenerData_creg_cxesp=data_obtenerData_creg_cxesp_.filter(data_obtenerData_creg_cxesp_ => data_obtenerData_creg_cxesp_.empresa_id===data1.obtenerUsuario.empresa)   
+setComments(data_obtenerData_creg_cxesp);
+},[loading,loading1]);
+
+
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

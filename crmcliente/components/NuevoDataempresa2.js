@@ -29,6 +29,12 @@ mutation nuevoDataempresa($input:DataempresaInput){
     vsne_kwh
     vnu_kwh
     vae_kwh
+    g_exc1
+    g_exc1_21
+    g_exc2
+    g_exc3
+    ggd
+
   }
 }
 `;
@@ -53,6 +59,12 @@ query obtenerData_empresa {
     vsne_kwh
     vnu_kwh
     vae_kwh
+    g_exc1
+    g_exc1_21
+    g_exc2
+    g_exc3
+    ggd
+
   }
 }
 `;

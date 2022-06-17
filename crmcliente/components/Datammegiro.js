@@ -26,8 +26,21 @@ giro_cop
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
+
 const Data_mme_giro= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_MME_GIRO);
+const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -44,8 +57,11 @@ const headers = [
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
-setComments(data.obtenerData_mme_giro);
-});
+if(loading1) return 'Cargando....';
+const data_obtenerData_mme_giroesp_=data.obtenerData_mme_giro
+const data_obtenerData_mme_giroesp=data_obtenerData_mme_giroesp_.filter(data_obtenerData_mme_giroesp_ => data_obtenerData_mme_giroesp_.empresa_id===data1.obtenerUsuario.empresa)   
+setComments(data_obtenerData_mme_giroesp);
+},[loading,loading1]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

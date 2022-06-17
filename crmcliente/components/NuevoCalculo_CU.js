@@ -1795,7 +1795,9 @@ console.log(error)
                                 data_empresam[0].ventas_usuarios_r_nt1_u+
                                 data_empresam[0].ventas_usuarios_r_nt2+
                                 data_empresam[0].ventas_usuarios_r_nt3)))*(1+i_aj)
-                                
+                                if(ad_<0){
+                                        ad_=0
+                                } 
                               
                         aj_=Math.min(max_g_-cr_,ad_/(data_empresam[0].ventas_usuarios_r_nt1_e+
                                 data_empresam[0].ventas_usuarios_r_nt1_c+

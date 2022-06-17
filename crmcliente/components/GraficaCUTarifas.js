@@ -445,6 +445,17 @@ cont_hora_24
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Index  = () => {
   const { data:data0, error:error0, loading:loading0} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
   const [startDate, setStartDate] = useState(new Date());
@@ -453,6 +464,7 @@ const Index  = () => {
   const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_DATA_XM_AFAC);
   const [data_xm_afacfs,setData_xm_afacfs] = useState([]);
   const { data:data3, error:error3, loading:loading3} = useQuery(OBTENER_DATA_XM_ADEM);
+  const { data:data4, error:error4, loading:loading4} = useQuery(OBTENER_USUARIO);
   const [data_xm_ademfs,setData_xm_ademfs] = useState([]);
   const [dataCU, setcomponenteDatosCU] = useState([]);
   const [dataTarifas, setDataTarifas] = useState([]);
@@ -489,8 +501,8 @@ else{
   if(loading0) return null;
 
   const data_res_cu_tarifas=data0.obtenerRes_componentes_cu_tarifa
-  const data_res_cu_tarifasm=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anho && data_res_cu_tarifas.mes===mes)
-  const data_res_cu_tarifasm2=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anhom && data_res_cu_tarifas.mes===mesm)
+  const data_res_cu_tarifasm=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anho && data_res_cu_tarifas.mes===mes && data_res_cu_tarifas.empresa_id===data4.obtenerUsuario.empresa)
+  const data_res_cu_tarifasm2=data_res_cu_tarifas.filter(data_res_cu_tarifas => data_res_cu_tarifas.anho===anhom && data_res_cu_tarifas.mes===mesm && data_res_cu_tarifas.empresa_id===data4.obtenerUsuario.empresa )
   if (data_res_cu_tarifasm.length>0) {
     setcomponenteDatosCU([
       { name: 'G', "Periodo m": data_res_cu_tarifasm[0].gc, "Periodo m-1": data_res_cu_tarifasm2[0].gc},

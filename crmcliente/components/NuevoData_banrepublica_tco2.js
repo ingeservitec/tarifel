@@ -186,7 +186,7 @@ for (i = 0; i < data_banrepublica_tcom.length; i++) {
 }
 
 var arreglado2=arreglado.filter(arreglado => arreglado.anho_semana>data_banrepublica_tcom[id_max].anho_semana)
-
+console.log(arreglado2)
 const {results} = await Promise.all(arreglado2.map(object => {
 return nuevoData_banrepublica_tco({ variables:{
 input:

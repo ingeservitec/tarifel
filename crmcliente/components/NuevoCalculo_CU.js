@@ -1761,6 +1761,8 @@ console.log(error)
                         //G Transitorio Q*P                     
                        
                         gTransitorio=q11*PP1 + q21*PP21+qexc2*PPExc2+q3*PP3+qgd*PPGD
+                        gTransitorio=0
+                        
                         max_g_=roundToTwo((qc_*(alfa*pc_+(1-alfa)*mc_)+(1-qc_)*mc_)*1.3)
                         //cr_=(w1*qc_*(alfa*pc_+(1-alfa)*mc_))+(w2*qc_*pcSub_)+(cgsubasta_acu/dcr)+((1-qc_-qagd)*pb_)+gTransitorio //***Concpeto CREG
                         cr_=qc_*(alfa*pc_+(1-alfa)*mc_)+(1-qc_)*pb_ //***Concpeto CREG
@@ -1974,7 +1976,8 @@ console.log(error)
                                 maxt = data_xm_mme_validacione[len].trimestre;
                           }
                         }
-                        
+
+
                         setUl_Trim_Val_Mme(maxt)
                         
                         
@@ -2030,9 +2033,8 @@ console.log(error)
 
                         setFacturacion_T(facturacion_t_)
 
-
+                    
                         var data_mme_giro_ordenado = [...data_mme_giro_e]
-
 
 
 
@@ -2066,9 +2068,10 @@ console.log(error)
                                 saldo=tri_validados[index][3]
  
                                 len2=ultimo_giro_incluidob
+                            
 
-                                while (len2<data_mme_giro_ordenado.length-1 && saldo!=0) {
-
+                                while (len2<data_mme_giro_ordenado.length-1 && saldo>0) {
+                                 
                                 var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8,2)) );
                                 var fecha_inicial_giros = new Date(2019,1,1);
 
@@ -2124,16 +2127,17 @@ console.log(error)
                                 }
                                 len2++  
                         }
-                
+
 
                         len3 = ultimo_giro_incluidob
-
-                        
+                       
                         while (len3<data_mme_giro_ordenado.length-1 && saldo>0) {
                                 
                                 //Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre 
                                 var fecha_giro = new Date(parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0,4)), parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5,2))-1, parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8,2)) );
                                 
+                       
+                     
                                 if(data_mme_giro_ordenado[len3].fondo==='FSSRI' && Date.parse(fecha_giro) > Date.parse(tri_validados[index][6])){
                                                 //Se descuenta del saldo ese giro
                                                
@@ -2178,8 +2182,7 @@ console.log(error)
                                         } 
                                         len3++
                                 }
-                                console.log('Review SUb1')
-                                console.log(array_sub1N)
+      
 
 
                         actualizarData_mme_validaciogirosob(((data_xm_mme_validacione.filter(data_xm_mme_validacione => data_xm_mme_validacione.anho===tri_validados[index][2] && data_xm_mme_validacione.trimestre===tri_validados[index][1]&& data_xm_mme_validacione.empresa_id===data2.obtenerUsuario.empresa))[0].id),giro_sobranteb.toString(),ultimo_giro_incluidob)
@@ -2219,8 +2222,13 @@ sub1mt.push(sub1p)
 sub1npt.push(sub1np)
 len3=0
 }
+
+console.log('Review N y M')
+
 var sub1_, sub2_, n_Sub1_,m_Sub2_
 
+console.log(sub1mt)
+console.log(sub2mt)
 
 sub1_=((sub1mt[0]+sub1mt[1]+sub1mt[2]+sub1mt[3])/4)
 sub2_=((sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3])/4)
@@ -2238,7 +2246,7 @@ if((sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3])===0){
         m_Sub2_=(0)
 }
 else{
-        m_Sub2_=setM_Sub2(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))/30))
+        m_Sub2_=(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))/30))
 
 }
 setN_Sub1(n_Sub1_)
@@ -2339,7 +2347,7 @@ setR1(r1_)
             
                                 if(sub1_>=0 || sub2_>=0){
                                         cfs_=(roundToTwo((((sub1_*(((1+r1_)**(n_Sub1_+0.63))-1))-(sub2_*(((1+r2_)**(m_Sub2_))-1)))/facturacion_t_)*100))
-                                        cfe_=cfs_+0.042
+                                        cfe_=roundToTwo(cfs_+0.042)
                                 } 
                                 setN_Sub1(n_Sub1_)
                                 setM_Sub2(m_Sub2_)

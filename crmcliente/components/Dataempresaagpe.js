@@ -50,8 +50,20 @@ hora_24
 }
 `;
 
+const OBTENER_USUARIO = gql`
+query obtenerUsuario{
+obtenerUsuario {
+id
+nombre
+apellido
+empresa
+}
+}
+`;
+
 const Data_empresa_agpe= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_EMPRESA_AGPE);
+const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -67,9 +79,12 @@ const headers = [
 { name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Niu", field: "niu", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Dia", field: "dia", sortable: true},{ name: "Tipo_Ene", field: "tipo_ene", sortable: true},{ name: "Hora_01", field: "hora_01", sortable: true},{ name: "Hora_02", field: "hora_02", sortable: true},{ name: "Hora_03", field: "hora_03", sortable: true},{ name: "Hora_04", field: "hora_04", sortable: true},{ name: "Hora_05", field: "hora_05", sortable: true},{ name: "Hora_06", field: "hora_06", sortable: true},{ name: "Hora_07", field: "hora_07", sortable: true},{ name: "Hora_08", field: "hora_08", sortable: true},{ name: "Hora_09", field: "hora_09", sortable: true},{ name: "Hora_10", field: "hora_10", sortable: true},{ name: "Hora_11", field: "hora_11", sortable: true},{ name: "Hora_12", field: "hora_12", sortable: true},{ name: "Hora_13", field: "hora_13", sortable: true},{ name: "Hora_14", field: "hora_14", sortable: true},{ name: "Hora_15", field: "hora_15", sortable: true},{ name: "Hora_16", field: "hora_16", sortable: true},{ name: "Hora_17", field: "hora_17", sortable: true},{ name: "Hora_18", field: "hora_18", sortable: true},{ name: "Hora_19", field: "hora_19", sortable: true},{ name: "Hora_20", field: "hora_20", sortable: true},{ name: "Hora_21", field: "hora_21", sortable: true},{ name: "Hora_22", field: "hora_22", sortable: true},{ name: "Hora_23", field: "hora_23", sortable: true},{ name: "Hora_24", field: "hora_24", sortable: true}
 ];
 useEffect(() => {
-if(loading) return 'Cargando....';
-setComments(data.obtenerData_empresa_agpe);
-});
+    if(loading) return 'Cargando....';
+    if(loading1) return 'Cargando....';
+    const data_empresa_agpe=data.obtenerData_empresa_agpe
+    const data_empresa_agpe_esp=data_empresa_agpe.filter(data_empresa_agpe => data_empresa_agpe.empresa_id===data1.obtenerUsuario.empresa)
+    setComments(data_empresa_agpe_esp);
+    },[loading,loading1]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

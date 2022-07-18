@@ -1735,7 +1735,7 @@ console.log(error)
                         
                         break;
                         case 'EGVC':
-                        name_mercado_or='ENELAR Mercado de Comercialización ARAUCA'
+                        name_mercado_or='ENERGUAVIARE Mercado de Comercialización GUAVIARE'
                         alfa=0.036578428408 
                         name_sistema_or='GUVM'
                         name_or='EGVD'

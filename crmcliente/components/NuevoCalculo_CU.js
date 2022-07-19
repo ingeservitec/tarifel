@@ -1723,6 +1723,7 @@ console.log(error)
                         w1=(Energia_contratos/(Energia_contratos_sub+Energia_contratos))
                         
                         w2=(Energia_contratos_sub/(Energia_contratos_sub+Energia_contratos))    
+                        qagd=0 //Aun no hay AGPE
                         qc_=roundToTwo(Math.min(1-qagd,(Energia_contratos_sub+Energia_contratos)/dcr))
                         mc_=roundToTwo(data_xm_trsmm.filter(data_xm_trsmm => data_xm_trsmm.codigo==='MC' && data_xm_trsmm.empresa_id===data2.obtenerUsuario.empresa)[0].valor)
 

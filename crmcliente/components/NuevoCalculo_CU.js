@@ -2256,7 +2256,7 @@ if((sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3])===0){
         m_Sub2_=(0)
 }
 else{
-        m_Sub2_=setad(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))/30))
+        m_Sub2_=(roundToTwo(((sub2mpt[0]+sub2mpt[1]+sub2mpt[2]+sub2mpt[3])/(sub2mt[0]+sub2mt[1]+sub2mt[2]+sub2mt[3]))/30))
 
 }
 setN_Sub1(n_Sub1_)
@@ -2363,6 +2363,7 @@ setR1(r1_)
                                 setM_Sub2(m_Sub2_)
                                 setCfs(cfs_)
                                 setCfe(cfe_)
+                                console.log(cfs_)
                    
                                 cvr_=(roundToTwo((((1-0)*cfm_*data_empresam2[0].numero_usuarios_r)+(cgcu)+(data_empresam[0].pui_cop_kwh))/(data_empresam2[0].ventas_usuarios_r_nt1_e+
                                 data_empresam2[0].ventas_usuarios_r_nt1_c+

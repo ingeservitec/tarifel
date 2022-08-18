@@ -110,10 +110,10 @@ const headers = [
 useEffect(() => {
     if(loading) return 'Cargando....';
     const data_banrepublica_tcap=data.obtenerData_banrepublica_tcap
+    console.log('first')
+    console.log(data_banrepublica_tcap)    
     var data_banrepublica_tcapm=data_banrepublica_tcap.filter(data_banrepublica_tcap => data_banrepublica_tcap.empresa_id===data1.obtenerUsuario.empresa)
-    
     var max=0, i=0, id_max=0, myDate, value
-    
     for (i = 0; i < data_banrepublica_tcapm.length; i++) {
         myDate = data_banrepublica_tcapm[i].fecha.split("-");
         value = Math.round(((new Date( myDate[0], myDate[1] - 1, myDate[2])).getTime()+(25567 + 1))/(86400 * 1000));
@@ -130,10 +130,7 @@ useEffect(() => {
 else{
     setComments(data_banrepublica_tcapm);
 }
-
-
-
-},[loading,showLogin,showLogin2]); 
+    },[loading,showLogin,showLogin2]);
 
 
 return (

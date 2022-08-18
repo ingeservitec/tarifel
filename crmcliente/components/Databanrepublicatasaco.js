@@ -86,7 +86,7 @@ else{
     setComments(data_banrepublica_tcom);
 }
 
-},[loading]);
+},[loading,showLogin,showLogin2]);
 
 
 

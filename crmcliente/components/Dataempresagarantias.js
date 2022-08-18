@@ -64,7 +64,7 @@ useEffect(() => {
     const data_obtenerData_empresa_garantiaesp_=data.obtenerData_empresa_garantia
     const data_obtenerData_empresa_garantiaesp=data_obtenerData_empresa_garantiaesp_.filter(data_obtenerData_empresa_garantiaesp_ => data_obtenerData_empresa_garantiaesp_.empresa_id===data1.obtenerUsuario.empresa)   
 setComments(data_obtenerData_empresa_garantiaesp);
-},[loading,loading1]);
+},[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

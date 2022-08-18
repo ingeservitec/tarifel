@@ -63,7 +63,7 @@ if(loading1) return 'Cargando....';
 const data_obtenerData_mme_validacionesp_=data.obtenerData_mme_validacion
 const data_obtenerData_mme_validacionesp=data_obtenerData_mme_validacionesp_.filter(data_obtenerData_mme_validacionesp_ => data_obtenerData_mme_validacionesp_.empresa_id===data1.obtenerUsuario.empresa)   
 setComments(data_obtenerData_mme_validacionesp);
-},[loading,loading1]);
+},[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

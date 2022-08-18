@@ -64,7 +64,7 @@ if(loading1) return 'Cargando....';
 const data_obtenerData_creg_cxesp_=data.obtenerData_creg_cx
 const data_obtenerData_creg_cxesp=data_obtenerData_creg_cxesp_.filter(data_obtenerData_creg_cxesp_ => data_obtenerData_creg_cxesp_.empresa_id===data1.obtenerUsuario.empresa)   
 setComments(data_obtenerData_creg_cxesp);
-},[loading,loading1]);
+},[loading,showLogin,showLogin2]);
 
 
 const commentsData = useMemo(() => {

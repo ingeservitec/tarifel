@@ -156,7 +156,7 @@ const NuevoDataxmdspctto2 =(props) => {
   const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
     const [datacsv, setDatacsv] = useState("");
     const [fileNames, setFileNames] = useState([]);
-    const [creador, setCreador] = useState();
+    const [creador, setCreador] = useState();const [loading, setLoading]= useState(false);
     const [empresa_id, setEmpresa_id]= useState("")
     const [anho, setAnho]= useState()
     const [mes, setMes]= useState()
@@ -250,7 +250,7 @@ const NuevoDataxmdspctto2 =(props) => {
     // }, [datacsv])
 
         
-      const handleSubmit = async () => { 
+      const handleSubmit = async () => { setLoading(true) 
      
       try {
         if (loading1) return null; // Si no hay informacion
@@ -272,7 +272,7 @@ const NuevoDataxmdspctto2 =(props) => {
         }
         
         ));
-        Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+        Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");setLoading(false)
     props.close2()
         // results will be an array of execution result objects (i.e. { data, error })
        // Do whatever here with the results
@@ -286,18 +286,12 @@ const NuevoDataxmdspctto2 =(props) => {
       if(loading1) return null;
       setCreador(parseInt(data1.obtenerUsuario.id));
       setEmpresa_id((data1.obtenerUsuario.empresa));
-      console.log(data1.obtenerUsuario.empresa)
-      
       }, [loading1])
-
     return (
     <div>
     <Modal show={props.show2}
-    
- 
     aria-labelledby="contained-modal-title-vcenter"
     centered
-   
     onHide={props.close2}>
     <Modal.Header closeButton>
     <Modal.Title>Cargue Masivo a tabla Data DSPCTTOS</Modal.Title>
@@ -324,24 +318,29 @@ const NuevoDataxmdspctto2 =(props) => {
     <div className="container">
     <div className="row">
     <div className="col-sm">
-    <input
-    type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-    value="Guardar"
-    onClick={handleSubmit}
-    />
-    </div>
-    <div className="col-sm">
-    <input
-    type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-    value="Cancelar"
-    onClick={props.close2}
-    />
-    </div>
-    </div>
-    </div>
+    <button
+type="button"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Guardar"  disabled={loading}
+onClick={handleSubmit}
+>
 
+{loading && <i className="fa fa-refresh fa-spin"></i>}
+      {loading && <span>  Loading</span>}
+      {!loading && <span>GUARDAR</span>}
+</button>
+</div>
+<div className="col-sm">
+<input
+type="button"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Cancelar"
+    disabled={loading}
+    onClick={props.close2}
+/>
+    </div>
+    </div>
+    </div>
     </Modal.Body>
     <Modal.Footer>
     </Modal.Footer>

@@ -70,7 +70,7 @@ data_xm_stnm=data_xm_stnm.sort(
   return b.anho > a.anho ? 1 : -1;
   });
 setComments(data_xm_stnm);
-},[loading]); 
+},[loading,showLogin2]); 
 
 const commentsData = useMemo(() => {
 let computedComments = comments;

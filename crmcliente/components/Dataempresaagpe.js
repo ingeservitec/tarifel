@@ -84,7 +84,7 @@ useEffect(() => {
     const data_empresa_agpe=data.obtenerData_empresa_agpe
     const data_empresa_agpe_esp=data_empresa_agpe.filter(data_empresa_agpe => data_empresa_agpe.empresa_id===data1.obtenerUsuario.empresa)
     setComments(data_empresa_agpe_esp);
-    },[loading,loading1]);
+    },[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

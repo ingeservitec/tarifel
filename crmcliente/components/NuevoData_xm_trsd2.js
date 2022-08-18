@@ -100,7 +100,7 @@ const NuevoDataxm_trsd2= (props) => {
 const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const [datacsv, setDatacsv] = useState("");
 const [fileNames, setFileNames] = useState([]);
-const [creador, setCreador] = useState();
+const [creador, setCreador] = useState();const [loading, setLoading]= useState(false);
 const [empresa_id, setEmpresa_id]= useState("")
 const [anho, setAnho]= useState()
 const [nuevoData_xm_trsd]=useMutation(NUEVO_DATA_XM_TRSD, {
@@ -191,7 +191,7 @@ const onDrop = useCallback(acceptedFiles => {
     //     console.log(Datacsv2)
     // }, [datacsv])
 
-const handleSubmit = async () => {
+const handleSubmit = async () => { setLoading(true)
 try {
 if (loading1) return null; // Si no hay informacion
 const Datacsv2=csvJSON(datacsv)
@@ -208,7 +208,7 @@ object
 });
 }
 ));
-Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");setLoading(false)
 props.close2()
 // results will be an array of execution result objects (i.e. { data, error })
 // Do whatever here with the results
@@ -254,19 +254,25 @@ onHide={props.close2}>
 <div className="container">
 <div className="row">
 <div className="col-sm">
-<input
+<button
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
-value="Guardar"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Guardar"  disabled={loading}
 onClick={handleSubmit}
-/>
+>
+
+{loading && <i className="fa fa-refresh fa-spin"></i>}
+      {loading && <span>  Loading</span>}
+      {!loading && <span>GUARDAR</span>}
+</button>
 </div>
 <div className="col-sm">
 <input
 type="button"
-className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:cursor-pointer hover:bg-gray-900"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
 value="Cancelar"
-onClick={props.close2}
+    disabled={loading}
+    onClick={props.close2}
 />
 </div>
 </div>

@@ -68,7 +68,7 @@ const Dataxmtrsm  = () => {
                     return b.anho > a.anho ? 1 : -1;
                     });
                   setComments(data_xm_trsmm);
-                },[loading]); 
+                },[loading,showLogin,showLogin2]); 
       const commentsData = useMemo(() => {
       let computedComments = comments;
       if (search) {

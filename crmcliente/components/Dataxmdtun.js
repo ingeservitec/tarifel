@@ -70,7 +70,7 @@ useEffect(() => {
       return b.anho > a.anho ? 1 : -1;
       });
     setComments(data_xm_dtunm);
-  },[loading]); 
+  },[loading,showLogin,showLogin2]); 
 
 
 

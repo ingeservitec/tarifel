@@ -61,7 +61,7 @@ if(loading1) return 'Cargando....';
 const data_obtenerData_mme_giroesp_=data.obtenerData_mme_giro
 const data_obtenerData_mme_giroesp=data_obtenerData_mme_giroesp_.filter(data_obtenerData_mme_giroesp_ => data_obtenerData_mme_giroesp_.empresa_id===data1.obtenerUsuario.empresa)   
 setComments(data_obtenerData_mme_giroesp);
-},[loading,loading1]);
+},[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

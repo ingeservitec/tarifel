@@ -133,7 +133,7 @@ else{
 
 
 
-    },[loading]);
+    },[loading,showLogin,showLogin2]);
 
 
 return (

@@ -146,7 +146,7 @@ const data_xm_trsd_ag_m = [...data_xm_trsd_ag.reduce((r, o) => {
 setComments(data_xm_trsd_ag_m);
 
 
-},[loading,loading1]);
+},[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;
 if (search) {

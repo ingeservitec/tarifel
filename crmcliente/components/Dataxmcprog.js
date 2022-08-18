@@ -67,7 +67,7 @@ useEffect(() => {
       return b.anho > a.anho ? 1 : -1;
       });
     setComments(data_xm_cprogm);
-  },[loading]); 
+  },[loading,showLogin,showLogin2]); 
 
 
 

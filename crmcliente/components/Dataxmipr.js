@@ -74,7 +74,7 @@ useEffect(() => {
       return b.anho > a.anho ? 1 : -1;
       });
     setComments(iprm);
-  },[loading]); 
+  },[loading,showLogin,showLogin2]); 
 
 
 const commentsData = useMemo(() => {

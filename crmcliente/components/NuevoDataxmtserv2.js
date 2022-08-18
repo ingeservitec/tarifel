@@ -63,16 +63,17 @@ const NuevoDataxmtserv2 =(props) => {
   const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
     const [datacsv, setDatacsv] = useState("");
     const [fileNames, setFileNames] = useState([]);
-    const [creador, setCreador] = useState();
+    const [creador, setCreador] = useState();const [loading, setLoading]= useState(false);
     const [empresa_id, setEmpresa_id]= useState("")
     const [nuevoDataxmtserv]=useMutation(NUEVO_DATA_XMTSERV, {
       update(cache, { data: { nuevoDataxmtserv } } ) {
           // Obtener el objeto de cache que deseamos actualizar
-          const { obtenerData_xm_tserv} = cache.readQuery({ query: OBTENER_DATA_XM_TSERV  });
+          const { obtenerData_xm_tserv} = cache.readQuery({ query: OBTENER_DATA_XM_TSERV, variables: { published: true }  });
   
           // Reescribimos el cache ( el cache nunca se debe modificar )
           cache.writeQuery({
               query: OBTENER_DATA_XM_TSERV,
+              variables: { published: true },
               data: {
                 obtenerData_xm_tserv : [...obtenerData_xm_tserv, nuevoDataxmtserv ]
               }
@@ -144,7 +145,7 @@ const NuevoDataxmtserv2 =(props) => {
     // }, [datacsv])
 
         
-      const handleSubmit = async () => { 
+      const handleSubmit = async () => { setLoading(true) 
      
       try {
         if (loading1) return null; // Si no hay informacion
@@ -168,7 +169,7 @@ const NuevoDataxmtserv2 =(props) => {
         }
         
         ));
-        Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+        Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");setLoading(false)
     props.close2()
         // results will be an array of execution result objects (i.e. { data, error })
        // Do whatever here with the results
@@ -221,20 +222,26 @@ const NuevoDataxmtserv2 =(props) => {
     <div className="container">
     <div className="row">
     <div className="col-sm">
-    <input
-    type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-    value="Guardar"
-    onClick={handleSubmit}
-    />
-    </div>
-    <div className="col-sm">
-    <input
-    type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-    value="Cancelar"
+    <button
+type="button"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Guardar"  disabled={loading}
+onClick={handleSubmit}
+>
+
+{loading && <i className="fa fa-refresh fa-spin"></i>}
+      {loading && <span>  Loading</span>}
+      {!loading && <span>GUARDAR</span>}
+</button>
+</div>
+<div className="col-sm">
+<input
+type="button"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Cancelar"
+    disabled={loading}
     onClick={props.close2}
-    />
+/>
     </div>
     </div>
     </div>

@@ -106,6 +106,7 @@ const NuevoDataxmadem2 =(props) => {
     const [datacsv, setDatacsv] = useState("");
     const [fileNames, setFileNames] = useState([]);
     const [creador, setCreador] = useState();
+    const [loading, setLoading]= useState(false);
     const [empresa_id, setEmpresa_id]= useState("")
     const [anho, setAnho]= useState()
     const [mes, setMes]= useState()
@@ -148,7 +149,7 @@ const NuevoDataxmadem2 =(props) => {
             var obj = {};
             // var currentline=lines[i].toString().split(";")
             var currentline=lines[k][1][i]
-            for(var j=0;j<headers.length +3;j++){
+            for(var j=0;j<headers.length +4;j++){
               if (j ==0){
                 obj['creador'] = (creador) 
               }
@@ -163,11 +164,12 @@ const NuevoDataxmadem2 =(props) => {
                 
                 obj['MES'] = parseFloat(((lines[k][0]).substring(4)).substring(0,2))
               }
-              if (j >2){
-                if ( (obj[headers[j-3]] ='CODIGO') || (obj[headers[j-3]] ='AGENTE') || (obj[headers[j-3]] ='CONTENIDO'))
-                obj[headers[j-3]] = (currentline[j-3]);
+              //PENDIENTE DE PROBAR SI FUNCIONA ANTES ESTABA 2
+              if (j >3){
+                if ( (obj[headers[j-4]] ='CODIGO') || (obj[headers[j-4]] ='AGENTE') || (obj[headers[j-4]] ='CONTENIDO'))
+                obj[headers[j-4]] = (currentline[j-4]);
                 else{
-                  obj[headers[j-3]] = parseFloat(currentline[j-3]);
+                  obj[headers[j-4]] = parseFloat(currentline[j-4]);
                }    
              }      
             }
@@ -183,7 +185,7 @@ const NuevoDataxmadem2 =(props) => {
     // }, [datacsv])
 
         
-      const handleSubmit = async () => { 
+      const handleSubmit = async () => { setLoading(true) 
      
       try {
         if (loading1) return null; // Si no hay informacion
@@ -203,6 +205,7 @@ const NuevoDataxmadem2 =(props) => {
         });
         console.log(arreglado)
         const arreglado2=arreglado.filter(arreglado => arreglado.agente===empresa_id)   
+        console.log(arreglado2)
         const {results} = await Promise.all(arreglado2.map(object => {  
         return nuevoDataxmadem({ variables:{
           input:
@@ -211,7 +214,7 @@ const NuevoDataxmadem2 =(props) => {
     });
         }
         ));
-        Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+        Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");setLoading(false)
     props.close2()
         // results will be an array of execution result objects (i.e. { data, error })
        // Do whatever here with the results
@@ -263,20 +266,26 @@ const NuevoDataxmadem2 =(props) => {
     <div className="container">
     <div className="row">
     <div className="col-sm">
-    <input
-    type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-    value="Guardar"
-    onClick={handleSubmit}
-    />
-    </div>
-    <div className="col-sm">
-    <input
-    type="button"
-    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-    value="Cancelar"
+    <button
+type="button"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Guardar"  disabled={loading}
+onClick={handleSubmit}
+>
+
+{loading && <i className="fa fa-refresh fa-spin"></i>}
+      {loading && <span>  Loading</span>}
+      {!loading && <span>GUARDAR</span>}
+</button>
+</div>
+<div className="col-sm">
+<input
+type="button"
+className=    {loading? "bg-gray-400 w-full mt-5 p-2 text-white uppercase":"bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"} 
+value="Cancelar"
+    disabled={loading}
     onClick={props.close2}
-    />
+/>
     </div>
     </div>
     </div>

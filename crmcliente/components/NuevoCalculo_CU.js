@@ -1150,7 +1150,7 @@ data: {
 }
 })
 
-const [creador, setcreador] = useState(0);
+const [creador, setCreador] = useState(0);
 const [anho, setAnho] = useState(props.anho);const [mes, setMes] = useState(props.mes);const [qc, setQc] = useState(0);
 const [mc, setMc] = useState(0);
 const [pc, setPc] = useState(0);
@@ -1234,6 +1234,7 @@ const [tasaOt, setTasaot] = useState(0);
 const [ultimo_giro_incluido, setUltimo_giro_incluido] = useState(0);
 
 const [status, setStatus] = useState(false);
+const [loading, setLoading]= useState(false);
 let text = "";
 
 
@@ -1289,7 +1290,7 @@ useEffect(() => {
 
 
 if(loading2) return null;
-setcreador(parseInt(data2.obtenerUsuario.id));
+setCreador(parseInt(data2.obtenerUsuario.id));
 setempresa_id(data2.obtenerUsuario.empresa);
 
 },[]);
@@ -1326,7 +1327,7 @@ validationSchema: Yup.object({
 creador: Yup.string()
 .required('El creador es obligatorio'),
 }),
-onSubmit: async valores => {
+onSubmit: async valores => {setLoading(true)
 const{creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c,dtun_nt1_p,dtun_nt2,dtun_nt3,cdi_100,
         cdi_50,cdm,cd4,cd3,cd2,dnt1,dnt2,dnt3,dnt4,crs,rcal,r,iprstn,pr_nt1,pr_nt2,pr_nt3,pr_nt4,cer,cfm,rc,ul_trim_val_mme,
         anho_ul_trim_val_mme,sub1,sub2,n_sub1,m_sub2,facturacion_t,r1,r2,sup_def,cfs,cfe,c_ast,cg,cgcu,cvr,cv,cu_nt1_100,cu_nt1_50,
@@ -1340,6 +1341,7 @@ const{creador,anho,mes,qc,pc,ref_g,max_g,cr,ad,aj,pb,gc,tx,dtun_nt1_e,dtun_nt1_c
         nt2_estrato_1_men_cs,nt3_estrato_1_men_cs,nt4_estrato_1_men_cs,nt2_estrato_2_men_cs,nt3_estrato_2_men_cs,nt4_estrato_2_men_cs,
         empresa_id,pv,cu_nt1_100_ot,cu_nt1_50_ot,cu_nt1_0_ot,cu_nt2_ot,cu_nt3_ot,cu_nt4_ot,saldo_nt1_100_ot,saldo_nt1_50_ot,saldo_nt1_0_ot,saldo_nt2_ot,saldo_nt3_ot,giro_sobrante, ultimo_giro_incluido}=valores
 Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+setLoading(false)
 props.close()
 try {
 const{data}=await nuevoRes_componentes_cu_tarifa({
@@ -1648,6 +1650,7 @@ console.log(error)
                         qexc2=Math.min(1,data_empresam[0].g_exc2/dcr)  //Para este caso las exportaciones no sobrepasaron las imp y hx
                         q3=Math.min(1,data_empresam[0].g_exc3/dcr) // Que no sea FNCER
                         qgd=Math.min(1,data_empresam[0].ggd/dcr) //No hay GD
+                        
 
                         qagd=Math.min(1,(q11+q21+qexc2+q3+qgd))
                      
@@ -1721,7 +1724,7 @@ console.log(error)
         //wl= Cl/SUM(l=n..n)(Cl)
 
                         w1=(Energia_contratos/(Energia_contratos_sub+Energia_contratos))
-                        
+
                         w2=(Energia_contratos_sub/(Energia_contratos_sub+Energia_contratos))    
                         qagd=0 // Caso ENerguaviare que aun no tiene AGPE info
                         qc_=roundToTwo(Math.min(1-qagd,(Energia_contratos_sub+Energia_contratos)/dcr))
@@ -1767,7 +1770,7 @@ console.log(error)
                         //PP21= Gm-1
                         //PPExc2= Precio promedio ponderado actualizado para el mes m-1, de los AGPE, con capacidad instalada o nominal menor o igual a 1 MW, para la energía que le aplica lo establecido en los literales b) de los numerales 1) y 2) del artículo 25 de esta resolución, para el Comercializador Minorista i, liquidados en el mes m-1, con destino al mercado regulado. Es expresado en pesos por kilovatio hora (COP/kWh) y se calcula así:
                         //PP3= 	Precio promedio ponderado actualizado para el mes m-1, de los AGPE, con capacidad instalada o nominal menor o igual a 1 MW, para la energía que le aplica lo establecido en el literal b) numeral 1) del artículo 23 de esta resolución, para el Comercializador Minorista i, liquidados en el mes m-1, con destino al mercado regulado. Es expresado en pesos por kilovatio hora (COP/kWh) y se calcula así:
-                        
+                                            
                         PP1=data_Res_componentes_cu_tarifam[0].cu_nt1_0-data_Res_componentes_cu_tarifam[0].cv
                         PP21=data_Res_componentes_cu_tarifam[0].gc
                         PPExc2=0 //**Cambiar cuando exista */
@@ -1857,6 +1860,9 @@ console.log(error)
                         
                         iprstn_=(((data_xm_afacm[0].perdida_real_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))))
                         setIprstn(roundToTwo(iprstn_))
+
+                        console.log(iprstn_)
+
                         const data_xm_iprm1=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===1 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
                         const data_xm_iprm2=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===2 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
                         const data_xm_iprm3=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===3 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
@@ -1961,7 +1967,7 @@ console.log(error)
                         }
 
                         cfm_=(roundToTwo(data_creg_cxm[0].Cf*ipcm*(1-x_)/79.55965))
-                         //cfm_=(roundToTwo(6146.19*ipcm/79.55965))
+                        // cfm_=(roundToTwo(6146.19*ipcm/79.55965))
                         setX(x_)
                         setCfm(cfm_)
                        
@@ -2363,7 +2369,6 @@ setR1(r1_)
                                 setM_Sub2(m_Sub2_)
                                 setCfs(cfs_)
                                 setCfe(cfe_)
-                                console.log(cfs_)
                    
                                 cvr_=(roundToTwo((((1-0)*cfm_*data_empresam2[0].numero_usuarios_r)+(cgcu)+(data_empresam[0].pui_cop_kwh))/(data_empresam2[0].ventas_usuarios_r_nt1_e+
                                 data_empresam2[0].ventas_usuarios_r_nt1_c+
@@ -4385,7 +4390,7 @@ value={roundToTwo(saldo_total_ot)}></input>
 <input
 type="submit"
 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-value="Guardar"
+value="Guardar"  disabled={loading}
 />
 </div>
 <div className="col-sm">

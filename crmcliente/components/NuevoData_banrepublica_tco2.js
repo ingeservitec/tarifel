@@ -73,7 +73,7 @@ const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
 const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_DATA_BANREPUBLICA_TCO);
 const [datacsv, setDatacsv] = useState("");
 const [fileNames, setFileNames] = useState([]);
-const [creador, setCreador] = useState();
+const [creador, setCreador] = useState();const [loading, setLoading]= useState(false);
 const [empresa_id, setEmpresa_id]= useState("")
 const [nuevoData_banrepublica_tco]=useMutation(NUEVO_DATA_BANREPUBLICA_TCO, {
 update(cache, { data: { nuevoData_banrepublica_tco} } ) {
@@ -111,7 +111,7 @@ var i=0
 var fin=0
 while (fin==0) {
 i ++;
-if (lines[i][0] > 40000 ){
+if (lines[i][0] > 200000 ){
 var inicio=i
 var k=inicio
 }
@@ -136,7 +136,7 @@ headers[j] = (headers[j-1].replace('Tasa', 'Monto')).replace('_%',"")
 }
 }
 }
-for(i=inicio;i<lines.length-inicio;i++){
+for(i=inicio;i<fin;i++){
 var obj = {};
 //var currentline=lines[i].toString().split(",")
 var currentline=lines[i]
@@ -163,10 +163,14 @@ return result; //JSON
 }
 // }, [datacsv])
 
-const handleSubmit = async () => {
+const handleSubmit = async () => { setLoading(true)
 try {
 if (loading1) return null; // Si no hay informacion
 const Datacsv2=csvJSON(datacsv)
+console.log('Aca1')
+console.log(Datacsv2)
+console.log('Aca2')
+
 var arreglado = Datacsv2.map( item => {
     return {creador:creador,anho_semana:(item["Anho_Semana"]).toString(),tasa_cred_com_credito_consumo:(item["Credito_de_consumo_Tasa"]),monto_cred_com_credito_consumo:(item["Credito_de_consumo_Monto"]),tasa_cred_com_odinario:(item["Ordinario_Tasa"]),monto_cred_com_odinario:(item["Ordinario_Monto"]),tasa__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Tasa"]),monto__cred_com_preferencial_o_corporativo:(item["Preferencial_o_corporativo_Monto"]),tasa__cred_com_tesoreria:(item["Tesoreria_Tasa"]),monto__cred_com_tesoreria:(item["Tesoreria_Monto"]),tasa_colocacion_banco_republica:(item["Banco_de_la_Republica_Tasa"]),monto_colocacion_banco_republica:(item["Banco_de_la_Republica_Monto"]),tasa_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Tasa"]),monto_colocacion_sin_tesoreria:(item["Sin_Tesoreria_Monto"]),tasa_colocacion_total:(item["Total_Tasa"]),monto_colocacion_total:(item["Total_Monto"]),empresa_id:empresa_id}
 });
@@ -184,8 +188,9 @@ for (i = 0; i < data_banrepublica_tcom.length; i++) {
     }
 
 }
-
+console.log('aca1')
 var arreglado2=arreglado.filter(arreglado => arreglado.anho_semana>data_banrepublica_tcom[id_max].anho_semana)
+console.log('aca2')
 console.log(arreglado2)
 const {results} = await Promise.all(arreglado2.map(object => {
 return nuevoData_banrepublica_tco({ variables:{
@@ -195,7 +200,7 @@ object
 });
 }
 ));
-Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
+Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");setLoading(false)
 props.close2()
 // results will be an array of execution result objects (i.e. { data, error })
 // Do whatever here with the results
@@ -240,19 +245,24 @@ onHide={props.close2}>
 <div className="container">
 <div className="row">
 <div className="col-sm">
-<input
+<button
 type="button"
 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
-value="Guardar"
+value="Guardar"  disabled={loading}
 onClick={handleSubmit}
-/>
+>
+{loading && <i className="fa fa-refresh fa-spin"></i>}
+      {loading && <span>  Loading</span>}
+      {!loading && <span>GUARDAR</span>}
+      </button>
 </div>
 <div className="col-sm">
 <input
 type="button"
 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
 value="Cancelar"
-onClick={props.close2}
+    disabled={loading}
+    onClick={props.close2}
 />
 </div>
 </div>

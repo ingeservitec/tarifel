@@ -236,6 +236,7 @@ obtenerData_xm_afac {
 id
 anho
 mes
+empresa_id
 agente
 perdida_real_kwh
 demanda_real_kwh
@@ -360,6 +361,7 @@ query obtenerData_empresa {
     id
     anho
     mes
+    empresa_id
     mercado
     numero_usuarios_r
     numero_usuarios_nr
@@ -560,9 +562,24 @@ const headers = [
 ];
 
 
+
 useEffect(() => {
 if(loading) return 'Cargando....';
 if(loading3) return 'Cargando....';
+console.log('ACA1')
+console.log(data3.obtenerUsuario.empresa)
+var alfa,mercado
+switch (data3.obtenerUsuario.empresa) {
+    case 'ENIC':
+    alfa=0.584204941605 
+    mercado=159
+
+    case 'EGVC':
+    alfa=0.036578428408 
+    mercado=681
+    default:
+    break;
+    }
 const data_Res_componentes_cu_tarifaesp_=data.obtenerRes_componentes_cu_tarifa
 const data_Res_componentes_cu_tarifaesp=data_Res_componentes_cu_tarifaesp_.filter(data_Res_componentes_cu_tarifaesp_ => data_Res_componentes_cu_tarifaesp_.empresa_id===data3.obtenerUsuario.empresa) 
 setComments(data_Res_componentes_cu_tarifaesp);
@@ -662,6 +679,17 @@ const exportarMemorias=(id)=>{
 
 
 const exportarFormatosSSPD=(id)=>{
+    var alfa,mercado
+    switch (data3.obtenerUsuario.empresa) {
+        case 'ENIC':
+        alfa=0.584204941605 
+        mercado=159
+        case 'EGVC':
+        alfa=0.036578428408 
+        mercado=681
+        default:
+        break;
+        }
 
     Swal.fire({
         title: '¿Deseas exportar memorias de cálculo?',
@@ -701,14 +729,10 @@ const exportarFormatosSSPD=(id)=>{
                 }
      
 const data_empresa=data5.obtenerData_empresa
-const data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm)
+const data_empresam=data_empresa.filter(data_empresa => data_empresa.anho===anhom && data_empresa.mes===mesm && data_empresa.empresa_id===data3.obtenerUsuario.empresa)
                 
-var mercado
-
-if(data_empresam[0].mercado==="GUAVIARE"){
-mercado=681
-}
-
+const data_Res_componentes_cu_tarifam1=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.empresa_id===data3.obtenerUsuario.empresa &&
+    data_Res_componentes_cu_tarifa.anho===anhom && data_Res_componentes_cu_tarifa.mes===mesm) 
 
 
                 if (data_Res_componentes_cu_tarifam[0].cg>0 ||data_Res_componentes_cu_tarifam[0].cgcu>0) {
@@ -727,7 +751,7 @@ mercado=681
 
             
                 const data_empresa_garantias=data8.obtenerData_empresa_garantia
-                const data_empresa_garantiasm=data_empresa_garantias.filter(data_empresa_garantias => Date.parse( data_empresa_garantias.fecha_inicio_vigencia)<=Date.parse(new Date(anhom2, mesm2, 30))  && Date.parse(data_empresa_garantias.fecha_fin_vigencia)>=Date.parse(new Date(anhom2, mesm2, 30)))   
+                const data_empresa_garantiasm=data_empresa_garantias.filter(data_empresa_garantias => Date.parse( data_empresa_garantias.fecha_inicio_vigencia)<=Date.parse(new Date(anhom2, mesm2, 30))  && Date.parse(data_empresa_garantias.fecha_fin_vigencia)>=Date.parse(new Date(anhom2, mesm2, 30)) && data_empresa_garantias.empresa_id===data3.obtenerUsuario.empresa)   
             
                 var formato_2_sspd=[], tipo_garantia,meses_garantizados=[]
 
@@ -993,7 +1017,7 @@ mercado=681
                 }]
 
 if (opcionTarifaria===1){
-var nt_prop, sam, cuvc, cuv, formato_6_sspd=[],formato_7_sspd=[],Prnm,Dnm,CUvm
+var nt_prop, sam,sam1, cuvc, cuvc1 ,cuv, cuv1, formato_6_sspd=[],formato_7_sspd=[],Prnm,Dnm,CUvm
 
 for (let index = 0; index < 5; index++) {
     if (index===0) {
@@ -1001,42 +1025,57 @@ for (let index = 0; index < 5; index++) {
         sam=data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot
         cuvc=data_Res_componentes_cu_tarifam[0].cu_nt1_100
         cuv=data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot
+        sam1=data_Res_componentes_cu_tarifam1[0].saldo_nt1_100_ot
+        cuvc1=data_Res_componentes_cu_tarifam1[0].cu_nt1_100
+        cuv1=data_Res_componentes_cu_tarifam1[0].cu_nt1_100_ot
         } 
         if (index===1) {
             nt_prop="1-50"
             sam=data_Res_componentes_cu_tarifam[0].saldo_nt1_50_ot
             cuvc=data_Res_componentes_cu_tarifam[0].cu_nt1_50
             cuv=data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot
+            sam1=data_Res_componentes_cu_tarifam1[0].saldo_nt1_50_ot
+            cuvc1=data_Res_componentes_cu_tarifam1[0].cu_nt1_50
+            cuv1=data_Res_componentes_cu_tarifam1[0].cu_nt1_50_ot
             } 
             if (index===2) {
                 nt_prop="1-0"
                 sam=data_Res_componentes_cu_tarifam[0].saldo_nt1_0_ot
                 cuvc=data_Res_componentes_cu_tarifam[0].cu_nt1_0
                 cuv=data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot
+                sam1=data_Res_componentes_cu_tarifam1[0].saldo_nt1_0_ot
+                cuvc1=data_Res_componentes_cu_tarifam1[0].cu_nt1_0
+                cuv1=data_Res_componentes_cu_tarifam1[0].cu_nt1_0_ot
                 } 
                 if (index===3) {
                     nt_prop="2"
                     sam=data_Res_componentes_cu_tarifam[0].saldo_nt2_ot
                     cuvc=data_Res_componentes_cu_tarifam[0].cu_nt2
                     cuv=data_Res_componentes_cu_tarifam[0].cu_nt2_ot
+                    sam1=data_Res_componentes_cu_tarifam1[0].saldo_nt2_ot
+                    cuvc1=data_Res_componentes_cu_tarifam1[0].cu_nt2
+                    cuv1=data_Res_componentes_cu_tarifam1[0].cu_nt2_ot
                     } 
                     if (index===4) {
                         nt_prop="3"
                         sam=data_Res_componentes_cu_tarifam[0].saldo_nt3_ot
                         cuvc=data_Res_componentes_cu_tarifam[0].cu_nt3
                         cuv=data_Res_componentes_cu_tarifam[0].cu_nt3_ot
+                        sam1=data_Res_componentes_cu_tarifam1[0].saldo_nt3_ot
+                        cuvc1=data_Res_componentes_cu_tarifam1[0].cu_nt3
+                        cuv1=data_Res_componentes_cu_tarifam1[0].cu_nt3_ot
                         } 
                 formato_6_sspd.push(
                 {"ID Mercado":mercado,
                 "NT y PROP":nt_prop,
                 "PV":data_Res_componentes_cu_tarifam[0].pv,
-                "SAm-1":2,
-                "VRt-1":1,
+                "SAm-1":sam1.toFixed(0),
+                "VRt-1":1, //promedio 12 meses ventas NT
                 "CUVC":roundToFive(cuvc),
-                "CUVm-1":1,
+                "CUVm-1":roundToFive(cuvc1),
                 "CUv":roundToFive(cuv),
-                "VRm-1":1,
-                "rEM":2,
+                "VRm-1":1, //Ventas en el NT
+                "rEM":2,  //Tasa de Interes
                 "SAm":sam.toFixed(0)                           
                 })
             }
@@ -1143,6 +1182,9 @@ formato_7_sspd.push({"ID Mercado":mercado,
                 const data_empresa_anual=data7.obtenerData_empresa_anual
                 const data_empresaanualm=data_empresa_anual.filter(data_empresa_anual => data_empresa_anual.anho===data_Res_componentes_cu_tarifam[0].anho-1)
 
+
+
+
                 const formato_9_sspd=
                 [{"ID Mercado":mercado,
                 "ECC":Energia_contratos,
@@ -1174,7 +1216,7 @@ formato_7_sspd.push({"ID Mercado":mercado,
                                 data_empresam[0].ventas_usuarios_nr_kwh),
                 "i":0,
                 "AJ":data_Res_componentes_cu_tarifam[0].aj,
-                "Alfa":0.036578428408,
+                "Alfa":alfa,
                 "DCR AGPE":0,
                 "ADMRE G":0,
                 "APRRE G":0,

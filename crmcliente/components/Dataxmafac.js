@@ -192,8 +192,7 @@ const Dataxmafac  = () => {
 
                   setComments(data_xm_afacm);
 
-     },[loading,showLogin,showLogin2]);
-      const commentsData = useMemo(() => {
+},[loading,showLogin,showLogin2]);       const commentsData = useMemo(() => {
       let computedComments = comments;
       if (search) {
           computedComments = computedComments.filter(

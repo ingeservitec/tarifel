@@ -134,8 +134,7 @@ const data_obtenerData_empresa_esp=data_obtenerData_empresa_.filter(data_obtener
 setComments(data_obtenerData_empresa_esp);
 
         setId1(data1.obtenerUsuario.empresa)
-     },[loading,showLogin,showLogin2]);
-
+},[loading,showLogin,showLogin2]); 
   
   
   const commentsData = useMemo(() => {

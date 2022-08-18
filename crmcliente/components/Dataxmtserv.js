@@ -72,7 +72,7 @@ const Dataxmtserv  = () => {
                     });
                   
                   setComments(data_xm_tservm);
-                },[loading,showLogin,showLogin2]);   
+            },[loading,showLogin,showLogin2]);    
       const commentsData = useMemo(() => {
       let computedComments = comments;
       if (search) {

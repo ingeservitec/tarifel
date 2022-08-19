@@ -1868,7 +1868,9 @@ console.log(error)
                         setIprstn(roundToTwo(iprstn_))
 
                         console.log(iprstn_)
-
+                        console.log(('info del PR'))
+                                console.log(name_sistema_or)
+                                console.log(data2.obtenerUsuario.empresa)
                         const data_xm_iprm1=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===1 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
                         const data_xm_iprm2=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===2 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
                         const data_xm_iprm3=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===3 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
@@ -1881,7 +1883,9 @@ console.log(error)
                         pr_nt2_=(roundToTwo(((gc_*(data_xm_iprm2[0].valor+iprstn_))/(1-(data_xm_iprm2[0].valor+iprstn_))+(tx_*data_xm_iprm2[0].valor/(1-data_xm_iprm2[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh) )       
                         pr_nt3_=(roundToTwo(((gc_*(data_xm_iprm3[0].valor+iprstn_))/(1-(data_xm_iprm3[0].valor+iprstn_))+(tx_*data_xm_iprm3[0].valor/(1-data_xm_iprm3[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh))
                         pr_nt4_=(roundToTwo(((gc_*(data_xm_iprm4[0].valor+iprstn_))/(1-(data_xm_iprm4[0].valor+iprstn_))+(tx_*data_xm_iprm4[0].valor/(1-data_xm_iprm4[0].valor)))+data_xm_cprogm[0].cargo_cprog_cop_kwh))       
-                        
+                        console.log('CPROG')
+                        console.log(data_xm_cprogm[0].cargo_cprog_cop_kwh)
+
                         setPr_Nt1(pr_nt1_)
                         setPr_Nt2(pr_nt2_)
                         setPr_Nt3(pr_nt3_)
@@ -2379,9 +2383,20 @@ setR1(r1_)
                                 cvr_=(roundToTwo((((1-0)*cfm_*data_empresam2[0].numero_usuarios_r)+(cgcu)+(data_empresam[0].pui_cop_kwh))/(data_empresam2[0].ventas_usuarios_r_nt1_e+
                                 data_empresam2[0].ventas_usuarios_r_nt1_c+
                                 data_empresam2[0].ventas_usuarios_r_nt1_u+
-                                data_empresam2[0].ventas_usuarios_r_nt2+
+                                data_empresam2[0].ventas_usuarios_r_nt2+618470+
                                 data_empresam2[0].ventas_usuarios_r_nt3)))
                                       
+                                console.log('Review CVR')
+                                console.log(cfm_)
+                                console.log((data_empresam2[0].ventas_usuarios_r_nt1_e+
+                                        data_empresam2[0].ventas_usuarios_r_nt1_c+
+                                        data_empresam2[0].ventas_usuarios_r_nt1_u+
+                                        data_empresam2[0].ventas_usuarios_r_nt2+618470+
+                                        data_empresam2[0].ventas_usuarios_r_nt3))
+                                        console.log(data_empresam2[0].ventas_usuarios_r_nt2)
+                                console.log(data_empresam2[0].numero_usuarios_r)
+                                console.log(cgcu)
+                                console.log(data_empresam[0].pui_cop_kwh)
                                 setCvr(cvr_)
                                 
                                 if(data_Res_componentes_cu_tarifam[0].dtun_nt1_e>0){ 
@@ -2534,12 +2549,7 @@ setR1(r1_)
                 const tarifamc2_NT3=data_Res_componentes_cu_tarifam[0].nt3_estrato_2_men_cs*Math.min(ipcm/data_danem2[0].ipc,cu_nt3_ot_/data_Res_componentes_cu_tarifam[0].cu_nt3_ot)
                 const tarifamc2_NT4=data_Res_componentes_cu_tarifam[0].nt4_estrato_2_men_cs*Math.min(ipcm/data_danem2[0].ipc,cu_nt4_ot_/data_Res_componentes_cu_tarifam[0].cu_nt4_ot)
              
-                console.log(data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs)
-                console.log(ipcm)
-                console.log(data_danem2[0].ipc)
-                console.log(cu_nt1_100_ot_)
-                console.log(data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot)
-                console.log(tarifamc1_100)
+
                 
                 var porc_subE1_100_,porc_subE2_100_,porc_subE1_50_, porc_subE2_50_, porc_subE1_0_,porc_subE2_0_,porc_subE1_NT2_,porc_subE2_NT2_,porc_subE1_NT3_,porc_subE2_NT3_,porc_subE1_NT4_,porc_subE2_NT4_
                 if ((1-(tarifamc1_100/cu_nt1_100_ot_))<0.6){

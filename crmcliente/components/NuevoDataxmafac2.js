@@ -394,6 +394,7 @@ const NuevoDataxmafac2 =(props) => {
         console.log(arreglado)
         console.log(empresa_id)
         const arreglado2=arreglado.filter(arreglado => arreglado.agente===empresa_id)   
+       console.log('ACA1')
         console.log(arreglado2)
         const {results} = await Promise.all(arreglado2.map(object => {  
         return nuevoDataxmafac({ variables:{

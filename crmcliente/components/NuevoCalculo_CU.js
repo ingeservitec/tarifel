@@ -1675,7 +1675,13 @@ console.log(error)
                         } else{
                         pc_=pc_*w
                         }
-                    
+                    console.log('pc_')
+                    console.log(pc_)
+                    console.log(w)
+                    console.log(roundToTwo(Costo_contratos/Energia_contratos) )
+                    console.log(((Energia_contratos)/(dcr)<=1))
+                    console.log(Energia_contratos)
+                    console.log(dcr)
                         setPc(pc_)
                         var Energia_contratos_sub = 0,Costo_contratos_sub = 0;
                         if(data_xm_dspcttomsub.length>0){
@@ -1838,7 +1844,7 @@ console.log(error)
                                 }
                        
                        
-                   
+
                         setRef_G(roundToTwo(qc_*(alfa*pc_+(1-alfa)*mc_)+(1-qc_)*mc_))
 
 
@@ -1867,7 +1873,7 @@ console.log(error)
                         const data_xm_iprm2=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===2 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
                         const data_xm_iprm3=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===3 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
                         const data_xm_iprm4=data_xm_ipr.filter(data_xm_ipr => data_xm_ipr.anho===anho && data_xm_ipr.mes===mes && data_xm_ipr.agrupaORMercado===name_sistema_or && data_xm_ipr.nivelEntrada===4 && data_xm_ipr.empresa_id===data2.obtenerUsuario.empresa)
-                        
+              
                         const data_xm_cprogm=data_xm_cprog.filter(data_xm_cprog => data_xm_cprog.anho===anho && data_xm_cprog.mes===mes && data_xm_cprog.agente===name_or  && data_xm_cprog.empresa_id===data2.obtenerUsuario.empresa)
                         var pr_nt1_,pr_nt2_,pr_nt3_,pr_nt4_
 

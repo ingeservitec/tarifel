@@ -1973,12 +1973,18 @@ eliminarDataEmpresa(id: ID!):String
 nuevoData_xm_str(input:Data_xm_strInput):Data_xm_str
 #Mutationdata_empresa_garantia
 nuevoData_empresa_garantia(input:Data_empresa_garantiaInput):Data_empresa_garantia
-
 #MutationData_xm_trsd
 nuevoData_xm_trsd(input:Data_xm_trsdInput):Data_xm_trsd
-
 #MutationData_empresa_agpe
 nuevoData_empresa_agpe(input:Data_empresa_agpeInput):Data_empresa_agpe
+#MutationDataxmafacEliminar
+eliminarDataxmafac(id: ID!):String
+#MutationDataxmstnEliminar
+eliminarDataxmstn(id: ID!):String
+#MutationData_xm_strEliminar
+eliminarData_xm_str(id: ID!):String
+#MutationData_xm_cprogEliminar
+eliminarData_xm_cprog(id: ID!):String
     }
 `;
 

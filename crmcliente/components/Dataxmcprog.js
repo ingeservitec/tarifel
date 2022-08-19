@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import React, { PureComponent,useEffect, useState, useMemo } from "react"
 import useFullPageLoader from '../hooks/useFullPageLoader';
 import Paginacion from './DataTable/Paginacion';
@@ -8,36 +7,15 @@ import TableHeader from './DataTable/TableHeader';
 import 'font-awesome/css/font-awesome.min.css';
 import NuevoData_xm_cprog from './NuevoData_xm_cprog';
 import NuevoData_xm_cprog2 from './NuevoData_xm_cprog2';
+import { gql, useQuery, useMutation} from '@apollo/client'
+import Swal from 'sweetalert2'
+import {OBTENER_USUARIO, OBTENER_RES_COMPONENTES_CU_TARIFA,ELIMINAR_DATA_XM_CPROG,OBTENER_DATA_XM_CPROG} from "../data";
 
-
-const OBTENER_DATA_XM_CPROG= gql`
-query obtenerData_xm_cprog{
-obtenerData_xm_cprog{
-id
-creador
-empresa_id
-anho
-mes
-agente
-cargo_cprog_cop_kwh
-}
-}
-`;
-
-const OBTENER_USUARIO = gql`
-query obtenerUsuario{
-obtenerUsuario {
-id
-nombre
-apellido
-empresa
-}
-}
-`;
 
 const Data_xm_cprog= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_XM_CPROG);
 const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
+const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -46,11 +24,26 @@ const [search, setSearch] = useState("");
 const [sorting, setSorting] = useState({ field: "", order: "" });
 const [showLogin, setShowLogin] = useState(false);
 const [showLogin2, setShowLogin2] = useState(false);
-
+const [id1, setId1] = useState(0);
+const [ eliminarData_xm_cprog] = useMutation(ELIMINAR_DATA_XM_CPROG, {
+update(cache) {
+const { obtenerData_xm_cprog} = cache.readQuery({
+query:OBTENER_DATA_XM_CPROG
+});
+cache.writeQuery({
+query: OBTENER_DATA_XM_CPROG,
+data: {
+obtenerData_xm_cprog: obtenerData_xm_cprog.filter( obtenerData_xm_cprog=> obtenerData_xm_cprog.id !== id1.toString() )
+}
+})
+}
+})
 
 const ITEMS_PER_PAGE = 3;
 const headers = [
-{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Agente", field: "agente", sortable: true},{ name: "Cargo_Cprog_Cop_Kwh", field: "cargo_cprog_cop_kwh", sortable: true},{ name: "Createdat", field: "createdAt", sortable: true},{ name: "Updatedat", field: "updatedAt", sortable: true}
+{ name: "Id", field: "id", sortable: true},
+{ name: "Eliminar", field: "eliminar", sortable: true },
+{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Agente", field: "agente", sortable: true},{ name: "Cargo_Cprog_Cop_Kwh", field: "cargo_cprog_cop_kwh", sortable: true},{ name: "Createdat", field: "createdAt", sortable: true},{ name: "Updatedat", field: "updatedAt", sortable: true}
 ];
 
 useEffect(() => {
@@ -100,7 +93,56 @@ return computedComments.slice(
 );
 }, [comments, currentPage, search, sorting])
 
-
+const confirmarEliminarRegistro=(eliminarData_xm_cprogId)=>{
+  setId1(eliminarData_xm_cprogId)
+  const data_xm_cprog=data.obtenerData_xm_cprog
+  var data_xm_cprog_eliminar=data_xm_cprog.filter(data_xm_cprog => data_xm_cprog.empresa_id===data1.obtenerUsuario.empresa && data_xm_cprog.id===eliminarData_xm_cprogId)
+  const mes=data_xm_cprog_eliminar[0].mes
+  const anho=data_xm_cprog_eliminar[0].anho
+  var mesm=mes
+  var anhom=anho
+  const data_res_componentes_cu_tarifa=data2.obtenerRes_componentes_cu_tarifa
+  var data_res_componentes_cu_tarifaesp=data_res_componentes_cu_tarifa.filter(data_res_componentes_cu_tarifa => data_res_componentes_cu_tarifa.empresa_id===data1.obtenerUsuario.empresa && data_res_componentes_cu_tarifa.anho===anhom &&data_res_componentes_cu_tarifa.mes===mesm)
+  if (data_res_componentes_cu_tarifaesp.length===0){
+  Swal.fire({
+  title: '¿Deseas eliminar a este registro?',
+  text: "Esta acción no se puede deshacer",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, Eliminar',
+  cancelButtonText: 'No, Cancelar'
+  }).then( async (result) => {
+  if (result.value) {
+  try {
+  const data1 = await eliminarData_xm_cprog({
+  variables: {
+  eliminarData_xm_cprogId
+  }
+  });
+  Swal.fire(
+  'Eliminado',
+  data1.eliminar,
+  'success'
+  );
+  } catch (error) {
+  console.log(error)
+  }
+  }
+  })
+  }
+  else{
+  Swal.fire({
+  title: `Proceso no exitoso`,
+  text: `No se puede eliminar este registro por que ya fue utilizado en el calculo del CU de ${mesm}-${anhom}, contacte al administrador si desea continuar `,
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Salir'
+  })
+  }
+  }
 
 return (
 
@@ -148,6 +190,10 @@ setSorting({ field, order })
 <th scope="row" >
 {comment.id}
 </th>
+<td ><button
+className="bg-yellow-400 w-20 text-white hover:cursor-pointer hover:bg-red-900 rounded"
+onClick={()=>confirmarEliminarRegistro(comment.id)}
+>Eliminar</button></td>
 <td>{comment.creador}</td>
 <td>{comment.empresa_id}</td>
 <td>{comment.anho}</td>

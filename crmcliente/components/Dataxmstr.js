@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+
 import React, { PureComponent,useEffect, useState, useMemo } from "react"
 import useFullPageLoader from '../hooks/useFullPageLoader';
 import Paginacion from './DataTable/Paginacion';
@@ -8,49 +8,14 @@ import TableHeader from './DataTable/TableHeader';
 import 'font-awesome/css/font-awesome.min.css';
 import NuevoData_xm_str from './NuevoData_xm_str';
 import NuevoData_xm_str2 from './NuevoData_xm_str2';
-
-
-const OBTENER_DATA_XM_STR= gql`
-query obtenerData_xm_str{
-obtenerData_xm_str{
-id
-creador
-empresa_id
-anho
-mes
-total_ingreso_mensual_bruto_str_cop_norte
-energia_del_str_kwh_norte
-cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte
-cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte
-cargo_por_uso_dt4_cop_kwh_norte
-factor_para_referir_las_medidas_de_energia_del_nt_4_norte
-valor_diferencial_despues_de_compensacion_cop_kwh_norte
-total_ingreso_mensual_bruto_str_cop_sur
-energia_del_str_kwh_sur
-cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur
-cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur
-cargo_por_uso_dt4_cop_kwh_sur
-factor_para_referir_las_medidas_de_energia_del_nt_4_sur
-valor_diferencial_despues_de_compensacion_cop_kwh_sur
-
-}
-}
-`;
-
-const OBTENER_USUARIO = gql`
-query obtenerUsuario{
-obtenerUsuario {
-id
-nombre
-apellido
-empresa
-}
-}
-`;
+import { gql, useQuery, useMutation} from '@apollo/client'
+import Swal from 'sweetalert2'
+import {OBTENER_USUARIO, OBTENER_RES_COMPONENTES_CU_TARIFA,ELIMINAR_DATA_XM_STR,OBTENER_DATA_XM_STR} from "../data";
 
 const Data_xm_str= () => {
 const { data, error, loading} = useQuery(OBTENER_DATA_XM_STR);
 const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
+const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -59,11 +24,26 @@ const [search, setSearch] = useState("");
 const [sorting, setSorting] = useState({ field: "", order: "" });
 const [showLogin, setShowLogin] = useState(false);
 const [showLogin2, setShowLogin2] = useState(false);
-
+const [id1, setId1] = useState(0);
+const [ eliminarData_xm_str] = useMutation(ELIMINAR_DATA_XM_STR, {
+update(cache) {
+const { obtenerData_xm_str} = cache.readQuery({
+query:OBTENER_DATA_XM_STR
+});
+cache.writeQuery({
+query: OBTENER_DATA_XM_STR,
+data: {
+obtenerData_xm_str: obtenerData_xm_str.filter( obtenerData_xm_str=> obtenerData_xm_str.id !== id1.toString() )
+}
+})
+}
+})
 
 const ITEMS_PER_PAGE = 3;
 const headers = [
-{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Total_Ingreso_Mensual_Bruto_Str_Cop_Norte", field: "total_ingreso_mensual_bruto_str_cop_norte", sortable: true},{ name: "Energia_Del_Str_Kwh_Norte", field: "energia_del_str_kwh_norte", sortable: true},{ name: "Cargo_Nt_Antes_De_Compensacion_Cd4_Cop_Kwh_Norte", field: "cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte", sortable: true},{ name: "Cargo_Nt_Despues_De_Compensacion_Cd4_Cop_Kwh_Norte", field: "cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte", sortable: true},{ name: "Cargo_Por_Uso_Dt4_Cop_Kwh_Norte", field: "cargo_por_uso_dt4_cop_kwh_norte", sortable: true},{ name: "Factor_Para_Referir_Las_Medidas_De_Energia_Del_Nt_4_Norte", field: "factor_para_referir_las_medidas_de_energia_del_nt_4_norte", sortable: true},{ name: "Valor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Norte", field: "valor_diferencial_despues_de_compensacion_cop_kwh_norte", sortable: true},{ name: "Total_Ingreso_Mensual_Bruto_Str_Cop_Sur", field: "total_ingreso_mensual_bruto_str_cop_sur", sortable: true},{ name: "Energia_Del_Str_Kwh_Sur", field: "energia_del_str_kwh_sur", sortable: true},{ name: "Cargo_Nt_Antes_De_Compensacion_Cd4_Cop_Kwh_Sur", field: "cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur", sortable: true},{ name: "Cargo_Nt_Despues_De_Compensacion_Cd4_Cop_Kwh_Sur", field: "cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur", sortable: true},{ name: "Cargo_Por_Uso_Dt4_Cop_Kwh_Sur", field: "cargo_por_uso_dt4_cop_kwh_sur", sortable: true},{ name: "Factor_Para_Referir_Las_Medidas_De_Energia_Del_Nt_4_Sur", field: "factor_para_referir_las_medidas_de_energia_del_nt_4_sur", sortable: true},{ name: "Valor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Sur", field: "valor_diferencial_despues_de_compensacion_cop_kwh_sur", sortable: true}
+{ name: "Id", field: "id", sortable: true},
+{ name: "Eliminar", field: "eliminar", sortable: true },
+{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "Total_Ingreso_Mensual_Bruto_Str_Cop_Norte", field: "total_ingreso_mensual_bruto_str_cop_norte", sortable: true},{ name: "Energia_Del_Str_Kwh_Norte", field: "energia_del_str_kwh_norte", sortable: true},{ name: "Cargo_Nt_Antes_De_Compensacion_Cd4_Cop_Kwh_Norte", field: "cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte", sortable: true},{ name: "Cargo_Nt_Despues_De_Compensacion_Cd4_Cop_Kwh_Norte", field: "cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte", sortable: true},{ name: "Cargo_Por_Uso_Dt4_Cop_Kwh_Norte", field: "cargo_por_uso_dt4_cop_kwh_norte", sortable: true},{ name: "Factor_Para_Referir_Las_Medidas_De_Energia_Del_Nt_4_Norte", field: "factor_para_referir_las_medidas_de_energia_del_nt_4_norte", sortable: true},{ name: "Valor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Norte", field: "valor_diferencial_despues_de_compensacion_cop_kwh_norte", sortable: true},{ name: "Total_Ingreso_Mensual_Bruto_Str_Cop_Sur", field: "total_ingreso_mensual_bruto_str_cop_sur", sortable: true},{ name: "Energia_Del_Str_Kwh_Sur", field: "energia_del_str_kwh_sur", sortable: true},{ name: "Cargo_Nt_Antes_De_Compensacion_Cd4_Cop_Kwh_Sur", field: "cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur", sortable: true},{ name: "Cargo_Nt_Despues_De_Compensacion_Cd4_Cop_Kwh_Sur", field: "cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur", sortable: true},{ name: "Cargo_Por_Uso_Dt4_Cop_Kwh_Sur", field: "cargo_por_uso_dt4_cop_kwh_sur", sortable: true},{ name: "Factor_Para_Referir_Las_Medidas_De_Energia_Del_Nt_4_Sur", field: "factor_para_referir_las_medidas_de_energia_del_nt_4_sur", sortable: true},{ name: "Valor_Diferencial_Despues_De_Compensacion_Cop_Kwh_Sur", field: "valor_diferencial_despues_de_compensacion_cop_kwh_sur", sortable: true}
 ];
 
 useEffect(() => {
@@ -112,7 +92,56 @@ return computedComments.slice(
 );
 }, [comments, currentPage, search, sorting])
 
-
+const confirmarEliminarRegistro=(eliminarData_xm_strId)=>{
+  setId1(eliminarData_xm_strId)
+  const data_xm_str=data.obtenerData_xm_str
+  var data_xm_str_eliminar=data_xm_str.filter(data_xm_str => data_xm_str.empresa_id===data1.obtenerUsuario.empresa && data_xm_str.id===eliminarData_xm_strId)
+  const mes=data_xm_str_eliminar[0].mes
+  const anho=data_xm_str_eliminar[0].anho
+  var mesm=mes
+  var anhom=anho
+  const data_res_componentes_cu_tarifa=data2.obtenerRes_componentes_cu_tarifa
+  var data_res_componentes_cu_tarifaesp=data_res_componentes_cu_tarifa.filter(data_res_componentes_cu_tarifa => data_res_componentes_cu_tarifa.empresa_id===data1.obtenerUsuario.empresa && data_res_componentes_cu_tarifa.anho===anhom &&data_res_componentes_cu_tarifa.mes===mesm)
+  if (data_res_componentes_cu_tarifaesp.length===0){
+  Swal.fire({
+  title: '¿Deseas eliminar a este registro?',
+  text: "Esta acción no se puede deshacer",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, Eliminar',
+  cancelButtonText: 'No, Cancelar'
+  }).then( async (result) => {
+  if (result.value) {
+  try {
+  const data1 = await eliminarData_xm_str({
+  variables: {
+  eliminarData_xm_strId
+  }
+  });
+  Swal.fire(
+  'Eliminado',
+  data1.eliminar,
+  'success'
+  );
+  } catch (error) {
+  console.log(error)
+  }
+  }
+  })
+  }
+  else{
+  Swal.fire({
+  title: `Proceso no exitoso`,
+  text: `No se puede eliminar este registro por que ya fue utilizado en el calculo del CU de ${mesm}-${anhom}, contacte al administrador si desea continuar `,
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Salir'
+  })
+  }
+  }
 
 return (
 
@@ -160,6 +189,10 @@ setSorting({ field, order })
 <th scope="row" >
 {comment.id}
 </th>
+<td ><button
+className="bg-yellow-400 w-20 text-white hover:cursor-pointer hover:bg-red-900 rounded"
+onClick={()=>confirmarEliminarRegistro(comment.id)}
+>Eliminar</button></td>
 <td>{comment.creador}</td>
 <td>{comment.empresa_id}</td>
 <td>{comment.anho}</td>

@@ -712,11 +712,8 @@ id:id,
 return resultado
     },
 
-
-
     eliminarDataEmpresa:async (_,{id})=> {
         let data_empresa=await Data_empresa.findByPk(id)
-      
     if(!data_empresa){
         throw new Error ('Registro no existe')
     }
@@ -724,9 +721,52 @@ return resultado
         where:{
     id:id,
     }})
-    
     return "Pedido Eliminado"
-        }
+        },
+        eliminarDataxmafac:async (_,{id})=> {
+            let data=await Data_xm_afac.findByPk(id)
+            if(!data){
+            throw new Error ('Registro no existe')
+            }
+            resultado =await data.destroy({
+            where:{
+            id:id,
+            }})
+            return "Registro Eliminado"
+            },
+            eliminarDataxmstn:async (_,{id})=> {
+                let data=await Data_xm_stn.findByPk(id)
+                if(!data){
+                throw new Error ('Registro no existe')
+                }
+                resultado =await data.destroy({
+                where:{
+                id:id,
+                }})
+                return "Registro Eliminado"
+                },
+                eliminarData_xm_str:async (_,{id})=> {
+                    let data=await Data_xm_str.findByPk(id)
+                    if(!data){
+                    throw new Error ('Registro no existe')
+                    }
+                    resultado =await data.destroy({
+                    where:{
+                    id:id,
+                    }})
+                    return "Registro Eliminado"
+                    },
+                    eliminarData_xm_cprog:async (_,{id})=> {
+                        let data=await Data_xm_cprog.findByPk(id)
+                        if(!data){
+                        throw new Error ('Registro no existe')
+                        }
+                        resultado =await data.destroy({
+                        where:{
+                        id:id,
+                        }})
+                        return "Registro Eliminado"
+                        }
     }
 }
 module.exports=resolvers;

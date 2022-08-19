@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useMutation} from '@apollo/client'
 import React, { PureComponent,useEffect, useState, useMemo } from "react"
 import useFullPageLoader from '../hooks/useFullPageLoader';
 import Paginacion from './DataTable/Paginacion';
@@ -8,42 +8,14 @@ import TableHeader from './DataTable/TableHeader';
 import 'font-awesome/css/font-awesome.min.css';
 import NuevoData_xm_stn from './NuevoData_xm_stn';
 import NuevoData_xm_stn2 from './NuevoData_xm_stn2';
+import Swal from 'sweetalert2'
+import {OBTENER_USUARIO, OBTENER_RES_COMPONENTES_CU_TARIFA,ELIMINAR_DATAXMSTN,OBTENER_DATAXMSTN} from "../data";
 
-
-const OBTENER_DATAXMSTN= gql`
-query obtenerDataxmstn{
-obtenerDataxmstn{
-id
-creador
-empresa_id
-anho
-mes
-t_cop_kwh
-t_prima_cop_kwh
-Energia_sin_kwh
-Ing_Reg_Bruto_T_cop
-Ing_Compensar_T_cop
-Ing_Reg_Neto_T_cop
-delta_t_cop_kwh
-
-}
-}
-`;
-
-const OBTENER_USUARIO = gql`
-query obtenerUsuario{
-obtenerUsuario {
-id
-nombre
-apellido
-empresa
-}
-}
-`;
 
 const Dataxmstn= () => {
 const { data, error, loading} = useQuery(OBTENER_DATAXMSTN);
 const {  data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
+const { data:data2, error:error2, loading:loading2} = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFA);
 const [loader, showLoader, hideLoader] = useFullPageLoader();
 const [comments, setComments] = useState([]);
 const [totalItems, setTotalItems] = useState(0);
@@ -52,11 +24,26 @@ const [search, setSearch] = useState("");
 const [sorting, setSorting] = useState({ field: "", order: "" });
 const [showLogin, setShowLogin] = useState(false);
 const [showLogin2, setShowLogin2] = useState(false);
-
+const [id1, setId1] = useState(0);
+const [ eliminarDataxmstn] = useMutation(ELIMINAR_DATAXMSTN, {
+update(cache) {
+const { obtenerDataxmstn} = cache.readQuery({
+query:OBTENER_DATAXMSTN
+});
+cache.writeQuery({
+query: OBTENER_DATAXMSTN,
+data: {
+obtenerDataxmstn: obtenerDataxmstn.filter( obtenerDataxmstn=> obtenerobtenerDataxmstn.id !== id1.toString() )
+}
+})
+}
+})
 
 const ITEMS_PER_PAGE = 3;
 const headers = [
-{ name: "Id", field: "id", sortable: true},{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "T_Cop_Kwh", field: "t_cop_kwh", sortable: true},{ name: "T_Prima_Cop_Kwh", field: "t_prima_cop_kwh", sortable: true},{ name: "Energia_Sin_Kwh", field: "Energia_sin_kwh", sortable: true},{ name: "Ing_Reg_Bruto_T_Cop", field: "Ing_Reg_Bruto_T_cop", sortable: true},{ name: "Ing_Compensar_T_Cop", field: "Ing_Compensar_T_cop", sortable: true},{ name: "Ing_Reg_Neto_T_Cop", field: "Ing_Reg_Neto_T_cop", sortable: true},{ name: "Delta_T_Cop_Kwh", field: "delta_t_cop_kwh", sortable: true}
+{ name: "Id", field: "id", sortable: true},
+{ name: "Eliminar", field: "eliminar", sortable: true },
+{ name: "creador", field: "creador", sortable: true},{ name: "empresa_id", field: "empresa_id", sortable: true},{ name: "Anho", field: "anho", sortable: true},{ name: "Mes", field: "mes", sortable: true},{ name: "T_Cop_Kwh", field: "t_cop_kwh", sortable: true},{ name: "T_Prima_Cop_Kwh", field: "t_prima_cop_kwh", sortable: true},{ name: "Energia_Sin_Kwh", field: "Energia_sin_kwh", sortable: true},{ name: "Ing_Reg_Bruto_T_Cop", field: "Ing_Reg_Bruto_T_cop", sortable: true},{ name: "Ing_Compensar_T_Cop", field: "Ing_Compensar_T_cop", sortable: true},{ name: "Ing_Reg_Neto_T_Cop", field: "Ing_Reg_Neto_T_cop", sortable: true},{ name: "Delta_T_Cop_Kwh", field: "delta_t_cop_kwh", sortable: true}
 ];
 useEffect(() => {
 if(loading) return 'Cargando....';
@@ -101,7 +88,61 @@ return computedComments.slice(
 (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
 );
 }, [comments, currentPage, search, sorting])
-
+const confirmarEliminarRegistro=(eliminarDataxmstnId)=>{
+  setId1(eliminarDataxmstnId)
+  const data_xm_stn=data.obtenerDataxmstn
+  var data_xm_stn_eliminar=data_xm_stn.filter(data_xm_stn => data_xm_stn.empresa_id===data1.obtenerUsuario.empresa && data_xm_stn.id===eliminarDataxmstnId)
+  const mes=data_xm_stn_eliminar[0].mes
+  const anho=data_xm_stn_eliminar[0].anho
+  var mesm=mes
+  var anhom=anho
+  console.log(anho)
+  console.log(mes)
+  const data_res_componentes_cu_tarifa=data2.obtenerRes_componentes_cu_tarifa
+  var data_res_componentes_cu_tarifaesp=data_res_componentes_cu_tarifa.filter(data_res_componentes_cu_tarifa => data_res_componentes_cu_tarifa.empresa_id===data1.obtenerUsuario.empresa && data_res_componentes_cu_tarifa.anho===anhom &&data_res_componentes_cu_tarifa.mes===mesm)
+  console.log(data_res_componentes_cu_tarifaesp.length)
+  
+  if (data_res_componentes_cu_tarifaesp.length===0){
+  Swal.fire({
+  title: '¿Deseas eliminar a este registro?',
+  text: "Esta acción no se puede deshacer",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, Eliminar',
+  cancelButtonText: 'No, Cancelar'
+  }).then( async (result) => {
+  if (result.value) {
+  try {
+  const data1 = await eliminarDataxmstn({
+  variables: {
+  eliminarDataxmstnId
+  }
+  });
+  Swal.fire(
+  'Eliminado',
+  data1.eliminar,
+  'success'
+  );
+  } catch (error) {
+  console.log(error)
+  }
+  }
+  })
+  }
+  else
+  {
+  Swal.fire({
+  title: `Proceso no exitoso`,
+  text: `No se puede eliminar este registro por que ya fue utilizado en el calculo del CU de ${mesm}-${anhom}, contacte al administrador si desea continuar `,
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Salir'
+  })
+}
+  }
 
 
 return (
@@ -150,6 +191,10 @@ setSorting({ field, order })
 <th scope="row" >
 {comment.id}
 </th>
+<td ><button
+className="bg-yellow-400 w-20 text-white hover:cursor-pointer hover:bg-red-900 rounded"
+onClick={()=>confirmarEliminarRegistro(comment.id)}
+>Eliminar</button></td>
 <td>{comment.creador}</td>
 <td>{comment.empresa_id}</td>
 <td>{comment.anho}</td>

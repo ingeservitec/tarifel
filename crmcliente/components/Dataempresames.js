@@ -16,49 +16,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import NuevoDataempresa from '../components/NuevoDataempresa';
 import NuevoDataempresa2 from '../components/NuevoDataempresa2';
 import Swal from 'sweetalert2'
-
-const OBTENER_DATA_EMPRESAS = gql`
-query obtenerData_empresa {
-  obtenerData_empresa{
-    id
-    anho
-    mes
-    mercado
-    empresa_id
-    numero_usuarios_r
-    numero_usuarios_nr
-    ventas_usuarios_r_nt1_e
-    ventas_usuarios_r_nt1_c
-    ventas_usuarios_r_nt1_u
-    ventas_usuarios_r_nt2
-    ventas_usuarios_r_nt3
-    ventas_usuarios_nr_kwh
-    pui_cop_kwh
-    vsne_kwh    
-    vnu_kwh
-    vae_kwh
-    
-  }
-}
-`;
-
-
-const ELIMINAR_DATA_EMPRESAS = gql`
-mutation eliminarDataEmpresa ($eliminarDataEmpresaId: ID!) {
-    eliminarDataEmpresa(id: $eliminarDataEmpresaId)
-}
-`;
-
-const OBTENER_USUARIO = gql`
-query obtenerUsuario{
-obtenerUsuario {
-id
-nombre
-apellido
-empresa
-}
-}
-`;
+import { OBTENER_USUARIO, OBTENER_DATA_EMPRESAS,ELIMINAR_DATA_EMPRESAS } from "../data";
 
 const Dataempresa  = () => {
 

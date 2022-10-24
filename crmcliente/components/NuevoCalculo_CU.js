@@ -4175,10 +4175,10 @@ setNt1_100_Estrato_1_Men_Cs(
       setNt1_100_O(roundToTwo(cu_nt1_100_ot_));
 
       setNt1_50__Estrato_1_Men_Cs(
-        roundToTwo(cu_nt1_50_ot_ * (1 - porc_subE1_50_))
+        roundToTwo(data_Res_componentes_cu_tarifam[0].nt1_50_estrato_1_men_cs * pv)
       );
       setNt1_50__Estrato_2_Men_Cs(
-        roundToTwo(cu_nt1_50_ot_ * (1 - porc_subE2_50_))
+        roundToTwo(data_Res_componentes_cu_tarifam[0].nt1_50_estrato_2_men_cs * pv)
       );
       setNt1_50__Estrato_3_Men_Cs(roundToTwo(cu_nt1_50_ot_ * (1 - 0.15)));
       setNt1_50__Estrato_4_Men_Cs(roundToTwo(cu_nt1_50_ot_));
@@ -4193,8 +4193,8 @@ setNt1_100_Estrato_1_Men_Cs(
       setNt1_50__P(roundToTwo(cu_nt1_50_ot_ * 1));
       setNt1_50__O(roundToTwo(cu_nt1_50_ot_ * 1));
 
-      setNt1_0_Estrato_1_Men_Cs(roundToTwo(cu_nt1_0_ot_ * (1 - porc_subE1_0_)));
-      setNt1_0_Estrato_2_Men_Cs(roundToTwo(cu_nt1_0_ot_ * (1 - porc_subE2_0_)));
+      setNt1_0_Estrato_1_Men_Cs(data_Res_componentes_cu_tarifam[0].nt1_0_estrato_1_men_cs * pv);
+      setNt1_0_Estrato_2_Men_Cs(data_Res_componentes_cu_tarifam[0].nt1_0_estrato_2_men_cs * pv);
       setNt1_0_Estrato_3_Men_Cs(roundToTwo(cu_nt1_0_ot_ * (1 - 0.15)));
       setNt1_0_Estrato_4_Men_Cs(roundToTwo(cu_nt1_0_ot_ * 1));
       setNt1_0_Estrato_5_Men_Cs(roundToTwo(cu_nt1_0_ot_ * 1.2));

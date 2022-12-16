@@ -1172,6 +1172,8 @@ formato_7_sspd.push({"ID Mercado":mercado,
                 const data_xm_afac=data4.obtenerData_xm_afac
                 const data_xm_afacm=data_xm_afac.filter(data_xm_afac => data_xm_afac.anho===anhom && data_xm_afac.mes===mesm && data_xm_afac.agente===data3.obtenerUsuario.empresa)
                 var w=0
+                console.log('ACA')
+                console.log(data_xm_afac)
                 if ((data_xm_afacm[0].compras_en_contratos_kwh)/((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))>1){
                     w=((data_xm_afacm[0].demanda_real_kwh)+(data_xm_afacm[0].perdida_real_kwh))/Energia_contratos 
                 }

@@ -583,34 +583,6 @@ onHide={props.close}>
   </tbody>
 </table>
 <p>Conforme lo dispuesto en la resolución CREG 015 de 2018</p>
-<table class="table">
-<thead>
-    <tr>
-
-      <th colspan="4" class="text-center">TARIFAS PARA EL SERVICIO DE ENERGÍA ELÉCTRICA EN LAS ZONAS NO INTERCONECTADAS (SFVI>0.5 kW)</th>
-    </tr>
-  </thead>
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">G</th>
-      <th scope="col">C</th>
-      <th scope="col">CU</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">{mes_letras}-{anho}</th>
-      <td> {roundToTwo(86525*162.89/122.59)} 	</td>
-      <td> {roundToTwo(23181*117.71/104.97)} 	</td>
-      <td>{roundToTwo(86525*162.89/122.59)+roundToTwo(23181*117.71/104.97)}</td>
-
-    </tr>
-    
-    
-  </tbody>
-</table>
-<p>De acuerdo con lo definido en la resolución CREG 166 de 2020</p>
 <div>
 <img 
       src={logopie_}

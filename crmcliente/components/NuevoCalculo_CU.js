@@ -1957,6 +1957,7 @@ const NuevoCalculo_CU = (props) => {
       !loading22
     ) {
       try {
+        console.log('PORACA AA')
         data_xm_afac = data7.obtenerData_xm_afac;
         data_xm_afacm = data_xm_afac.filter(
           (data_xm_afac) =>
@@ -1991,10 +1992,10 @@ const NuevoCalculo_CU = (props) => {
         var data_xm_trsmm2 = data_xm_trsm.filter(
           (data_xm_trsm) =>
             data_xm_trsm.anho === anhom2 &&
-            data_xm_trsm.mes === mesm &&
+            data_xm_trsm.mes === mesm2 &&
             data_xm_trsm.empresa_id === data2.obtenerUsuario.empresa
         );
-
+       
         var ipcm = data_xm_trsmm.filter(
           (data_xm_trsmm) =>
             data_xm_trsmm.codigo === "IPDC" &&
@@ -2004,9 +2005,10 @@ const NuevoCalculo_CU = (props) => {
         const ipcm2 = data_xm_trsmm2.filter(
           (data_xm_trsmm2) =>
             data_xm_trsmm2.codigo === "IPDC" &&
-            data_xm_trsmm2.anho === anhom &&
-            data_xm_trsmm2.mes === mesm
+            data_xm_trsmm2.anho === anhom2 &&
+            data_xm_trsmm2.mes === mesm2
         )[0].valor;
+        
         data_xm_trsm.anho === anhom && data_xm_trsm.mes === mesm;
         const data_xm_stn = data14.obtenerDataxmstn;
         const data_xm_stnm = data_xm_stn.filter(
@@ -2015,6 +2017,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_stn.mes === mes &&
             data_xm_stn.empresa_id === data2.obtenerUsuario.empresa
         );
+        
         const data_xm_guatape = data19.obtenerData_xm_guatape;
         const data_xm_guatapem = data_xm_guatape.filter(
           (data_xm_guatape) =>
@@ -2087,6 +2090,7 @@ const NuevoCalculo_CU = (props) => {
               data_Res_componentes_cu_tarifa.empresa_id ===
                 data2.obtenerUsuario.empresa
           );
+          console.log('P1')
         const data_empresa_garantias = data23.obtenerData_empresa_garantia;
         const data_empresa_garantiasm = data_empresa_garantias.filter(
           (data_empresa_garantias) =>
@@ -2096,7 +2100,7 @@ const NuevoCalculo_CU = (props) => {
               Date.parse(new Date(anhom2, mesm2, 30)) &&
             data_empresa_garantias.empresa_id === data2.obtenerUsuario.empresa
         );
-
+        console.log('P2')
         const data_xm_dtun = data18.obtenerData_xm_dtun;
 
         const data_xm_d015 = data17.obtenerData_xm_d015;
@@ -4173,10 +4177,10 @@ const NuevoCalculo_CU = (props) => {
       setNt1_100_I_Sin_C(roundToTwo(cu_nt1_100_ot_));
       setNt1_100_P(roundToTwo(cu_nt1_100_ot_));
       setNt1_100_O(roundToTwo(cu_nt1_100_ot_));
-      setNt1_50_Estrato_1_Men_Cs(
+      setNt1_50__Estrato_1_Men_Cs(
         roundToTwo(cu_nt1_50_ot_ * (1 - porc_subE1_50_))
       );
-      setNt1_50_Estrato_2_Men_Cs(
+      setNt1_50__Estrato_2_Men_Cs(
         roundToTwo(cu_nt1_50_ot_ * (1 - porc_subE2_50_))
       );
       setNt1_50__Estrato_3_Men_Cs(roundToTwo(cu_nt1_50_ot_ * (1 - 0.15)));

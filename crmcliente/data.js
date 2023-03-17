@@ -40,6 +40,35 @@ mutation eliminarDataEmpresa ($eliminarDataEmpresaId: ID!) {
     eliminarDataEmpresa(id: $eliminarDataEmpresaId)
 }
 `;
+export const NUEVO_DATA_EMPRESA = gql`
+  mutation nuevoDataempresa($input: DataempresaInput) {
+    nuevoDataempresa(input: $input) {
+      id
+      empresa_id
+      creador
+      anho
+      mes
+      mercado
+      numero_usuarios_r
+      numero_usuarios_nr
+      ventas_usuarios_r_nt1_e
+      ventas_usuarios_r_nt1_c
+      ventas_usuarios_r_nt1_u
+      ventas_usuarios_r_nt2
+      ventas_usuarios_r_nt3
+      ventas_usuarios_nr_kwh
+      pui_cop_kwh
+      vsne_kwh
+      vnu_kwh
+      vae_kwh
+      g_exc1
+      g_exc1_21
+      g_exc2
+      g_exc3
+      ggd
+    }
+  }
+`;
 
 export const OBTENER_DATA_XM_AFAC = gql`
 query obtenerData_xm_afac {

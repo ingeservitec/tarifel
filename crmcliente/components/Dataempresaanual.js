@@ -63,7 +63,13 @@ if(loading) return 'Cargando....';
 if(loading1) return 'Cargando....';
 const data_obtenerData_empresa_anualesp_=data.obtenerData_empresa_anual
 const data_obtenerData_empresa_anual=data_obtenerData_empresa_anualesp_.filter(data_obtenerData_empresa_anualesp_ => data_obtenerData_empresa_anualesp_.empresa_id===data1.obtenerUsuario.empresa)   
-setComments(data_obtenerData_empresa_anual);
+setComments(   [...data_obtenerData_empresa_anual].sort((a, b) => {
+
+    return a.anho > b.anho ? -1 : 1;
+  })
+    
+    
+    );
 },[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;

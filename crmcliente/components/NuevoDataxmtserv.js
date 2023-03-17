@@ -196,7 +196,7 @@ const NuevoDataxmtserv =(props) => {
         </div>
         { formik.touched.anho&& formik.errors.anho? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }
@@ -209,7 +209,7 @@ value={formik.values.mes}></input></div>
         </div>
         { formik.touched.mes&& formik.errors.mes? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }
@@ -222,7 +222,7 @@ value={formik.values.creador}></input></div>
         </div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  } */}
@@ -235,7 +235,7 @@ value={formik.values.empresa_id}></input></div>
         </div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  } */}
@@ -248,7 +248,7 @@ value={formik.values.fecha}></input></div>
         </div>
         { formik.touched.fecha&& formik.errors.fecha? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -260,7 +260,7 @@ value={formik.values.agente}></input></div>
         </div>
         { formik.touched.agente&& formik.errors.agente? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.agente}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -272,7 +272,7 @@ value={formik.values.beneficiario}></input></div>
         </div>
         { formik.touched.beneficiario&& formik.errors.beneficiario? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.beneficiario}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -284,7 +284,7 @@ value={formik.values.concepto}></input></div>
         </div>
         { formik.touched.concepto&& formik.errors.concepto? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.concepto}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -296,7 +296,7 @@ value={formik.values.tipopago}></input></div>
         </div>
         { formik.touched.tipopago&& formik.errors.tipopago? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tipopago}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -308,7 +308,7 @@ value={formik.values.valor}></input></div>
         </div>
         { formik.touched.valor&& formik.errors.valor? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.valor}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -320,7 +320,7 @@ value={formik.values.magnitud}></input></div>
         </div>
         { formik.touched.magnitud&& formik.errors.magnitud? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.magnitud}</p>
         </div>
         ) : null  }

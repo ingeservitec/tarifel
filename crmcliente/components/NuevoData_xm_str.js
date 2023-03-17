@@ -434,7 +434,7 @@ onBlur={formik.handleBlur}
 value={formik.values.creador}></input></div></div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -446,7 +446,7 @@ value={formik.values.empresa_id ?
       formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -457,7 +457,7 @@ onBlur={formik.handleBlur}
 value={formik.values.anho}></input></div></div>
         { formik.touched.anho&& formik.errors.anho? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -468,7 +468,7 @@ onBlur={formik.handleBlur}
 value={formik.values.mes}></input></div></div>
         { formik.touched.mes&& formik.errors.mes? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -479,7 +479,7 @@ onBlur={formik.handleBlur}
 value={formik.values.total_ingreso_mensual_bruto_str_cop_norte}></input></div></div>
         { formik.touched.total_ingreso_mensual_bruto_str_cop_norte&& formik.errors.total_ingreso_mensual_bruto_str_cop_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.total_ingreso_mensual_bruto_str_cop_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -490,7 +490,7 @@ onBlur={formik.handleBlur}
 value={formik.values.energia_del_str_kwh_norte}></input></div></div>
         { formik.touched.energia_del_str_kwh_norte&& formik.errors.energia_del_str_kwh_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.energia_del_str_kwh_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -501,7 +501,7 @@ onBlur={formik.handleBlur}
 value={formik.values.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte}></input></div></div>
         { formik.touched.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte&& formik.errors.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -512,7 +512,7 @@ onBlur={formik.handleBlur}
 value={formik.values.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte}></input></div></div>
         { formik.touched.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte&& formik.errors.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -523,7 +523,7 @@ onBlur={formik.handleBlur}
 value={formik.values.cargo_por_uso_dt4_cop_kwh_norte}></input></div></div>
         { formik.touched.cargo_por_uso_dt4_cop_kwh_norte&& formik.errors.cargo_por_uso_dt4_cop_kwh_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cargo_por_uso_dt4_cop_kwh_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -534,7 +534,7 @@ onBlur={formik.handleBlur}
 value={formik.values.factor_para_referir_las_medidas_de_energia_del_nt_4_norte}></input></div></div>
         { formik.touched.factor_para_referir_las_medidas_de_energia_del_nt_4_norte&& formik.errors.factor_para_referir_las_medidas_de_energia_del_nt_4_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.factor_para_referir_las_medidas_de_energia_del_nt_4_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -545,7 +545,7 @@ onBlur={formik.handleBlur}
 value={formik.values.valor_diferencial_despues_de_compensacion_cop_kwh_norte}></input></div></div>
         { formik.touched.valor_diferencial_despues_de_compensacion_cop_kwh_norte&& formik.errors.valor_diferencial_despues_de_compensacion_cop_kwh_norte? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.valor_diferencial_despues_de_compensacion_cop_kwh_norte}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -556,7 +556,7 @@ onBlur={formik.handleBlur}
 value={formik.values.total_ingreso_mensual_bruto_str_cop_sur}></input></div></div>
         { formik.touched.total_ingreso_mensual_bruto_str_cop_sur&& formik.errors.total_ingreso_mensual_bruto_str_cop_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.total_ingreso_mensual_bruto_str_cop_sur}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -567,7 +567,7 @@ onBlur={formik.handleBlur}
 value={formik.values.energia_del_str_kwh_sur}></input></div></div>
         { formik.touched.energia_del_str_kwh_sur&& formik.errors.energia_del_str_kwh_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.energia_del_str_kwh_sur}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -578,7 +578,7 @@ onBlur={formik.handleBlur}
 value={formik.values.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur}></input></div></div>
         { formik.touched.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur&& formik.errors.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -589,7 +589,7 @@ onBlur={formik.handleBlur}
 value={formik.values.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur}></input></div></div>
         { formik.touched.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur&& formik.errors.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -600,7 +600,7 @@ onBlur={formik.handleBlur}
 value={formik.values.cargo_por_uso_dt4_cop_kwh_sur}></input></div></div>
         { formik.touched.cargo_por_uso_dt4_cop_kwh_sur&& formik.errors.cargo_por_uso_dt4_cop_kwh_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cargo_por_uso_dt4_cop_kwh_sur}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -611,7 +611,7 @@ onBlur={formik.handleBlur}
 value={formik.values.factor_para_referir_las_medidas_de_energia_del_nt_4_sur}></input></div></div>
         { formik.touched.factor_para_referir_las_medidas_de_energia_del_nt_4_sur&& formik.errors.factor_para_referir_las_medidas_de_energia_del_nt_4_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.factor_para_referir_las_medidas_de_energia_del_nt_4_sur}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -622,7 +622,7 @@ onBlur={formik.handleBlur}
 value={formik.values.valor_diferencial_despues_de_compensacion_cop_kwh_sur}></input></div></div>
         { formik.touched.valor_diferencial_despues_de_compensacion_cop_kwh_sur&& formik.errors.valor_diferencial_despues_de_compensacion_cop_kwh_sur? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.valor_diferencial_despues_de_compensacion_cop_kwh_sur}</p>
         </div>
         ) : null  }

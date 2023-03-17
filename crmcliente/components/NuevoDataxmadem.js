@@ -279,7 +279,7 @@ value={formik.values.creador}></input></div>
         </div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  } */}
@@ -295,7 +295,7 @@ value={formik.values.creador}></input></div>
     </div>
     { formik.touched.empresa_id&& formik.errors.empresa_id? (
     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-    <p className="font-bold">Error</p>
+    
     <p>{formik.errors.empresa_id}</p>
     </div>
     ) : null  }
@@ -308,7 +308,7 @@ value={formik.values.anho}></input></div>
         </div>
         { formik.touched.anho&& formik.errors.anho? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -320,7 +320,7 @@ value={formik.values.mes}></input></div>
         </div>
         { formik.touched.mes&& formik.errors.mes? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -332,7 +332,7 @@ value={formik.values.dia}></input></div>
         </div>
         { formik.touched.dia&& formik.errors.dia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.dia}</p>
         </div>
         ) : null  }
@@ -346,7 +346,7 @@ value={formik.values.cod_contenido}></input></div>
         </div>
         { formik.touched.cod_contenido&& formik.errors.cod_contenido? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cod_contenido}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -358,7 +358,7 @@ value={formik.values.agente}></input></div>
         </div>
         { formik.touched.agente&& formik.errors.agente? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.agente}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -370,7 +370,7 @@ value={formik.values.contenido}></input></div>
         </div>
         { formik.touched.contenido&& formik.errors.contenido? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.contenido}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -382,7 +382,7 @@ value={formik.values.cont_hora_1}></input></div>
         </div>
         { formik.touched.cont_hora_1&& formik.errors.cont_hora_1? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_1}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -394,7 +394,7 @@ value={formik.values.cont_hora_2}></input></div>
         </div>
         { formik.touched.cont_hora_2&& formik.errors.cont_hora_2? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_2}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -406,7 +406,7 @@ value={formik.values.cont_hora_3}></input></div>
         </div>
         { formik.touched.cont_hora_3&& formik.errors.cont_hora_3? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_3}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -418,7 +418,7 @@ value={formik.values.cont_hora_4}></input></div>
         </div>
         { formik.touched.cont_hora_4&& formik.errors.cont_hora_4? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_4}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -430,7 +430,7 @@ value={formik.values.cont_hora_5}></input></div>
         </div>
         { formik.touched.cont_hora_5&& formik.errors.cont_hora_5? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_5}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -442,7 +442,7 @@ value={formik.values.cont_hora_6}></input></div>
         </div>
         { formik.touched.cont_hora_6&& formik.errors.cont_hora_6? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_6}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -454,7 +454,7 @@ value={formik.values.cont_hora_7}></input></div>
         </div>
         { formik.touched.cont_hora_7&& formik.errors.cont_hora_7? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_7}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -466,7 +466,7 @@ value={formik.values.cont_hora_8}></input></div>
         </div>
         { formik.touched.cont_hora_8&& formik.errors.cont_hora_8? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_8}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -478,7 +478,7 @@ value={formik.values.cont_hora_9}></input></div>
         </div>
         { formik.touched.cont_hora_9&& formik.errors.cont_hora_9? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_9}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -490,7 +490,7 @@ value={formik.values.cont_hora_10}></input></div>
         </div>
         { formik.touched.cont_hora_10&& formik.errors.cont_hora_10? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_10}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -502,7 +502,7 @@ value={formik.values.cont_hora_11}></input></div>
         </div>
         { formik.touched.cont_hora_11&& formik.errors.cont_hora_11? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_11}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -514,7 +514,7 @@ value={formik.values.cont_hora_12}></input></div>
         </div>
         { formik.touched.cont_hora_12&& formik.errors.cont_hora_12? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_12}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -526,7 +526,7 @@ value={formik.values.cont_hora_13}></input></div>
         </div>
         { formik.touched.cont_hora_13&& formik.errors.cont_hora_13? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_13}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -538,7 +538,7 @@ value={formik.values.cont_hora_14}></input></div>
         </div>
         { formik.touched.cont_hora_14&& formik.errors.cont_hora_14? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_14}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -550,7 +550,7 @@ value={formik.values.cont_hora_15}></input></div>
         </div>
         { formik.touched.cont_hora_15&& formik.errors.cont_hora_15? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_15}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -562,7 +562,7 @@ value={formik.values.cont_hora_16}></input></div>
         </div>
         { formik.touched.cont_hora_16&& formik.errors.cont_hora_16? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_16}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -574,7 +574,7 @@ value={formik.values.cont_hora_17}></input></div>
         </div>
         { formik.touched.cont_hora_17&& formik.errors.cont_hora_17? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_17}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -586,7 +586,7 @@ value={formik.values.cont_hora_18}></input></div>
         </div>
         { formik.touched.cont_hora_18&& formik.errors.cont_hora_18? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_18}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -598,7 +598,7 @@ value={formik.values.cont_hora_19}></input></div>
         </div>
         { formik.touched.cont_hora_19&& formik.errors.cont_hora_19? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_19}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -610,7 +610,7 @@ value={formik.values.cont_hora_20}></input></div>
         </div>
         { formik.touched.cont_hora_20&& formik.errors.cont_hora_20? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_20}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -622,7 +622,7 @@ value={formik.values.cont_hora_21}></input></div>
         </div>
         { formik.touched.cont_hora_21&& formik.errors.cont_hora_21? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_21}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -634,7 +634,7 @@ value={formik.values.cont_hora_22}></input></div>
         </div>
         { formik.touched.cont_hora_22&& formik.errors.cont_hora_22? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_22}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -646,7 +646,7 @@ value={formik.values.cont_hora_23}></input></div>
         </div>
         { formik.touched.cont_hora_23&& formik.errors.cont_hora_23? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_23}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -658,7 +658,7 @@ value={formik.values.cont_hora_24}></input></div>
         </div>
         { formik.touched.cont_hora_24&& formik.errors.cont_hora_24? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.cont_hora_24}</p>
         </div>
         ) : null  }

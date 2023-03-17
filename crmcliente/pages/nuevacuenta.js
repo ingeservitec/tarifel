@@ -132,7 +132,7 @@ const NuevaCuenta = () => {
 
                             { formik.touched.nombre && formik.errors.nombre ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-                                    <p className="font-bold">Error</p>
+                                    
                                     <p>{formik.errors.nombre}</p>
                                 </div>
                             ) : null  }
@@ -154,7 +154,7 @@ const NuevaCuenta = () => {
 
                             { formik.touched.apellido && formik.errors.apellido ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-                                    <p className="font-bold">Error</p>
+                                    
                                     <p>{formik.errors.apellido}</p>
                                 </div>
                             ) : null  }
@@ -176,7 +176,7 @@ const NuevaCuenta = () => {
 
                             { formik.touched.email && formik.errors.email ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-                                    <p className="font-bold">Error</p>
+                                    
                                     <p>{formik.errors.email}</p>
                                 </div>
                             ) : null  }
@@ -198,7 +198,7 @@ const NuevaCuenta = () => {
 
                             { formik.touched.password && formik.errors.password ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-                                    <p className="font-bold">Error</p>
+                                    
                                     <p>{formik.errors.password}</p>
                                 </div>
                             ) : null  }
@@ -229,7 +229,7 @@ const NuevaCuenta = () => {
                             </div>
                             { formik.touched.empresa && formik.errors.empresa ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-                                    <p className="font-bold">Error</p>
+                                    
                                     <p>{formik.errors.empresa}</p>
                                 </div>
                             ) : null  } */}

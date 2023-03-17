@@ -62,7 +62,14 @@ if(loading) return 'Cargando....';
 if(loading1) return 'Cargando....';
 const data_obtenerData_mme_validacionesp_=data.obtenerData_mme_validacion
 const data_obtenerData_mme_validacionesp=data_obtenerData_mme_validacionesp_.filter(data_obtenerData_mme_validacionesp_ => data_obtenerData_mme_validacionesp_.empresa_id===data1.obtenerUsuario.empresa)   
-setComments(data_obtenerData_mme_validacionesp);
+setComments(  [...data_obtenerData_mme_validacionesp].sort((a, b) => {
+    if (a.anho === b.anho) {
+      return a.trimestre > b.trimestre ? -1 : 1;
+    }
+    return a.anho > b.anho ? -1 : 1;
+  }));
+
+
 },[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;

@@ -214,7 +214,7 @@ const [nuevoDataxmtrsm]=useMutation(NUEVO_DATA_XMTRSM, {
     </div>
     { formik.touched.empresa_id&& formik.errors.empresa_id? (
     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-    <p className="font-bold">Error</p>
+    
     <p>{formik.errors.empresa_id}</p>
     </div>
     ) : null  }
@@ -227,7 +227,7 @@ value={formik.values.anho}></input></div>
         </div>
         { formik.touched.anho&& formik.errors.anho? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.anho}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -239,7 +239,7 @@ value={formik.values.mes}></input></div>
         </div>
         { formik.touched.mes&& formik.errors.mes? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.mes}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -251,7 +251,7 @@ value={formik.values.fecha}></input></div>
         </div>
         { formik.touched.fecha&& formik.errors.fecha? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -263,7 +263,7 @@ value={formik.values.codigo}></input></div>
         </div>
         { formik.touched.codigo&& formik.errors.codigo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.codigo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -275,7 +275,7 @@ value={formik.values.descripcion}></input></div>
         </div>
         { formik.touched.descripcion&& formik.errors.descripcion? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.descripcion}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -287,7 +287,7 @@ value={formik.values.valor}></input></div>
         </div>
         { formik.touched.valor&& formik.errors.valor? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.valor}</p>
         </div>
         ) : null  }

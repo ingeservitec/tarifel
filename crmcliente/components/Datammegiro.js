@@ -60,7 +60,12 @@ if(loading) return 'Cargando....';
 if(loading1) return 'Cargando....';
 const data_obtenerData_mme_giroesp_=data.obtenerData_mme_giro
 const data_obtenerData_mme_giroesp=data_obtenerData_mme_giroesp_.filter(data_obtenerData_mme_giroesp_ => data_obtenerData_mme_giroesp_.empresa_id===data1.obtenerUsuario.empresa)   
-setComments(data_obtenerData_mme_giroesp);
+setComments(   [...data_obtenerData_mme_giroesp].sort((a, b) => {
+   
+    return a.fecha > b.fecha ? -1 : 1;
+  }));
+
+
 },[loading,showLogin,showLogin2]);
 const commentsData = useMemo(() => {
 let computedComments = comments;

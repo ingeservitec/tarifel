@@ -214,7 +214,7 @@ onBlur={formik.handleBlur}
 value={formik.values.creador}></input></div></div>
 { formik.touched.creador&& formik.errors.creador? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.creador}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -226,7 +226,7 @@ value={formik.values.empresa_id ?
 formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
 { formik.touched.empresa_id&& formik.errors.empresa_id? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.empresa_id}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -237,7 +237,7 @@ onBlur={formik.handleBlur}
 value={formik.values.fecha}></input></div></div>
 { formik.touched.fecha&& formik.errors.fecha? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.fecha}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -248,7 +248,7 @@ onBlur={formik.handleBlur}
 value={formik.values.trimestre}></input></div></div>
 { formik.touched.trimestre&& formik.errors.trimestre? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.trimestre}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -259,7 +259,7 @@ onBlur={formik.handleBlur}
 value={formik.values.anho}></input></div></div>
 { formik.touched.anho&& formik.errors.anho? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.anho}</p>
 </div>
 ) : null  }
@@ -271,7 +271,7 @@ onBlur={formik.handleBlur}
 value={formik.values.facturacion}></input></div></div>
 { formik.touched.facturacion&& formik.errors.facturacion? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.facturacion}</p>
 </div>
 ) : null  }
@@ -284,7 +284,7 @@ onBlur={formik.handleBlur}
 value={formik.values.subsidios}></input></div></div>
 { formik.touched.subsidios&& formik.errors.subsidios? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.subsidios}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -295,7 +295,7 @@ onBlur={formik.handleBlur}
 value={formik.values.contribuciones}></input></div></div>
 { formik.touched.contribuciones&& formik.errors.contribuciones? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.contribuciones}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -306,7 +306,7 @@ onBlur={formik.handleBlur}
 value={formik.values.contrib_no_recaud_desp_6m}></input></div></div>
 { formik.touched.contrib_no_recaud_desp_6m&& formik.errors.contrib_no_recaud_desp_6m? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.contrib_no_recaud_desp_6m}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -317,7 +317,7 @@ onBlur={formik.handleBlur}
 value={formik.values.contrib_recaud_desp_de_conc}></input></div></div>
 { formik.touched.contrib_recaud_desp_de_conc&& formik.errors.contrib_recaud_desp_de_conc? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.contrib_recaud_desp_de_conc}</p>
 </div>
 ) : null  }<div className="form-group row">
@@ -328,7 +328,7 @@ onBlur={formik.handleBlur}
 value={formik.values.giros_recibidos}></input></div></div>
 { formik.touched.giros_recibidos&& formik.errors.giros_recibidos? (
 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-<p className="font-bold">Error</p>
+
 <p>{formik.errors.giros_recibidos}</p>
 </div>
 ) : null  }

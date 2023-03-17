@@ -233,7 +233,7 @@ onBlur={formik.handleBlur}
 value={formik.values.creador}></input></div></div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -244,7 +244,7 @@ onBlur={formik.handleBlur}
 value={formik.values.anho_semana}></input></div></div>
         { formik.touched.anho_semana&& formik.errors.anho_semana? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.anho_semana}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -255,7 +255,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_cred_com_credito_consumo}></input></div></div>
         { formik.touched.tasa_cred_com_credito_consumo&& formik.errors.tasa_cred_com_credito_consumo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_cred_com_credito_consumo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -266,7 +266,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_cred_com_credito_consumo}></input></div></div>
         { formik.touched.monto_cred_com_credito_consumo&& formik.errors.monto_cred_com_credito_consumo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_cred_com_credito_consumo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -277,7 +277,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_cred_com_odinario}></input></div></div>
         { formik.touched.tasa_cred_com_odinario&& formik.errors.tasa_cred_com_odinario? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_cred_com_odinario}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -288,7 +288,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_cred_com_odinario}></input></div></div>
         { formik.touched.monto_cred_com_odinario&& formik.errors.monto_cred_com_odinario? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_cred_com_odinario}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -299,7 +299,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa__cred_com_preferencial_o_corporativo}></input></div></div>
         { formik.touched.tasa__cred_com_preferencial_o_corporativo&& formik.errors.tasa__cred_com_preferencial_o_corporativo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa__cred_com_preferencial_o_corporativo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -310,7 +310,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto__cred_com_preferencial_o_corporativo}></input></div></div>
         { formik.touched.monto__cred_com_preferencial_o_corporativo&& formik.errors.monto__cred_com_preferencial_o_corporativo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto__cred_com_preferencial_o_corporativo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -321,7 +321,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa__cred_com_tesoreria}></input></div></div>
         { formik.touched.tasa__cred_com_tesoreria&& formik.errors.tasa__cred_com_tesoreria? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa__cred_com_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -332,7 +332,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto__cred_com_tesoreria}></input></div></div>
         { formik.touched.monto__cred_com_tesoreria&& formik.errors.monto__cred_com_tesoreria? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto__cred_com_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -343,7 +343,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_colocacion_banco_republica}></input></div></div>
         { formik.touched.tasa_colocacion_banco_republica&& formik.errors.tasa_colocacion_banco_republica? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_colocacion_banco_republica}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -354,7 +354,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_colocacion_banco_republica}></input></div></div>
         { formik.touched.monto_colocacion_banco_republica&& formik.errors.monto_colocacion_banco_republica? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_colocacion_banco_republica}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -365,7 +365,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_colocacion_sin_tesoreria}></input></div></div>
         { formik.touched.tasa_colocacion_sin_tesoreria&& formik.errors.tasa_colocacion_sin_tesoreria? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_colocacion_sin_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -376,7 +376,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_colocacion_sin_tesoreria}></input></div></div>
         { formik.touched.monto_colocacion_sin_tesoreria&& formik.errors.monto_colocacion_sin_tesoreria? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_colocacion_sin_tesoreria}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -387,7 +387,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_colocacion_total}></input></div></div>
         { formik.touched.tasa_colocacion_total&& formik.errors.tasa_colocacion_total? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_colocacion_total}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -398,7 +398,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_colocacion_total}></input></div></div>
         { formik.touched.monto_colocacion_total&& formik.errors.monto_colocacion_total? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_colocacion_total}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -410,7 +410,7 @@ value={formik.values.empresa_id ?
       formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }

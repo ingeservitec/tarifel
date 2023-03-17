@@ -547,7 +547,7 @@ const [nuevoDataxmafac]=useMutation(NUEVO_DATA_XMAFAC, {
     </div>
     { formik.touched.empresa_id&& formik.errors.empresa_id? (
     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-    <p className="font-bold">Error</p>
+    
     <p>{formik.errors.empresa_id}</p>
     </div>
     ) : null  }

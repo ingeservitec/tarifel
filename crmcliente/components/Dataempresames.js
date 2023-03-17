@@ -16,7 +16,11 @@ import 'font-awesome/css/font-awesome.min.css';
 import NuevoDataempresa from '../components/NuevoDataempresa';
 import NuevoDataempresa2 from '../components/NuevoDataempresa2';
 import Swal from 'sweetalert2'
-import { OBTENER_USUARIO, OBTENER_DATA_EMPRESAS,ELIMINAR_DATA_EMPRESAS } from "../data";
+import {
+    OBTENER_USUARIO,
+    OBTENER_DATA_EMPRESAS,
+    ELIMINAR_DATA_EMPRESAS,
+  } from "../data";
 
 const Dataempresa  = () => {
 
@@ -24,21 +28,22 @@ const Dataempresa  = () => {
    const { data:data1, error:error1, loading:loading1} = useQuery(OBTENER_USUARIO);
    const [id1, setId1] = useState(0);
   
-   const [ eliminarDataEmpresa] = useMutation(ELIMINAR_DATA_EMPRESAS, {
+   const [eliminarDataEmpresa] = useMutation(ELIMINAR_DATA_EMPRESAS, {
     update(cache) {
-        const { obtenerData_empresa} = cache.readQuery({
-            query: OBTENER_DATA_EMPRESAS
-        });
+      const { obtenerData_empresa } = cache.readQuery({
+        query: OBTENER_DATA_EMPRESAS,
+      });
 
-
-        cache.writeQuery({
-            query: OBTENER_DATA_EMPRESAS,
-            data: {
-                obtenerData_empresa: obtenerData_empresa.filter( obtenerData_empresa => obtenerData_empresa.id !== id1.toString() )
-            }
-        })
-    }
-})
+      cache.writeQuery({
+        query: OBTENER_DATA_EMPRESAS,
+        data: {
+          obtenerData_empresa: obtenerData_empresa.filter(
+            (obtenerData_empresa) => obtenerData_empresa.id !== id1.toString()
+          ),
+        },
+      });
+    },
+  });
 
 
 
@@ -89,7 +94,14 @@ const Dataempresa  = () => {
 
         const data_obtenerData_empresa_=data.obtenerData_empresa
 const data_obtenerData_empresa_esp=data_obtenerData_empresa_.filter(data_obtenerData_empresa_ => data_obtenerData_empresa_.empresa_id===data1.obtenerUsuario.empresa)   
-setComments(data_obtenerData_empresa_esp);
+
+
+setComments( [...data_obtenerData_empresa_esp].sort((a, b) => {
+    if (a.anho === b.anho) {
+      return a.mes > b.mes ? -1 : 1;
+    }
+    return a.anho > b.anho ? -1 : 1;
+  }));
 
         setId1(data1.obtenerUsuario.empresa)
 },[loading,showLogin,showLogin2]); 

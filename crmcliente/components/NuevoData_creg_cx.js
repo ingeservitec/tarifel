@@ -186,7 +186,7 @@ value={formik.values.fecha}></input></div>
         </div>
         { formik.touched.fecha&& formik.errors.fecha? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -198,7 +198,7 @@ value={formik.values.creador}></input></div>
         </div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -210,7 +210,7 @@ value={formik.values.empresa_id}></input></div>
         </div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -222,7 +222,7 @@ value={formik.values.resolucion}></input></div>
         </div>
         { formik.touched.resolucion&& formik.errors.resolucion? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.resolucion}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -234,7 +234,7 @@ value={formik.values.mo}></input></div>
         </div>
         { formik.touched.mo&& formik.errors.mo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.mo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -246,7 +246,7 @@ value={formik.values.RCT}></input></div>
         </div>
         { formik.touched.RCT&& formik.errors.RCT? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.RCT}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -258,7 +258,7 @@ value={formik.values.RCAE}></input></div>
         </div>
         { formik.touched.RCAE&& formik.errors.RCAE? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.RCAE}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -270,7 +270,7 @@ value={formik.values.RCSNE}></input></div>
         </div>
         { formik.touched.RCSNE&& formik.errors.RCSNE? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.RCSNE}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -282,7 +282,7 @@ value={formik.values.RCNU}></input></div>
         </div>
         { formik.touched.RCNU&& formik.errors.RCNU? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.RCNU}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -294,7 +294,7 @@ value={formik.values.Cf}></input></div>
         </div>
         { formik.touched.Cf&& formik.errors.Cf? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.Cf}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -306,7 +306,7 @@ value={formik.values.PUI}></input></div>
         </div>
         { formik.touched.PUI&& formik.errors.PUI? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.PUI}</p>
         </div>
         ) : null  }

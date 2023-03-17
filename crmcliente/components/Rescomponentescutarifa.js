@@ -855,7 +855,7 @@ const data_Res_componentes_cu_tarifam1=data_Res_componentes_cu_tarifa.filter(dat
                             } 
                          
 
-                            if (index<3) {
+                            if (index<4) {
                                 formato_3_sspd.push({"ID Mercado":mercado,
                                 "Cargo Horario":4,
                                 "Inicio franja horaria":"0:00",
@@ -876,7 +876,7 @@ const data_Res_componentes_cu_tarifam1=data_Res_componentes_cu_tarifa.filter(dat
                                 "Tarifa OT":opcionTarifaria                              
                                 })
                             }
-                            if (index>2) {
+                            if (index>3) {
                                 formato_3_sspd.push({"ID Mercado":mercado,
                                 "Cargo Horario":4,
                                 "Inicio franja horaria":"0:00",

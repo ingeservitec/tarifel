@@ -225,7 +225,7 @@ onBlur={formik.handleBlur}
 value={formik.values.creador}></input></div></div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -237,7 +237,7 @@ value={formik.values.empresa_id ?
       formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -262,7 +262,7 @@ value={formik.values.tipo_garantia}>
       </select></div></div>
         { formik.touched.tipo_garantia&& formik.errors.tipo_garantia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tipo_garantia}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -273,7 +273,7 @@ onBlur={formik.handleBlur}
 value={formik.values.nit_beneficiario}></input></div></div>
         { formik.touched.nit_beneficiario&& formik.errors.nit_beneficiario? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.nit_beneficiario}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -284,7 +284,7 @@ onBlur={formik.handleBlur}
 value={formik.values.dv_beneficiario}></input></div></div>
         { formik.touched.dv_beneficiario&& formik.errors.dv_beneficiario? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.dv_beneficiario}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -295,7 +295,7 @@ onBlur={formik.handleBlur}
 value={formik.values.emisor_banco}></input></div></div>
         { formik.touched.emisor_banco&& formik.errors.emisor_banco? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.emisor_banco}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -306,7 +306,7 @@ onBlur={formik.handleBlur}
 value={formik.values.numero_garantia}></input></div></div>
         { formik.touched.numero_garantia&& formik.errors.numero_garantia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.numero_garantia}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -317,7 +317,7 @@ onBlur={formik.handleBlur}
 value={formik.values.fecha_inicio_vigencia}></input></div></div>
         { formik.touched.fecha_inicio_vigencia&& formik.errors.fecha_inicio_vigencia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha_inicio_vigencia}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -328,7 +328,7 @@ onBlur={formik.handleBlur}
 value={formik.values.fecha_fin_vigencia}></input></div></div>
         { formik.touched.fecha_fin_vigencia&& formik.errors.fecha_fin_vigencia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha_fin_vigencia}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -339,7 +339,7 @@ onBlur={formik.handleBlur}
 value={formik.values.valor_garantia}></input></div></div>
         { formik.touched.valor_garantia&& formik.errors.valor_garantia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.valor_garantia}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -350,7 +350,7 @@ onBlur={formik.handleBlur}
 value={formik.values.costo_garantia}></input></div></div>
         { formik.touched.costo_garantia&& formik.errors.costo_garantia? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.costo_garantia}</p>
         </div>
         ) : null  }

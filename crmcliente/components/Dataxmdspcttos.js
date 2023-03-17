@@ -187,16 +187,14 @@ else{
             
 }
     
-    //data[0] = { "ID": "1", "Status": "Valid" };
-    // tri_validados.push([
-    // if(data.obtenerData_xm_dspctto[index].anho)
-    // {
-
-    // }
-   
 }
-console.log(consolidado_dspcttos)
-setComments(consolidado_dspcttos);
+
+setComments(   [...consolidado_dspcttos].sort((a, b) => {
+    if (a.anho === b.anho) {
+      return a.mes > b.mes ? -1 : 1;
+    }
+    return a.anho > b.anho ? -1 : 1;
+  }));
      },[loading, loading1]);
 
 

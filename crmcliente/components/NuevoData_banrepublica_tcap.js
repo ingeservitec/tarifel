@@ -331,7 +331,7 @@ onBlur={formik.handleBlur}
 value={formik.values.creador}></input></div></div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -342,7 +342,7 @@ onBlur={formik.handleBlur}
 value={formik.values.fecha}></input></div></div>
         { formik.touched.fecha&& formik.errors.fecha? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -354,7 +354,7 @@ value={formik.values.empresa_id ?
       formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }
@@ -368,7 +368,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_30_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_30_cdt_bancos_comerciales&& formik.errors.tasa_a_30_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_30_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }
@@ -382,7 +382,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_30_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_30_cdt_bancos_comerciales&& formik.errors.monto_a_30_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_30_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -393,7 +393,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_31_y_44_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_31_y_44_cdt_bancos_comerciales&& formik.errors.tasa_entre_31_y_44_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_31_y_44_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -404,7 +404,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_31_y_44_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_31_y_44_cdt_bancos_comerciales&& formik.errors.monto_entre_31_y_44_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_31_y_44_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -415,7 +415,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_45_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_45_cdt_bancos_comerciales&& formik.errors.tasa_a_45_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_45_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -426,7 +426,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_45_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_45_cdt_bancos_comerciales&& formik.errors.monto_a_45_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_45_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -437,7 +437,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_46_y_59_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_46_y_59_cdt_bancos_comerciales&& formik.errors.tasa_entre_46_y_59_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_46_y_59_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -448,7 +448,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_46_y_59_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_46_y_59_cdt_bancos_comerciales&& formik.errors.monto_entre_46_y_59_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_46_y_59_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -459,7 +459,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_60_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_60_cdt_bancos_comerciales&& formik.errors.tasa_a_60_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_60_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -470,7 +470,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_60_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_60_cdt_bancos_comerciales&& formik.errors.monto_a_60_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_60_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -481,7 +481,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_61_y_89_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_61_y_89_cdt_bancos_comerciales&& formik.errors.tasa_entre_61_y_89_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_61_y_89_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -492,7 +492,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_61_y_89_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_61_y_89_cdt_bancos_comerciales&& formik.errors.monto_entre_61_y_89_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_61_y_89_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -503,7 +503,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_90_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_90_cdt_bancos_comerciales&& formik.errors.tasa_a_90_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_90_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -514,7 +514,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_90_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_90_cdt_bancos_comerciales&& formik.errors.monto_a_90_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_90_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -525,7 +525,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_91_y_119_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_91_y_119_cdt_bancos_comerciales&& formik.errors.tasa_entre_91_y_119_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_91_y_119_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -536,7 +536,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_91_y_119_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_91_y_119_cdt_bancos_comerciales&& formik.errors.monto_entre_91_y_119_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_91_y_119_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -547,7 +547,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_120_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_120_cdt_bancos_comerciales&& formik.errors.tasa_a_120_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_120_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -558,7 +558,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_120_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_120_cdt_bancos_comerciales&& formik.errors.monto_a_120_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_120_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -569,7 +569,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_121_y_179_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_121_y_179_cdt_bancos_comerciales&& formik.errors.tasa_entre_121_y_179_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_121_y_179_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -580,7 +580,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_121_y_179_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_121_y_179_cdt_bancos_comerciales&& formik.errors.monto_entre_121_y_179_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_121_y_179_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -591,7 +591,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_180_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_180_cdt_bancos_comerciales&& formik.errors.tasa_a_180_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_180_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -602,7 +602,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_180_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_180_cdt_bancos_comerciales&& formik.errors.monto_a_180_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_180_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -613,7 +613,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_181_y_359_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_181_y_359_cdt_bancos_comerciales&& formik.errors.tasa_entre_181_y_359_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_181_y_359_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -624,7 +624,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_181_y_359_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_181_y_359_cdt_bancos_comerciales&& formik.errors.monto_entre_181_y_359_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_181_y_359_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -635,7 +635,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_360_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_360_cdt_bancos_comerciales&& formik.errors.tasa_a_360_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -646,7 +646,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_360_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_360_cdt_bancos_comerciales&& formik.errors.monto_a_360_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -657,7 +657,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_superiores_a_360_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_superiores_a_360_cdt_bancos_comerciales&& formik.errors.tasa_superiores_a_360_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_superiores_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -668,7 +668,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_superiores_a_360_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_superiores_a_360_cdt_bancos_comerciales&& formik.errors.monto_superiores_a_360_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_superiores_a_360_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -679,7 +679,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales&& formik.errors.tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -690,7 +690,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales&& formik.errors.monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -701,7 +701,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales&& formik.errors.tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -712,7 +712,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales}></input></div></div>
         { formik.touched.monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales&& formik.errors.monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -723,7 +723,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_2_y_14_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_2_y_14_cdats_cdat_bancos_comerciales&& formik.errors.tasa_entre_2_y_14_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_2_y_14_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -734,7 +734,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_2_y_14_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_2_y_14_cdats_cdat_bancos_comerciales&& formik.errors.monto_entre_2_y_14_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_2_y_14_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -745,7 +745,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_15_y_29_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_15_y_29_cdats_cdat_bancos_comerciales&& formik.errors.tasa_entre_15_y_29_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_15_y_29_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -756,7 +756,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_15_y_29_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_15_y_29_cdat_bancos_comerciales&& formik.errors.monto_entre_15_y_29_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_15_y_29_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -767,7 +767,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_a_30_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_a_30_cdats_cdat_bancos_comerciales&& formik.errors.tasa_a_30_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_a_30_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -778,7 +778,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_a_30_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_a_30_cdat_bancos_comerciales&& formik.errors.monto_a_30_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_a_30_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -789,7 +789,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_31_y_90_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_31_y_90_cdats_cdat_bancos_comerciales&& formik.errors.tasa_entre_31_y_90_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_31_y_90_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -800,7 +800,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_31_y_90_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_31_y_90_cdat_bancos_comerciales&& formik.errors.monto_entre_31_y_90_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_31_y_90_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -811,7 +811,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_entre_91_y_180_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_entre_91_y_180_cdats_cdat_bancos_comerciales&& formik.errors.tasa_entre_91_y_180_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_entre_91_y_180_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -822,7 +822,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_entre_91_y_180_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_entre_91_y_180_cdat_bancos_comerciales&& formik.errors.monto_entre_91_y_180_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_entre_91_y_180_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -833,7 +833,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales&& formik.errors.tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -844,7 +844,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_de_181_en_adelante_cdats_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_de_181_en_adelante_cdats_cdat_bancos_comerciales&& formik.errors.monto_de_181_en_adelante_cdats_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_de_181_en_adelante_cdats_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -855,7 +855,7 @@ onBlur={formik.handleBlur}
 value={formik.values.tasa_cap_cdat_oficinas_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.tasa_cap_cdat_oficinas_cdat_bancos_comerciales&& formik.errors.tasa_cap_cdat_oficinas_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.tasa_cap_cdat_oficinas_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -866,7 +866,7 @@ onBlur={formik.handleBlur}
 value={formik.values.monto_cap_cdat_oficinas_cdat_bancos_comerciales}></input></div></div>
         { formik.touched.monto_cap_cdat_oficinas_cdat_bancos_comerciales&& formik.errors.monto_cap_cdat_oficinas_cdat_bancos_comerciales? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.monto_cap_cdat_oficinas_cdat_bancos_comerciales}</p>
         </div>
         ) : null  }

@@ -204,7 +204,7 @@ onBlur={formik.handleBlur}
 value={formik.values.creador}></input></div></div>
         { formik.touched.creador&& formik.errors.creador? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.creador}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -216,7 +216,7 @@ value={formik.values.empresa_id ?
       formik.values.empresa_id.charAt(0).toUpperCase() + formik.values.empresa_id.slice(1):''}readOnly></input></div></div>
         { formik.touched.empresa_id&& formik.errors.empresa_id? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.empresa_id}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -227,7 +227,7 @@ onBlur={formik.handleBlur}
 value={formik.values.fecha}></input></div></div>
         { formik.touched.fecha&& formik.errors.fecha? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fecha}</p>
         </div>
         ) : null  }
@@ -249,7 +249,7 @@ value={formik.values.fecha}></input></div></div>
       </select></div></div>
         { formik.touched.fondo&& formik.errors.fondo? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.fondo}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -260,7 +260,7 @@ onBlur={formik.handleBlur}
 value={formik.values.resolucion}></input></div></div>
         { formik.touched.resolucion&& formik.errors.resolucion? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.resolucion}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -271,7 +271,7 @@ onBlur={formik.handleBlur}
 value={formik.values.link_resolucion}></input></div></div>
         { formik.touched.link_resolucion&& formik.errors.link_resolucion? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.link_resolucion}</p>
         </div>
         ) : null  }<div className="form-group row">
@@ -282,7 +282,7 @@ onBlur={formik.handleBlur}
 value={formik.values.giro_cop}></input></div></div>
         { formik.touched.giro_cop&& formik.errors.giro_cop? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-        <p className="font-bold">Error</p>
+        
         <p>{formik.errors.giro_cop}</p>
         </div>
         ) : null  }

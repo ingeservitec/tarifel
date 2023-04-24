@@ -443,9 +443,9 @@ const resolvers = {
       }
     },
     nuevoDataxmdspctto: async (_, { input }) => {
-      const { empresa_id, anho, mes,dia } = input;
+      const { empresa_id, anho, mes,dia,contrato } = input;
       var registro = await Data_xm_dspctto.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes, dia: dia},
+        where: { empresa_id: empresa_id, anho: anho, mes: mes, dia: dia , contrato: contrato},
       });
       if (registro.length > 0) {
         throw new Error(
@@ -480,14 +480,16 @@ const resolvers = {
     },
     nuevoDataxm_trsm: async (_, { input }) => {
       const { empresa_id, anho, mes } = input;
+      console.log(input)
       var registro = await Data_xm_trsm.findAll({
         where: { empresa_id: empresa_id, anho: anho, mes: mes},
       });
-      if (registro.length > 0) {
-        throw new Error(
-          "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
-        );
-      }
+      // console.log(registro)
+      // if (registro.length > 0) {
+      //   throw new Error(
+      //     "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
+      //   );
+      // }
       try {
         const data_xm_trsm = new Data_xm_trsm(input);
         const resultado = await data_xm_trsm.save();
@@ -660,7 +662,7 @@ const resolvers = {
 
     nuevoData_xm_ipr: async (_, { input }) => {
       const { empresa_id, anho, mes, nivelEntrada} = input;
-      var registro = await Data_xm_cprog.findAll({
+      var registro = await Data_xm_ipr.findAll({
         where: { empresa_id: empresa_id, anho: anho, mes: mes, nivelEntrada:nivelEntrada},
       });
       if (registro.length > 0) {

@@ -1995,7 +1995,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_trsm.mes === mesm2 &&
             data_xm_trsm.empresa_id === data2.obtenerUsuario.empresa
         );
-       
+       console.log('trsm',{data_xm_trsmm})
         var ipcm = data_xm_trsmm.filter(
           (data_xm_trsmm) =>
             data_xm_trsmm.codigo === "IPDC" &&
@@ -2019,6 +2019,8 @@ const NuevoCalculo_CU = (props) => {
         );
         
         const data_xm_guatape = data19.obtenerData_xm_guatape;
+          console.log({data19})
+        console.log('guatapefull',{data_xm_guatape})
         const data_xm_guatapem = data_xm_guatape.filter(
           (data_xm_guatape) =>
             data_xm_guatape.anho === anho &&
@@ -2534,12 +2536,12 @@ const NuevoCalculo_CU = (props) => {
             parseFloat(obj.desp_hora_23) * parseFloat(obj.trf_hora_23) +
             parseFloat(obj.desp_hora_24) * parseFloat(obj.trf_hora_24);
         });
-
+        console.log('dcr',dcr)
+        console.log('Energia_contratos',Energia_contratos)
+        console.log('Costo_Energia_contratos',Costo_contratos)
         const w = dcr / Energia_contratos;
-
-        if (Energia_contratos / dcr <= 1) {
-          pc_ = roundToTwo(Costo_contratos / Energia_contratos);
-        } else {
+        pc_ = roundToTwo(Costo_contratos / Energia_contratos);
+        if (Energia_contratos / dcr > 1) {
           pc_ = pc_ * w;
         }
         console.log("pc_");
@@ -2651,6 +2653,8 @@ const NuevoCalculo_CU = (props) => {
         qc_ = roundToTwo(
           Math.min(1 - qagd, (Energia_contratos_sub + Energia_contratos) / dcr)
         );
+        console.log({Energia_contratos_sub})
+        console.log({Energia_contratos})
         mc_ = roundToTwo(
           data_xm_trsmm.filter(
             (data_xm_trsmm) =>
@@ -2984,7 +2988,7 @@ const NuevoCalculo_CU = (props) => {
 
         console.log(data_xm_afacm[0].restricciones_aliviadas_cop);
         console.log(data_xm_afacm[0].ventas_en_desviacion_cop);
-        console.log(data_xm_guatapem[0].crs_variable_guatape_cop);
+        console.log('guatape',data_xm_guatapem);
         setCrs(
           data_xm_afacm[0].restricciones_aliviadas_cop -
             data_xm_afacm[0].ventas_en_desviacion_cop +
@@ -4515,6 +4519,7 @@ const NuevoCalculo_CU = (props) => {
                   ).length > 0 ? (
                     <p> Ok DATA_XM_GUATAPE</p>
                   ) : (
+                    
                     <p>No se encontraron insumos en DATA_XM_GUATAPE</p>
                   )
                 ) : null}

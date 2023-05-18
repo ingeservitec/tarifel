@@ -2872,7 +2872,8 @@ const NuevoCalculo_CU = (props) => {
             data_xm_ipr.nivelEntrada === 4 &&
             data_xm_ipr.empresa_id === data2.obtenerUsuario.empresa
         );
-
+        console.log('first')
+        console.log(r_)
         const data_xm_cprogm = data_xm_cprog.filter(
           (data_xm_cprog) =>
             data_xm_cprog.anho === anho &&
@@ -3006,6 +3007,8 @@ const NuevoCalculo_CU = (props) => {
               data_empresam[0].ventas_usuarios_r_nt3 +
               data_empresam[0].ventas_usuarios_nr_kwh)
         );
+
+
 
         setR(r_);
 

@@ -461,13 +461,13 @@ const resolvers = {
       }
     },
     nuevoDataxmtserv: async (_, { input }) => {
-      const { empresa_id, anho, mes } = input;
+      const { empresa_id, anho, mes,concepto, agente } = input;
       var registro = await Data_xm_tserv.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes},
+        where: { empresa_id: empresa_id, anho: anho, mes: mes,concepto, agente},
       });
       if (registro.length > 0) {
         throw new Error(
-          "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
+          "Ya existe un registro para este año y mes y , por favor eliminelo, si lo desea, e inserte de nuevo " 
         );
       }
       try {
@@ -621,15 +621,7 @@ const resolvers = {
     //Mutation
 
     nuevoData_xm_guatape: async (_, { input }) => {
-      const { empresa_id, anho, mes } = input;
-      var registro = await Data_xm_guatape.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes},
-      });
-      if (registro.length > 0) {
-        throw new Error(
-          "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
-        );
-      }
+
       try {
         const data_xm_guatape = new Data_xm_guatape(input);
         const resultado = await data_xm_guatape.save();

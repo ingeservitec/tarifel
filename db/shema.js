@@ -306,12 +306,22 @@ cont_hora_24: Float
       valor: Float
  }
 
- type Data_xm_str  {
-    id: ID
- }
 
- type Data_xm_stn  {
-    id: ID
+ type Data_xm_stn {
+   id: ID
+   creador: Int
+   empresa_id: String
+   anho: Int
+   mes: Float
+   t_cop_kwh: Float
+   t_prima_cop_kwh: Float
+   Energia_sin_kwh: String
+   Ing_Reg_Bruto_T_cop: Float
+   Ing_Compensar_T_cop: Float
+   Ing_Reg_Neto_T_cop: Float
+   delta_t_cop_kwh: Float
+   periodo: String
+   CRS_Variante_Guatape: [CRS_Variante_Guatape]
  }
 
  type Data_xm_dtun  {
@@ -1634,13 +1644,13 @@ type Data_creg_cx{
                                           
                                           }
 
-                                           type Data_xm_str{
+                                          type Data_xm_str {
                                              id: ID
                                              creador: Int
                                              empresa_id: String
                                              anho: Int
                                              mes: Int
-                                             total_ingreso_mensual_bruto_str_cop_norte: Float
+                                             total_ingreso_mensual_bruto_str_cop_norte: String
                                              energia_del_str_kwh_norte: Float
                                              cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte: Float
                                              cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte: Float
@@ -1654,18 +1664,15 @@ type Data_creg_cx{
                                              cargo_por_uso_dt4_cop_kwh_sur: Float
                                              factor_para_referir_las_medidas_de_energia_del_nt_4_sur: Float
                                              valor_diferencial_despues_de_compensacion_cop_kwh_sur: Float
-                                             
-                                             }
-
-
-                                             
-                                             input Data_xm_strInput {
+                                             periodo: String
+                                           }
+                                           input Data_xm_strInput {
                                              id: ID
                                              creador: Int
                                              empresa_id: String
                                              anho: Int
                                              mes: Int
-                                             total_ingreso_mensual_bruto_str_cop_norte: Float
+                                             total_ingreso_mensual_bruto_str_cop_norte: String
                                              energia_del_str_kwh_norte: Float
                                              cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte: Float
                                              cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte: Float
@@ -1679,8 +1686,22 @@ type Data_creg_cx{
                                              cargo_por_uso_dt4_cop_kwh_sur: Float
                                              factor_para_referir_las_medidas_de_energia_del_nt_4_sur: Float
                                              valor_diferencial_despues_de_compensacion_cop_kwh_sur: Float
+                                             periodo: String
+                                           }
+                                         
                                              
-                                             }
+                                           
+                                             type ErrorData_xm_str {
+                                                tipo: String
+                                                mensaje: String
+                                                registrosErrores: Data_xm_str
+                                              }
+                                            
+                                              type ResponseData_xm_str {
+                                                datos: [Data_xm_str]
+                                                errores: [ErrorData_xm_str]
+                                              }
+                                            
                                              
                                              type Data_empresa_garantia{
                                                 id: ID
@@ -1857,9 +1878,46 @@ type Data_creg_cx{
                
                }
                
-               
+               type ErrorData_xm_stn {
+                  tipo: String
+                  mensaje: String
+                  registrosErrores: Data_xm_stn
+                }
+              
+                type ResponseData_xm_stn {
+                  datos: [Data_xm_stn]
+                  errores: [ErrorData_xm_stn]
+                }
+              
+                input Data_xm_stnInput {
+                  id: ID
+                  creador: Int
+                  empresa_id: String
+                  anho: Int
+                  mes: Float
+                  t_cop_kwh: Float
+                  t_prima_cop_kwh: Float
+                  Energia_sin_kwh: String
+                  Ing_Reg_Bruto_T_cop: Float
+                  Ing_Compensar_T_cop: Float
+                  Ing_Reg_Neto_T_cop: Float
+                  delta_t_cop_kwh: Float
+                  periodo: String
+                  CRS_Variante_Guatape: [CRS_Variante_GuatapeInput]
+                }       
+                
+                input CRS_Variante_GuatapeInput {
+                  agente: String
+                  crs_variable_guatape_cop: Float
+                  demanda_kwh: Float
+                }
 
-                                                   
+                type CRS_Variante_Guatape {
+                  agente: String
+                  crs_variable_guatape_cop: Float
+                  demanda_kwh: Float
+                }
+              
 
                                                 
 type Query {
@@ -1969,8 +2027,7 @@ nuevoData_empresa_anual(input:Data_empresa_anualInput):Data_empresa_anual
 actualizarData_mme_validacion(id: ID!, input:Data_mme_validacionInput):Data_mme_validacion
 #Mutation DataEmpresa Eliminar 
 eliminarDataEmpresa(id: ID!):String
-#MutationData_xm_str
-nuevoData_xm_str(input:Data_xm_strInput):Data_xm_str
+
 #Mutationdata_empresa_garantia
 nuevoData_empresa_garantia(input:Data_empresa_garantiaInput):Data_empresa_garantia
 #MutationData_xm_trsd
@@ -1985,6 +2042,10 @@ eliminarDataxmstn(id: ID!):String
 eliminarData_xm_str(id: ID!):String
 #MutationData_xm_cprogEliminar
 eliminarData_xm_cprog(id: ID!):String
+#MutationData_xm_stn
+nuevoData_xm_stn(input: [Data_xm_stnInput]): ResponseData_xm_stn
+#MutationData_xm_str
+    nuevoData_xm_str(input: [Data_xm_strInput]): ResponseData_xm_str
     }
 `;
 

@@ -10,6 +10,9 @@ empresa
 }
 }
 `;
+
+
+
 export const OBTENER_DATA_EMPRESAS = gql`
 query obtenerData_empresa {
   obtenerData_empresa{
@@ -1141,11 +1144,6 @@ mutation eliminarDataxmstn ($eliminarDataxmstnId: ID!) {
 eliminarDataxmstn(id: $eliminarDataxmstnId)
 }
 `;
-export const ELIMINAR_DATA_XM_STR= gql`
-mutation eliminarData_xm_str ($eliminarData_xm_strId: ID!) {
-eliminarData_xm_str(id: $eliminarData_xm_strId)
-}
-`;
 
 export const ELIMINAR_DATA_XM_CPROG= gql`
 mutation eliminarData_xm_cprog ($eliminarData_xm_cprogId: ID!) {
@@ -1154,3 +1152,168 @@ eliminarData_xm_cprog(id: $eliminarData_xm_cprogId)
 `;
 
 
+
+export const OBTENER_DATA_XM_STN = gql`
+  query obtenerData_xm_stn {
+    obtenerData_xm_stn {
+      id
+      creador
+      empresa_id
+      anho
+      mes
+      t_cop_kwh
+      t_prima_cop_kwh
+      Energia_sin_kwh
+      Ing_Reg_Bruto_T_cop
+      Ing_Compensar_T_cop
+      Ing_Reg_Neto_T_cop
+      delta_t_cop_kwh
+      periodo
+      CRS_Variante_Guatape {
+        agente
+        crs_variable_guatape_cop
+        demanda_kwh
+      }
+    }
+  }
+`;
+
+export const ELIMINAR_DATA_XM_STN = gql`
+  mutation eliminarData_xm_stn($eliminarDataId: [ID!]!) {
+    eliminarData_xm_stn(ids: $eliminarDataId)
+  }
+`;
+
+export const ACTUALIZAR_DATA_XM_STN = gql`
+  mutation actualizarData_xm_stn($id: ID!, $input: Data_xm_stnInput) {
+    actualizarData_xm_stn(id: $id, input: $input) {
+      id
+      creador
+      empresa_id
+      anho
+      mes
+      t_cop_kwh
+      t_prima_cop_kwh
+      Energia_sin_kwh
+      Ing_Reg_Bruto_T_cop
+      Ing_Compensar_T_cop
+      Ing_Reg_Neto_T_cop
+      delta_t_cop_kwh
+    }
+  }
+`;
+
+export const NUEVO_DATA_XM_STN = gql`
+  mutation nuevoData_xm_stn($input: [Data_xm_stnInput]) {
+    nuevoData_xm_stn(input: $input) {
+      datos {
+        id
+        creador
+        empresa_id
+        anho
+        mes
+        t_cop_kwh
+        t_prima_cop_kwh
+        Energia_sin_kwh
+        Ing_Reg_Bruto_T_cop
+        Ing_Compensar_T_cop
+        Ing_Reg_Neto_T_cop
+        delta_t_cop_kwh
+        CRS_Variante_Guatape {
+          agente
+          crs_variable_guatape_cop
+          demanda_kwh
+        }
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+          id
+          creador
+          empresa_id
+          anho
+          mes
+          t_cop_kwh
+          t_prima_cop_kwh
+          Energia_sin_kwh
+          Ing_Reg_Bruto_T_cop
+          Ing_Compensar_T_cop
+          Ing_Reg_Neto_T_cop
+          delta_t_cop_kwh
+        }
+      }
+    }
+  }
+`;
+
+
+export const UPLOAD_FILE = gql`
+  mutation SingleUpload($file: Upload!, $folder: String) {
+    singleUpload(file: $file, folder: $folder) {
+      filename
+      mimetype
+      encoding
+      url
+    }
+  }
+`;
+
+export const ELIMINAR_DATA_XM_STR = gql`
+  mutation eliminarData_xm_str($eliminarDataId: [ID!]!) {
+    eliminarData_xm_str(ids: $eliminarDataId)
+  }
+`;
+
+export const NUEVO_DATA_XM_STR = gql`
+  mutation nuevoData_xm_str($input: [Data_xm_strInput]) {
+    nuevoData_xm_str(input: $input) {
+      datos {
+        id
+        creador
+        empresa_id
+        anho
+        mes
+        total_ingreso_mensual_bruto_str_cop_norte
+        energia_del_str_kwh_norte
+        cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte
+        cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte
+        cargo_por_uso_dt4_cop_kwh_norte
+        factor_para_referir_las_medidas_de_energia_del_nt_4_norte
+        valor_diferencial_despues_de_compensacion_cop_kwh_norte
+        total_ingreso_mensual_bruto_str_cop_sur
+        energia_del_str_kwh_sur
+        cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur
+        cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur
+        cargo_por_uso_dt4_cop_kwh_sur
+        factor_para_referir_las_medidas_de_energia_del_nt_4_sur
+        valor_diferencial_despues_de_compensacion_cop_kwh_sur
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+          id
+          creador
+          empresa_id
+          anho
+          mes
+          total_ingreso_mensual_bruto_str_cop_norte
+          energia_del_str_kwh_norte
+          cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte
+          cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte
+          cargo_por_uso_dt4_cop_kwh_norte
+          factor_para_referir_las_medidas_de_energia_del_nt_4_norte
+          valor_diferencial_despues_de_compensacion_cop_kwh_norte
+          total_ingreso_mensual_bruto_str_cop_sur
+          energia_del_str_kwh_sur
+          cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur
+          cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur
+          cargo_por_uso_dt4_cop_kwh_sur
+          factor_para_referir_las_medidas_de_energia_del_nt_4_sur
+          valor_diferencial_despues_de_compensacion_cop_kwh_sur
+        }
+      }
+    }
+  }
+`;

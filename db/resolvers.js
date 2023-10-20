@@ -58,7 +58,7 @@ const resolvers = {
     obtenerData_empresa: async () => {
       try {
         const data_empresa = await Data_empresa.findAll();
- 
+
         return data_empresa;
       } catch (error) {
         console.log(error);
@@ -391,21 +391,20 @@ const resolvers = {
       }
     },
     nuevoDataempresa: async (_, { input }) => {
-        const { empresa_id, anho, mes } = input;
-        var registro = await Data_empresa.findAll({
-          where: { empresa_id: empresa_id, anho: anho, mes: mes },
-        });
-        if (registro.length > 0) {
-          throw new Error(
-            "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
-          );
-        }
-        const data_empresa = new Data_empresa(input);
-        const resultado = await data_empresa.save();
-        return resultado;
+      const { empresa_id, anho, mes } = input;
+      var registro = await Data_empresa.findAll({
+        where: { empresa_id: empresa_id, anho: anho, mes: mes },
+      });
+      if (registro.length > 0) {
+        throw new Error(
+          "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
+        );
+      }
+      const data_empresa = new Data_empresa(input);
+      const resultado = await data_empresa.save();
+      return resultado;
     },
     nuevoDataxmafac: async (_, { input }) => {
-
       const { empresa_id, anho, mes } = input;
       var registro = await Data_xm_afac.findAll({
         where: { empresa_id: empresa_id, anho: anho, mes: mes },
@@ -425,9 +424,9 @@ const resolvers = {
       }
     },
     nuevoDataxmadem: async (_, { input }) => {
-      const { empresa_id, anho, mes,dia} = input;
+      const { empresa_id, anho, mes, dia } = input;
       var registro = await Data_xm_adem.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes, dia: dia},
+        where: { empresa_id: empresa_id, anho: anho, mes: mes, dia: dia },
       });
       if (registro.length > 0) {
         throw new Error(
@@ -443,9 +442,15 @@ const resolvers = {
       }
     },
     nuevoDataxmdspctto: async (_, { input }) => {
-      const { empresa_id, anho, mes,dia,contrato } = input;
+      const { empresa_id, anho, mes, dia, contrato } = input;
       var registro = await Data_xm_dspctto.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes, dia: dia , contrato: contrato},
+        where: {
+          empresa_id: empresa_id,
+          anho: anho,
+          mes: mes,
+          dia: dia,
+          contrato: contrato,
+        },
       });
       if (registro.length > 0) {
         throw new Error(
@@ -461,13 +466,19 @@ const resolvers = {
       }
     },
     nuevoDataxmtserv: async (_, { input }) => {
-      const { empresa_id, anho, mes,concepto, agente } = input;
+      const { empresa_id, anho, mes, concepto, agente } = input;
       var registro = await Data_xm_tserv.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes,concepto, agente},
+        where: {
+          empresa_id: empresa_id,
+          anho: anho,
+          mes: mes,
+          concepto,
+          agente,
+        },
       });
       if (registro.length > 0) {
         throw new Error(
-          "Ya existe un registro para este año y mes y , por favor eliminelo, si lo desea, e inserte de nuevo " 
+          "Ya existe un registro para este año y mes y , por favor eliminelo, si lo desea, e inserte de nuevo "
         );
       }
       try {
@@ -480,9 +491,9 @@ const resolvers = {
     },
     nuevoDataxm_trsm: async (_, { input }) => {
       const { empresa_id, anho, mes } = input;
-      console.log(input)
+      console.log(input);
       var registro = await Data_xm_trsm.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes},
+        where: { empresa_id: empresa_id, anho: anho, mes: mes },
       });
       // console.log(registro)
       // if (registro.length > 0) {
@@ -514,7 +525,7 @@ const resolvers = {
     nuevoData_dane: async (_, { input }) => {
       const { empresa_id, anho, mes } = input;
       var registro = await Data_dane.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes},
+        where: { empresa_id: empresa_id, anho: anho, mes: mes },
       });
       if (registro.length > 0) {
         throw new Error(
@@ -599,29 +610,79 @@ const resolvers = {
 
     //Mutation
 
-    nuevoDataxmstn: async (_, { input }) => {
-      const { empresa_id, anho, mes } = input;
-      var registro = await Data_xm_stn.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes},
-      });
-      if (registro.length > 0) {
-        throw new Error(
-          "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
-        );
-      }
+    nuevoData_xm_stn: async (_, { input }, ctx) => {
+      
       try {
-        const dataxmstn = new Data_xm_stn(input);
-        const resultado = await dataxmstn.save();
-        return resultado;
+        const miArray = [];
+        const errores = [];
+        // Recorre los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            const { anho, mes, CRS_Variante_Guatape } = input[index];
+            // Busca si existe un registro con el mismo id de la empresa, año y mes
+            const registroExistente = await Data_xm_stn.findOne({
+              where: {
+                empresa_id: ctx.usuario.empresa,
+                anho,
+                mes,
+              },
+            });
+            // Si ya existe un registro, retorna un error
+            if (registroExistente) {
+              throw new Error(
+                `Ya existe un registro para el año ${anho} y el mes ${mes}`
+              );
+            }
+            // Si no existe un registro, crea uno nuevo
+            input[index].creador = ctx.usuario.id;
+            input[index].empresa_id = ctx.usuario.empresa;
+            try {
+              const newData_xm_stn = new Data_xm_stn(input[index]);
+              const resultado = await newData_xm_stn.save();
+              if (CRS_Variante_Guatape) {
+                const objetosCRS = CRS_Variante_Guatape.map(
+                  ({ agente, crs_variable_guatape_cop, demanda_kwh }) => ({
+                    agente,
+                    crs_variable_guatape_cop,
+                    demanda_kwh,
+                    anho: input[index].anho,
+                    mes: input[index].mes,
+                    creador: input[index].creador,
+                    empresa_id: input[index].empresa_id,
+                    data_xm_stn_id: resultado.id,
+                  })
+                );
+
+                await Data_xm_guatape.bulkCreate(objetosCRS);
+              }
+
+              miArray.push(resultado);
+            } catch (error) {
+              console.log(error);
+              throw new Error(error.mensaje);
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: input[index],
+              mensaje: error.message,
+              tipo: `error`,
+            });
+          }
+        }
+        return {
+          datos: miArray,
+          errores,
+        };
       } catch (error) {
         console.log(error);
+        throw new Error(error);
       }
     },
     //Mutation
     //Mutation
 
     nuevoData_xm_guatape: async (_, { input }) => {
-
+      console.log(input)
       try {
         const data_xm_guatape = new Data_xm_guatape(input);
         const resultado = await data_xm_guatape.save();
@@ -635,7 +696,7 @@ const resolvers = {
     nuevoData_xm_cprog: async (_, { input }) => {
       const { empresa_id, anho, mes } = input;
       var registro = await Data_xm_cprog.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes},
+        where: { empresa_id: empresa_id, anho: anho, mes: mes },
       });
       if (registro.length > 0) {
         throw new Error(
@@ -653,9 +714,14 @@ const resolvers = {
     //Mutation
 
     nuevoData_xm_ipr: async (_, { input }) => {
-      const { empresa_id, anho, mes, nivelEntrada} = input;
+      const { empresa_id, anho, mes, nivelEntrada } = input;
       var registro = await Data_xm_ipr.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes, nivelEntrada:nivelEntrada},
+        where: {
+          empresa_id: empresa_id,
+          anho: anho,
+          mes: mes,
+          nivelEntrada: nivelEntrada,
+        },
       });
       if (registro.length > 0) {
         throw new Error(
@@ -694,13 +760,54 @@ const resolvers = {
     },
     //Mutation
 
-    nuevoData_xm_str: async (_, { input }) => {
+    nuevoData_xm_str: async (_, { input }, ctx) => {
       try {
-        const data_xm_str = new Data_xm_str(input);
-        const resultado = await data_xm_str.save();
-        return resultado;
+        const miArray = [];
+        const errores = [];
+        // Recorre los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            const { anho, mes } = input[index];
+            // Busca si existe un registro con el mismo id de la empresa, año y mes
+            const registroExistente = await Data_xm_str.findOne({
+              where: {
+                empresa_id: ctx.usuario.empresa,
+                anho,
+                mes,
+              },
+            });
+            // Si ya existe un registro, retorna un error
+            if (registroExistente) {
+              throw new Error(
+                `Ya existe un registro para el año ${anho} y el mes ${mes}`
+              );
+            }
+            // Si no existe un registro, crea uno nuevo
+            input[index].creador = ctx.usuario.id;
+            input[index].empresa_id = ctx.usuario.empresa;
+            try {
+              const newData_xm_str = new Data_xm_str(input[index]);
+              const resultado = await newData_xm_str.save();
+              miArray.push(resultado);
+            } catch (error) {
+              console.log(error);
+              throw new Error(error.mensaje);
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: input[index],
+              mensaje: error.message,
+              tipo: `error`,
+            });
+          }
+        }
+        return {
+          datos: miArray,
+          errores,
+        };
       } catch (error) {
         console.log(error);
+        throw new Error(error);
       }
     },
     //Mutation
@@ -794,6 +901,8 @@ const resolvers = {
       return "Registro Eliminado";
     },
     eliminarDataxmstn: async (_, { id }) => {
+
+      console.log(id)
       let data = await Data_xm_stn.findByPk(id);
       if (!data) {
         throw new Error("Registro no existe");

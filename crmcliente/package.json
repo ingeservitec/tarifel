@@ -20,6 +20,7 @@
     "bootstrap": "^5.1.0",
     "bootstrap-icons": "^1.5.0",
     "classnames": "^2.3.1",
+    "compressorjs": "^1.2.1",
     "csv": "^5.5.3",
     "express": "^4.18.1",
     "file-saver": "^2.0.5",
@@ -31,7 +32,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.3.1",
     "moment": "^2.29.4",
-    "next": "11.1.0",
+    "next": "^11.1.0",
     "nextjs": "^0.0.3",
     "rc-menu": "^9.0.12",
     "react": "^17.0.2",
@@ -42,11 +43,13 @@
     "react-dropzone": "^11.3.4",
     "react-fontawesome": "^1.7.1",
     "react-intl": "^5.20.10",
+    "react-phone-number-input": "^3.3.7",
+    "react-quill": "^2.0.0",
     "reactstrap": "^8.10.0",
     "read-excel-file": "^5.2.25",
     "recharts": "^2.1.2",
     "sweetalert2": "^11.1.4",
-    "xlsx": "^0.18.0",
+    "xlsx": "^0.18.5",
     "yup": "^0.32.9"
   }
 }

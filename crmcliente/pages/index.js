@@ -31,6 +31,8 @@ const Index  = () => {
     // console.log(error)
   
     if(loading) return null;
+
+    console.log(data)
     // Si no hay informacion
   console.log(data.obtenerUsuario)
     if( data.obtenerUsuario===null ) {

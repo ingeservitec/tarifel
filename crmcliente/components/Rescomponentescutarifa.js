@@ -660,7 +660,7 @@ const exportarMemorias=(id)=>{
             try {
                 const data_Res_componentes_cu_tarifa=data.obtenerRes_componentes_cu_tarifa
                 const data_Res_componentes_cu_tarifam=data_Res_componentes_cu_tarifa.filter(data_Res_componentes_cu_tarifa => data_Res_componentes_cu_tarifa.id===id) 
-                downloadExcel("Memorias "+data_Res_componentes_cu_tarifam[0].anho + '-' +data_Res_componentes_cu_tarifam[0].mes,"Memorias "+data_Res_componentes_cu_tarifam[0].anho + '-' +data_Res_componentes_cu_tarifam[0].mes+".xlsx",data_Res_componentes_cu_tarifam)
+                await downloadExcel("Memorias "+data_Res_componentes_cu_tarifam[0].anho + '-' +data_Res_componentes_cu_tarifam[0].mes,"Memorias "+data_Res_componentes_cu_tarifam[0].anho + '-' +data_Res_componentes_cu_tarifam[0].mes+".xlsx",data_Res_componentes_cu_tarifam)
                 Swal.fire(
                     'Exportado',
                     data_Res_componentes_cu_tarifam.anho + '-' +data_Res_componentes_cu_tarifam.mes ,
@@ -1248,6 +1248,7 @@ formato_7_sspd.push({"ID Mercado":mercado,
                 "SSPD ($)":data_empresaanualm[0].contribuciones_sspd*data_empresaanualm[0].porc_contribucion_sspd,  
                 "PUI":0          
                 }]
+                var XLSX = await import('xlsx');
                 var ws1 = XLSX.utils.json_to_sheet(formulario_1_sspd);
                 var ws2 = XLSX.utils.json_to_sheet(formato_2_sspd);
                 var ws3 = XLSX.utils.json_to_sheet(formato_3_sspd);
@@ -1288,13 +1289,16 @@ formato_7_sspd.push({"ID Mercado":mercado,
       })
 }
 
-const downloadExcel = (name_hoja,name_file,data) => {
+const downloadExcel = async (name_hoja, name_file, data) => {
+    const XLSX = await import('xlsx');
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, name_hoja);
+    // En un entorno de navegador, debes utilizar `XLSX.writeFile` para iniciar la descarga
+    // Si estás en Node.js, podrías tener que usar otro método para escribir el archivo
     XLSX.writeFile(workbook, name_file);
   };
-
+  
 return (
 
 <div className="container p-0">

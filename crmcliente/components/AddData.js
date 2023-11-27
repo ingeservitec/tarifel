@@ -17,6 +17,7 @@ import { convertirDSPCTTOS } from "../funciones/convertirExcel";
 import { convertirTRSM } from "../funciones/convertirExcel";
 import { convertirSTN } from "../funciones/convertirExcel";
 import { convertirSTR } from "../funciones/convertirExcel";
+import { convertirSDL } from "../funciones/convertirExcel";
 import Dropzone from "react-dropzone";
 import { UPLOAD_FILE } from "../data";
 import Compressor from "compressorjs";
@@ -84,7 +85,7 @@ const AddData = ({
   const [contact, setContact] = useState("");
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [activeField, setActiveField] = useState("");
-  const entidad = { sigla: "EGVC", id: 'EGVC' };
+  const entidad = { sigla: "EGVC", id: "EGVC" };
   const [createAccount] = useMutation(UPLOAD_FILE);
   const getMasivoFields = () => {
     return inputFields.filter((field) => field.showInFormMasivo);
@@ -137,7 +138,7 @@ const AddData = ({
     initialValues: inputFields.reduce(
       (acc, curr) => ({
         ...acc,
-        [curr.field]: curr.defaultValue !== undefined ? curr.defaultValue : ""
+        [curr.field]: curr.defaultValue !== undefined ? curr.defaultValue : "",
       }),
       {}
     ),
@@ -274,10 +275,9 @@ const AddData = ({
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    // accept: ".csv, .xlsx, .xls",
+    // accept: ".csv, .xlsx, .xls",x
     onDrop: handleFileUpload,
   });
- 
 
   const createDataArray = async (
     files,
@@ -286,7 +286,6 @@ const AddData = ({
     anho,
     inputFields
   ) => {
-   
     let dataArray = [];
     let sheetData;
     let dataArray2 = [];
@@ -423,11 +422,36 @@ const AddData = ({
 
                   convertirSTR(sheetName, sheetData, dataArray2);
                 });
-                console.log({ dataArray2 });
+
+                break;
+
+              case "nuevoData_xm_d015":
+                // Expresión regular para extraer el año y el mes
+                var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
+                const coincidencias = file.name.match(regex2);
+                var dataArray2 = [{}];
+                if (coincidencias) {
+                  dataArray2[0].anho = parseInt(coincidencias[1], 10);
+                  dataArray2[0].mes = parseInt(coincidencias[2], 10);
+                } else {
+                  console.log("Formato de nombre de archivo no válido");
+                }
+
+                wb.SheetNames.forEach(function (sheetName) {
+                  ws = wb.Sheets[sheetName];
+                  let sheetData = XLSX.utils.sheet_to_json(ws, {
+                    header: 1,
+                    defval: "",
+                    raw: false,
+                    blankrows: true,
+                  });
+
+                  convertirSDL(sheetName, sheetData, dataArray2);
+                });
+
                 break;
 
               default:
-                
                 dataArray2 = sheetData.slice(1).map((row) =>
                   row.reduce(
                     (acc, curr, index) => ({
@@ -441,11 +465,11 @@ const AddData = ({
             }
           } else {
             // archivo plano
-           
+
             const firstLine = e.target.result.split("\n")[0];
-           
+
             const delimiter = firstLine.includes(",") ? "," : ";";
-           
+
             const rows = e.target.result.split("\n");
 
             const headers = rows[0]
@@ -531,8 +555,6 @@ const AddData = ({
                 //   )
                 // );
 
-                
-
                 dataArray2 = sheetData;
                 break;
             }
@@ -575,7 +597,7 @@ const AddData = ({
                 }
               }
               if (field.name === "empresa id") {
-                newData[field.field] = (entidad.id);
+                newData[field.field] = entidad.id;
               }
             });
             dataArray.push(newData);
@@ -616,7 +638,7 @@ const AddData = ({
       });
     }
 
-    console.log(dataArray)
+   
     return dataArray;
   };
 
@@ -640,6 +662,8 @@ const AddData = ({
         anho,
         inputFields
       );
+
+      console.log({dataArray})
 
       // Ejecuta la mutación con el array de datos completo
       let results = [];
@@ -887,13 +911,16 @@ const AddData = ({
                 {inputFields
                   .filter((field) => {
                     // Si el campo tiene una función 'hideWhen' y esta función devuelve 'true', no mostramos el campo
-                    if ((field.hideWhen && field.hideWhen(formik1.values)) || (field.showIf && !field.showIf(formik1.values))) {
+                    if (
+                      (field.hideWhen && field.hideWhen(formik1.values)) ||
+                      (field.showIf && !field.showIf(formik1.values))
+                    ) {
                       return false;
                     }
                     // Para todos los demás casos, usamos la condición original
                     return field.showInForm && field.name !== "Id";
                   })
-                  .map((field) => 
+                  .map((field) =>
                     field.clase === "select" ? (
                       <div
                         key={field.field}
@@ -1221,7 +1248,7 @@ const AddData = ({
                         ) : null}
                       </div>
                     )
-                        )}
+                  )}
                 <Modal show={showModal2} onHide={() => setShowModal2(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>{selectedField.name}</Modal.Title>

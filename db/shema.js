@@ -1917,18 +1917,7 @@ type Data_creg_cx{
                   crs_variable_guatape_cop: Float
                   demanda_kwh: Float
                 }
-      
-                type ErrorData_xm_d015 {
-                  tipo: String
-                  mensaje: String
-                  registrosErrores: Data_xm_d015
-                }
               
-                type ResponseData_xm_d015 {
-                  datos: [Data_xm_d015]
-                  errores: [ErrorData_xm_d015]
-                }
-                       
 
                                                 
 type Query {
@@ -2029,7 +2018,7 @@ nuevoData_xm_cprog(input:Data_xm_cprogInput):Data_xm_cprog
 #MutationData_xm_ipr
 nuevoData_xm_ipr(input:Data_xm_iprInput):Data_xm_ipr
 #MutationData_xm_d015
-nuevoData_xm_d015(input:[Data_xm_d015Input]):ResponseData_xm_d015
+nuevoData_xm_d015(input:Data_xm_d015Input):Data_xm_d015
 #MutationData_xm_dtun
 nuevoData_xm_dtun(input:Data_xm_dtunInput):Data_xm_dtun
 #MutationData_empresa_anual

@@ -2,7 +2,7 @@
 const { Sequelize } = require('sequelize');
 // request('dotenv').config({path:'variables.env'});
 const conectarDB = async() => {
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
+
 const sequelize = new Sequelize(process.env.URI, {
   logging: false, // Esto desactivará la impresión de consultas SQL en la consola
 });

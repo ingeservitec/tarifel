@@ -369,7 +369,7 @@ const Data_xm_d015 = () => {
                         inputFields={headers2}
                         cacheField="obtenerData_xm_d015"
                         tituloTabla="Agregar Datos xm 015"
-                        linkEjemplo="https://storage.googleapis.com/coool-files/ModelosImportacion/Importar%20datos%20a%20tabla%20data_empresa_mes_glp.xlsx"
+                        linkEjemplo=""
                       />
                     </div>
                     <Paginacion

@@ -1495,3 +1495,33 @@ export const NUEVO_DATA_XM_STR = gql`
     }
   }
 `;
+
+
+
+
+
+export const NUEVO_DATA_XM_CPROG = gql`
+  mutation nuevoData_xm_cprog($input: [Data_xm_cprogInput]) {
+    nuevoData_xm_cprog(input: $input) {
+      datos {
+      id
+      creador
+      empresa_id
+      anho
+      mes
+      agente
+      cargo_cprog_cop_kwh
+    }
+    errores {
+      mensaje
+      tipo
+      registrosErrores {
+        anho
+        mes
+        agente
+        cargo_cprog_cop_kwh
+      }
+    }
+    }
+  }
+`;

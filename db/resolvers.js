@@ -693,23 +693,58 @@ const resolvers = {
     },
     //Mutation
 
-    nuevoData_xm_cprog: async (_, { input }) => {
-      const { empresa_id, anho, mes } = input;
-      var registro = await Data_xm_cprog.findAll({
-        where: { empresa_id: empresa_id, anho: anho, mes: mes },
-      });
-      if (registro.length > 0) {
-        throw new Error(
-          "Ya existe un registro para este año y mes, por favor eliminelo, si lo desea, e inserte de nuevo "
-        );
-      }
+    nuevoData_xm_cprog: async (_, { input },ctx) => {
+
       try {
-        const data_xm_cprog = new Data_xm_cprog(input);
-        const resultado = await data_xm_cprog.save();
-        return resultado;
+        const miArray = [];
+        const errores = [];
+        // Recorre los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            const { anho, mes } = input[index];
+            // Busca si existe un registro con el mismo id de la empresa, año y mes
+            const registroExistente = await Data_xm_cprog.findOne({
+              where: {
+                empresa_id: ctx.usuario.empresa,
+                anho,
+                mes,
+              },
+            });
+            // Si ya existe un registro, retorna un error
+            if (registroExistente) {
+              throw new Error(
+                `Ya existe un registro para el año ${anho} y el mes ${mes}`
+              );
+            }
+            // Si no existe un registro, crea uno nuevo
+            input[index].creador = ctx.usuario.id;
+            input[index].empresa_id = ctx.usuario.empresa;
+            try {
+              const newData_xm_cprog = new Data_xm_cprog(input[index]);
+              const resultado = await newData_xm_cprog.save();
+              miArray.push(resultado);
+            } catch (error) {
+              console.log(error);
+              throw new Error(error.mensaje);
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: input[index],
+              mensaje: error.message,
+              tipo: `error`,
+            });
+          }
+        }
+        return {
+          datos: miArray,
+          errores,
+        };
       } catch (error) {
         console.log(error);
+        throw new Error(error);
       }
+
+      
     },
     //Mutation
 
@@ -738,13 +773,56 @@ const resolvers = {
     },
     //Mutation
 
-    nuevoData_xm_d015: async (_, { input }) => {
+    nuevoData_xm_d015: async (_, { input },ctx) => {
+
+
       try {
-        const data_xm_d015 = new Data_xm_d015(input);
-        const resultado = await data_xm_d015.save();
-        return resultado;
+        const miArray = [];
+        const errores = [];
+        // Recorre los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            const { anho, mes } = input[index];
+            // Busca si existe un registro con el mismo id de la empresa, año y mes
+            const registroExistente = await Data_xm_d015.findOne({
+              where: {
+                empresa_id: ctx.usuario.empresa,
+                anho,
+                mes,
+              },
+            });
+            // Si ya existe un registro, retorna un error
+            if (registroExistente) {
+              throw new Error(
+                `Ya existe un registro para el año ${anho} y el mes ${mes}`
+              );
+            }
+            // Si no existe un registro, crea uno nuevo
+            input[index].creador = ctx.usuario.id;
+            input[index].empresa_id = ctx.usuario.empresa;
+            try {
+              const newData_xm_d015 = new Data_xm_d015(input[index]);
+              const resultado = await newData_xm_d015.save();
+              miArray.push(resultado);
+            } catch (error) {
+              console.log(error);
+              throw new Error(error.mensaje);
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: input[index],
+              mensaje: error.message,
+              tipo: `error`,
+            });
+          }
+        }
+        return {
+          datos: miArray,
+          errores,
+        };
       } catch (error) {
         console.log(error);
+        throw new Error(error);
       }
     },
     //Mutation

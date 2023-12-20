@@ -451,6 +451,26 @@ const AddData = ({
 
                 break;
 
+
+                case "nuevoData_xm_cprog":
+                  // Expresión regular para extraer el año y el mes
+                var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
+             
+                var dataArray2 = [{}];
+                
+
+                wb.SheetNames.forEach(function (sheetName) {
+                  ws = wb.Sheets[sheetName];
+                  let sheetData = XLSX.utils.sheet_to_json(ws, {
+                    header: 1,
+                    defval: "",
+                    raw: false,
+                    blankrows: true,
+                  });
+                  convertirCPROG(sheetName, sheetData, dataArray2);
+                });
+                break;
+
               default:
                 dataArray2 = sheetData.slice(1).map((row) =>
                   row.reduce(

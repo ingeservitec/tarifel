@@ -1,7 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
-const Data_empresaSchema = sequelize.define('data_empresa', {
+const { DataTypes } = require('sequelize');
+const db = require('../config/db.js');
+const Data_empresaSchema = db.define('data_empresa', {
   // Model attributes are defined here
     anho: {
     type: DataTypes.INTEGER,
@@ -139,6 +138,11 @@ const Data_empresaSchema = sequelize.define('data_empresa', {
     allowNull: false,
     trim: true
     // sin espacios en blanco al inicio o al final
+  },
+  cot: {
+    type: DataTypes.FLOAT,
+    //ref: ProyectosSchema.hasOne(UsuariosSchema)
+    // allowNull defaults to true
   },
   creador: {
     type: DataTypes.INTEGER,

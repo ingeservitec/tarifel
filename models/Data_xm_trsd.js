@@ -1,7 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
-const Data_xm_trsdSchema = sequelize.define('Data_xm_trsd', {
+const { DataTypes } = require('sequelize');
+const db = require('../config/db.js');
+const Data_xm_trsdSchema = db.define('Data_xm_trsd', {
 // Model attributes are defined here
 creador:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 empresa_id:{type: DataTypes.STRING,allowNull: false,trim: true},

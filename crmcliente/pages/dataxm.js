@@ -19,17 +19,23 @@ const Dataxm =(props) => {
         <Layout>
         <div>
         <Dataxmafac/>
-        <Dataxmadem/>
         <Dataxmdspcttos/>
+        <Dataxmtrsm/>
+        <Dataxmstn/>
+        <Dataxmstr/>
+        <Dataxmipr/>
+        <Dataxmd015/>
+        <Dataxmcprog/>
+        {/*
+        <Dataxmadem/>
+       
         <Dataxmtserv/>
         <Dataxmtrsm/>
         <Dataxmtrsd/>
-        <Dataxmstn/>
-        <Dataxmstr/>
-        <Dataxmcprog/>
-        <Dataxmipr/>
-        <Dataxmd015/>
-        <Dataxmdtun/>
+        
+        
+        
+        <Dataxmdtun/> */}
         </div>
         </Layout>
         </div>

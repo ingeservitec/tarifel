@@ -14,7 +14,7 @@ const OBTENER_DATA_BANREPUBLICA_TCO= gql`
 query obtenerData_banrepublica_tco{
 obtenerData_banrepublica_tco{
 id
-creador
+creador     
 anho_semana
 tasa_cred_com_credito_consumo
 monto_cred_com_credito_consumo

@@ -1,22 +1,26 @@
-import React, { useState,useCallback,useEffect} from "react";
-import Dataempresames from '../components/Dataempresames'
-import Dataempresaanual from '../components/Dataempresaanual'
-import Dataempresagarantias from '../components/Dataempresagarantias'
-import Dataempresaagpe from '../components/Dataempresaagpe'
-import Layout from '../components/Layout';
+import React, { useState, useCallback, useEffect } from "react";
+import Dataempresamessin from "../components/Dataempresamessin";
+import Dataempresaanual from "../components/Dataempresaanual";
+import DataempresaanualSin from "../components/DataempresaanualSin.js";
+import Dataempresagarantias from "../components/Dataempresagarantias";
+import EmpresaGarantiaComponent from "../components/EmpresaGarantiaComponent";
+import Dataempresaagpe from "../components/Dataempresaagpe";
+import Layout from "../components/Layout";
 
-const Dataxm =(props) => {
-    return (
+const Dataxm = (props) => {
+  return (
+    <div>
+      <Layout>
         <div>
-        <Layout>
-        <div>
-        <Dataempresames/>
-        <Dataempresagarantias/>
-        <Dataempresaanual/>
-        <Dataempresaagpe/>
+          <Dataempresamessin />
+          {/* <Dataempresagarantias /> */}
+          <EmpresaGarantiaComponent/>
+          {/* <Dataempresaanual /> */}
+          <DataempresaanualSin />
+          {/* <Dataempresaagpe /> */}
         </div>
-        </Layout>
-        </div>
-    )
-}
-export default Dataxm
+      </Layout>
+    </div>
+  );
+};
+export default Dataxm;

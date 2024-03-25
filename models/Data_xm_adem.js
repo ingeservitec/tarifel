@@ -1,7 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
-const Data_xm_ademsSchema = sequelize.define('Data_xm_adem', {
+const { DataTypes } = require('sequelize');
+const db = require('../config/db.js');
+const Data_xm_ademsSchema = db.define('Data_xm_adem', {
   // Model attributes are defined here
   anho: {  
     type: DataTypes.INTEGER,  

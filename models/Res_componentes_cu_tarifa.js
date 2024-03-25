@@ -1,11 +1,11 @@
-const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
-const Res_componentes_cu_tarifasSchema = sequelize.define('Res_componentes_cu_tarifa', {
+const { DataTypes } = require('sequelize');
+const db = require('../config/db.js');
+const Res_componentes_cu_tarifasSchema = db.define('Res_componentes_cu_tarifa', {
 // Model attributes are defined here
 creador:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 anho:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 mes:{type: DataTypes.INTEGER,allowNull: false,trim: true},
+mercado:{type: DataTypes.STRING,allowNull: true,trim: true},
 qc:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 pc:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 ref_g:{type: DataTypes.FLOAT,allowNull: false,trim: true},
@@ -140,5 +140,10 @@ giro_sobrante:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 ultimo_giro_incluido:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 cg:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 cgcu:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+cot:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+cv_nt1:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+cv_nt2:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+cv_nt3:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+cv_nt4:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 })
 module.exports = Res_componentes_cu_tarifasSchema;

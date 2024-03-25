@@ -18,6 +18,20 @@ function mesANumero(mes) {
 
   return equivalencias[mesSinEspacios];
 }
+const monthMapping = {
+  ene: 1, jan: 1,
+  feb: 2, feb: 2,
+  mar: 3, mar: 3,
+  abr: 4, apr: 4,
+  may: 5, may: 5,
+  jun: 6, jun: 6,
+  jul: 7, jul: 7,
+  ago: 8, aug: 8,
+  sep: 9, sep: 9,
+  oct: 10, oct: 10,
+  nov: 11, nov: 11,
+  dic: 12, dec: 12
+};
 
 export function convertirExcelIPC(excelArray) {
   const headerRow = excelArray.findIndex((row) => row.includes("Mes"));
@@ -431,7 +445,7 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 
             break;
           case "Cargo nivel de tensión CD4 con DeltaCD4 (COP/kWh)":
-            resultObject.cargo_nivel_de_tension_cd4_con_deltacd4_cop_kwh =
+            resultObject.cargo_nivel_de_tension_cd4_cop_kwh =
               cellValue;
 
             break;
@@ -1030,97 +1044,58 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
   }
 }
 
-
 export function convertirCPROG(sheetName, excelArray, dataArray2) {
   let resultObject = dataArray2[0];
 
   switch (true) {
-    case sheetName.includes("CargosEstimados"):
-      excelArray.forEach((row) => {
+    case sheetName.includes("CargoCPROG"):
+      for (let rowIndex = 0; rowIndex < excelArray.length; rowIndex++) {
+        let row = excelArray[rowIndex];
         let found = false; // Bandera para indicar si ya se encontró un caso en la fila
 
         for (let i = 0; i < row.length - 1; i++) {
-          if (found) break; // Si ya se encontró un caso, salta al siguiente elemento del forEach
+          if (found) break; // Si ya se encontró un caso, salta al siguiente elemento del bucle for
           const cellText = row[i].trim(); // Elimina espacios en blanco al principio y al final
 
           switch (cellText) {
-            case "TOTAL INGRESO MENSUAL BRUTO STR -  (COP)":
-              resultObject.total_ingreso_mensual_bruto_str_cop_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.total_ingreso_mensual_bruto_str_cop_sur = parseFloat(
-                row[i + 4].replace(/,/g, "")
-              );
+            case "Cargo CPROG por concepto del plan ($/kWh)":
+              if (rowIndex + 1 < excelArray.length) { // Verifica que no se exceda el límite del array
+                const nextRow = excelArray[rowIndex + 1];
+                resultObject.Cargo_Cprog_Cop_Kwh = parseFloat(
+                  nextRow[i].replace(/,/g, "")
+                );
+                console.log(resultObject.Cargo_Cprog_Cop_Kwh);
+              }
               found = true;
               break;
-            case "ENERGÍA DEL STR (kWh)":
-              resultObject.energia_del_str_kwh_norte = parseFloat(
-                row[i + 1].replace(/,/g, "")
-              );
-              resultObject.energia_del_str_kwh_sur = parseFloat(
-                row[i + 4].replace(/,/g, "")
-              );
-              found = true;
-              break;
-            case "CARGO NIVEL DE TENSIÓN ANTES DE COMPENSACIÓN CD4 (COP/kWh )":
-              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur =
-                parseFloat(row[i + 4].replace(/,/g, ""));
-              found = true;
-              break;
-            case "CARGO NIVEL DE TENSIÓN DESPUÉS DE COMPENSACIÓN CD4 (COP/kWh )":
-              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur =
-                parseFloat(row[i + 4].replace(/,/g, ""));
-              found = true;
-              break;
-            case "Cargo por uso Dt4 (COP/kWh )":
-              resultObject.cargo_por_uso_dt4_cop_kwh_norte = parseFloat(
-                row[i + 1].replace(/,/g, "")
-              );
-              resultObject.cargo_por_uso_dt4_cop_kwh_sur = parseFloat(
-                row[i + 4].replace(/,/g, "")
-              );
-              found = true;
-              break;
-            case "Factor para referir las medidas de energía del nivel de tensión 4":
-              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_sur =
-                parseFloat(row[i + 4].replace(/,/g, ""));
-              found = true;
+
+            case "Mes cargo:":
+              const dateString = row[i + 1]; // Suponiendo que esto es "Feb-2024"
+              const parts = dateString.split("-");
+
+              const month = parts[0];
+              const year = parts[1];
+
+              resultObject.anho = parseInt(year);
+
+              console.log({dateString})
+              resultObject.mes = monthMapping[month.toLowerCase()];
+                
               break;
 
             default:
               break;
           }
         }
-      });
+        if (found) break; // Termina el bucle externo si se encontró el caso
+      }
+
 
       break;
+
     default:
-      if (sheetName.includes("Deltas")) {
-        console.log("first2");
-        excelArray.forEach((row) => {
-          // Código para el caso "Deltas Jun-2023"
-          let lastValueIndex = row.lastIndexOf("") - 2;
-          if (lastValueIndex < 0) {
-            lastValueIndex = row.length - 1;
-          }
-          console.log(row);
-          switch (row[0]) {
-            case "VALOR DIFERENCIAL DESPUÉS DE COMPENSACIÓN(COP / kWh)":
-              resultObject.valor_diferencial_despues_de_compensacion_cop_kwh_norte =
-                parseFloat(row[1].replace(/,/g, ""));
-              resultObject.valor_diferencial_despues_de_compensacion_cop_kwh_sur =
-                parseFloat(row[2].replace(/,/g, ""));
-              break;
-            default:
-              break;
-          }
-        });
-      }
       break;
   }
+
+  resultObject.Agente ='EGVD'
 }

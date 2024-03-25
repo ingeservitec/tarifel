@@ -31,7 +31,7 @@ const Header = () => {
     }
     return (
         <div className="row align-items-end mb-4">
-            <div className="col">
+            <div className="col  mx-2">
                 <p>Hola: {nombre} {apellido}</p>
             </div>
             <div className="col-6 col-sm-4 col-md-3 col-xl-2 text-right">

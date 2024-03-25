@@ -1,7 +1,6 @@
-const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('postgres', 'postgres', 'ApexifPost', {host: 'localhost',dialect:'postgres');
-const sequelize = new Sequelize(process.env.URI);
-const Data_banrepublica_tcapSchema = sequelize.define('Data_banrepublica_tcap', {
+const { DataTypes } = require('sequelize');
+const db = require('../config/db.js');
+const Data_banrepublica_tcapSchema = db.define('Data_banrepublica_tcap', {
 // Model attributes are defined here
 creador:{type: DataTypes.INTEGER,allowNull: false,trim: true},
 fecha:{type: DataTypes.STRING,allowNull: false,trim: true},

@@ -3,7 +3,8 @@ import Datadane from '../components/Datadane'
 import Databanrepublicatasaco from '../components/Databanrepublicatasaco'
 import Databanrepublicatasaca from '../components/Databanrepublicatasaca'
 import Layout from '../components/Layout';
-
+import Datadaneipp from '../components/Datadaneipp'
+import Datadaneipc from '../components/Datadaneipc.js'
 
 const datamacros =(props) => {
   
@@ -11,7 +12,9 @@ const datamacros =(props) => {
         <div>
         <Layout>
         <div>
-        <Datadane/>
+        <Datadaneipp/>
+        <Datadaneipc/>
+        {/* <Datadane/> */}
         <Databanrepublicatasaco/>
         <Databanrepublicatasaca/>
         </div>

@@ -18,6 +18,8 @@ import { convertirTRSM } from "../funciones/convertirExcel";
 import { convertirSTN } from "../funciones/convertirExcel";
 import { convertirSTR } from "../funciones/convertirExcel";
 import { convertirSDL } from "../funciones/convertirExcel";
+import { convertirCPROG } from "../funciones/convertirExcel";
+
 import Dropzone from "react-dropzone";
 import { UPLOAD_FILE } from "../data";
 import Compressor from "compressorjs";
@@ -113,15 +115,36 @@ const AddData = ({
 
   const [newData] = useMutation(mutation, {
     update: (cache, { data }) => {
-      console.log(data);
       if (data[subMutation]) {
-        const addedObjects = data[subMutation].datos;
+        const addedObjects = Array.isArray(data[subMutation].datos)
+          ? data[subMutation].datos
+          : [data[subMutation].datos];
         cache.modify({
           fields: {
-            [cacheField]: (existingObjects = []) => [
-              ...existingObjects,
-              ...addedObjects,
-            ],
+            [cacheField]: (existingFieldData = {}) => {
+              // Asegúrate de que existingObjects.records sea siempre tratado como un arreglo.
+              const existingObjects = Array.isArray(existingFieldData.records)
+                ? existingFieldData.records
+                : [];
+
+              // Combina los objetos existentes con los nuevos.
+              let updatedObjects = [...existingObjects, ...addedObjects];
+
+              // Ordena los objetos de mayor a menor año y mes, manejando la posibilidad de que no existan
+              updatedObjects = updatedObjects.sort((a, b) => {
+                const yearA = a.anho || 0; // Asume 0 si 'anho' no existe
+                const yearB = b.anho || 0; // Asume 0 si 'anho' no existe
+                const monthA = a.mes || 0; // Asume 0 si 'mes' no existe
+                const monthB = b.mes || 0; // Asume 0 si 'mes' no existe
+
+                const yearComparison = yearB - yearA;
+                if (yearComparison !== 0) return yearComparison;
+                return monthB - monthA;
+              });
+
+              // Devuelve el objeto actualizado con los nuevos registros en 'records'.
+              return { ...existingFieldData, records: updatedObjects };
+            },
           },
         });
       }
@@ -333,11 +356,11 @@ const AddData = ({
               case "nuevoData_xm_afac":
                 let codXm;
                 switch (entidad.sigla) {
-                  case "EMSERPUCAR":
-                    codXm = "EMPC";
+                  case "EG":
+                    codXm = "EGVC";
                     break;
                   default:
-                    codXm = "EMPC";
+                    codXm = "EGVC";
                     break;
                 }
                 month = parseInt(
@@ -451,13 +474,11 @@ const AddData = ({
 
                 break;
 
-
-                case "nuevoData_xm_cprog":
-                  // Expresión regular para extraer el año y el mes
+              case "nuevoData_xm_cprog":
+                // Expresión regular para extraer el año y el mes
                 var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
-             
+
                 var dataArray2 = [{}];
-                
 
                 wb.SheetNames.forEach(function (sheetName) {
                   ws = wb.Sheets[sheetName];
@@ -467,6 +488,7 @@ const AddData = ({
                     raw: false,
                     blankrows: true,
                   });
+
                   convertirCPROG(sheetName, sheetData, dataArray2);
                 });
                 break;
@@ -521,10 +543,10 @@ const AddData = ({
 
                 switch (entidad.sigla) {
                   case "EMSERPUCAR":
-                    codXm = "EMPC"; //CTUALIZAR
+                    codXm = "EGVC"; //CTUALIZAR
                     break;
                   default:
-                    codXm = "EMPC";
+                    codXm = "EGVC";
                     break;
                 }
                 month = parseInt(
@@ -553,7 +575,6 @@ const AddData = ({
 
                 dataArray2 = convertirDSPCTTOS(sheetData, day, month);
                 break;
-
               case "nuevoData_xm_trsm":
                 month = parseInt(
                   file.name.substring(
@@ -658,7 +679,6 @@ const AddData = ({
       });
     }
 
-   
     return dataArray;
   };
 
@@ -682,8 +702,6 @@ const AddData = ({
         anho,
         inputFields
       );
-
-      console.log({dataArray})
 
       // Ejecuta la mutación con el array de datos completo
       let results = [];

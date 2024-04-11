@@ -1,12 +1,6 @@
 import * as Yup from "yup";
 import { isValidNumber } from "libphonenumber-js";
-import {
-  NUEVO_DATA_CRM_FACTURACION,
-  NUEVO_SETTING_MODULOS_TRIFASY,
-  NUEVO_DATA_FX_PUC,
-  NUEVO_DATA_CRM_GENERAL,
-  NUEVO_DATA_GTD_PROCESO,
-} from "../data";
+
 
 //Funciones
 const getCurrentDate = () => {

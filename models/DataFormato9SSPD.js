@@ -1,8 +1,8 @@
-// DataFormato9SSPD.js
+// data_formato_9_sspd.js
 const { DataTypes } = require("sequelize");
 const db = require("../config/db.js");
 
-const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
+const data_formato_9_sspd = db.define("Data_Formato_9_SSPD", {
     anho: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -11,7 +11,7 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    idMercado: { 
+    idmercado: { 
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -25,17 +25,17 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         allowNull: false,
         comment: "Valor de la energía en contratos"
     },
-    cbMr: { 
+    cbmr: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "Compras de bolsa MR"
     },
-    vcbMr: { 
+    vcbmr: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "Valor de compras de bolsa MR"
     },
-    avcbMr: { 
+    avcbmr: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "Ajustes en valor de compras de bolsa MR"
@@ -45,12 +45,12 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         allowNull: false,
         comment: "Factor w"
     },
-    adM: { 
+    adm: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "ADm"
     },
-    vrM1: { 
+    vrm1: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "VRm-1"
@@ -80,7 +80,7 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         allowNull: false,
         comment: "RCAE"
     },
-    balanceSubsidios: { 
+    balancesubsidios: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "Balance de Subsidios"
@@ -95,7 +95,7 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         allowNull: false,
         comment: "TRIM"
     },
-    mgTrim: { 
+    mgtrim: { 
         type: DataTypes.INTEGER,
         allowNull: false,
         comment: "MG TRIM"
@@ -111,12 +111,12 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         comment: "Sub2"
     },
     n: { 
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         comment: "N"
     },
     m: { 
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         comment: "M"
     },
@@ -140,22 +140,22 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         allowNull: false,
         comment: "Actividad"
     },
-    porcCreg: { 
+    porccreg: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "%CREG"
     },
-    porcSspd: { 
+    porcsspd: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "%SSPD"
     },
-    cregDolares: { 
+    cregdolares: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "CREG ($)"
     },
-    sspdDolares: { 
+    sspddolares: { 
         type: DataTypes.FLOAT,
         allowNull: false,
         comment: "SSPD ($)"
@@ -170,20 +170,19 @@ const DataFormato9SSPD = db.define("Data_Formato_9_SSPD", {
         allowNull: false 
     },
     empresa_id: { 
-        type: DataTypes.INTEGER, 
+        type: DataTypes.STRING, 
         allowNull: false 
     },
     createdAt: { 
         type: DataTypes.DATE, 
-        defaultValue: DataTypes.NOW 
+        defaultValue: DataTypes.NOW,
+        field: 'createdAt' 
     },
     updatedAt: { 
         type: DataTypes.DATE, 
-        defaultValue: DataTypes.NOW 
+        defaultValue: DataTypes.NOW,
+        field: 'updatedAt' 
     }
-}, {
-    tableName: 'Data_Formato_9_SSPD',
-    // Otras opciones del modelo si son necesarias
 });
 
-module.exports = DataFormato9SSPD;
+module.exports = data_formato_9_sspd;

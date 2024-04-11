@@ -23,7 +23,7 @@ const DataFormato2SSPD = db.define("Data_Formato_2_SSPD", {
     costo_garantia: { type: DataTypes.FLOAT },
     costo_a_recuperar: { type: DataTypes.FLOAT },
     creador: { type: DataTypes.INTEGER, allowNull: false },
-    empresa_id: { type: DataTypes.INTEGER, allowNull: false },
+    empresa_id: { type: DataTypes.STRING, allowNull: false },
     // campos adicionales si es necesario
     createdAt: { type: DataTypes.DATE, field: 'createdAt' },
     updatedAt: { type: DataTypes.DATE, field: 'updatedAt' }

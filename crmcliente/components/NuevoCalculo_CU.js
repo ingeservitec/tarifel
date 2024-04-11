@@ -3731,7 +3731,8 @@ const NuevoCalculo_CU = (props) => {
           cfe_ = 0,
           c_ast_,
           cvr_;
-
+console.log(sub1_)
+console.log(sub2_)
         if (sub1_ >= 0 || sub2_ >= 0) {
           cfs_ = roundToTwo(
             ((sub1_ * ((1 + r1_) ** (n_Sub1_ + 0.63) - 1) -
@@ -3740,6 +3741,7 @@ const NuevoCalculo_CU = (props) => {
               100
           );
           cfe_ = cfs_ + 0.042;
+          console.log({cfs_})
         }
         setN_Sub1(n_Sub1_);
         setM_Sub2(m_Sub2_);
@@ -4115,6 +4117,7 @@ const NuevoCalculo_CU = (props) => {
       } else {
         porc_subE1_100_ = 0.6;
       }
+      
       if (1 - tarifamc2_100 / cu_nt1_100_ot_ < 0.5) {
         porc_subE2_100_ = 1 - tarifamc2_100 / cu_nt1_100_ot_;
       } else {

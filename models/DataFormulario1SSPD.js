@@ -14,7 +14,7 @@ const DataFormulario1SSPD = db.define("Data_Formulario_1_SSPD", {
     recuperacion_garantias: { type: DataTypes.STRING },
     observacion_recuperacion_garantias: { type: DataTypes.TEXT },
     creador: { type: DataTypes.INTEGER, allowNull: false },
-    empresa_id: { type: DataTypes.INTEGER, allowNull: false }
+    empresa_id: { type: DataTypes.STRING, allowNull: false }
     // Agregar otros campos necesarios
 });
 

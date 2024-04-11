@@ -15,10 +15,12 @@ import { convertirExcelIPP } from "../funciones/convertirExcel";
 import { convertirAFAC } from "../funciones/convertirExcel";
 import { convertirDSPCTTOS } from "../funciones/convertirExcel";
 import { convertirTRSM } from "../funciones/convertirExcel";
+import { convertirTSERV } from "../funciones/convertirExcel";
 import { convertirSTN } from "../funciones/convertirExcel";
 import { convertirSTR } from "../funciones/convertirExcel";
 import { convertirSDL } from "../funciones/convertirExcel";
 import { convertirCPROG } from "../funciones/convertirExcel";
+import { convertirFACTORESIPR } from "../funciones/convertirExcel";
 
 import Dropzone from "react-dropzone";
 import { UPLOAD_FILE } from "../data";
@@ -70,6 +72,7 @@ const AddData = ({
   manual,
   masivo,
 }) => {
+  console.log(subMutation);
   const [files, setFiles] = useState([]);
   const [option, setOption] = useState(manual === false ? "Masivo" : "Manual");
   const [imagenCliente, setImagenCliente] = useState("");
@@ -211,6 +214,8 @@ const AddData = ({
             input: updatedValues,
           },
         });
+        console.log(subMutation)
+        console.log({data})
 
         if (data.data[subMutation].errores.length > 0) {
           Swal.fire(
@@ -388,7 +393,6 @@ const AddData = ({
 
                 dataArray2 = convertirDSPCTTOS(sheetData, day, month);
                 break;
-
               case "nuevoData_xm_trsm":
                 month = parseInt(
                   file.name.substring(
@@ -399,7 +403,24 @@ const AddData = ({
 
                 dataArray2 = convertirTRSM(sheetData, month);
                 break;
+              case "nuevoDataXmTserv":
+                switch (entidad.sigla) {
+                  case "EG":
+                    codXm = "EGVC";
+                    break;
+                  default:
+                    codXm = "EGVC";
+                    break;
+                }
+                month = parseInt(
+                  file.name.substring(
+                    file.name.length - 6,
+                    file.name.length - 4
+                  )
+                );
 
+                dataArray2 = convertirTSERV(sheetData, codXm, month);
+                break;
               case "nuevoData_xm_stn":
                 let regex = /\((\d{4}-\d{2})\)/; // regex para capturar (YYYY-MM)
                 let match = file.name.match(regex);
@@ -423,7 +444,6 @@ const AddData = ({
                 });
 
                 break;
-
               case "nuevoData_xm_str":
                 var dataArray2 = [{}];
 
@@ -448,7 +468,7 @@ const AddData = ({
 
                 break;
 
-              case "nuevoData_xm_d015":
+              case "nuevoDataXmD015":
                 // Expresión regular para extraer el año y el mes
                 var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
                 const coincidencias = file.name.match(regex2);
@@ -531,6 +551,7 @@ const AddData = ({
             });
 
             let month, day;
+
             switch (subMutation) {
               case "nuevoData_dane_ipp":
                 dataArray2 = convertirExcelIPP(sheetData);
@@ -576,14 +597,53 @@ const AddData = ({
                 dataArray2 = convertirDSPCTTOS(sheetData, day, month);
                 break;
               case "nuevoData_xm_trsm":
+              case "nuevoDataXmTserv":
+                switch (entidad.sigla) {
+                  case "EGVC":
+                    codXm = "EGVC";
+                    break;
+                  default:
+                    codXm = "EGVC";
+                    break;
+                }
                 month = parseInt(
                   file.name.substring(
                     file.name.length - 6,
                     file.name.length - 4
                   )
                 );
+                console.log(codXm);
 
-                dataArray2 = convertirTRSM(sheetData, month);
+                dataArray2 = convertirTSERV(sheetData, codXm, month);
+                break;
+              case "nuevoDataXmIpr":
+                switch (entidad.sigla) {
+                  case "EGVC":
+                    codXm = "GUVM";
+                    break;
+                  default:
+                    codXm = "GUVM";
+                    break;
+                }
+                // Extraer la fecha (YYYYMMDD)
+                let fecha = file.name.match(/(\d{8})/)[0];
+
+                // Extraer el año (YYYY)
+                let year = parseInt(fecha.substring(0, 4));
+
+                // Extraer el mes (MM)
+                let month = parseInt(fecha.substring(4, 6));
+
+                // Extraer el día (DD)
+                let day = parseInt(fecha.substring(6, 8));
+
+             
+                dataArray2 = convertirFACTORESIPR(
+                  sheetData,
+                  codXm,
+                  month,
+                  year
+                );
                 break;
               default:
                 // dataArray2 = sheetData.slice(1).map((row) =>
@@ -602,6 +662,7 @@ const AddData = ({
 
             // dataArray2 = sheetData;
           }
+
           let nestedArrayObjeto = [];
 
           dataArray2 = dataArray2.filter((row) => {

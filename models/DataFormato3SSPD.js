@@ -87,7 +87,7 @@ const DataFormato3SSPD = db.define("Data_Formato_3_SSPD", {
         allowNull: false 
     },
     empresa_id: { 
-        type: DataTypes.INTEGER, 
+        type: DataTypes.STRING, 
         allowNull: false 
     },
     createdAt: { 

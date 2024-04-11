@@ -76,7 +76,7 @@ const Data_empresaSchema = db.define('data_empresa', {
   },
   pui_cop_kwh: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     trim: true
     // sin espacios en blanco al inicio o al final
   },
@@ -111,31 +111,31 @@ const Data_empresaSchema = db.define('data_empresa', {
   },
   g_exc1: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true
     // sin espacios en blanco al inicio o al final
   },
   g_exc1_21: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true
     // sin espacios en blanco al inicio o al final
   },
   g_exc2: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true
     // sin espacios en blanco al inicio o al final
   },
   g_exc3: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true
     // sin espacios en blanco al inicio o al final
   },
   ggd: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true
     // sin espacios en blanco al inicio o al final
   },

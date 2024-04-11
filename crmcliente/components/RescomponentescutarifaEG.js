@@ -5,7 +5,7 @@ import {
   OBTENER_RES_COMPONENTES_CU_TARIFAS ,
   NUEVO_RES_COMPONENTES_CU_TARIFAS ,
   ACTUALIZAR_RES_COMPONENTES_CU_TARIFA ,
-  ELIMINAR_RES_COMPONENTES_CU_TARIFA,
+  ELIMINAR_DATA_RES_COMPONENTES_CU_TARIFA,
 } from '../data'; // Asume que has creado este archivo basado en los pasos anteriores
 import { headersResComponentesCuTarifa } from '../headers/headersTables'; // Asume que este archivo contiene los headers de la tabla
 
@@ -35,10 +35,10 @@ const DataXmCprog = () => {
               show={showModal}
               close={handleCloseModal}
               mutation={NUEVO_RES_COMPONENTES_CU_TARIFAS}
-              subMutation="NuevoResComponentesCuTarifas"
+              subMutation="nuevoResComponentesCuTarifa"
               inputFields={headersResComponentesCuTarifa}
               cacheField="obtenerResComponentesCuTarifas"
-              tituloTabla="Agregar Datos XM CPROG"
+              tituloTabla="CU y Tarifas"
               // Asume la existencia de un link de ejemplo para importación masiva
               linkEjemplo="https://example.com/import-xm-cprog.xlsx"
               manual={true} // Si quieres habilitar la carga manual
@@ -49,10 +49,10 @@ const DataXmCprog = () => {
             titulo="Datos CU y Tarifas"
             columns={headersResComponentesCuTarifa}
             cacheField="obtenerResComponentesCuTarifas"
-            mutation={ELIMINAR_RES_COMPONENTES_CU_TARIFA }
+            mutation={ELIMINAR_DATA_RES_COMPONENTES_CU_TARIFA }
             query={OBTENER_RES_COMPONENTES_CU_TARIFAS }
-            // Asume que el backend maneja la eliminación por ID
-            subMutation="EliminarResComponentesCuTarifa" 
+            actionMode = "delete"
+            subMutation="eliminarData_res_componentes_cu_tarifa" 
           />
         </div>
       </div>

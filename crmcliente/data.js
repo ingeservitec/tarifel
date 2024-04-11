@@ -503,6 +503,7 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFA = gql`
       ad
       aj
       pb
+      mc
       gc
       tx
       dtun_nt1_e
@@ -640,24 +641,6 @@ export const OBTENER_DATA_DANE = gql`
   }
 `;
 
-export const OBTENER_DATA_XM_TSERV = gql`
-  query obtenerData_xm_tserv {
-    obtenerData_xm_tserv {
-      id
-      anho
-      mes
-      creador
-      empresa_id
-      fecha
-      agente
-      beneficiario
-      concepto
-      tipopago
-      magnitud
-      valor
-    }
-  }
-`;
 
 export const OBTENER_DATA_XM_TRSM = gql`
   query obtenerData_xm_trsm($options: QueryOptions!) {
@@ -1828,7 +1811,7 @@ export const OBTENER_DATA_XM_IPR = gql`
 `;
 
 export const NUEVO_DATA_XM_IPR = gql`
-  mutation nuevoDataXmIpr($input: DataXmIprInput!) {
+  mutation nuevoDataXmIpr($input: [DataXmIprInput]!) {
     nuevoDataXmIpr(input: $input) {
       datos {
         id
@@ -2060,7 +2043,7 @@ export const OBTENER_DATA_XM_D015 = gql`
 `;
 
 export const NUEVO_DATA_XM_D015 = gql`
-  mutation nuevoDataXmD015($input: DataXmD015Input!) {
+  mutation nuevoDataXmD015($input: [Data_xm_d015Input]) {
     nuevoDataXmD015(input: $input) {
       datos {
         id
@@ -2233,7 +2216,7 @@ export const NUEVO_DATA_XM_D015 = gql`
 `;
 
 export const ACTUALIZAR_DATA_XM_D015 = gql`
-  mutation actualizarDataXmD015($id: ID!, $input: DataXmD015Input!) {
+  mutation actualizarDataXmD015($id: ID!, $input: Data_xm_d015Input!) {
     actualizarDataXmD015(id: $id, input: $input) {
       id
       creador
@@ -2484,12 +2467,16 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFAS = gql`
         mercado
         qc
         pc
+        pcsub
         ref_g
         max_g
         cr
         ad
         aj
         pb
+        mc
+        w1
+        w2
         gc
         tx
         dtun_nt1_e
@@ -2642,12 +2629,15 @@ export const NUEVO_RES_COMPONENTES_CU_TARIFAS = gql`
         mercado
         qc
         pc
+        pcsub
         ref_g
         max_g
         cr
         ad
         aj
         pb
+        w1
+        w2
         gc
         tx
         dtun_nt1_e
@@ -3081,5 +3071,332 @@ export const ACTUALIZAR_DATA_DANE_IPC = gql`
       mes
       ipc
     }
+  }
+`;
+
+
+
+export const OBTENER_DATA_XM_TSERV = gql`
+query obtenerDataXmTserv($options: QueryOptions!) {
+  obtenerDataXmTserv(options: $options) {
+    records {
+      id
+      creador
+      empresa_id
+      anho
+      mes
+      fecha
+      agente
+      beneficiario
+      concepto
+      tipopago
+      valor
+      magnitud
+    }
+    totalRecords
+    valoresFiltrables {
+      campo
+      valores
+    }
+  }
+}
+`;
+
+export const NUEVO_DATA_XM_TSERV = gql`
+mutation nuevoDataXmTserv($input: [DataxmtservInput]) {
+  nuevoDataXmTserv(input: $input) {
+    datos {
+      id
+      creador
+      empresa_id
+      anho
+      mes
+      fecha
+      agente
+      beneficiario
+      concepto
+      tipopago
+      valor
+      magnitud
+    }
+    errores {
+      mensaje
+      tipo
+      registrosErrores {
+        id
+        creador
+        empresa_id
+        anho
+        mes
+        fecha
+        agente
+        beneficiario
+        concepto
+        tipopago
+        valor
+        magnitud
+      }
+    }
+  }
+}
+`;
+
+export const ACTUALIZAR_DATA_XM_TSERV = gql`
+mutation actualizarDataXmTserv($id: ID!, $input: DataxmtservInput) {
+  actualizarDataXmTserv(id: $id, input: $input) {
+    id
+    creador
+    empresa_id
+    anho
+    mes
+    fecha
+    agente
+    beneficiario
+    concepto
+    tipopago
+    valor
+    magnitud
+  }
+}
+`;
+
+export const ELIMINAR_DATA_XM_TSERV = gql`
+mutation eliminarDataXmTserv($ids: [ID!]!) {
+  eliminarDataXmTserv(ids: $ids)
+}
+`;
+
+
+
+
+export const OBTENER_DATA_REPORTES_SUI_Formulario1SSPD = gql`
+  query obtenerDataFormulario1SSPD(
+    $selectedStartPeriod: String!
+    $selectedEndPeriod: String!
+    $page: Int!
+    $limit: Int!
+  ) {
+    obtenerDataFormulario1SSPD(
+      selectedStartPeriod: $selectedStartPeriod
+      selectedEndPeriod: $selectedEndPeriod
+      page: $page
+      limit: $limit
+    ) {
+      registros {
+        id
+        anho
+        mes
+        recuperacion_garantias
+        observacion_recuperacion_garantias
+ 
+      }
+      totalPages
+    }
+  }
+`;
+
+
+
+
+export const OBTENER_DATA_REPORTES_SUI_Formulario5SSPD = gql`
+  query obtenerDataFormulario5SSPD(
+    $selectedStartPeriod: String!
+    $selectedEndPeriod: String!
+    $page: Int!
+    $limit: Int!
+  ) {
+    obtenerDataFormulario5SSPD(
+      selectedStartPeriod: $selectedStartPeriod
+      selectedEndPeriod: $selectedEndPeriod
+      page: $page
+      limit: $limit
+    ) {
+      registros {
+        
+        anho
+        mes
+        opcionTarifaria
+
+      }
+      totalPages
+    }
+  }
+`;
+
+export const OBTENER_DATA_REPORTES_SUI_Formato2SSPD = gql`
+  query obtenerDataFormato2SSPD(
+    $selectedStartPeriod: String!
+    $selectedEndPeriod: String!
+    $page: Int!
+    $limit: Int!
+  ) {
+    obtenerDataFormato2SSPD(
+      selectedStartPeriod: $selectedStartPeriod
+      selectedEndPeriod: $selectedEndPeriod
+      page: $page
+      limit: $limit
+    ) {
+      registros {
+        id
+        anho
+        mes
+        tipo_garantia
+        nit_beneficiario
+        dv_beneficiario
+        emisor
+        numero_garantia
+        mes_recuperacion
+        fecha_inicio_vigencia
+        fecha_finalizacion_vigencia
+        valor_total_garantia
+        costo_garantia
+        costo_a_recuperar
+
+      }
+      totalPages
+    }
+  }
+`;
+
+export const OBTENER_DATA_REPORTES_SUI_Formato3SSPD = gql`
+  query obtenerDataFormato3SSPD(
+    $selectedStartPeriod: String!
+    $selectedEndPeriod: String!
+    $page: Int!
+    $limit: Int!
+  ) {
+    obtenerDataFormato3SSPD(
+      selectedStartPeriod: $selectedStartPeriod
+      selectedEndPeriod: $selectedEndPeriod
+      page: $page
+      limit: $limit
+    ) {
+      registros {
+        id
+        anho
+        mes
+        idMercado
+        cargoHorario
+        inicioFranjaHoraria
+        finFranjaHoraria
+        estratoOSector
+        porcentajeSubsidiado100OR
+        porcentajeSubsidiado50OR
+        porcentajeSubsidiado0OR
+        tarifaNivel1100OR
+        tarifaNivel150OR
+        tarifaNivel10OR
+        tarifaNivel2
+        tarifaNivel3
+        tarifaNivel4
+        cfm
+        fechaPublicacion
+        diarioPublicacion
+        tarifaOT
+
+      }
+      totalPages
+    }
+  }
+`;
+
+
+
+export const OBTENER_DATA_REPORTES_SUI_Formato6SSPD = gql`
+  query obtenerDataFormato6SSPD(
+    $selectedStartPeriod: String!
+    $selectedEndPeriod: String!
+    $page: Int!
+    $limit: Int!
+  ) {
+    obtenerDataFormato6SSPD(
+      selectedStartPeriod: $selectedStartPeriod
+      selectedEndPeriod: $selectedEndPeriod
+      page: $page
+      limit: $limit
+    ) {
+      registros {
+        
+        anho
+        mes
+        idMercado
+        ntProp
+        pv
+        sam1
+        vRt1
+        cuvc
+        cuvm1
+        cuv
+        vRm1
+        rEM
+        sam
+        aplicoOpcionTarifaria
+
+      }
+      totalPages
+    }
+  }
+`;
+
+
+export const OBTENER_DATA_REPORTES_SUI_Formato9SSPD = gql`
+  query obtenerDataFormato9SSPD(
+    $selectedStartPeriod: String!
+    $selectedEndPeriod: String!
+    $page: Int!
+    $limit: Int!
+  ) {
+    obtenerDataFormato9SSPD(
+      selectedStartPeriod: $selectedStartPeriod
+      selectedEndPeriod: $selectedEndPeriod
+      page: $page
+      limit: $limit
+    ) {
+      registros {
+        
+        anho
+        mes
+        idmercado
+        ecc
+        vecc
+        cbmr
+        vcbmr
+        avcbmr
+        w
+        adm
+        vrm1
+        aj
+        alfa
+        cfj
+        rct
+        rcae
+        balancesubsidios
+        ano
+        trim
+        mgtrim
+        sub1
+        sub2
+        n
+        m
+        r1
+        r2
+        facturacion
+        actividad
+        porccreg
+        porcsspd
+        cregdolares
+        sspddolares
+        pui
+
+      }
+      totalPages
+    }
+  }
+`;
+
+
+export const ELIMINAR_DATA_RES_COMPONENTES_CU_TARIFA = gql`
+  mutation eliminarData_res_componentes_cu_tarifa($eliminarDataId: [ID!]!) {
+    eliminarData_res_componentes_cu_tarifa(ids: $eliminarDataId)
   }
 `;

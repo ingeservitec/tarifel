@@ -69,7 +69,7 @@ const DataFormato6SSPD = db.define("Data_Formato_6_SSPD", {
         allowNull: false 
     },
     empresa_id: { 
-        type: DataTypes.INTEGER, 
+        type: DataTypes.STRING, 
         allowNull: false 
     },
     createdAt: { 
@@ -83,7 +83,7 @@ const DataFormato6SSPD = db.define("Data_Formato_6_SSPD", {
         field: 'updatedAt' 
     }
 }, {
-    tableName: 'Data_Formato_6_SSPD',
+    tableName: 'Data_Formato_6_SSPDs',
     // Otras opciones del modelo si son necesarias
 });
 

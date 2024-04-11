@@ -195,6 +195,27 @@ export function convertirTRSM(excelArray, month) {
   }));
 }
 
+export function convertirTSERV(excelArray, agente, month) {
+
+  var resultArray = excelArray.filter((data) => data.AGENTE === agente);
+  return resultArray.map((data) => ({
+    ...data,
+    Mes: month,
+  }));
+}
+
+export function convertirFACTORESIPR(excelArray, agente, month, year) {
+console.log('year')
+  var resultArray = excelArray.filter((data) => data.agrupaORMercado === agente);
+  return resultArray.map((data) => ({
+    ...data,
+    Mes: month,
+    Anho: year
+  }));
+}
+
+
+
 export function convertirSTN(sheetName, excelArray, dataArray2) {
   let resultObject = dataArray2[0];
 
@@ -402,6 +423,7 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 
   switch (true) {
     case sheetName.includes("Cargos_SDL"):
+        
       excelArray.forEach((row) => {
         let found = false; // Bandera para indicar si ya se encontró un caso en la fila
 
@@ -1042,6 +1064,8 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
     default:
       break;
   }
+
+  return resultObject;
 }
 
 export function convertirCPROG(sheetName, excelArray, dataArray2) {

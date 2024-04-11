@@ -21,7 +21,7 @@ const DataFormulario5SSPD = db.define("Data_Formulario_5_SSPD", {
         allowNull: false 
     },
     empresa_id: { 
-        type: DataTypes.INTEGER, 
+        type: DataTypes.STRING, 
         allowNull: false 
     },
     createdAt: { 

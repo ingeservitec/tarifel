@@ -902,6 +902,10 @@ const typeDefs = gql`
     ad: Float
     aj: Float
     pb: Float
+    mc: Float
+    w1: Float
+    w2: Float
+    pcsub: Float
     gc: Float
     tx: Float
     dtun_nt1_e: Float
@@ -1049,6 +1053,10 @@ const typeDefs = gql`
     ad: Float
     aj: Float
     pb: Float
+    mc: Float
+    w1: Float
+    w2: Float
+    pcsub: Float
     gc: Float
     tx: Float
     dtun_nt1_e: Float
@@ -2000,6 +2008,7 @@ const typeDefs = gql`
     g_exc2: Float
     g_exc3: Float
     ggd: Float
+    cot: Float
   }
   input DataempresamessinInput {
     id: ID
@@ -2025,6 +2034,7 @@ const typeDefs = gql`
     g_exc2: Float
     g_exc3: Float
     ggd: Float
+    cot: Float
   }
 
   type DataempresamessinResponse {
@@ -2210,8 +2220,8 @@ const typeDefs = gql`
 
   type DataXmIpr {
     id: ID!
-    creador: Int!
-    empresa_id: String!
+    creador: Int
+    empresa_id: String
     anho: Int!
     mes: Int!
     strID: String!
@@ -2224,8 +2234,8 @@ const typeDefs = gql`
   }
   
   input DataXmIprInput {
-    creador: Int!
-    empresa_id: String!
+    creador: Int
+    empresa_id: String
     anho: Int!
     mes: Int!
     strID: String!
@@ -2416,6 +2426,172 @@ const typeDefs = gql`
       valoresFiltrables: [ValoresFiltrables]
     }
 
+    type DataXmTservResponse {
+      records: [Data_xm_tserv]
+      totalRecords: Int
+      valoresFiltrables: [ValoresFiltrables]
+    }
+  
+    type ResponseDataXmTserv {
+      datos: [Data_xm_tserv]
+      errores: [ErrorDataXmTserv]
+    }
+  
+    type ErrorDataXmTserv {
+      tipo: String
+      mensaje: String
+      registrosErrores: Data_xm_tserv
+    }
+
+type DataFormulario1SSPD {
+  id: ID
+  anho: Int
+  mes: Int
+  recuperacion_garantias: String
+  observacion_recuperacion_garantias: String
+  creador: Int
+  empresa_id: String
+
+}
+  
+    type DataFormulario1SSPD_Response {
+      registros: [DataFormulario1SSPD]
+      totalPages: Int
+    }
+    
+    type DataFormato2SSPD {
+      id: ID
+      anho: Int
+      mes: Int
+      tipo_garantia: String
+      nit_beneficiario: Int
+      dv_beneficiario: Int
+      emisor: String
+      numero_garantia: String
+      mes_recuperacion: Int
+      fecha_inicio_vigencia: String
+      fecha_finalizacion_vigencia:  String
+      valor_total_garantia: Float
+      costo_garantia: Float
+      costo_a_recuperar: Float
+    
+    }
+
+    type DataFormato2SSPD_Response {
+      registros: [DataFormato2SSPD]
+      totalPages: Int
+    }
+
+    type DataFormato3SSPD {
+      id: ID
+      anho: Int
+      mes: Int
+      idMercado: String
+      cargoHorario: String
+      inicioFranjaHoraria: String
+      finFranjaHoraria: String
+      estratoOSector: String
+      porcentajeSubsidiado100OR: Float
+      porcentajeSubsidiado50OR: Float
+      porcentajeSubsidiado0OR: Float
+      tarifaNivel1100OR: Float
+      tarifaNivel150OR: Float
+      tarifaNivel10OR: Float
+      tarifaNivel2: Float
+      tarifaNivel3: Float
+      tarifaNivel4: Float
+      cfm: Float
+      fechaPublicacion: String
+      diarioPublicacion: String
+      tarifaOT: Float
+    }
+
+    type DataFormato3SSPD_Response {
+      registros: [DataFormato3SSPD]
+      totalPages: Int
+    }
+
+    
+
+    type DataFormulario5SSPD {
+      anho: Int
+        mes: Int
+        opcionTarifaria: String
+        creador: Int
+    }
+    type DataFormulario5SSPD_Response {
+      registros: [DataFormulario5SSPD]
+      totalPages: Int
+    }
+
+    type DataFormato6SSPD {
+      anho: Int
+      mes: Int
+      idMercado: String
+      ntProp: Float
+      pv: Float
+      sam1: Float
+      vRt1: Float
+      cuvc: Float
+      cuvm1: Float
+      cuv: Float
+      vRm1: Float
+      rEM: Float
+      sam: Float
+      aplicoOpcionTarifaria: String
+    }
+
+    type DataFormato6SSPD_Response {
+      registros: [DataFormato6SSPD]
+      totalPages: Int
+    }
+
+    type DataFormato9SSPD {
+      anho: Int
+      mes:  Int
+      idmercado: String
+      ecc: Float
+      vecc  : Float
+      cbmr: Float
+      vcbmr: Float
+      avcbmr: Float
+      w: Float
+      adm: Float
+      vrm1: Float
+      aj: Float
+      alfa: Float
+      cfj: Float
+      rct: Float
+      rcae: Float
+      balancesubsidios: Float
+      ano: Int
+      trim: Int
+      mgtrim: Int
+      sub1: String
+      sub2: String
+      n: Float
+      m: Float
+      r1: Float
+      r2: Float
+      facturacion: Float
+      actividad: String
+      porccreg: Float
+      porcsspd: Float
+      cregdolares: Float
+      sspddolares: Float
+      pui: Float
+    }
+
+
+    type DataFormato9SSPD_Response {
+      registros: [DataFormato9SSPD]
+      totalPages: Int
+    }
+
+
+
+   
+
   type Query {
     #Usuarios
     obtenerUsuario: Usuario
@@ -2491,6 +2667,51 @@ const typeDefs = gql`
       obtenerData_dane_ipp(options: QueryOptions!): Data_dane_ippResponse
       #Query Data_dane_ipc
       obtenerData_dane_ipc(options: QueryOptions!): Data_dane_ipcResponse
+      obtenerDataXmTserv(options: QueryOptions!): DataXmTservResponse
+     
+     
+      obtenerDataFormulario1SSPD(
+        selectedStartPeriod: String!
+        selectedEndPeriod: String!
+        page: Int!
+        limit: Int!
+      ): DataFormulario1SSPD_Response
+
+      obtenerDataFormulario5SSPD(
+        selectedStartPeriod: String!
+        selectedEndPeriod: String!
+        page: Int!
+        limit: Int!
+      ): DataFormulario5SSPD_Response
+     
+      obtenerDataFormato2SSPD(
+        selectedStartPeriod: String!
+        selectedEndPeriod: String!
+        page: Int!
+        limit: Int!
+      ): DataFormato2SSPD_Response
+      obtenerDataFormato3SSPD(
+        selectedStartPeriod: String!
+        selectedEndPeriod: String!
+        page: Int!
+        limit: Int!
+      ): DataFormato3SSPD_Response
+     
+    
+      obtenerDataFormato6SSPD(
+        selectedStartPeriod: String!
+        selectedEndPeriod: String!
+        page: Int!
+        limit: Int!
+      ): DataFormato6SSPD_Response
+     
+      obtenerDataFormato9SSPD(
+        selectedStartPeriod: String!
+        selectedEndPeriod: String!
+        page: Int!
+        limit: Int!
+      ): DataFormato9SSPD_Response
+     
   }
   type Mutation {
     #Usuarios
@@ -2664,6 +2885,11 @@ const typeDefs = gql`
 
   # Mutation para actualizar datos de la tablaData_dane_ipc
   actualizarData_dane_ipc(id: ID!, input: Data_dane_ipcInput): Data_dane_ipc
+  
+    nuevoDataXmTserv(input: [DataxmtservInput]): ResponseDataXmTserv
+    actualizarDataXmTserv(id: ID!, input: DataxmtservInput): Data_xm_tserv
+    eliminarDataXmTserv(ids: [ID!]!): [String]
+    eliminarData_res_componentes_cu_tarifa(ids: [ID!]!): [String]
   }
 `;
 

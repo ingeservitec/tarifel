@@ -128,6 +128,7 @@ const TableAndt = ({
         if (actionMode === "delete") {
           // Suponiendo que mutationResponse.eliminarDataempresamessin contiene los IDs de los elementos eliminados
           const deletedIds = mutationResponse[subMutation];
+          console.log(mutationResponse)
           
           cache.modify({
             fields: {

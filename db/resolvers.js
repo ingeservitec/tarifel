@@ -944,7 +944,7 @@ const resolvers = {
         throw new Error(`No se pudieron obtener los datos de la empresa`);
       }
     },
- 
+
     obtenerDataFormulario5SSPD: async (
       _,
       { selectedStartPeriod, selectedEndPeriod, limit, page },
@@ -1056,10 +1056,6 @@ const resolvers = {
         throw new Error(`No se pudieron obtener los datos de la empresa`);
       }
     },
-  
-
-
-
   },
 
   Mutation: {
@@ -1914,9 +1910,16 @@ const resolvers = {
         // Recorre los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
-            const { emisor_banco, numero_garantia, fecha_inicio_vigencia } =
+            const { emisor_banco, numero_garantia, fecha_inicio_vigencia,costo_garantia, valor_garantia } =
               input[index];
             // Busca si existe un registro con el mismo id de la empresa, año y mes
+
+            // Si ya existe un registro, retorna un error
+            if (costo_garantia / valor_garantia > 0.15) {
+              throw new Error(
+                `Los costos de la garantia ${numero_garantia} expedida por el banco ${emisor_banco} superan al 15% del valor asegurado, puede haber un error de digitacipón, revisa , corrije o de ser correcto contacta al administrador`
+              );
+            }
 
             const registroExistente = await Data_empresa_garantia.findOne({
               where: {
@@ -1977,15 +1980,11 @@ const resolvers = {
       }
     },
 
-    eliminarEmpresaGarantia: async (_, { id }) => {
+    eliminarEmpresaGarantia: async (_, { ids }) => {
       try {
-        const numDestroyed = await Data_empresa_garantia.destroy({
-          where: { id },
-        });
-        if (numDestroyed) {
-          return true;
-        }
-        throw new Error(`La garantía con ID ${id} no fue encontrada`);
+        
+          const eliminados = await Data_empresa_garantia.destroy({ where: { id: ids } });
+          return ids;
       } catch (error) {
         console.log(error);
         return false;
@@ -2626,6 +2625,8 @@ const resolvers = {
                     },
                   },
                 });
+
+          
               var cgsubasta_acu = 0;
               var cg_acu = 0;
               var cgcu_acu = 0;
@@ -2846,7 +2847,7 @@ const resolvers = {
               });
 
               rc_ = roundToTwo(
-                (data_creg_cxm[0].RCT *
+                ((data_creg_cxm[0].RCT/100) *
                   (data_empresam.ventas_usuarios_r_nt1_e +
                     data_empresam.ventas_usuarios_r_nt1_c +
                     data_empresam.ventas_usuarios_r_nt1_u +
@@ -2855,9 +2856,9 @@ const resolvers = {
                     data_empresam.vae_kwh -
                     data_empresam.vnu_kwh -
                     data_empresam.vsne_kwh) +
-                  data_creg_cxm[0].RCAE * data_empresam.vae_kwh +
-                  data_creg_cxm[0].RCSNE * data_empresam.vsne_kwh +
-                  data_creg_cxm[0].RCNU * data_empresam.vnu_kwh) /
+                  (data_creg_cxm[0].RCAE/100) * data_empresam.vae_kwh +
+                  (data_creg_cxm[0].RCSNE/100) * data_empresam.vsne_kwh +
+                  (data_creg_cxm[0].RCNU/100 )* data_empresam.vnu_kwh) /
                   (data_empresam.ventas_usuarios_r_nt1_e +
                     data_empresam.ventas_usuarios_r_nt1_c +
                     data_empresam.ventas_usuarios_r_nt1_u +
@@ -3628,8 +3629,6 @@ const resolvers = {
                 );
               }
 
-              console.log(data_Res_componentes_cu_tarifam);
-
               if (data_Res_componentes_cu_tarifam.dtun_nt1_e > 0) {
                 c_ast_ = roundToTwo(
                   ((data_Res_componentes_cu_tarifam.gc +
@@ -3676,8 +3675,6 @@ const resolvers = {
               const data_xm_tservmsiciva = data_xm_tserv.filter(
                 (data_xm_tserv) => data_xm_tserv.concepto === "SIC_IVA"
               )[0].dataValues.valor;
-
-              console.log(roundToTwo(c_ast_));
 
               cv_ = roundToTwo(
                 c_ast_ +
@@ -3876,6 +3873,8 @@ const resolvers = {
                 gc_ + tx_ + r_ + cV_nt4 + pr_nt4_ + input[index].dnt4
               );
 
+
+
               input[index].cu_nt1_100_esp = cu_nt1_100_;
               input[index].cu_nt1_50_esp = cu_nt1_50_;
               input[index].cu_nt1_0_esp = cu_nt1_0_;
@@ -4027,8 +4026,8 @@ const resolvers = {
               } else {
                 porc_sube2_nt4_ = 0.5;
               }
-
-              if (input[index].cg > 0 || input[index].cgcu > 0) {
+           
+              if (cgsubasta_acu > 0 || cg_acu > 0 || cgcu_acu > 0) {
                 var recuperacionGarantias = "Si";
                 var observaciónRecuperacionGarantias = "";
               } else {
@@ -4182,73 +4181,84 @@ const resolvers = {
               //   };
               //   await DataFormato6SSPD.create(nuevoObjetoF6);
               // }
-
+              function calcularMGTrim( trim) {
+                // Determinar el mes basado en el trimestre
+                // trim = 1 (Ene, Feb, Mar) => mgtrim = Feb => 2
+                // trim = 2 (Abr, May, Jun) => mgtrim = May => 5
+                // trim = 3 (Jul, Ago, Sep) => mgtrim = Ago => 8
+                // trim = 4 (Oct, Nov, Dic) => mgtrim = Nov => 11
+                
+                if (trim < 1 || trim > 4) {
+                  console.error("Trim incorrecto. El valor de 'trim' debe estar entre 1 y 4.");
+                  return; // Salir si el trimestre no es válido
+                }
+              
+                const segundoMes = (trim - 1) * 3 + 2; // Calcula el segundo mes del trimestre
+                return segundoMes
+              }
               var nuevoObjetoF9 = {
-                idmercado : mercado,
-                ecc: roundToTwo(data_xm_afac.compras_en_contratos_kwh),
-                vecc: roundToTwo(Costo_contratos),
+              
+                anho:anho,
+                mes:mes,
+                idmercado:mercado,
+                ecc:parseInt(Energia_contratos),
+                vecc: parseInt(Costo_contratos),
                 aecc: 0,
                 avecc: 0,
                 amc: 0,
-                cbmr: roundToTwo(afacm.compras_energia_en_bolsa_kwh), //se ajusta 09/01/2023 antes era 1
-                vcbmr : roundToTwo(afacm.compras_energia_en_bolsa_cop), //se ajusta 09/01/2023 antes era 1
-                avcbmr : 0,
-                avcb_mr: 0,
-                cb_mnr: 0,
-                vcb_mnr: 0,
-                agpe: 0,
-                gd: 0,
-                gtr: 0,
-                cug: 0,
-                clp: 0,
-                aclp: 0,
-                w: w,
-                psa: 0,
-                egp: 0,
-                adm: 0,
-                vrm1 : ventas_totales,
-                i: 0,
-                aj: 0,
-                alfa: alfa,
-                dcr_aegp: 0,
-                admre_g: 0,
-                aprre_g: 0,
-                adr_iprstn: 0,
-                apr_iprstn: 0,
-                arest: 0,
-                cfj : cfm_,
-                rct: data_creg_cxm[0].RCT,
-                rcae: data_creg_cxm[0].RCAE,
-                ifssri: 0,
-                ifoes: 0,
-                balancesubsidios: 1,
-                ano: maxa,
-                trim: maxt,
-                mgtrim: 2,
-                sub1: sub1_,
-                sub2: sub2_,
-                n: n_Sub1_,
-                m: m_Sub2_,
-                r1: r1_,
-                r2: r2_,
-                facturacion: facturacion_t_,
-                actividad: "ci",
-                porccreg: data_empresaanualm[0].porc_contribucion_creg,
-                porcsspd: data_empresaanualm[0].porc_contribucion_sspd,
-                cregdolares:
-                data_empresaanualm[0].contribuciones_creg *
-                data_empresaanualm[0].porc_contribucion_sspd,
-                sspddolares:
-                data_empresaanualm[0].contribuciones_sspd *
-                data_empresaanualm[0].porc_contribucion_sspd,
-                pui: 0,
+                cb_mr: parseInt(afacm.compras_energia_en_bolsa_kwh),
+                vcb_mr: parseInt(afacm.compras_energia_en_bolsa_cop),
+                acb_mr:0,
+                avcbmr:0,
+                cb_mnr:0,
+                vcb_mnr:0,
+                agpe:0,
+                gd:0,
+                gtr:0,
+                cug:cgsubasta_acu,
+                clp:parseInt(Energia_contratos_sub),
+                aclp:0,
+                w:w1*100, //Revisar concepto SSPD
+                psa:pcSub_,
+                egp:0,
+                adm:0, //Inlcuir? AJ
+                vrm1:ventas_totales,
+                i:0,
+                aj:aj_,
+                alfa:alfa,
+                dcr_agpe:0,
+                admre:0,
+                aprre_g:0,
+                adr_iprstn:0,
+                apr_iprstn:0,
+                arest:0, //tener en cuenta versiones posteriores a TXF
+                cfj:data_creg_cxm[0].Cf,
+                rct:data_creg_cxm[0].RCT,
+                rcae:data_creg_cxm[0].RCAE,
+                ifssri:0,
+                ifoes:0,
+                balancesubsidios:1, //Deficitario
+                ano:maxa,
+                trim:maxt,
+                mgtrim:calcularMGTrim( maxt),
+                sub1:parseInt(sub1_),
+                sub2:parseInt(sub2_),
+                n:n_Sub1_,
+                m:m_Sub2_,
+                r1:roundToTwo((r1_)*100),
+                r2:roundToTwo((r2_)*100),
+                facturacion:facturacion_t_,
+                actividad:2, //cx integrado
+                porc_creg_cx:data_empresaanualm[0].porc_contribucion_creg,
+                porc_sspd_cx:data_empresaanualm[0].porc_contribucion_sspd,
+                costo_creg_valor:parseInt(data_empresaanualm[0].contribuciones_creg/12),
+                costo_sspd_valor:parseInt(data_empresaanualm[0].contribuciones_sspd/12),
+                pui:0,
+                creador : parseInt(ctx.usuario.id),
+                empresa_id : ctx.usuario.empresa
               };
 
-              nuevoObjetoF9.creador = parseInt(ctx.usuario.id);
-              nuevoObjetoF9.empresa_id = (ctx.usuario.empresa);
-              nuevoObjetoF9.anho = anho; // Asegúrate de que la variable 'anho' esté definida previamente
-              nuevoObjetoF9.mes = mes; // Asegúrate de que la variable 'mes' esté definida previamente
-              nuevoObjetoF9.mercado = mercado; // Asegúrate de que la variable 'mes' esté definida previamente
+             
               await DataFormato9SSPD.create(nuevoObjetoF9);
 
               input[index].pc = pc_;
@@ -4430,104 +4440,71 @@ const resolvers = {
               input[index].nt3_o = cu_nt3_;
               input[index].nt3_ap = cu_nt3_;
 
-
-
-              for (let indexF3 = 1; indexF3 <= 10; indexF3++) {
+              for (let indexF3 = 1; indexF3 < 10; indexF3++) {
                 // Suponiendo que data_Res_componentes_cu_tarifam[0] contiene datos relevantes fuera del bucle.
                 // Aquí iría la lógica para asignar valores a las variables de tarifa basadas en `indexF3` y `opcionTarifaria`.
                 // Por ejemplo:
-         
-                  if (indexF3 === 1) {
-                    Tarifa_100 =
-                    input[index].nt1_100_estrato_1_men_cs
-                    Tarifa_50 =
-                    input[index].nt1_50_estrato_1_men_cs
-                    Tarifa_0 =
-                    input[index].nt1_0_estrato_1_men_cs
-                    Tarifa_NT2 =
-                    input[index].nt2_estrato_1_men_cs
-                    Tarifa_NT3 =
-                    input[index].nt3_estrato_1_men_cs
-                    Tarifa_NT4 =
-                    input[index].nt4_estrato_1_men_cs
-                    porcentajeSubsidiado100OR_ = porc_sube1_100_
-                    porcentajeSubsidiado50OR_ = porc_sube1_50_
-                    porcentajeSubsidiado0OR_ = porc_sube1_0_
-                  }
-                  if (indexF3 === 2) {
-                    Tarifa_100 =
-                    input[index].nt1_100_estrato_2_men_cs
-                    Tarifa_50 =
-                    input[index].nt1_50_estrato_2_men_cs
-                    Tarifa_0 =
-                    input[index].nt1_0_estrato_2_men_cs
-                    Tarifa_NT2 =
-                    input[index].nt2_estrato_2_men_cs
-                    Tarifa_NT3 =
-                    input[index].nt3_estrato_2_men_cs
-                    Tarifa_NT4 =
-                    input[index].nt4_estrato_2_men_cs
-                    porcentajeSubsidiado100OR_ = porc_sube2_100_
-                    porcentajeSubsidiado50OR_ = porc_sube2_50_
-                    porcentajeSubsidiado0OR_ = porc_sube2_0_
-                  }
-                  if (indexF3 === 3) {
-                    Tarifa_100 =
-                    input[index].nt1_100_estrato_3_men_cs
-                    Tarifa_50 =
-                    input[index].nt1_50_estrato_3_men_cs
-                    Tarifa_0 =
-                    input[index].nt1_0_estrato_3_men_cs
-                    Tarifa_NT2 =
-                    cu_nt2_*0.85
-                    Tarifa_NT3 =
-                    cu_nt3_*0.85
-                    Tarifa_NT4 =
-                    cu_nt4_*0.85
-                    porcentajeSubsidiado100OR_ = 0.15
-                    porcentajeSubsidiado50OR_ = 0.15
-                    porcentajeSubsidiado0OR_ = 0.15
-                  }
-                  if (indexF3 === 4 || indexF3 === 7 || indexF3 === 9) {
-                    Tarifa_100 =
-                    input[index].nt1_100_estrato_4
-                    Tarifa_50 =
-                    input[index].nt1_50_estrato_4
-                    Tarifa_0 =
-                    input[index].nt1_0_estrato_4
-                    Tarifa_NT2 =
-                    cu_nt2_
-                    Tarifa_NT3 =
-                    cu_nt3_
-                    Tarifa_NT4 =
-                    cu_nt4_
-                    porcentajeSubsidiado100OR_ = 0
-                    porcentajeSubsidiado50OR_ = 0
-                    porcentajeSubsidiado0OR_ = 0
-                  }
-                  if (
-                    indexF3 === 5 ||
-                    indexF3 === 6 ||
-                    indexF3 === 8 ||
-                    indexF3 === 10
-                  ) {
-                    Tarifa_100 =
-                    input[index].nt1_100_estrato_5
-                    Tarifa_50 =
-                    input[index].nt1_50_estrato_5
-                    Tarifa_0 =
-                    input[index].nt1_0_estrato_5
-                    Tarifa_NT2 =
-                    cu_nt2_*1.2
-                    Tarifa_NT3 =
-                    cu_nt3_*1.2
-                    Tarifa_NT4 =
-                    cu_nt4_*1.2
-                    porcentajeSubsidiado100OR_ = 0
-                    porcentajeSubsidiado50OR_ =0
-                    porcentajeSubsidiado0OR_ = 0
-                  }
-                
+
+                if (indexF3 === 1) {
+                  Tarifa_100 = input[index].nt1_100_estrato_1_men_cs;
+                  Tarifa_50 = input[index].nt1_50_estrato_1_men_cs;
+                  Tarifa_0 = input[index].nt1_0_estrato_1_men_cs;
+                  Tarifa_NT2 = input[index].nt2_estrato_1_men_cs;
+                  Tarifa_NT3 = input[index].nt3_estrato_1_men_cs;
+                  Tarifa_NT4 = input[index].nt4_estrato_1_men_cs;
+                  porcentajeSubsidiado100OR_ = porc_sube1_100_;
+                  porcentajeSubsidiado50OR_ = porc_sube1_50_;
+                  porcentajeSubsidiado0OR_ = porc_sube1_0_;
+                }
+                if (indexF3 === 2) {
+                  Tarifa_100 = input[index].nt1_100_estrato_2_men_cs;
+                  Tarifa_50 = input[index].nt1_50_estrato_2_men_cs;
+                  Tarifa_0 = input[index].nt1_0_estrato_2_men_cs;
+                  Tarifa_NT2 = input[index].nt2_estrato_2_men_cs;
+                  Tarifa_NT3 = input[index].nt3_estrato_2_men_cs;
+                  Tarifa_NT4 = input[index].nt4_estrato_2_men_cs;
+                  porcentajeSubsidiado100OR_ = porc_sube2_100_;
+                  porcentajeSubsidiado50OR_ = porc_sube2_50_;
+                  porcentajeSubsidiado0OR_ = porc_sube2_0_;
+                }
+                if (indexF3 === 3) {
+                  Tarifa_100 = input[index].nt1_100_estrato_3_men_cs;
+                  Tarifa_50 = input[index].nt1_50_estrato_3_men_cs;
+                  Tarifa_0 = input[index].nt1_0_estrato_3_men_cs;
+                  Tarifa_NT2 = cu_nt2_ * 0.85;
+                  Tarifa_NT3 = cu_nt3_ * 0.85;
+                  Tarifa_NT4 = cu_nt4_ * 0.85;
+                  porcentajeSubsidiado100OR_ = 0.15;
+                  porcentajeSubsidiado50OR_ = 0.15;
+                  porcentajeSubsidiado0OR_ = 0.15;
+                }
+                if (indexF3 === 4 || indexF3 === 7 || indexF3 === 9 || indexF3 === 11) {
+                  Tarifa_100 = input[index].nt1_100_estrato_4;
+                  Tarifa_50 = input[index].nt1_50_estrato_4;
+                  Tarifa_0 = input[index].nt1_0_estrato_4;
+                  Tarifa_NT2 = cu_nt2_;
+                  Tarifa_NT3 = cu_nt3_;
+                  Tarifa_NT4 = cu_nt4_;
+                  porcentajeSubsidiado100OR_ = 0;
+                  porcentajeSubsidiado50OR_ = 0;
+                  porcentajeSubsidiado0OR_ = 0;
+                }
+                if (
+                  indexF3 === 5 ||
+                  indexF3 === 6 ||
+                  indexF3 === 8 ||
+                  indexF3 === 10
+                ) {
+                  Tarifa_100 = input[index].nt1_100_estrato_5;
+                  Tarifa_50 = input[index].nt1_50_estrato_5;
+                  Tarifa_0 = input[index].nt1_0_estrato_5;
+                  Tarifa_NT2 = cu_nt2_ * 1.2;
+                  Tarifa_NT3 = cu_nt3_ * 1.2;
+                  Tarifa_NT4 = cu_nt4_ * 1.2;
+                  porcentajeSubsidiado100OR_ = 0;
+                  porcentajeSubsidiado50OR_ = 0;
+                  porcentajeSubsidiado0OR_ = 0;
+                }
 
                 let nuevoObjetoF3 = {
                   idMercado: mercado, // Asegúrate de que mercado esté definido
@@ -4535,7 +4512,7 @@ const resolvers = {
                   inicioFranjaHoraria: "0:00", // Ejemplo estático
                   finFranjaHoraria: "23:59", // Ejemplo estático
                   estratoOSector: indexF3, // Aquí usamos indexF3 directamente o alguna lógica basada en él
-                  porcentajeSubsidiado100OR:porcentajeSubsidiado100OR_,
+                  porcentajeSubsidiado100OR: porcentajeSubsidiado100OR_,
                   porcentajeSubsidiado50OR: porcentajeSubsidiado50OR_,
                   porcentajeSubsidiado0OR: porcentajeSubsidiado0OR_,
                   tarifaNivel1100OR: Tarifa_100,
@@ -4543,11 +4520,11 @@ const resolvers = {
                   tarifaNivel10OR: Tarifa_0,
                   tarifaNivel2: Tarifa_NT2,
                   tarifaNivel3: Tarifa_NT3,
-                  tarifaNivel4: Tarifa_NT2,
+                  tarifaNivel4: Tarifa_NT4,
                   cfm: cfm_, // Ejemplo, asegúrate de que este dato está definido
                   fechaPublicacion: null, // Ejemplo nulo, ajusta según sea necesario
                   diarioPublicacion: null, // Ejemplo nulo, ajusta según sea necesario
-                  tarifaOT: 0, // Asegúrate de que opcionTarifaria esté definida
+                  tarifaOT: 2, // Asegúrate de que opcionTarifaria esté definida 1 Si / 2 No
                   creador: ctx.usuario.id,
                   empresa_id: ctx.usuario.empresa,
                   anho: input[index].anho,
@@ -4556,10 +4533,6 @@ const resolvers = {
 
                 await DataFormato3SSPD.create(nuevoObjetoF3);
               }
-
-
-
-
 
               const resultadoComponentes = await new Res_componentes_cu_tarifa(
                 input[index]
@@ -4855,17 +4828,17 @@ const resolvers = {
         throw new Error("Error al eliminar los registros");
       }
     },
- eliminarData_res_componentes_cu_tarifa : async (_, { ids }, ctx) => {
+    eliminarData_res_componentes_cu_tarifa: async (_, { ids }, ctx) => {
       try {
         // Encontrar todos los registros que coincidan con los ids proporcionados
         const dataExistente = await Res_componentes_cu_tarifa.findAll({
           where: { id: ids },
         });
-    
+
         if (!dataExistente || dataExistente.length === 0) {
           throw new Error(`No se encontró el registro`);
         }
-    
+
         // Definir las tablas a verificar
         const tablas = [
           DataFormato9SSPD,
@@ -4874,30 +4847,40 @@ const resolvers = {
           DataFormato3SSPD,
           DataFormato6SSPD,
         ];
-    
+
         for (const registro of dataExistente) {
           // Obtener anho y mes del registro existente
           const { anho, mes } = registro;
-    
+
           // Verificar si es el año y mes más reciente en todas las tablas relevantes
           let esMasReciente = true;
           for (let tabla of tablas) {
             const registroMasReciente = await tabla.findOne({
               where: { empresa_id: ctx.usuario.empresa },
-              order: [['anho', 'DESC'], ['mes', 'DESC']],
-              limit: 1
+              order: [
+                ["anho", "DESC"],
+                ["mes", "DESC"],
+              ],
+              limit: 1,
             });
-    
-            if (registroMasReciente && (registroMasReciente.anho > anho || (registroMasReciente.anho === anho && registroMasReciente.mes > mes))) {
+
+            if (
+              registroMasReciente &&
+              (registroMasReciente.anho > anho ||
+                (registroMasReciente.anho === anho &&
+                  registroMasReciente.mes > mes))
+            ) {
               esMasReciente = false;
               break;
             }
           }
-    
+
           if (!esMasReciente) {
-            throw new Error('Existen cálculos más recientes y no se puede eliminar este registro. Contacte al administrador');
+            throw new Error(
+              "Existen cálculos más recientes y no se puede eliminar este registro. Contacte al administrador"
+            );
           }
-    
+
           // Eliminar el registro si es el más reciente
           await registro.destroy();
           for (let tabla of tablas) {
@@ -4910,16 +4893,15 @@ const resolvers = {
             });
           }
         }
-    
+
         // Eliminar los registros de todas las tablas si son los más recientes
-        
-    
+
         return ids;
       } catch (error) {
         console.log(error);
         throw new Error(error.message);
       }
-    }    
+    },
   },
 };
 module.exports = resolvers;

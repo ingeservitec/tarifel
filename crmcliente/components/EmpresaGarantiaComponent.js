@@ -46,6 +46,8 @@ const EmpresaGarantiaComponent = () => {
             cacheField="obtenerEmpresaGarantias"
             mutation={ELIMINAR_EMPRESA_GARANTIA}
             query={OBTENER_EMPRESA_GARANTIAS}
+            actionMode = "delete"
+            subMutation="eliminarEmpresaGarantia" 
           />
         </div>
       </div>

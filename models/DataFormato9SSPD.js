@@ -1,188 +1,65 @@
-// data_formato_9_sspd.js
 const { DataTypes } = require("sequelize");
 const db = require("../config/db.js");
-
-const data_formato_9_sspd = db.define("Data_Formato_9_SSPD", {
-    anho: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    mes: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    idmercado: { 
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    ecc: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Energía en contratos"
-    },
-    vecc: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Valor de la energía en contratos"
-    },
-    cbmr: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Compras de bolsa MR"
-    },
-    vcbmr: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Valor de compras de bolsa MR"
-    },
-    avcbmr: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Ajustes en valor de compras de bolsa MR"
-    },
-    w: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Factor w"
-    },
-    adm: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "ADm"
-    },
-    vrm1: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "VRm-1"
-    },
-    aj: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "AJ"
-    },
-    alfa: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Alfa"
-    },
-    cfj: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Cfj"
-    },
-    rct: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "RCT"
-    },
-    rcae: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "RCAE"
-    },
-    balancesubsidios: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Balance de Subsidios"
-    },
-    ano: { 
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: "AÑO"
-    },
-    trim: { 
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: "TRIM"
-    },
-    mgtrim: { 
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: "MG TRIM"
-    },
-    sub1: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Sub1"
-    },
-    sub2: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Sub2"
-    },
-    n: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "N"
-    },
-    m: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "M"
-    },
-    r1: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "r1"
-    },
-    r2: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "r2"
-    },
-    facturacion: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "Facturación"
-    },
-    actividad: { 
-        type: DataTypes.STRING,
-        allowNull: false,
-        comment: "Actividad"
-    },
-    porccreg: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "%CREG"
-    },
-    porcsspd: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "%SSPD"
-    },
-    cregdolares: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "CREG ($)"
-    },
-    sspddolares: { 
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        comment: "SSPD ($)"
-    },
-    pui: { 
-        type: DataTypes.FLOAT,
-        allowNull: true,
-        comment: "PUI"
-    },
-    creador: { 
-        type: DataTypes.INTEGER, 
-        allowNull: false 
-    },
-    empresa_id: { 
-        type: DataTypes.STRING, 
-        allowNull: false 
-    },
-    createdAt: { 
-        type: DataTypes.DATE, 
-        defaultValue: DataTypes.NOW,
-        field: 'createdAt' 
-    },
-    updatedAt: { 
-        type: DataTypes.DATE, 
-        defaultValue: DataTypes.NOW,
-        field: 'updatedAt' 
-    }
+const Data_Formato_9_SSPDSchema = db.define("Data_Formato_9_SSPD", {
+  // Model attributes are defined here
+  creador: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  empresa_id: { type: DataTypes.STRING, allowNull: false, trim: true },
+  anho: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  mes: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  idmercado: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  ecc: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  vecc: { type: DataTypes.STRING, allowNull: false, trim: true },
+ 
+  aecc: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  avecc: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  amc: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  cb_mr: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  vcb_mr: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  acb_mr: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  avcbmr: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  cb_mnr: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  vcb_mnr: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  agpe: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  gd: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  gtr: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  cug: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  clp: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  aclp: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  w: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  psa: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  egp: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  adm: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  vrm1: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  i: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  aj: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  alfa: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  dcr_agpe: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  admre: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  aprre_g: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  adr_iprstn: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  apr_iprstn: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  arest: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  cfj: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  rct: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  rcae: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  ifssri: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  ifoes: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  balancesubsidios: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  ano: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  trim: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  mgtrim: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  sub1: { type: DataTypes.STRING, allowNull: false, trim: true },
+  sub2: { type: DataTypes.STRING, allowNull: false, trim: true },
+  n: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  m: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  r1: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  r2: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  facturacion: { type: DataTypes.STRING, allowNull: false, trim: true },
+  actividad: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  porc_creg_cx: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  porc_sspd_cx: { type: DataTypes.FLOAT, allowNull: false, trim: true },
+  costo_creg_valor: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  costo_sspd_valor: { type: DataTypes.INTEGER, allowNull: false, trim: true },
+  pui: { type: DataTypes.INTEGER, allowNull: false, trim: true },
 });
-
-module.exports = data_formato_9_sspd;
+module.exports = Data_Formato_9_SSPDSchema;

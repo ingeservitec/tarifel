@@ -1703,8 +1703,9 @@ export const ACTUALIZAR_EMPRESA_GARANTIA = gql`
 `;
 
 export const ELIMINAR_EMPRESA_GARANTIA = gql`
-  mutation eliminarEmpresaGarantia($id: ID!) {
-    eliminarEmpresaGarantia(id: $id)
+
+  mutation eliminarEmpresaGarantia($eliminarDataId: [ID!]!) {
+    eliminarEmpresaGarantia(ids: $eliminarDataId)
   }
 `;
 
@@ -3339,6 +3340,11 @@ export const OBTENER_DATA_REPORTES_SUI_Formato6SSPD = gql`
 `;
 
 
+
+
+
+
+
 export const OBTENER_DATA_REPORTES_SUI_Formato9SSPD = gql`
   query obtenerDataFormato9SSPD(
     $selectedStartPeriod: String!
@@ -3353,23 +3359,47 @@ export const OBTENER_DATA_REPORTES_SUI_Formato9SSPD = gql`
       limit: $limit
     ) {
       registros {
-        
+       
         anho
         mes
         idmercado
         ecc
         vecc
-        cbmr
-        vcbmr
+        
+        aecc
+        avecc
+        amc
+        cb_mr
+        vcb_mr
+        acb_mr
         avcbmr
+        cb_mnr
+        vcb_mnr
+        agpe
+        gd
+        gtr
+        cug
+        clp
+        aclp
         w
+        psa
+        egp
         adm
         vrm1
+        i
         aj
         alfa
+        dcr_agpe
+        admre
+        aprre_g
+        adr_iprstn
+        apr_iprstn
+        arest
         cfj
         rct
         rcae
+        ifssri
+        ifoes
         balancesubsidios
         ano
         trim
@@ -3382,10 +3412,10 @@ export const OBTENER_DATA_REPORTES_SUI_Formato9SSPD = gql`
         r2
         facturacion
         actividad
-        porccreg
-        porcsspd
-        cregdolares
-        sspddolares
+        porc_creg_cx
+        porc_sspd_cx
+        costo_creg_valor
+        costo_sspd_valor
         pui
 
       }

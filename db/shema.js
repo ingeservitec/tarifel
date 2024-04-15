@@ -2546,23 +2546,50 @@ type DataFormulario1SSPD {
       totalPages: Int
     }
 
-    type DataFormato9SSPD {
+    type DataFormato9SSPD{
+      id: ID
+      creador: Int
+      empresa_id: String
       anho: Int
-      mes:  Int
-      idmercado: String
-      ecc: Float
-      vecc  : Float
-      cbmr: Float
-      vcbmr: Float
-      avcbmr: Float
+      mes: Int
+      idmercado: Int
+      ecc: Int
+      vecc: String
+
+      aecc: Int
+      avecc: Int
+      amc: Float
+      cb_mr: Int
+      vcb_mr: Int
+      acb_mr: Int
+      avcbmr: Int
+      cb_mnr: Int
+      vcb_mnr: Int
+      agpe: Float
+      gd: Float
+      gtr: Float
+      cug: Float
+      clp: Int
+      aclp: Int
       w: Float
-      adm: Float
-      vrm1: Float
+      psa: Float
+      egp: Float
+      adm: Int
+      vrm1: Int
+      i: Float
       aj: Float
       alfa: Float
+      dcr_agpe: Int
+      admre: Int
+      aprre_g: Int
+      adr_iprstn: Int
+      apr_iprstn: Int
+      arest: Int
       cfj: Float
       rct: Float
       rcae: Float
+      ifssri: Float
+      ifoes: Float
       balancesubsidios: Float
       ano: Int
       trim: Int
@@ -2573,14 +2600,17 @@ type DataFormulario1SSPD {
       m: Float
       r1: Float
       r2: Float
-      facturacion: Float
-      actividad: String
-      porccreg: Float
-      porcsspd: Float
-      cregdolares: Float
-      sspddolares: Float
-      pui: Float
-    }
+      facturacion: String
+      actividad: Int
+      porc_creg_cx: Float
+      porc_sspd_cx: Float
+      costo_creg_valor: Int
+      costo_sspd_valor: Int
+      pui: Int
+      
+      }
+  
+    
 
 
     type DataFormato9SSPD_Response {
@@ -2798,7 +2828,7 @@ type DataFormulario1SSPD {
       id: ID!
       input: EmpresaGarantiaInput!
     ): EmpresaGarantia
-    eliminarEmpresaGarantia(id: ID!): Boolean
+    eliminarEmpresaGarantia(ids: [ID!]!): [String]
     nuevoDataEmpresaAnual(
       input: [DataEmpresaAnualInput]
     ): ResponseDataEmpresaAnual

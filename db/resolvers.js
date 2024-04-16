@@ -2401,11 +2401,12 @@ const resolvers = {
                 where: {
                   mes: mesm,
                   anho: anhom,
+                  tipo: "pr",
                 },
               });
               if (!data_dane_ipp) {
                 throw new Error(
-                  "No existen insumos de DANE IPP para el periodo anterior al mes y año seleccionado " +
+                  "No existen insumos de DANE IPP tipo pr para el periodo anterior al mes y año seleccionado " +
                     mesm +
                     "-" +
                     anhom

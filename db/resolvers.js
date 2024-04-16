@@ -35,6 +35,9 @@ const DataFormato3SSPD = require("../models/DataFormato3SSPD");
 
 const DataFormulario5SSPD = require("../models/DataFormulario5SSPD");
 const DataFormato6SSPD = require("../models/DataFormato6SSPD");
+
+const Data_Formato_7_SSPDs = require('../models/Data_Formato_7_SSPDs');
+
 const { Op, where, col, literal } = require("sequelize");
 const { Sequelize } = require("sequelize");
 
@@ -1031,6 +1034,44 @@ const resolvers = {
         const [endMonth, endYear] = selectedEndPeriod.split("-");
 
         const resultado = await DataFormato9SSPD.findAndCountAll({
+          where: {
+            empresa_id: ctx.usuario.empresa,
+            anho: {
+              [Op.between]: [parseInt(startYear), parseInt(endYear)],
+            },
+            mes: {
+              [Op.between]: [parseInt(startMonth), parseInt(endMonth)],
+            },
+          },
+          offset: offset,
+          limit: limit,
+          order: [["id", "ASC"]], // Añadir esta línea para ordenar por ID de forma ascendente
+        });
+
+        const totalPages = Math.ceil(resultado.count / limit);
+
+        return {
+          registros: resultado.rows,
+          totalPages: totalPages,
+        };
+      } catch (error) {
+        console.log(error);
+        throw new Error(`No se pudieron obtener los datos de la empresa`);
+      }
+    },
+
+    obtenerDataFormato7SSPDs: async (
+      _,
+      { selectedStartPeriod, selectedEndPeriod, limit, page },
+      ctx
+    ) => {
+      try {
+        const offset = (page - 1) * limit;
+
+        const [startMonth, startYear] = selectedStartPeriod.split("-");
+        const [endMonth, endYear] = selectedEndPeriod.split("-");
+
+        const resultado = await Data_Formato_7_SSPDs.findAndCountAll({
           where: {
             empresa_id: ctx.usuario.empresa,
             anho: {
@@ -2701,6 +2742,13 @@ const resolvers = {
                 );
               }
 
+
+if(anho===2024 && mes===2){
+  gc_=279.05844
+}
+
+
+
               cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG
 
               input[index].qc = qc_;
@@ -2708,7 +2756,7 @@ const resolvers = {
               input[index].w1 = roundToTwo(w1);
               input[index].w2 = roundToTwo(w2);
               input[index].max = max_g_;
-              input[index].cr = cr_;
+              input[index].cr = roundToTwo(cr_);
               input[index].ref = max_g_ / 1.3;
               input[index].alfa = alfa;
               input[index].pc = pc_;
@@ -3697,6 +3745,16 @@ const resolvers = {
               cV_nt3 = cv_;
               cV_nt4 = cv_;
 
+
+              if (anho == 2024 && mes == 2) {
+                cV_nt1=135.7651 //  setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17)); Ajuste
+              }
+              else if (anho == 2024 && mes == 3) {
+                cV_nt1=187.08042 //  setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17)); Ajuste
+              }
+
+              
+
               //cv_=98.8861  May 2022
               //cv_=78.96043 Jun 2022
 
@@ -4261,6 +4319,21 @@ const resolvers = {
              
               await DataFormato9SSPD.create(nuevoObjetoF9);
 
+
+
+
+              //
+              //
+              //
+              //
+
+            
+
+
+
+
+
+
               input[index].pc = pc_;
               input[index].max_g = max_g_;
               input[index].ref_g = max_g_ / 1.3;
@@ -4381,28 +4454,28 @@ const resolvers = {
                 cu_nt4_ * (1 - porc_sube2_nt4_)
               );
 
-              input[index].nt1_100_i_con_c = cu_nt1_100_ * 1.2;
+              input[index].nt1_100_i_con_c = roundToTwo(cu_nt1_100_ * 1.2);
               input[index].nt1_100_i_sin_c = cu_nt1_100_;
 
               input[index].nt1_100_p = cu_nt1_100_;
 
               input[index].nt1_100_o = cu_nt1_100_;
 
-              input[index].nt1_50_i_con_c = cu_nt1_50_ * 1.2;
+              input[index].nt1_50_i_con_c = roundToTwo(cu_nt1_50_ * 1.2);
               input[index].nt1_50_i_sin_c = cu_nt1_50_;
 
               input[index].nt1_50_p = cu_nt1_50_;
 
               input[index].nt1_50_o = cu_nt1_50_;
 
-              input[index].nt1_0_i_con_c = cu_nt1_0_ * 1.2;
+              input[index].nt1_0_i_con_c = roundToTwo(cu_nt1_0_ * 1.2);
               input[index].nt1_0_i_sin_c = cu_nt1_0_;
 
               input[index].nt1_0_p = cu_nt1_0_;
 
               input[index].nt1_0_o = cu_nt1_0_;
 
-              input[index].nt2_i_con_c = cu_nt2_ * 1.2;
+              input[index].nt2_i_con_c = roundToTwo(cu_nt2_ * 1.2);
               input[index].nt2_i_sin_c = cu_nt2_;
               input[index].nt2_o = cu_nt2_;
               input[index].nt2_ap = cu_nt2_;
@@ -4533,6 +4606,88 @@ const resolvers = {
 
                 await DataFormato3SSPD.create(nuevoObjetoF3);
               }
+
+
+
+
+              input[index].dnt1 = roundToTwo(
+                data_xm_sdl.cargo_por_uso_dt1_cop_kwh
+              );
+
+              input[index].dnt2 = roundToTwo(
+                data_xm_sdl.cargo_por_uso_dt2_cop_kwh
+              );
+
+              input[index].dnt3 = roundToTwo(
+                data_xm_sdl.cargo_por_uso_dt3_cop_kwh
+              );
+
+              input[index].cdi_100 = roundToTwo(
+                data_xm_sdl.cargo_de_inversion_cdi1_cop_kwh
+              );
+
+
+
+
+              for (let indexF7 = 1; indexF7 < 6; indexF7++) {
+                if (indexF7 === 1) {
+                  dNm=   input[index].dnt1 
+                  pRnm = pr_nt1_
+                  cVm = input[index].cv_nt1;
+                  cUvm = cu_nt1_100_;
+                  nt_prop = "1-100";
+                }
+                if (indexF7 === 2) {
+                  dNm=   input[index].dnt1 -  input[index].cdi_100/2
+                  pRnm = pr_nt1_
+                  cVm = input[index].cv_nt1;
+                  cUvm = cu_nt1_50_;
+                  nt_prop = "1-50";
+                }
+                if (indexF7 === 3) {
+                  dNm=   input[index].dnt1 -  input[index].cdi_100
+                  pRnm = pr_nt1_
+                  cVm = input[index].cv_nt1;
+                  cUvm = cu_nt1_0_;
+                  nt_prop = "1-0";
+                }
+                if (indexF7 === 4) {
+                  dNm=   input[index].dnt2
+                  pRnm =pr_nt2_
+                  cVm = input[index].cv_nt2;
+                  cUvm = cu_nt2_;
+                  nt_prop = "2";
+                }
+                if (indexF7 === 5) {
+                  dNm=   input[index].dnt3
+                  pRnm =pr_nt3_
+                  cVm = input[index].cv_nt3;
+                  cUvm = cu_nt3_;
+                  nt_prop = "3";
+                }
+
+                
+
+                let nuevoObjetoF7 = {
+
+                  id_mercado: mercado, // Asegúrate de que mercado esté definido
+                  gm:gc_,
+                  tm:tx_,
+                  dnm : dNm,
+                  prnm : pRnm,
+                  nt_prop : nt_prop,
+                  rm : r_,
+                  cvm : cVm,
+                  cuvm  : cUvm,
+                  creador: ctx.usuario.id,
+                  empresa_id: ctx.usuario.empresa,
+                  anho: input[index].anho,
+                  mes: input[index].mes,
+                };
+
+                await Data_Formato_7_SSPDs.create(nuevoObjetoF7);
+              }
+
 
               const resultadoComponentes = await new Res_componentes_cu_tarifa(
                 input[index]
@@ -4846,6 +5001,7 @@ const resolvers = {
           DataFormato2SSPD,
           DataFormato3SSPD,
           DataFormato6SSPD,
+          Data_Formato_7_SSPDs
         ];
 
         for (const registro of dataExistente) {

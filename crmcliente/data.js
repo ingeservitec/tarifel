@@ -359,6 +359,7 @@ export const NUEVO_DATA_RES_COMPONENTES_CU_TARIFA = gql`
       ad
       aj
       pb
+      alfa
       gc
       tx
       dtun_nt1_e
@@ -376,6 +377,16 @@ export const NUEVO_DATA_RES_COMPONENTES_CU_TARIFA = gql`
       dnt2
       dnt3
       dnt4
+      guatape
+ventas_desv
+restricciones_aliviadas
+ventas_totales
+data_xm_iprm1
+data_xm_iprm2
+data_xm_iprm3
+data_xm_iprm4
+delta_t
+t_prima
       crs
       rcal
       r
@@ -503,6 +514,7 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFA = gql`
       ad
       aj
       pb
+      alfa
       mc
       gc
       tx
@@ -521,6 +533,16 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFA = gql`
       dnt2
       dnt3
       dnt4
+      guatape
+ventas_desv
+restricciones_aliviadas
+ventas_totales
+data_xm_iprm1
+data_xm_iprm2
+data_xm_iprm3
+data_xm_iprm4
+delta_t
+t_prima
       crs
       rcal
       r
@@ -2478,6 +2500,7 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFAS = gql`
         mc
         w1
         w2
+        alfa
         gc
         tx
         dtun_nt1_e
@@ -2639,6 +2662,7 @@ export const NUEVO_RES_COMPONENTES_CU_TARIFAS = gql`
         pb
         w1
         w2
+        alfa
         gc
         tx
         dtun_nt1_e
@@ -2656,6 +2680,16 @@ export const NUEVO_RES_COMPONENTES_CU_TARIFAS = gql`
         dnt2
         dnt3
         dnt4
+        guatape
+ventas_desv
+restricciones_aliviadas
+ventas_totales
+data_xm_iprm1
+data_xm_iprm2
+data_xm_iprm3
+data_xm_iprm4
+delta_t
+t_prima
         crs
         rcal
         r
@@ -2815,6 +2849,16 @@ export const ACTUALIZAR_RES_COMPONENTES_CU_TARIFAS = gql`
     dnt2
     dnt3
     dnt4
+    guatape
+ventas_desv
+restricciones_aliviadas
+ventas_totales
+data_xm_iprm1
+data_xm_iprm2
+data_xm_iprm3
+data_xm_iprm4
+delta_t
+t_prima
     crs
     rcal
     r
@@ -3429,4 +3473,91 @@ export const ELIMINAR_DATA_RES_COMPONENTES_CU_TARIFA = gql`
   mutation eliminarData_res_componentes_cu_tarifa($eliminarDataId: [ID!]!) {
     eliminarData_res_componentes_cu_tarifa(ids: $eliminarDataId)
   }
+`;
+
+export const OBTENER_DATA_FORMATO_7_SSPDS = gql`
+query obtenerDataFormato7SSPDs(
+  $selectedStartPeriod: String!
+  $selectedEndPeriod: String!
+  $page: Int!
+  $limit: Int!
+) {
+  obtenerDataFormato7SSPDs(
+    selectedStartPeriod: $selectedStartPeriod
+    selectedEndPeriod: $selectedEndPeriod
+    page: $page
+    limit: $limit
+  ) {
+    registros {
+                id
+                creador
+                empresa_id
+                anho
+                mes
+                id_mercado
+                nt_prop
+                gm
+                tm
+                prnm
+                dnm
+                cvm
+                rm
+                cuvm
+            
+              }
+              totalPages
+            }
+          }
+`;
+
+export const NUEVO_DATA_FORMATO_7_SSPDS = gql`
+    mutation nuevoDataFormato7SSPDs($input: DataFormato7SSPDsInput!) {
+        nuevoDataFormato7SSPDs(input: $input) {
+            id
+            creador
+            empresa_id
+            anho
+            mes
+            id_mercado
+            nt_prop
+            gm
+            tm
+            prnm
+            dnm
+            cvm
+            rm
+            cuvm
+            createdat
+            updatedat
+        }
+    }
+`;
+
+export const ACTUALIZAR_DATA_FORMATO_7_SSPDS = gql`
+    mutation actualizarDataFormato7SSPDs($id: ID!, $input: DataFormato7SSPDsInput!) {
+        actualizarDataFormato7SSPDs(id: $id, input: $input) {
+            id
+            creador
+            empresa_id
+            anho
+            mes
+            id_mercado
+            nt_prop
+            gm
+            tm
+            prnm
+            dnm
+            cvm
+            rm
+            cuvm
+            createdat
+            updatedat
+        }
+    }
+`;
+
+export const ELIMINAR_DATA_FORMATO_7_SSPDS = gql`
+    mutation eliminarDataFormato7SSPDs($ids: [ID!]!) {
+        eliminarDataFormato7SSPDs(ids: $ids)
+    }
 `;

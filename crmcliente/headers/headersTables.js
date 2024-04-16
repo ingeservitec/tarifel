@@ -393,6 +393,14 @@ export const headersDataRescomponentescutarifaSIN = [
     showInTable: true,
   },
   {
+    name: "Alfa",
+    field: "alfa",
+    search: false,
+    sortable: true,
+    location: "center",
+    showInTable: true,
+  },  
+  {
     name: "Gc",
     field: "gc",
     search: false,
@@ -17622,6 +17630,16 @@ export const headersResComponentesCuTarifa = [
     description: "",
     showGraph: true,
   },
+    
+  {
+    name: "Alfa",
+    field: "alfa",
+    sortable: true,
+    showInForm: false,
+    showInTable: true,
+    clase: "input",
+    type: "number",
+  },
   {
     name: "Gc",
     field: "gc",
@@ -17631,6 +17649,24 @@ export const headersResComponentesCuTarifa = [
     clase: "input",
     type: "number",
   },
+  {
+    name: "Delta T",
+    field: "delta_t",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "T Prima",
+    field: "t_prima",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
   {
     name: "Tx",
     field: "tx",
@@ -17776,6 +17812,42 @@ export const headersResComponentesCuTarifa = [
     type: "number",
   },
   {
+    name: "Guatapé",
+    field: "guatape",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "Ventas Desviadas",
+    field: "ventas_desv",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "Restricciones Aliviadas",
+    field: "restricciones_aliviadas",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "Ventas Totales",
+    field: "ventas_totales",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+  {
     name: "Crs",
     field: "crs",
     sortable: true,
@@ -17802,6 +17874,42 @@ export const headersResComponentesCuTarifa = [
     clase: "input",
     type: "number",
   },
+  {
+    name: "Data XM IPRM1",
+    field: "data_xm_iprm1",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "Data XM IPRM2",
+    field: "data_xm_iprm2",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "Data XM IPRM3",
+    field: "data_xm_iprm3",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
+{
+    name: "Data XM IPRM4",
+    field: "data_xm_iprm4",
+    sortable: true,
+    showInTable: true,
+    showInForm: false,
+    type: "number",
+    clase: "input"
+},
   {
     name: "Iprstn",
     field: "iprstn",

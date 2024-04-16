@@ -50,12 +50,10 @@ function Datarxsui() {
       "FORMATO T3. Tarifas Publicadas",
       // "FORMULARIO T5. Aplicación de Opción Tarifaria",
       // "FORMATO T6. Opción Tarifaria168/2008",
+      "FORMATO T7. Costo Unitario de Prestación del Servicio _CU 119 – UR",
       "FORMATO T9. Variables Costo Unitario de Prestación del Servicio CU 119 – UR",
     ];
   
-
-  
-
   // Add/Remove checked item from list
   const handleCheck = (event) => {
     var updatedList = [...checked];

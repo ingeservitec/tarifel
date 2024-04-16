@@ -7,6 +7,7 @@ import { OBTENER_DATA_REPORTES_SUI_Formato3SSPD } from "../data";
 
 import { OBTENER_DATA_REPORTES_SUI_Formato6SSPD } from "../data";
 import { OBTENER_DATA_REPORTES_SUI_Formato9SSPD } from "../data";
+import { OBTENER_DATA_FORMATO_7_SSPDS } from "../data";
 import { Button, message, Progress } from "antd";
 
 // import { OBT
@@ -33,6 +34,12 @@ const empresa='EGVC'
         lazyQuery: useLazyQuery(OBTENER_DATA_REPORTES_SUI_Formato9SSPD),
         dataProperty: "obtenerDataFormato9SSPD",
       },
+      "FORMATO T7. Costo Unitario de Prestación del Servicio _CU 119 – UR":
+      {
+        lazyQuery: useLazyQuery(OBTENER_DATA_FORMATO_7_SSPDS),
+        dataProperty: "obtenerDataFormato7SSPDs",
+      },    
+
       "FORMATO T2. Garantías Financieras":  
       {
         lazyQuery: useLazyQuery(OBTENER_DATA_REPORTES_SUI_Formato2SSPD),

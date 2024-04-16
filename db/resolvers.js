@@ -4332,7 +4332,11 @@ if(anho===2024 && mes===2){
 
 
 
-
+              input[index].ventas_totales = ventas_totales;
+              input[index].data_xm_iprm1  = data_xm_iprm1 ;
+              input[index].data_xm_iprm2  = data_xm_iprm2;
+              input[index].data_xm_iprm3  = data_xm_iprm3;
+              input[index].data_xm_iprm4  = data_xm_iprm4;
 
               input[index].pc = pc_;
               input[index].max_g = max_g_;

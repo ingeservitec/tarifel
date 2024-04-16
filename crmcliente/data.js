@@ -2502,6 +2502,8 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFAS = gql`
         w2
         alfa
         gc
+        delta_t
+t_prima
         tx
         dtun_nt1_e
         dtun_nt1_c
@@ -2518,9 +2520,16 @@ export const OBTENER_RES_COMPONENTES_CU_TARIFAS = gql`
         dnt2
         dnt3
         dnt4
+        guatape
+ventas_desv
+restricciones_aliviadas
         crs
         rcal
         r
+        data_xm_iprm1
+data_xm_iprm2
+data_xm_iprm3
+data_xm_iprm4
         iprstn
         pr_nt1
         pr_nt2

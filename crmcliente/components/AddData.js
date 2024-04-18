@@ -12,6 +12,7 @@ import "font-awesome/css/font-awesome.min.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { convertirExcelIPC } from "../funciones/convertirExcel.js";
 import { convertirExcelIPP } from "../funciones/convertirExcel";
+import {convertirExcelIPPAnexos} from "../funciones/convertirExcel";
 import { convertirAFAC } from "../funciones/convertirExcel";
 import { convertirDSPCTTOS } from "../funciones/convertirExcel";
 import { convertirTRSM } from "../funciones/convertirExcel";
@@ -352,9 +353,29 @@ const AddData = ({
             let day, month, regex, match;
 
             switch (subMutation) {
+              // case "nuevoData_dane_ipp":
+              //   dataArray2 = convertirExcelIPP(sheetData);
+              //   break;
+
               case "nuevoData_dane_ipp":
-                dataArray2 = convertirExcelIPP(sheetData);
-                break;
+            
+              wb.SheetNames.forEach(function (sheetName) {
+           
+                
+                if (sheetName === "2.1") { // Añade esta condición para verificar el nombre de la hoja
+                  ws = wb.Sheets[sheetName];
+                  let sheetData = XLSX.utils.sheet_to_json(ws, {
+                    header: 1,
+                    defval: "",
+                    raw: false,
+                    blankrows: true,
+                  });
+                
+                  dataArray2 = convertirExcelIPPAnexos(sheetData);
+                }
+              });
+            
+              break;
               case "nuevoData_dane_ipc":
                 dataArray2 = convertirExcelIPC(sheetData);
                 break;
@@ -553,9 +574,28 @@ const AddData = ({
             let month, day;
 
             switch (subMutation) {
+              // case "nuevoData_dane_ipp":
+              //   dataArray2 = convertirExcelIPP(sheetData);
+              //   break;
               case "nuevoData_dane_ipp":
-                dataArray2 = convertirExcelIPP(sheetData);
-                break;
+            
+              wb.SheetNames.forEach(function (sheetName) {
+           
+                
+                if (sheetName === "2.1") { // Añade esta condición para verificar el nombre de la hoja
+                  ws = wb.Sheets[sheetName];
+                  let sheetData = XLSX.utils.sheet_to_json(ws, {
+                    header: 1,
+                    defval: "",
+                    raw: false,
+                    blankrows: true,
+                  });
+                
+                  dataArray2 = convertirExcelIPPAnexos(sheetData);
+                }
+              });
+            
+              break;
               case "nuevoData_dane_ipc":
                 dataArray2 = convertirExcelIPC(sheetData);
                 break;

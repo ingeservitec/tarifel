@@ -4749,20 +4749,21 @@ if(anho===2024 && mes===2){
     //Mutation Save Datos
 
     nuevoData_dane_ipp: async (_, { input }, ctx) => {
+      
       try {
         const miArray = [];
         const errores = [];
         // Recorre los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
-            const { anho, mes, tipo, ipp_pn_produccion_nacional } =
+            const { anho, mes, tipo, ipp_oi_oferta_interna } =
               input[index];
 
             if (tipo !== "pr" && tipo !== "df") {
               throw new Error(`El tipo de dato debe ser df o pr`);
             }
 
-            if (ipp_pn_produccion_nacional <= 100 && anho > 2014 && mes > 12) {
+            if (ipp_oi_oferta_interna <= 100 && anho > 2014 && mes > 12) {
               throw new Error(
                 `El valor debería ser mayor a 100, dado que la base es diciembre de 2014, puede ser que el DANE ha cambiado el mes base, contacte al administrador`
               );

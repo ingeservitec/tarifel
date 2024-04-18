@@ -33,6 +33,28 @@ const monthMapping = {
   dic: 12, dec: 12
 };
 
+function mesANumeroTresWords(mes){
+  const primerPalabra = mes.split(' ')[0].toUpperCase();
+  const mesSinEspacios = primerPalabra.toUpperCase().replace(/\s/g, "");
+  const equivalencias = {
+    "ENE": 1,
+    "FEB": 2,
+    "MAR": 3,
+    "ABR": 4,
+    "MAY": 5,
+    "JUN": 6,
+    "JUL": 7,
+    "AGO": 8,
+    "SEP": 9,
+    "OCT": 10,
+    "NOV": 11,
+    "DIC": 12,
+  };
+
+  return equivalencias[mesSinEspacios];
+
+}
+
 export function convertirExcelIPC(excelArray) {
   const headerRow = excelArray.findIndex((row) => row.includes("Mes"));
   const yearIndexes = excelArray[headerRow]
@@ -164,6 +186,58 @@ export function convertirExcelIPP(excelArray) {
         obj[key] = row[colIndex];
       }
       resultArray.push(obj);
+    }
+  }
+
+  return resultArray;
+}
+
+export function convertirExcelIPPAnexos(excelArray) {
+
+  
+  // Encontrar la fila que contiene la palabra "TOTAL"
+  const totalRowIndex = excelArray.findIndex(row => row.includes("NIVEL"));
+  const valuesRowIndex = excelArray.findIndex(row => row.includes("TOTAL"));
+
+  // Verificar que encontramos una fila "TOTAL"
+  if (totalRowIndex === -1) {
+    throw new Error('No se encontró la fila "NIVEL" en los datos del Excel.');
+  }
+
+
+  const totalRow = excelArray[totalRowIndex];
+  const valueRow = excelArray[valuesRowIndex];
+  // Crear un objeto que contendrá los datos de la fila "TOTAL"
+  const resultArray = [];
+
+  // Extraer el año y el mes de las columnas que contengan "(pr*)"
+  for (let colIndex = 0; colIndex < totalRow.length; colIndex++) {
+  
+
+    const cellValue = totalRow[colIndex];
+    
+    // Verificar si la columna actual contiene "(pr*)"
+    if (typeof cellValue === 'string' && cellValue.includes("(pr")) {
+      // Extraer año y mes del título de la columna
+      const yearAndMonthMatch = cellValue.match(/([A-Za-z]+)-(\d+) \(pr/);
+
+      if (yearAndMonthMatch) {
+        const mes = yearAndMonthMatch[1];
+        let anho = yearAndMonthMatch[2];
+        // Asegúrate de que el año tenga 4 dígitos
+        anho = anho.length === 2 ? '20' + anho : anho;
+
+  
+        var obj = {};
+        obj["Año"] =anho
+        obj["Mes"] = mesANumeroTresWords(mes), // Suponiendo que tienes una función `mesANumero` que convierte el nombre del mes a número;
+        obj["Tipo"] = "pr";
+        obj["ipp_oi_oferta_interna"] = valueRow[colIndex];
+        resultArray.push(obj);
+
+        // Agregar el objeto al array de resultados
+    
+      }
     }
   }
 

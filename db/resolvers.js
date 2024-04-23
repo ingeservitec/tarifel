@@ -36,7 +36,8 @@ const DataFormato3SSPD = require("../models/DataFormato3SSPD");
 const DataFormulario5SSPD = require("../models/DataFormulario5SSPD");
 const DataFormato6SSPD = require("../models/DataFormato6SSPD");
 
-const Data_Formato_7_SSPDs = require('../models/Data_Formato_7_SSPDs');
+const Data_Formato_7_SSPDs = require("../models/Data_Formato_7_SSPDs");
+const Data_empresa_EnergiaContratoAtipico = require("../models/Data_empresa_EnergiaContratoAtipico");
 
 const { Op, where, col, literal } = require("sequelize");
 const { Sequelize } = require("sequelize");
@@ -1097,6 +1098,20 @@ const resolvers = {
         throw new Error(`No se pudieron obtener los datos de la empresa`);
       }
     },
+    obtenerDataEmpresaEnergiaContratoAtipico: async (_, { options }, ctx) => {
+      try {
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        const resultado = await realizarConsultaPaginada(
+          Data_empresa_EnergiaContratoAtipico,
+          options,
+          condicionesEmpresa
+        );
+        return resultado;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`No se pudieron obtener los datos: ${error.message}`);
+      }
+    },
   },
 
   Mutation: {
@@ -1951,8 +1966,13 @@ const resolvers = {
         // Recorre los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
-            const { emisor_banco, numero_garantia, fecha_inicio_vigencia,costo_garantia, valor_garantia } =
-              input[index];
+            const {
+              emisor_banco,
+              numero_garantia,
+              fecha_inicio_vigencia,
+              costo_garantia,
+              valor_garantia,
+            } = input[index];
             // Busca si existe un registro con el mismo id de la empresa, año y mes
 
             // Si ya existe un registro, retorna un error
@@ -2023,9 +2043,10 @@ const resolvers = {
 
     eliminarEmpresaGarantia: async (_, { ids }) => {
       try {
-        
-          const eliminados = await Data_empresa_garantia.destroy({ where: { id: ids } });
-          return ids;
+        const eliminados = await Data_empresa_garantia.destroy({
+          where: { id: ids },
+        });
+        return ids;
       } catch (error) {
         console.log(error);
         return false;
@@ -2544,9 +2565,36 @@ const resolvers = {
                   (obj) =>
                     obj.dataValues && ["CP"].includes(obj.dataValues.tipoasigna)
                 );
+                // Obtener una lista única de IDs de contrato
+                const uniqueContractIds = Array.from(
+                  new Set(filteredData.map((obj) => obj.contrato))
+                );
+
+                // Consultar todos los contratos existentes en Data_empresa_EnergiaContratoAtipico
+                const contratosExistentes =
+                  await Data_empresa_EnergiaContratoAtipico.findAll({
+                    where: {
+                      id_contrato: uniqueContractIds,
+                    },
+                  });
+
+                // Crear un Set de IDs de contratos existentes para una búsqueda rápida
+                const idsContratosExistentes = new Set(
+                  contratosExistentes.map((ce) => ce.id_contrato)
+                );
+
+                // Filtrar los datos para excluir los contratos existentes
+                filteredData = filteredData.filter(
+                  (obj) => !idsContratosExistentes.has(obj.contrato)
+                );
 
                 Energia_contratos = calcularEnergiaContratos(filteredData);
                 Costo_contratos = calcularCostoContratos(filteredData);
+                // Sumar los valores de energía y costo de los contratos existentes a los totales
+                contratosExistentes.forEach((contrato) => {
+                  Energia_contratos += parseFloat(contrato.energia_comprada);
+                  Costo_contratos += parseFloat(contrato.costo);
+                });
 
                 Energia_contratos_sub = 0;
                 Costo_contratos_sub = 0;
@@ -2668,7 +2716,6 @@ const resolvers = {
                   },
                 });
 
-          
               var cgsubasta_acu = 0;
               var cg_acu = 0;
               var cgcu_acu = 0;
@@ -2743,12 +2790,9 @@ const resolvers = {
                 );
               }
 
-
-if(anho===2024 && mes===2){
-  gc_=279.05844
-}
-
-
+              if (anho === 2024 && mes === 2) {
+                gc_ = 279.05844;
+              }
 
               cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG
 
@@ -2896,7 +2940,7 @@ if(anho===2024 && mes===2){
               });
 
               rc_ = roundToTwo(
-                ((data_creg_cxm[0].RCT/100) *
+                ((data_creg_cxm[0].RCT / 100) *
                   (data_empresam.ventas_usuarios_r_nt1_e +
                     data_empresam.ventas_usuarios_r_nt1_c +
                     data_empresam.ventas_usuarios_r_nt1_u +
@@ -2905,9 +2949,9 @@ if(anho===2024 && mes===2){
                     data_empresam.vae_kwh -
                     data_empresam.vnu_kwh -
                     data_empresam.vsne_kwh) +
-                  (data_creg_cxm[0].RCAE/100) * data_empresam.vae_kwh +
-                  (data_creg_cxm[0].RCSNE/100) * data_empresam.vsne_kwh +
-                  (data_creg_cxm[0].RCNU/100 )* data_empresam.vnu_kwh) /
+                  (data_creg_cxm[0].RCAE / 100) * data_empresam.vae_kwh +
+                  (data_creg_cxm[0].RCSNE / 100) * data_empresam.vsne_kwh +
+                  (data_creg_cxm[0].RCNU / 100) * data_empresam.vnu_kwh) /
                   (data_empresam.ventas_usuarios_r_nt1_e +
                     data_empresam.ventas_usuarios_r_nt1_c +
                     data_empresam.ventas_usuarios_r_nt1_u +
@@ -3746,15 +3790,11 @@ if(anho===2024 && mes===2){
               cV_nt3 = cv_;
               cV_nt4 = cv_;
 
-
               if (anho == 2024 && mes == 2) {
-                cV_nt1=135.7651 //  setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17)); Ajuste
+                cV_nt1 = 135.7651; //  setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17)); Ajuste
+              } else if (anho == 2024 && mes == 3) {
+                cV_nt1 = 187.08042; //  setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17)); Ajuste
               }
-              else if (anho == 2024 && mes == 3) {
-                cV_nt1=187.08042 //  setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17)); Ajuste
-              }
-
-              
 
               //cv_=98.8861  May 2022
               //cv_=78.96043 Jun 2022
@@ -3932,8 +3972,6 @@ if(anho===2024 && mes===2){
                 gc_ + tx_ + r_ + cV_nt4 + pr_nt4_ + input[index].dnt4
               );
 
-
-
               input[index].cu_nt1_100_esp = cu_nt1_100_;
               input[index].cu_nt1_50_esp = cu_nt1_50_;
               input[index].cu_nt1_0_esp = cu_nt1_0_;
@@ -4085,7 +4123,7 @@ if(anho===2024 && mes===2){
               } else {
                 porc_sube2_nt4_ = 0.5;
               }
-           
+
               if (cgsubasta_acu > 0 || cg_acu > 0 || cgcu_acu > 0) {
                 var recuperacionGarantias = "Si";
                 var observaciónRecuperacionGarantias = "";
@@ -4240,104 +4278,100 @@ if(anho===2024 && mes===2){
               //   };
               //   await DataFormato6SSPD.create(nuevoObjetoF6);
               // }
-              function calcularMGTrim( trim) {
+              function calcularMGTrim(trim) {
                 // Determinar el mes basado en el trimestre
                 // trim = 1 (Ene, Feb, Mar) => mgtrim = Feb => 2
                 // trim = 2 (Abr, May, Jun) => mgtrim = May => 5
                 // trim = 3 (Jul, Ago, Sep) => mgtrim = Ago => 8
                 // trim = 4 (Oct, Nov, Dic) => mgtrim = Nov => 11
-                
+
                 if (trim < 1 || trim > 4) {
-                  console.error("Trim incorrecto. El valor de 'trim' debe estar entre 1 y 4.");
+                  console.error(
+                    "Trim incorrecto. El valor de 'trim' debe estar entre 1 y 4."
+                  );
                   return; // Salir si el trimestre no es válido
                 }
-              
+
                 const segundoMes = (trim - 1) * 3 + 2; // Calcula el segundo mes del trimestre
-                return segundoMes
+                return segundoMes;
               }
               var nuevoObjetoF9 = {
-              
-                anho:anho,
-                mes:mes,
-                idmercado:mercado,
-                ecc:parseInt(Energia_contratos),
+                anho: anho,
+                mes: mes,
+                idmercado: mercado,
+                ecc: parseInt(Energia_contratos),
                 vecc: parseInt(Costo_contratos),
                 aecc: 0,
                 avecc: 0,
                 amc: 0,
                 cb_mr: parseInt(afacm.compras_energia_en_bolsa_kwh),
                 vcb_mr: parseInt(afacm.compras_energia_en_bolsa_cop),
-                acb_mr:0,
-                avcbmr:0,
-                cb_mnr:0,
-                vcb_mnr:0,
-                agpe:0,
-                gd:0,
-                gtr:0,
-                cug:cgsubasta_acu,
-                clp:parseInt(Energia_contratos_sub),
-                aclp:0,
-                w:w1*100, //Revisar concepto SSPD
-                psa:pcSub_,
-                egp:0,
-                adm:0, //Inlcuir? AJ
-                vrm1:ventas_totales,
-                i:0,
-                aj:aj_,
-                alfa:alfa,
-                dcr_agpe:0,
-                admre:0,
-                aprre_g:0,
-                adr_iprstn:0,
-                apr_iprstn:0,
-                arest:0, //tener en cuenta versiones posteriores a TXF
-                cfj:data_creg_cxm[0].Cf,
-                rct:data_creg_cxm[0].RCT,
-                rcae:data_creg_cxm[0].RCAE,
-                ifssri:0,
-                ifoes:0,
-                balancesubsidios:1, //Deficitario
-                ano:maxa,
-                trim:maxt,
-                mgtrim:calcularMGTrim( maxt),
-                sub1:parseInt(sub1_),
-                sub2:parseInt(sub2_),
-                n:n_Sub1_,
-                m:m_Sub2_,
-                r1:roundToTwo((r1_)*100),
-                r2:roundToTwo((r2_)*100),
-                facturacion:facturacion_t_,
-                actividad:2, //cx integrado
-                porc_creg_cx:data_empresaanualm[0].porc_contribucion_creg,
-                porc_sspd_cx:data_empresaanualm[0].porc_contribucion_sspd,
-                costo_creg_valor:parseInt(data_empresaanualm[0].contribuciones_creg/12),
-                costo_sspd_valor:parseInt(data_empresaanualm[0].contribuciones_sspd/12),
-                pui:0,
-                creador : parseInt(ctx.usuario.id),
-                empresa_id : ctx.usuario.empresa
+                acb_mr: 0,
+                avcbmr: 0,
+                cb_mnr: 0,
+                vcb_mnr: 0,
+                agpe: 0,
+                gd: 0,
+                gtr: 0,
+                cug: cgsubasta_acu,
+                clp: parseInt(Energia_contratos_sub),
+                aclp: 0,
+                w: w1 * 100, //Revisar concepto SSPD
+                psa: pcSub_,
+                egp: 0,
+                adm: 0, //Inlcuir? AJ
+                vrm1: ventas_totales,
+                i: 0,
+                aj: aj_,
+                alfa: alfa,
+                dcr_agpe: 0,
+                admre: 0,
+                aprre_g: 0,
+                adr_iprstn: 0,
+                apr_iprstn: 0,
+                arest: 0, //tener en cuenta versiones posteriores a TXF
+                cfj: data_creg_cxm[0].Cf,
+                rct: data_creg_cxm[0].RCT,
+                rcae: data_creg_cxm[0].RCAE,
+                ifssri: 0,
+                ifoes: 0,
+                balancesubsidios: 1, //Deficitario
+                ano: maxa,
+                trim: maxt,
+                mgtrim: calcularMGTrim(maxt),
+                sub1: parseInt(sub1_),
+                sub2: parseInt(sub2_),
+                n: n_Sub1_,
+                m: m_Sub2_,
+                r1: roundToTwo(r1_ * 100),
+                r2: roundToTwo(r2_ * 100),
+                facturacion: facturacion_t_,
+                actividad: 2, //cx integrado
+                porc_creg_cx: data_empresaanualm[0].porc_contribucion_creg,
+                porc_sspd_cx: data_empresaanualm[0].porc_contribucion_sspd,
+                costo_creg_valor: parseInt(
+                  data_empresaanualm[0].contribuciones_creg / 12
+                ),
+                costo_sspd_valor: parseInt(
+                  data_empresaanualm[0].contribuciones_sspd / 12
+                ),
+                pui: 0,
+                creador: parseInt(ctx.usuario.id),
+                empresa_id: ctx.usuario.empresa,
               };
 
-             
               await DataFormato9SSPD.create(nuevoObjetoF9);
 
-
-
-
               //
               //
               //
               //
-
-            
-
-
-
 
               input[index].ventas_totales = ventas_totales;
-              input[index].data_xm_iprm1  = data_xm_iprm1 ;
-              input[index].data_xm_iprm2  = data_xm_iprm2;
-              input[index].data_xm_iprm3  = data_xm_iprm3;
-              input[index].data_xm_iprm4  = data_xm_iprm4;
+              input[index].data_xm_iprm1 = data_xm_iprm1;
+              input[index].data_xm_iprm2 = data_xm_iprm2;
+              input[index].data_xm_iprm3 = data_xm_iprm3;
+              input[index].data_xm_iprm4 = data_xm_iprm4;
 
               input[index].pc = pc_;
               input[index].max_g = max_g_;
@@ -4556,7 +4590,12 @@ if(anho===2024 && mes===2){
                   porcentajeSubsidiado50OR_ = 0.15;
                   porcentajeSubsidiado0OR_ = 0.15;
                 }
-                if (indexF3 === 4 || indexF3 === 7 || indexF3 === 9 || indexF3 === 11) {
+                if (
+                  indexF3 === 4 ||
+                  indexF3 === 7 ||
+                  indexF3 === 9 ||
+                  indexF3 === 11
+                ) {
                   Tarifa_100 = input[index].nt1_100_estrato_4;
                   Tarifa_50 = input[index].nt1_50_estrato_4;
                   Tarifa_0 = input[index].nt1_0_estrato_4;
@@ -4612,9 +4651,6 @@ if(anho===2024 && mes===2){
                 await DataFormato3SSPD.create(nuevoObjetoF3);
               }
 
-
-
-
               input[index].dnt1 = roundToTwo(
                 data_xm_sdl.cargo_por_uso_dt1_cop_kwh
               );
@@ -4631,59 +4667,53 @@ if(anho===2024 && mes===2){
                 data_xm_sdl.cargo_de_inversion_cdi1_cop_kwh
               );
 
-
-
-
               for (let indexF7 = 1; indexF7 < 6; indexF7++) {
                 if (indexF7 === 1) {
-                  dNm=   input[index].dnt1 
-                  pRnm = pr_nt1_
+                  dNm = input[index].dnt1;
+                  pRnm = pr_nt1_;
                   cVm = input[index].cv_nt1;
                   cUvm = cu_nt1_100_;
                   nt_prop = "1-100";
                 }
                 if (indexF7 === 2) {
-                  dNm=   input[index].dnt1 -  input[index].cdi_100/2
-                  pRnm = pr_nt1_
+                  dNm = input[index].dnt1 - input[index].cdi_100 / 2;
+                  pRnm = pr_nt1_;
                   cVm = input[index].cv_nt1;
                   cUvm = cu_nt1_50_;
                   nt_prop = "1-50";
                 }
                 if (indexF7 === 3) {
-                  dNm=   input[index].dnt1 -  input[index].cdi_100
-                  pRnm = pr_nt1_
+                  dNm = input[index].dnt1 - input[index].cdi_100;
+                  pRnm = pr_nt1_;
                   cVm = input[index].cv_nt1;
                   cUvm = cu_nt1_0_;
                   nt_prop = "1-0";
                 }
                 if (indexF7 === 4) {
-                  dNm=   input[index].dnt2
-                  pRnm =pr_nt2_
+                  dNm = input[index].dnt2;
+                  pRnm = pr_nt2_;
                   cVm = input[index].cv_nt2;
                   cUvm = cu_nt2_;
                   nt_prop = "2";
                 }
                 if (indexF7 === 5) {
-                  dNm=   input[index].dnt3
-                  pRnm =pr_nt3_
+                  dNm = input[index].dnt3;
+                  pRnm = pr_nt3_;
                   cVm = input[index].cv_nt3;
                   cUvm = cu_nt3_;
                   nt_prop = "3";
                 }
 
-                
-
                 let nuevoObjetoF7 = {
-
                   id_mercado: mercado, // Asegúrate de que mercado esté definido
-                  gm:gc_,
-                  tm:tx_,
-                  dnm : dNm,
-                  prnm : pRnm,
-                  nt_prop : nt_prop,
-                  rm : r_,
-                  cvm : cVm,
-                  cuvm  : cUvm,
+                  gm: gc_,
+                  tm: tx_,
+                  dnm: dNm,
+                  prnm: pRnm,
+                  nt_prop: nt_prop,
+                  rm: r_,
+                  cvm: cVm,
+                  cuvm: cUvm,
                   creador: ctx.usuario.id,
                   empresa_id: ctx.usuario.empresa,
                   anho: input[index].anho,
@@ -4692,7 +4722,6 @@ if(anho===2024 && mes===2){
 
                 await Data_Formato_7_SSPDs.create(nuevoObjetoF7);
               }
-
 
               const resultadoComponentes = await new Res_componentes_cu_tarifa(
                 input[index]
@@ -4749,15 +4778,13 @@ if(anho===2024 && mes===2){
     //Mutation Save Datos
 
     nuevoData_dane_ipp: async (_, { input }, ctx) => {
-      
       try {
         const miArray = [];
         const errores = [];
         // Recorre los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
-            const { anho, mes, tipo, ipp_oi_oferta_interna } =
-              input[index];
+            const { anho, mes, tipo, ipp_oi_oferta_interna } = input[index];
 
             if (tipo !== "pr" && tipo !== "df") {
               throw new Error(`El tipo de dato debe ser df o pr`);
@@ -5007,7 +5034,7 @@ if(anho===2024 && mes===2){
           DataFormato2SSPD,
           DataFormato3SSPD,
           DataFormato6SSPD,
-          Data_Formato_7_SSPDs
+          Data_Formato_7_SSPDs,
         ];
 
         for (const registro of dataExistente) {
@@ -5062,6 +5089,68 @@ if(anho===2024 && mes===2){
       } catch (error) {
         console.log(error);
         throw new Error(error.message);
+      }
+    },
+    nuevoDataEmpresaEnergiaContratoAtipico: async (_, { input }, ctx) => {
+      const miArray = [];
+      const errores = [];
+
+      for (let datos of input) {
+        datos.empresa_id = ctx.usuario.empresa;
+        datos.creador = ctx.usuario.id;
+        try {
+          const nuevoRegistro = new Data_empresa_EnergiaContratoAtipico(datos);
+          const resultado = await nuevoRegistro.save();
+          miArray.push(resultado);
+        } catch (error) {
+          console.error(error);
+          errores.push({
+            registrosErrores: datos,
+            mensaje: error.message,
+            tipo: "error",
+          });
+        }
+      }
+
+      return {
+        datos: miArray,
+        errores,
+      };
+    },
+    actualizarDataEmpresaEnergiaContratoAtipico: async (
+      _,
+      { id, input },
+      ctx
+    ) => {
+      try {
+        const registro = await Data_empresa_EnergiaContratoAtipico.findByPk(id);
+        if (!registro) {
+          throw new Error(`Registro no encontrado con ID ${id}`);
+        }
+        await registro.update(input);
+        return registro;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Error al actualizar: ${error.message}`);
+      }
+    },
+    eliminarDataEmpresaEnergiaContratoAtipico: async (_, { ids }, ctx) => {
+      try {
+        const totalExistente = await Data_empresa_EnergiaContratoAtipico.count({
+          where: { id: ids },
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(
+            `No se encontraron todos los registros con los IDs proporcionados`
+          );
+        }
+        await Data_empresa_EnergiaContratoAtipico.destroy({
+          where: { id: ids },
+        });
+        return ids;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Error al eliminar registros: ${error.message}`);
       }
     },
   },

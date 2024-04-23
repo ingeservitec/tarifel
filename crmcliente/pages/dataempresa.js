@@ -5,6 +5,7 @@ import DataempresaanualSin from "../components/DataempresaanualSin.js";
 import Dataempresagarantias from "../components/Dataempresagarantias";
 import EmpresaGarantiaComponent from "../components/EmpresaGarantiaComponent";
 import Dataempresaagpe from "../components/Dataempresaagpe";
+import Data_empresa_EnergiaContratoAtipico from "../components/Data_empresa_EnergiaContratoAtipico.js";
 import Layout from "../components/Layout";
 
 const Dataxm = (props) => {
@@ -18,6 +19,7 @@ const Dataxm = (props) => {
           {/* <Dataempresaanual /> */}
           <DataempresaanualSin />
           {/* <Dataempresaagpe /> */}
+          <Data_empresa_EnergiaContratoAtipico />
         </div>
       </Layout>
     </div>

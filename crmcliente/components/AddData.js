@@ -215,8 +215,7 @@ const AddData = ({
             input: updatedValues,
           },
         });
-        console.log(subMutation)
-        console.log({data})
+
 
         if (data.data[subMutation].errores.length > 0) {
           Swal.fire(
@@ -515,7 +514,8 @@ const AddData = ({
 
                 break;
 
-              case "nuevoData_xm_cprog":
+              case "nuevoDataXmCprog":
+            
                 // Expresión regular para extraer el año y el mes
                 var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
 

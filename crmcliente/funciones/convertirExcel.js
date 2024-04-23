@@ -1143,6 +1143,11 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 }
 
 export function convertirCPROG(sheetName, excelArray, dataArray2) {
+
+console.log(sheetName)
+console.log(excelArray)
+console.log(dataArray2)
+
   let resultObject = dataArray2[0];
 
   switch (true) {
@@ -1162,7 +1167,7 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
                 resultObject.Cargo_Cprog_Cop_Kwh = parseFloat(
                   nextRow[i].replace(/,/g, "")
                 );
-                console.log(resultObject.Cargo_Cprog_Cop_Kwh);
+                
               }
               found = true;
               break;
@@ -1174,10 +1179,10 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
               const month = parts[0];
               const year = parts[1];
 
-              resultObject.anho = parseInt(year);
+              resultObject.Año = parseInt(year);
 
-              console.log({dateString})
-              resultObject.mes = monthMapping[month.toLowerCase()];
+          
+              resultObject.Mes = monthMapping[month.toLowerCase()];
                 
               break;
 
@@ -1196,4 +1201,5 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
   }
 
   resultObject.Agente ='EGVD'
+  return resultObject;
 }

@@ -41,7 +41,7 @@ const Dataxmdspctto = () => {
               cacheField="obtenerData_xm_dspctto"
               tituloTabla="Agregar Datos xm dspctto"
               linkEjemplo="https://storage.googleapis.com/coool-files/ModelosImportacion/Importar%20datos%20a%20tabla%20data_empresa_mes_glp.xlsx"
-              manual={false}
+              manual={true}
             />
           </div>
           <TableAndt

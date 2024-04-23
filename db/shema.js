@@ -1262,7 +1262,6 @@ const typeDefs = gql`
   type Data_xm_cprog {
     id: ID
     creador: Int
-    empresa_id: String
     anho: Int
     mes: Int
     agente: String
@@ -1273,7 +1272,6 @@ const typeDefs = gql`
   input Data_xm_cprogInput {
     id: ID
     creador: Int
-    empresa_id: String
     anho: Int
     mes: Int
     agente: String
@@ -2092,9 +2090,6 @@ const typeDefs = gql`
   }
 
   type EmpresaGarantia {
-    id: ID!
-    creador: Int!
-    empresa_id: String!
     tipo_garantia: String
     nit_beneficiario: Int
     dv_beneficiario: Int
@@ -2313,8 +2308,6 @@ const typeDefs = gql`
   }
 
   input DataXmCprogInput {
-    creador: Int
-    empresa_id: String!
     anho: Int!
     mes: Int!
     agente: String!
@@ -2633,9 +2626,6 @@ const typeDefs = gql`
   }
 
   type DataFormato7SSPDs {
-    id: ID!
-    creador: Int!
-    empresa_id: String!
     id_mercado: String!
     anho: Int!
     mes: Int!
@@ -2651,8 +2641,7 @@ const typeDefs = gql`
   }
 
   input DataFormato7SSPDsInput {
-    creador: Int!
-    empresa_id: String!
+
     anho: Int!
     mes: Int!
     id_mercado: String!
@@ -2665,6 +2654,52 @@ const typeDefs = gql`
     rm: Float!
     cuvm: Float!
   }
+  
+
+  type DataEmpresaEnergiaContratoAtipico {
+    id: ID!
+    anho: Int!
+    mes: Int!
+    id_contrato: Int!
+    energia_comprada: Float!
+    costo: Float!
+    empresa_id: String
+    creador: Int
+    createdAt: String
+    updatedAt: String
+}
+
+input DataEmpresaEnergiaContratoAtipicoInput {
+    anho: Int!
+    mes: Int!
+    id_contrato: Int!
+    energia_comprada: Float!
+    costo: Float!
+    empresa_id: String
+    creador: Int
+}
+
+
+
+type DataEmpresaEnergiaContratoAtipicoResponse {
+    records: [DataEmpresaEnergiaContratoAtipico]
+    totalRecords: Int
+    valoresFiltrables: [ValoresFiltrables]
+}
+
+
+
+type ResponseDataEmpresaEnergiaContratoAtipico {
+    datos: [DataEmpresaEnergiaContratoAtipico]
+    errores: [ErrorDataEmpresaEnergiaContratoAtipico]
+}
+
+type ErrorDataEmpresaEnergiaContratoAtipico {
+    tipo: String
+    mensaje: String
+    registrosErrores: DataEmpresaEnergiaContratoAtipico
+}
+
 
   type Query {
     #Usuarios
@@ -2790,6 +2825,9 @@ const typeDefs = gql`
       page: Int!
       limit: Int!
     ): DataFormato7SSPD_Response
+
+    obtenerDataEmpresaEnergiaContratoAtipico(options: QueryOptions!): DataEmpresaEnergiaContratoAtipicoResponse
+
   }
   type Mutation {
     #Usuarios
@@ -2980,7 +3018,12 @@ const typeDefs = gql`
       input: DataFormato7SSPDsInput!
     ): DataFormato7SSPDs
     eliminarDataFormato7SSPDs(ids: [ID!]!): [ID!]
+    nuevoDataEmpresaEnergiaContratoAtipico(input: [DataEmpresaEnergiaContratoAtipicoInput!]!): ResponseDataEmpresaEnergiaContratoAtipico
+        actualizarDataEmpresaEnergiaContratoAtipico(id: ID!, input: DataEmpresaEnergiaContratoAtipicoInput!): DataEmpresaEnergiaContratoAtipico
+       
+        eliminarDataEmpresaEnergiaContratoAtipico(ids: [ID!]!): [String]
   }
 `;
 
 module.exports = typeDefs;
+

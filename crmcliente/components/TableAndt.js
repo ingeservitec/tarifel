@@ -165,7 +165,7 @@ const TableAndt = ({
 
   async function deleteSelectedRows(recordIdsToDelete) {
     const idsToDelete = recordIdsToDelete || selectedRows.map((row) => row.id);
-
+    console.log(idsToDelete)
     try {
       if (actionMode === "delete") {
         await deleteData({

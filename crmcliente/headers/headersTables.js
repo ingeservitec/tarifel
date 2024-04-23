@@ -17396,7 +17396,7 @@ export const headersDataXmCprog = [
     description: "Identificador del agente",
   },
   {
-    name: "Cargo CPROG COP/kWh",
+    name: "Cargo_Cprog_Cop_Kwh",
     field: "cargo_cprog_cop_kwh",
     sortable: true,
     required: true,
@@ -18965,5 +18965,93 @@ export const headersDataXmTserv = [
     clase: "input",
     filterable: true,
     search: true
+  }
+];
+
+export const headersDataEmpresaEnergiaContratoAtipico = [
+  {
+    name: "Eliminar",
+    field: "Eliminar",
+    sortable: false,
+    required: false,
+    location: "center",
+    showInForm: false,
+    showInTable: true,
+    type: "button",
+  },
+  { 
+      name: "Año",
+      field: "anho",
+      sortable: true,
+      required: true,
+      location: "center",
+      showInForm: true,
+      showInTable: true,
+      clase: "input",
+      type: "number",
+      validations: "",
+      description: "Año correspondiente a los datos del contrato"
+  },
+  { 
+      name: "Mes",
+      field: "mes",
+      sortable: true,
+      required: true,
+      location: "center",
+      showInForm: true,
+      showInTable: true,
+      clase: "select",
+      type: "number",
+      options: [
+          { value: 1, label: "Enero" },
+          { value: 2, label: "Febrero" },
+          { value: 3, label: "Marzo" },
+          { value: 4, label: "Abril" },
+          { value: 5, label: "Mayo" },
+          { value: 6, label: "Junio" },
+          { value: 7, label: "Julio" },
+          { value: 8, label: "Agosto" },
+          { value: 9, label: "Septiembre" },
+          { value: 10, label: "Octubre" },
+          { value: 11, label: "Noviembre" },
+          { value: 12, label: "Diciembre" }
+      ],
+      description: "Mes del registro de energía y costo"
+  },
+  { 
+      name: "ID Contrato",
+      field: "id_contrato",
+      sortable: true,
+      required: true,
+      location: "center",
+      showInForm: true,
+      showInTable: true,
+      clase: "input",
+      type: "number",
+      description: "Identificador del contrato asociado"
+  },
+  { 
+      name: "Energía Comprada",
+      field: "energia_comprada",
+      sortable: true,
+      required: true,
+      location: "center",
+      showInForm: true,
+      showInTable: true,
+      clase: "input",
+      type: "number",
+      description: "Cantidad de energía comprada"
+  },
+  { 
+      name: "Costo",
+      field: "costo",
+      sortable: true,
+      required: true,
+      location: "center",
+      showInForm: true,
+      showInTable: true,
+      clase: "input",
+      type: "number",
+      description: "Costo asociado a la energía comprada"
   }
 ];

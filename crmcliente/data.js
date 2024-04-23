@@ -1656,9 +1656,7 @@ export const OBTENER_EMPRESA_GARANTIAS = gql`
   query obtenerEmpresaGarantias($options: QueryOptions) {
     obtenerEmpresaGarantias(options: $options) {
       records {
-        id
-        creador
-        empresa_id
+        
         tipo_garantia
         nit_beneficiario
         dv_beneficiario
@@ -2416,12 +2414,10 @@ export const OBTENER_DATA_XM_CPROG = gql`
 `;
 
 export const NUEVO_DATA_XM_CPROG = gql`
-  mutation nuevoDataXmCprog($input: DataXmCprogInput) {
+  mutation nuevoDataXmCprog($input: [DataXmCprogInput]) {
     nuevoDataXmCprog(input: $input) {
       datos {
-        id
-        creador
-        empresa_id
+       
         anho
         mes
         agente
@@ -3528,5 +3524,80 @@ export const ACTUALIZAR_DATA_FORMATO_7_SSPDS = gql`
 export const ELIMINAR_DATA_FORMATO_7_SSPDS = gql`
   mutation eliminarDataFormato7SSPDs($ids: [ID!]!) {
     eliminarDataFormato7SSPDs(ids: $ids)
+  }
+`;
+
+
+export const OBTENER_DATA_EMPRESA_ENERGIA_CONTRATO_ATIPICO = gql`
+query obtenerDataEmpresaEnergiaContratoAtipico($options: QueryOptions!) {
+    obtenerDataEmpresaEnergiaContratoAtipico(options: $options) {
+        records {
+            id
+            anho
+            mes
+            id_contrato
+            energia_comprada
+            costo
+            empresa_id
+            creador
+        }
+        totalRecords
+        valoresFiltrables {
+            campo
+            valores
+        }
+    }
+}
+`;
+
+export const NUEVO_DATA_EMPRESA_ENERGIA_CONTRATO_ATIPICO = gql`
+mutation nuevoDataEmpresaEnergiaContratoAtipico($input: [DataEmpresaEnergiaContratoAtipicoInput!]!) {
+    nuevoDataEmpresaEnergiaContratoAtipico(input: $input) {
+        datos {
+            id
+            anho
+            mes
+            id_contrato
+            energia_comprada
+            costo
+            empresa_id
+            creador
+        }
+        errores {
+            mensaje
+            tipo
+            registrosErrores {
+                anho
+                mes
+                id_contrato
+                energia_comprada
+                costo
+                empresa_id
+                creador
+            }
+        }
+    }
+}
+`;
+
+export const ACTUALIZAR_DATA_EMPRESA_ENERGIA_CONTRATO_ATIPICO = gql`
+mutation actualizarDataEmpresaEnergiaContratoAtipico($id: ID!, $input: DataEmpresaEnergiaContratoAtipicoInput!) {
+    actualizarDataEmpresaEnergiaContratoAtipico(id: $id, input: $input) {
+        id
+        anho
+        mes
+        id_contrato
+        energia_comprada
+        costo
+        empresa_id
+        creador
+    }
+}
+`;
+
+
+export const ELIMINAR_DATA_EMPRESA_ENERGIA_CONTRATO_ATIPICO = gql`
+  mutation eliminarDataEmpresaEnergiaContratoAtipico($eliminarDataId: [ID!]!) {
+    eliminarDataEmpresaEnergiaContratoAtipico(ids: $eliminarDataId)
   }
 `;

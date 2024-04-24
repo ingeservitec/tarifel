@@ -1006,41 +1006,7 @@ export const OBTENER_DATA_XM_ADEM = gql`
   }
 `;
 
-export const OBTENER_DATA_MME_VALIDACION = gql`
-  query obtenerData_mme_validacion {
-    obtenerData_mme_validacion {
-      id
-      creador
-      empresa_id
-      fecha
-      trimestre
-      anho
-      facturacion
-      subsidios
-      contribuciones
-      contrib_no_recaud_desp_6m
-      contrib_recaud_desp_de_conc
-      giros_recibidos
-      giro_sobrante
-      ultimo_giro_incluido
-    }
-  }
-`;
 
-export const OBTENER_DATA_MME_GIRO = gql`
-  query obtenerData_mme_giro {
-    obtenerData_mme_giro {
-      id
-      creador
-      empresa_id
-      fecha
-      fondo
-      resolucion
-      link_resolucion
-      giro_cop
-    }
-  }
-`;
 export const OBTENER_DATA_CREG_CX = gql`
   query obtenerData_creg_cx {
     obtenerData_creg_cx {
@@ -1060,87 +1026,7 @@ export const OBTENER_DATA_CREG_CX = gql`
   }
 `;
 
-export const OBTENER_DATA_BANREPUBLICA_TCO = gql`
-  query obtenerData_banrepublica_tco {
-    obtenerData_banrepublica_tco {
-      id
-      creador
-      anho_semana
-      tasa_cred_com_credito_consumo
-      monto_cred_com_credito_consumo
-      tasa_cred_com_odinario
-      monto_cred_com_odinario
-      tasa__cred_com_preferencial_o_corporativo
-      monto__cred_com_preferencial_o_corporativo
-      tasa__cred_com_tesoreria
-      monto__cred_com_tesoreria
-      tasa_colocacion_banco_republica
-      monto_colocacion_banco_republica
-      tasa_colocacion_sin_tesoreria
-      monto_colocacion_sin_tesoreria
-      tasa_colocacion_total
-      monto_colocacion_total
-      empresa_id
-    }
-  }
-`;
 
-export const OBTENER_DATA_BANREPUBLICA_TCAP = gql`
-  query obtenerData_banrepublica_tcap {
-    obtenerData_banrepublica_tcap {
-      id
-      creador
-      fecha
-      empresa_id
-      tasa_a_30_cdt_bancos_comerciales
-      monto_a_30_cdt_bancos_comerciales
-      tasa_entre_31_y_44_cdt_bancos_comerciales
-      monto_entre_31_y_44_cdt_bancos_comerciales
-      tasa_a_45_cdt_bancos_comerciales
-      monto_a_45_cdt_bancos_comerciales
-      tasa_entre_46_y_59_cdt_bancos_comerciales
-      monto_entre_46_y_59_cdt_bancos_comerciales
-      tasa_a_60_cdt_bancos_comerciales
-      monto_a_60_cdt_bancos_comerciales
-      tasa_entre_61_y_89_cdt_bancos_comerciales
-      monto_entre_61_y_89_cdt_bancos_comerciales
-      tasa_a_90_cdt_bancos_comerciales
-      monto_a_90_cdt_bancos_comerciales
-      tasa_entre_91_y_119_cdt_bancos_comerciales
-      monto_entre_91_y_119_cdt_bancos_comerciales
-      tasa_a_120_cdt_bancos_comerciales
-      monto_a_120_cdt_bancos_comerciales
-      tasa_entre_121_y_179_cdt_bancos_comerciales
-      monto_entre_121_y_179_cdt_bancos_comerciales
-      tasa_a_180_cdt_bancos_comerciales
-      monto_a_180_cdt_bancos_comerciales
-      tasa_entre_181_y_359_cdt_bancos_comerciales
-      monto_entre_181_y_359_cdt_bancos_comerciales
-      tasa_a_360_cdt_bancos_comerciales
-      monto_a_360_cdt_bancos_comerciales
-      tasa_superiores_a_360_cdt_bancos_comerciales
-      monto_superiores_a_360_cdt_bancos_comerciales
-      tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
-      monto_cap_cdt_red_de_oficinas__cdt_bancos_comerciales
-      tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales
-      monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales
-      tasa_entre_2_y_14_cdats_cdat_bancos_comerciales
-      monto_entre_2_y_14_cdats_cdat_bancos_comerciales
-      tasa_entre_15_y_29_cdats_cdat_bancos_comerciales
-      monto_entre_15_y_29_cdat_bancos_comerciales
-      tasa_a_30_cdats_cdat_bancos_comerciales
-      monto_a_30_cdat_bancos_comerciales
-      tasa_entre_31_y_90_cdats_cdat_bancos_comerciales
-      monto_entre_31_y_90_cdat_bancos_comerciales
-      tasa_entre_91_y_180_cdats_cdat_bancos_comerciales
-      monto_entre_91_y_180_cdat_bancos_comerciales
-      tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales
-      monto_de_181_en_adelante_cdats_cdat_bancos_comerciales
-      tasa_cap_cdat_oficinas_cdat_bancos_comerciales
-      monto_cap_cdat_oficinas_cdat_bancos_comerciales
-    }
-  }
-`;
 
 export const OBTENER_DATAXMSTN = gql`
   query obtenerDataxmstn {
@@ -1501,39 +1387,7 @@ export const NUEVO_DATA_XM_STR = gql`
   }
 `;
 
-export const NUEVO_DATA_BANREPUBLICA_TCO = gql`
-  mutation nuevoData_banrepublica_tco($input: [Data_banrepublica_tcoInput]) {
-    nuevoData_banrepublica_tco(input: $input) {
-      datos {
-        id
-        creador
-        anho_semana
-        tasa_cred_com_credito_consumo
-        monto_cred_com_credito_consumo
-        tasa_cred_com_odinario
-        monto_cred_com_odinario
-        tasa__cred_com_preferencial_o_corporativo
-        monto__cred_com_preferencial_o_corporativo
-        tasa__cred_com_tesoreria
-        monto__cred_com_tesoreria
-        tasa_colocacion_banco_republica
-        monto_colocacion_banco_republica
-        tasa_colocacion_sin_tesoreria
-        monto_colocacion_sin_tesoreria
-        tasa_colocacion_total
-        monto_colocacion_total
-        empresa_id
-      }
-      errores {
-        mensaje
-        tipo
-        registrosErrores {
-          anho_semana
-        }
-      }
-    }
-  }
-`;
+
 
 export const OBTENER_DATAEMPRESAMESSIN = gql`
   query obtenerDataempresamessin($options: QueryOptions!) {
@@ -3599,5 +3453,477 @@ mutation actualizarDataEmpresaEnergiaContratoAtipico($id: ID!, $input: DataEmpre
 export const ELIMINAR_DATA_EMPRESA_ENERGIA_CONTRATO_ATIPICO = gql`
   mutation eliminarDataEmpresaEnergiaContratoAtipico($eliminarDataId: [ID!]!) {
     eliminarDataEmpresaEnergiaContratoAtipico(ids: $eliminarDataId)
+  }
+`;
+
+
+
+export const OBTENER_DATA_MME_VALIDACION = gql`
+  query obtenerDataMmeValidacion($options: QueryOptions!) {
+    obtenerDataMmeValidacion(options: $options) {
+      records {
+        id
+        fecha
+        trimestre
+        anho
+        facturacion
+        subsidios
+        contribuciones
+        contrib_no_recaud_desp_6m
+        contrib_recaud_desp_de_conc
+        giros_recibidos
+        giro_sobrante
+        ultimo_giro_incluido
+      }
+      totalRecords
+      valoresFiltrables {
+        campo
+        valores
+      }
+    }
+  }
+`;
+
+export const NUEVO_DATA_MME_VALIDACION = gql`
+  mutation nuevoDataMmeValidacion($input: [DataMmeValidacionInput]) {
+    nuevoDataMmeValidacion(input: $input) {
+      datos {
+    
+        fecha
+        trimestre
+        anho
+        facturacion
+        subsidios
+        contribuciones
+        contrib_no_recaud_desp_6m
+        contrib_recaud_desp_de_conc
+        giros_recibidos
+        giro_sobrante
+        ultimo_giro_incluido
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+          id
+          creador
+          empresa_id
+          fecha
+          trimestre
+          anho
+          facturacion
+          subsidios
+          contribuciones
+          contrib_no_recaud_desp_6m
+          contrib_recaud_desp_de_conc
+          giros_recibidos
+          giro_sobrante
+          ultimo_giro_incluido
+        }
+      }
+    }
+  }
+`;
+
+export const ACTUALIZAR_DATA_MME_VALIDACION = gql`
+  mutation actualizarDataMmeValidacion($id: ID!, $input: DataMmeValidacionInput) {
+    actualizarDataMmeValidacion(id: $id, input: $input) {
+
+      fecha
+      trimestre
+      anho
+      facturacion
+      subsidios
+      contribuciones
+      contrib_no_recaud_desp_6m
+      contrib_recaud_desp_de_conc
+      giros_recibidos
+      giro_sobrante
+      ultimo_giro_incluido
+    }
+  }
+`;
+
+
+export const ELIMINAR_DATA_MME_VALIDACION = gql`
+  mutation eliminarDataMmeValidacion($eliminarDataId: [ID!]!) {
+    eliminarDataMmeValidacion(ids: $eliminarDataId)
+  }
+`;
+
+
+
+export const OBTENER_DATA_MME_GIRO = gql`
+  query obtenerDataMmeGiro($options: QueryOptions!) {
+    obtenerDataMmeGiro(options: $options) {
+      records {
+        id
+        fecha
+        fondo
+        resolucion
+        link_resolucion
+        giro_cop
+      }
+      totalRecords
+      valoresFiltrables {
+        campo
+        valores
+      }
+    }
+  }
+`;
+
+export const NUEVO_DATA_MME_GIRO = gql`
+  mutation nuevoDataMmeGiro($input: [DataMmeGiroInput]) {
+    nuevoDataMmeGiro(input: $input) {
+      datos {
+
+        fecha
+        fondo
+        resolucion
+        link_resolucion
+        giro_cop
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+          id
+          creador
+          empresa_id
+          fecha
+          fondo
+          resolucion
+          link_resolucion
+          giro_cop
+        }
+      }
+    }
+  }
+`;
+
+export const ACTUALIZAR_DATA_MME_GIRO = gql`
+  mutation actualizarDataMmeGiro($id: ID!, $input: DataMmeGiroInput) {
+    actualizarDataMmeGiro(id: $id, input: $input) {
+      id
+      creador
+      empresa_id
+      fecha
+      fondo
+      resolucion
+      link_resolucion
+      giro_cop
+    }
+  }
+`;
+
+
+
+
+export const ELIMINAR_DATA_MME_GIRO = gql`
+  mutation eliminarDataMmeGiro($eliminarDataId: [ID!]!) {
+    eliminarDataMmeGiro(ids: $eliminarDataId)
+  }
+`;
+
+
+
+export const OBTENER_DATA_BANREPUBLICA_TCO = gql`
+  query obtenerDataBanrepublicaTco($options: QueryOptions!) {
+    obtenerDataBanrepublicaTco(options: $options) {
+      records {
+        id
+        creador
+        anho_semana
+        tasa_cred_com_credito_consumo
+        monto_cred_com_credito_consumo
+        tasa_cred_com_odinario
+        monto_cred_com_odinario
+        tasa__cred_com_preferencial_o_corporativo
+        monto__cred_com_preferencial_o_corporativo
+        tasa__cred_com_tesoreria
+        monto__cred_com_tesoreria
+        tasa_colocacion_banco_republica
+        monto_colocacion_banco_republica
+        tasa_colocacion_sin_tesoreria
+        monto_colocacion_sin_tesoreria
+        tasa_colocacion_total
+        monto_colocacion_total
+        empresa_id
+      }
+      totalRecords
+      valoresFiltrables {
+        campo
+        valores
+      }
+    }
+  }
+`;
+
+export const NUEVO_DATA_BANREPUBLICA_TCO = gql`
+  mutation nuevoDataBanrepublicaTco($input: [DataBanrepublicaTcoInput]) {
+    nuevoDataBanrepublicaTco(input: $input) {
+      datos {
+        id
+        creador
+        anho_semana
+        tasa_cred_com_credito_consumo
+        monto_cred_com_credito_consumo
+        tasa_cred_com_odinario
+        monto_cred_com_odinario
+        tasa__cred_com_preferencial_o_corporativo
+        monto__cred_com_preferencial_o_corporativo
+        tasa__cred_com_tesoreria
+        monto__cred_com_tesoreria
+        tasa_colocacion_banco_republica
+        monto_colocacion_banco_republica
+        tasa_colocacion_sin_tesoreria
+        monto_colocacion_sin_tesoreria
+        tasa_colocacion_total
+        monto_colocacion_total
+        empresa_id
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+          anho_semana
+          tasa_cred_com_credito_consumo
+          monto_cred_com_credito_consumo
+          tasa_cred_com_odinario
+          monto_cred_com_odinario
+          tasa__cred_com_preferencial_o_corporativo
+          monto__cred_com_preferencial_o_corporativo
+          tasa__cred_com_tesoreria
+          monto__cred_com_tesoreria
+          tasa_colocacion_banco_republica
+          monto_colocacion_banco_republica
+          tasa_colocacion_sin_tesoreria
+          monto_colocacion_sin_tesoreria
+          tasa_colocacion_total
+          monto_colocacion_total
+        }
+      }
+    }
+  }
+`;
+
+export const ACTUALIZAR_DATA_BANREPUBLICA_TCO = gql`
+  mutation actualizarDataBanrepublicaTco($id: ID!, $input: DataBanrepublicaTcoInput) {
+    actualizarDataBanrepublicaTco(id: $id, input: $input) {
+      id
+      creador
+      anho_semana
+      tasa_cred_com_credito_consumo
+      monto_cred_com_credito_consumo
+      tasa_cred_com_odinario
+      monto_cred_com_odinario
+      tasa__cred_com_preferencial_o_corporativo
+      monto__cred_com_preferencial_o_corporativo
+      tasa__cred_com_tesoreria
+      monto__cred_com_tesoreria
+      tasa_colocacion_banco_republica
+      monto_colocacion_banco_republica
+      tasa_colocacion_sin_tesoreria
+      monto_colocacion_sin_tesoreria
+      tasa_colocacion_total
+      monto_colocacion_total
+      empresa_id
+    }
+  }
+`;
+
+export const ELIMINAR_DATA_BANREPUBLICA_TCO = gql`
+  mutation eliminarDataBanrepublicaTco($ids: [ID!]!) {
+    eliminarDataBanrepublicaTco(ids: $ids)
+  }
+`;
+
+export const OBTENER_DATA_BANREPUBLICA_TCAP = gql`
+  query obtenerDataBanrepublicaTcap($options: QueryOptions!) {
+    obtenerDataBanrepublicaTcap(options: $options) {
+      records {
+        id
+        creador
+        empresa_id
+        fecha
+        tasa_a_30_cdt_bancos_comerciales
+        monto_a_30_cdt_bancos_comerciales
+        tasa_entre_31_y_44_cdt_bancos_comerciales
+        monto_entre_31_y_44_cdt_bancos_comerciales
+        tasa_a_45_cdt_bancos_comerciales
+        monto_a_45_cdt_bancos_comerciales
+        tasa_entre_46_y_59_cdt_bancos_comerciales
+        monto_entre_46_y_59_cdt_bancos_comerciales
+        tasa_a_60_cdt_bancos_comerciales
+        monto_a_60_cdt_bancos_comerciales
+        tasa_entre_61_y_89_cdt_bancos_comerciales
+        monto_entre_61_y_89_cdt_bancos_comerciales
+        tasa_a_90_cdt_bancos_comerciales
+        monto_a_90_cdt_bancos_comerciales
+        tasa_entre_91_y_119_cdt_bancos_comerciales
+        monto_entre_91_y_119_cdt_bancos_comerciales
+        tasa_a_120_cdt_bancos_comerciales
+        monto_a_120_cdt_bancos_comerciales
+        tasa_entre_121_y_179_cdt_bancos_comerciales
+        monto_entre_121_y_179_cdt_bancos_comerciales
+        tasa_a_180_cdt_bancos_comerciales
+        monto_a_180_cdt_bancos_comerciales
+        tasa_entre_181_y_359_cdt_bancos_comerciales
+        monto_entre_181_y_359_cdt_bancos_comerciales
+        tasa_a_360_cdt_bancos_comerciales
+        monto_a_360_cdt_bancos_comerciales
+        tasa_superiores_a_360_cdt_bancos_comerciales
+        monto_superiores_a_360_cdt_bancos_comerciales
+        tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
+        monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
+        tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales
+        monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales
+        tasa_entre_2_y_14_cdats_cdat_bancos_comerciales
+        monto_entre_2_y_14_cdats_cdat_bancos_comerciales
+        tasa_entre_15_y_29_cdats_cdat_bancos_comerciales
+        monto_entre_15_y_29_cdat_bancos_comerciales
+        tasa_a_30_cdats_cdat_bancos_comerciales
+        monto_a_30_cdat_bancos_comerciales
+        tasa_entre_31_y_90_cdats_cdat_bancos_comerciales
+        monto_entre_31_y_90_cdat_bancos_comerciales
+        tasa_entre_91_y_180_cdats_cdat_bancos_comerciales
+        monto_entre_91_y_180_cdat_bancos_comerciales
+        tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales
+        monto_de_181_en_adelante_cdats_cdat_bancos_comerciales
+        tasa_cap_cdat_oficinas_cdat_bancos_comerciales
+        monto_cap_cdat_oficinas_cdat_bancos_comerciales
+      }
+      totalRecords
+      valoresFiltrables {
+        campo
+        valores
+      }
+    }
+  }
+`;
+
+export const NUEVO_DATA_BANREPUBLICA_TCAP = gql`
+  mutation nuevoDataBanrepublicaTcap($input: [DataBanrepublicaTcapInput!]) {
+    nuevoDataBanrepublicaTcap(input: $input) {
+      datos {
+        id
+        fecha
+        tasa_a_30_cdt_bancos_comerciales
+        monto_a_30_cdt_bancos_comerciales
+        tasa_entre_31_y_44_cdt_bancos_comerciales
+        monto_entre_31_y_44_cdt_bancos_comerciales
+        tasa_a_45_cdt_bancos_comerciales
+        monto_a_45_cdt_bancos_comerciales
+        tasa_entre_46_y_59_cdt_bancos_comerciales
+        monto_entre_46_y_59_cdt_bancos_comerciales
+        tasa_a_60_cdt_bancos_comerciales
+        monto_a_60_cdt_bancos_comerciales
+        tasa_entre_61_y_89_cdt_bancos_comerciales
+        monto_entre_61_y_89_cdt_bancos_comerciales
+        tasa_a_90_cdt_bancos_comerciales
+        monto_a_90_cdt_bancos_comerciales
+        tasa_entre_91_y_119_cdt_bancos_comerciales
+        monto_entre_91_y_119_cdt_bancos_comerciales
+        tasa_a_120_cdt_bancos_comerciales
+        monto_a_120_cdt_bancos_comerciales
+        tasa_entre_121_y_179_cdt_bancos_comerciales
+        monto_entre_121_y_179_cdt_bancos_comerciales
+        tasa_a_180_cdt_bancos_comerciales
+        monto_a_180_cdt_bancos_comerciales
+        tasa_entre_181_y_359_cdt_bancos_comerciales
+        monto_entre_181_y_359_cdt_bancos_comerciales
+        tasa_a_360_cdt_bancos_comerciales
+        monto_a_360_cdt_bancos_comerciales
+        tasa_superiores_a_360_cdt_bancos_comerciales
+        monto_superiores_a_360_cdt_bancos_comerciales
+        tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
+        monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
+        tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales
+        monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales
+        tasa_entre_2_y_14_cdats_cdat_bancos_comerciales
+        monto_entre_2_y_14_cdats_cdat_bancos_comerciales
+        tasa_entre_15_y_29_cdats_cdat_bancos_comerciales
+        monto_entre_15_y_29_cdat_bancos_comerciales
+        tasa_a_30_cdats_cdat_bancos_comerciales
+        monto_a_30_cdat_bancos_comerciales
+        tasa_entre_31_y_90_cdats_cdat_bancos_comerciales
+        monto_entre_31_y_90_cdat_bancos_comerciales
+        tasa_entre_91_y_180_cdats_cdat_bancos_comerciales
+        monto_entre_91_y_180_cdat_bancos_comerciales
+        tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales
+        monto_de_181_en_adelante_cdats_cdat_bancos_comerciales
+        tasa_cap_cdat_oficinas_cdat_bancos_comerciales
+        monto_cap_cdat_oficinas_cdat_bancos_comerciales
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+         fecha
+        }
+      }
+    }
+  }
+`;
+
+export const ACTUALIZAR_DATA_BANREPUBLICA_TCAP = gql`
+  mutation actualizarDataBanrepublicaTcap($id: ID!, $input: DataBanrepublicaTcapInput!) {
+    actualizarDataBanrepublicaTcap(id: $id, input: $input) {
+      id
+      fecha
+      tasa_a_30_cdt_bancos_comerciales
+      monto_a_30_cdt_bancos_comerciales
+      tasa_entre_31_y_44_cdt_bancos_comerciales
+      monto_entre_31_y_44_cdt_bancos_comerciales
+      tasa_a_45_cdt_bancos_comerciales
+      monto_a_45_cdt_bancos_comerciales
+      tasa_entre_46_y_59_cdt_bancos_comerciales
+      monto_entre_46_y_59_cdt_bancos_comerciales
+      tasa_a_60_cdt_bancos_comerciales
+      monto_a_60_cdt_bancos_comerciales
+      tasa_entre_61_y_89_cdt_bancos_comerciales
+      monto_entre_61_y_89_cdt_bancos_comerciales
+      tasa_a_90_cdt_bancos_comerciales
+      monto_a_90_cdt_bancos_comerciales
+      tasa_entre_91_y_119_cdt_bancos_comerciales
+      monto_entre_91_y_119_cdt_bancos_comerciales
+      tasa_a_120_cdt_bancos_comerciales
+      monto_a_120_cdt_bancos_comerciales
+      tasa_entre_121_y_179_cdt_bancos_comerciales
+      monto_entre_121_y_179_cdt_bancos_comerciales
+      tasa_a_180_cdt_bancos_comerciales
+      monto_a_180_cdt_bancos_comerciales
+      tasa_entre_181_y_359_cdt_bancos_comerciales
+      monto_entre_181_y_359_cdt_bancos_comerciales
+      tasa_a_360_cdt_bancos_comerciales
+      monto_a_360_cdt_bancos_comerciales
+      tasa_superiores_a_360_cdt_bancos_comerciales
+      monto_superiores_a_360_cdt_bancos_comerciales
+      tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
+      monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales
+      tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales
+      monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales
+      tasa_entre_2_y_14_cdats_cdat_bancos_comerciales
+      monto_entre_2_y_14_cdats_cdat_bancos_comerciales
+      tasa_entre_15_y_29_cdats_cdat_bancos_comerciales
+      monto_entre_15_y_29_cdat_bancos_comerciales
+      tasa_a_30_cdats_cdat_bancos_comerciales
+      monto_a_30_cdat_bancos_comerciales
+      tasa_entre_31_y_90_cdats_cdat_bancos_comerciales
+      monto_entre_31_y_90_cdat_bancos_comerciales
+      tasa_entre_91_y_180_cdats_cdat_bancos_comerciales
+      monto_entre_91_y_180_cdat_bancos_comerciales
+      tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales
+      monto_de_181_en_adelante_cdats_cdat_bancos_comerciales
+      tasa_cap_cdat_oficinas_cdat_bancos_comerciales
+      monto_cap_cdat_oficinas_cdat_bancos_comerciales
+    }
+  }
+`;
+
+export const ELIMINAR_DATA_BANREPUBLICA_TCAP = gql`
+  mutation eliminarDataBanrepublicaTcap($ids: [ID!]!) {
+    eliminarDataBanrepublicaTcap(ids: $ids)
   }
 `;

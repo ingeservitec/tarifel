@@ -2701,6 +2701,280 @@ type ErrorDataEmpresaEnergiaContratoAtipico {
 }
 
 
+type DataMmeValidacion {
+  id: ID
+  creador: Int
+  empresa_id: String
+  fecha: String!
+  trimestre: Int!
+  anho: Int!
+  facturacion: String!
+  subsidios: String!
+  contribuciones: Int!
+  contrib_no_recaud_desp_6m: Int!
+  contrib_recaud_desp_de_conc: Int!
+  giros_recibidos: String
+  giro_sobrante: String
+  ultimo_giro_incluido: Int
+}
+
+input DataMmeValidacionInput {
+  id: ID
+  creador: Int
+  empresa_id: String
+  fecha: String!
+  trimestre: Int!
+  anho: Int!
+  facturacion: String!
+  subsidios: String!
+  contribuciones: Int!
+  contrib_no_recaud_desp_6m: Int!
+  contrib_recaud_desp_de_conc: Int!
+  giros_recibidos: String!
+  giro_sobrante: String
+  ultimo_giro_incluido: Int
+}
+
+type DataMmeValidacionResponse {
+  records: [DataMmeValidacion]
+  totalRecords: Int
+  valoresFiltrables: [ValoresFiltrables]
+}
+
+type ResponseDataMmeValidacion {
+  datos: [DataMmeValidacion]
+  errores: [ErrorDataMmeValidacion]
+}
+
+type ErrorDataMmeValidacion {
+  tipo: String
+  mensaje: String
+  registrosErrores: DataMmeValidacion
+}
+
+type DataMmeGiro {
+  id: ID!
+  creador: Int
+  empresa_id: String
+  fecha: String!
+  fondo: String!
+  resolucion: String!
+  link_resolucion: String!
+  giro_cop: String!
+}
+
+input DataMmeGiroInput {
+  creador: Int
+  empresa_id: String
+  fecha: String!
+  fondo: String!
+  resolucion: String!
+  link_resolucion: String!
+  giro_cop: String!
+}
+
+type DataMmeGiroResponse {
+  records: [DataMmeGiro]
+  totalRecords: Int
+  valoresFiltrables: [ValoresFiltrables]
+}
+
+type ResponseDataMmeGiro {
+  datos: [DataMmeGiro]
+  errores: [ErrorDataMmeGiro]
+}
+
+type ErrorDataMmeGiro {
+  tipo: String
+  mensaje: String
+  registrosErrores: DataMmeGiro
+}
+
+
+  type DataBanrepublicaTco {
+    id: ID
+    creador: Int
+    anho_semana: String
+    tasa_cred_com_credito_consumo: Float
+    monto_cred_com_credito_consumo: Float
+    tasa_cred_com_odinario: Float
+    monto_cred_com_odinario: Float
+    tasa__cred_com_preferencial_o_corporativo: Float
+    monto__cred_com_preferencial_o_corporativo: Float
+    tasa__cred_com_tesoreria: Float
+    monto__cred_com_tesoreria: Float
+    tasa_colocacion_banco_republica: Float
+    monto_colocacion_banco_republica: Float
+    tasa_colocacion_sin_tesoreria: Float
+    monto_colocacion_sin_tesoreria: Float
+    tasa_colocacion_total: Float
+    monto_colocacion_total: Float
+    empresa_id: String
+  }
+
+  input DataBanrepublicaTcoInput {
+    creador: Int
+    anho_semana: String
+    tasa_cred_com_credito_consumo: Float
+    monto_cred_com_credito_consumo: Float
+    tasa_cred_com_odinario: Float
+    monto_cred_com_odinario: Float
+    tasa__cred_com_preferencial_o_corporativo: Float
+    monto__cred_com_preferencial_o_corporativo: Float
+    tasa__cred_com_tesoreria: Float
+    monto__cred_com_tesoreria: Float
+    tasa_colocacion_banco_republica: Float
+    monto_colocacion_banco_republica: Float
+    tasa_colocacion_sin_tesoreria: Float
+    monto_colocacion_sin_tesoreria: Float
+    tasa_colocacion_total: Float
+    monto_colocacion_total: Float
+    empresa_id: String
+  }
+
+  type DataBanrepublicaTcoResponse {
+    records: [DataBanrepublicaTco]
+    totalRecords: Int
+    valoresFiltrables: [ValoresFiltrables]
+  }
+
+  type ResponseDataBanrepublicaTco {
+    datos: [DataBanrepublicaTco]
+    errores: [ErrorDataBanrepublicaTco]
+  }
+
+  type ErrorDataBanrepublicaTco {
+    tipo: String
+    mensaje: String
+    registrosErrores: DataBanrepublicaTco
+  }
+
+ 
+
+    type DataBanrepublicaTcap {
+      id: ID!
+      creador: Int
+      empresa_id: String
+      fecha: String
+      tasa_a_30_cdt_bancos_comerciales: Float
+      monto_a_30_cdt_bancos_comerciales: Float
+      tasa_entre_31_y_44_cdt_bancos_comerciales: Float
+      monto_entre_31_y_44_cdt_bancos_comerciales: Float
+      tasa_a_45_cdt_bancos_comerciales: Float
+      monto_a_45_cdt_bancos_comerciales: Float
+      tasa_entre_46_y_59_cdt_bancos_comerciales: Float
+      monto_entre_46_y_59_cdt_bancos_comerciales: Float
+      tasa_a_60_cdt_bancos_comerciales: Float
+      monto_a_60_cdt_bancos_comerciales: Float
+      tasa_entre_61_y_89_cdt_bancos_comerciales: Float
+      monto_entre_61_y_89_cdt_bancos_comerciales: Float
+      tasa_a_90_cdt_bancos_comerciales: Float
+      monto_a_90_cdt_bancos_comerciales: Float
+      tasa_entre_91_y_119_cdt_bancos_comerciales: Float
+      monto_entre_91_y_119_cdt_bancos_comerciales: Float
+      tasa_a_120_cdt_bancos_comerciales: Float
+      monto_a_120_cdt_bancos_comerciales: Float
+      tasa_entre_121_y_179_cdt_bancos_comerciales: Float
+      monto_entre_121_y_179_cdt_bancos_comerciales: Float
+      tasa_a_180_cdt_bancos_comerciales: Float
+      monto_a_180_cdt_bancos_comerciales: Float
+      tasa_entre_181_y_359_cdt_bancos_comerciales: Float
+      monto_entre_181_y_359_cdt_bancos_comerciales: Float
+      tasa_a_360_cdt_bancos_comerciales: Float
+      monto_a_360_cdt_bancos_comerciales: Float
+      tasa_superiores_a_360_cdt_bancos_comerciales: Float
+      monto_superiores_a_360_cdt_bancos_comerciales: Float
+      tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: Float
+      monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: Float
+      tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales: Float
+      monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales: Float
+      tasa_entre_2_y_14_cdats_cdat_bancos_comerciales: Float
+      monto_entre_2_y_14_cdats_cdat_bancos_comerciales: Float
+      tasa_entre_15_y_29_cdats_cdat_bancos_comerciales: Float
+      monto_entre_15_y_29_cdat_bancos_comerciales: Float
+      tasa_a_30_cdats_cdat_bancos_comerciales: Float
+      monto_a_30_cdat_bancos_comerciales: Float
+      tasa_entre_31_y_90_cdats_cdat_bancos_comerciales: Float
+      monto_entre_31_y_90_cdat_bancos_comerciales: Float
+      tasa_entre_91_y_180_cdats_cdat_bancos_comerciales: Float
+      monto_entre_91_y_180_cdat_bancos_comerciales: Float
+      tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales: Float
+      monto_de_181_en_adelante_cdats_cdat_bancos_comerciales: Float
+      tasa_cap_cdat_oficinas_cdat_bancos_comerciales: Float
+      monto_cap_cdat_oficinas_cdat_bancos_comerciales: Float
+    }
+  
+    input DataBanrepublicaTcapInput {
+      creador: Int
+      empresa_id: String
+      fecha: String!
+      tasa_a_30_cdt_bancos_comerciales: Float
+      monto_a_30_cdt_bancos_comerciales: Float
+      tasa_entre_31_y_44_cdt_bancos_comerciales: Float
+      monto_entre_31_y_44_cdt_bancos_comerciales: Float
+      tasa_a_45_cdt_bancos_comerciales: Float
+      monto_a_45_cdt_bancos_comerciales: Float
+      tasa_entre_46_y_59_cdt_bancos_comerciales: Float
+      monto_entre_46_y_59_cdt_bancos_comerciales: Float
+      tasa_a_60_cdt_bancos_comerciales: Float
+      monto_a_60_cdt_bancos_comerciales: Float
+      tasa_entre_61_y_89_cdt_bancos_comerciales: Float
+      monto_entre_61_y_89_cdt_bancos_comerciales: Float
+      tasa_a_90_cdt_bancos_comerciales: Float
+      monto_a_90_cdt_bancos_comerciales: Float
+      tasa_entre_91_y_119_cdt_bancos_comerciales: Float
+      monto_entre_91_y_119_cdt_bancos_comerciales: Float
+      tasa_a_120_cdt_bancos_comerciales: Float
+      monto_a_120_cdt_bancos_comerciales: Float
+      tasa_entre_121_y_179_cdt_bancos_comerciales: Float
+      monto_entre_121_y_179_cdt_bancos_comerciales: Float
+      tasa_a_180_cdt_bancos_comerciales: Float
+      monto_a_180_cdt_bancos_comerciales: Float
+      tasa_entre_181_y_359_cdt_bancos_comerciales: Float
+      monto_entre_181_y_359_cdt_bancos_comerciales: Float
+      tasa_a_360_cdt_bancos_comerciales: Float
+      monto_a_360_cdt_bancos_comerciales: Float
+      tasa_superiores_a_360_cdt_bancos_comerciales: Float
+      monto_superiores_a_360_cdt_bancos_comerciales: Float
+      tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: Float
+      monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: Float
+      tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales: Float
+      monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales: Float
+      tasa_entre_2_y_14_cdats_cdat_bancos_comerciales: Float
+      monto_entre_2_y_14_cdats_cdat_bancos_comerciales: Float
+      tasa_entre_15_y_29_cdats_cdat_bancos_comerciales: Float
+      monto_entre_15_y_29_cdat_bancos_comerciales: Float
+      tasa_a_30_cdats_cdat_bancos_comerciales: Float
+      monto_a_30_cdat_bancos_comerciales: Float
+      tasa_entre_31_y_90_cdats_cdat_bancos_comerciales: Float
+      monto_entre_31_y_90_cdat_bancos_comerciales: Float
+      tasa_entre_91_y_180_cdats_cdat_bancos_comerciales: Float
+      monto_entre_91_y_180_cdat_bancos_comerciales: Float
+      tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales: Float
+      monto_de_181_en_adelante_cdats_cdat_bancos_comerciales: Float
+      tasa_cap_cdat_oficinas_cdat_bancos_comerciales: Float
+      monto_cap_cdat_oficinas_cdat_bancos_comerciales: Float
+    }
+  
+    type ErrorDataBanrepublicaTca {
+      tipo: String
+      mensaje: String
+      registrosErrores: DataBanrepublicaTcap
+    }
+    
+    type DataBanrepublicaTcapMutationResponse {
+      datos: [DataBanrepublicaTcap]
+      errores: [ErrorDataBanrepublicaTca]
+    }
+    
+  type DataBanrepublicaTcapResponse {
+    records: [DataBanrepublicaTcap]
+    totalRecords: Int
+    valoresFiltrables: [ValoresFiltrables]
+  }
+
+
+
   type Query {
     #Usuarios
     obtenerUsuario: Usuario
@@ -2828,6 +3102,13 @@ type ErrorDataEmpresaEnergiaContratoAtipico {
 
     obtenerDataEmpresaEnergiaContratoAtipico(options: QueryOptions!): DataEmpresaEnergiaContratoAtipicoResponse
 
+    obtenerDataMmeValidacion(options: QueryOptions!): DataMmeValidacionResponse
+    obtenerDataMmeGiro(options: QueryOptions!): DataMmeGiroResponse
+
+    obtenerDataBanrepublicaTco(options: QueryOptions!): DataBanrepublicaTcoResponse
+    obtenerDataBanrepublicaTcap(options: QueryOptions!): DataBanrepublicaTcapResponse
+    
+  
   }
   type Mutation {
     #Usuarios
@@ -3020,8 +3301,24 @@ type ErrorDataEmpresaEnergiaContratoAtipico {
     eliminarDataFormato7SSPDs(ids: [ID!]!): [ID!]
     nuevoDataEmpresaEnergiaContratoAtipico(input: [DataEmpresaEnergiaContratoAtipicoInput!]!): ResponseDataEmpresaEnergiaContratoAtipico
         actualizarDataEmpresaEnergiaContratoAtipico(id: ID!, input: DataEmpresaEnergiaContratoAtipicoInput!): DataEmpresaEnergiaContratoAtipico
-       
         eliminarDataEmpresaEnergiaContratoAtipico(ids: [ID!]!): [String]
+
+        nuevoDataMmeValidacion(input: [DataMmeValidacionInput]): ResponseDataMmeValidacion
+        actualizarDataMmeValidacion(id: ID!, input: DataMmeValidacionInput): DataMmeValidacion
+        
+        nuevoDataMmeGiro(input: [DataMmeGiroInput]): ResponseDataMmeGiro
+  actualizarDataMmeGiro(id: ID!, input: DataMmeGiroInput): DataMmeGiro
+
+  eliminarDataMmeGiro(ids: [ID!]!): [String]
+  eliminarDataMmeValidacion(ids: [ID!]!): [String]
+
+    nuevoDataBanrepublicaTco(input: [DataBanrepublicaTcoInput]): ResponseDataBanrepublicaTco
+    actualizarDataBanrepublicaTco(id: ID!, input: DataBanrepublicaTcoInput): DataBanrepublicaTco
+    eliminarDataBanrepublicaTco(ids: [ID!]!): [String]
+
+    nuevoDataBanrepublicaTcap(input: [DataBanrepublicaTcapInput!]): DataBanrepublicaTcapMutationResponse
+    actualizarDataBanrepublicaTcap(id: ID!, input: DataBanrepublicaTcapInput!): DataBanrepublicaTcapMutationResponse
+    eliminarDataBanrepublicaTcap(ids: [ID!]): [String]
   }
 `;
 

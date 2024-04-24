@@ -8,6 +8,7 @@ tasa_cred_com_credito_consumo:{type: DataTypes.FLOAT,allowNull: false,trim: true
 monto_cred_com_credito_consumo:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 tasa_cred_com_odinario:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 monto_cred_com_odinario:{type: DataTypes.FLOAT,allowNull: false,trim: true},
+
 tasa__cred_com_preferencial_o_corporativo:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 monto__cred_com_preferencial_o_corporativo:{type: DataTypes.FLOAT,allowNull: false,trim: true},
 tasa__cred_com_tesoreria:{type: DataTypes.FLOAT,allowNull: false,trim: true},

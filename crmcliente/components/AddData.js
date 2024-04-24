@@ -22,6 +22,8 @@ import { convertirSTR } from "../funciones/convertirExcel";
 import { convertirSDL } from "../funciones/convertirExcel";
 import { convertirCPROG } from "../funciones/convertirExcel";
 import { convertirFACTORESIPR } from "../funciones/convertirExcel";
+import { convertirBanRepTco } from "../funciones/convertirExcel";
+import { convertirBanRepTcap } from "../funciones/convertirExcel";
 
 import Dropzone from "react-dropzone";
 import { UPLOAD_FILE } from "../data";
@@ -73,7 +75,7 @@ const AddData = ({
   manual,
   masivo,
 }) => {
-  console.log(subMutation);
+  
   const [files, setFiles] = useState([]);
   const [option, setOption] = useState(manual === false ? "Masivo" : "Manual");
   const [imagenCliente, setImagenCliente] = useState("");
@@ -420,7 +422,7 @@ const AddData = ({
                     file.name.length - 4
                   )
                 );
-
+                
                 dataArray2 = convertirTRSM(sheetData, month);
                 break;
               case "nuevoDataXmTserv":
@@ -533,7 +535,16 @@ const AddData = ({
                   convertirCPROG(sheetName, sheetData, dataArray2);
                 });
                 break;
+                case "nuevoDataBanrepublicaTco":
+                
+                  dataArray2 = convertirBanRepTco(sheetData);
 
+                  break
+                  case "nuevoDataBanrepublicaTcap":
+                    console.log({sheetData})
+                    dataArray2 = convertirBanRepTcap(sheetData);
+
+                    break
               default:
                 dataArray2 = sheetData.slice(1).map((row) =>
                   row.reduce(
@@ -637,6 +648,17 @@ const AddData = ({
                 dataArray2 = convertirDSPCTTOS(sheetData, day, month);
                 break;
               case "nuevoData_xm_trsm":
+                month = parseInt(
+                  file.name.substring(
+                    file.name.length - 6,
+                    file.name.length - 4
+                  )
+                );
+                
+                dataArray2 = convertirTRSM(sheetData, month);
+                break;
+
+
               case "nuevoDataXmTserv":
                 switch (entidad.sigla) {
                   case "EGVC":
@@ -652,7 +674,7 @@ const AddData = ({
                     file.name.length - 4
                   )
                 );
-                console.log(codXm);
+                
 
                 dataArray2 = convertirTSERV(sheetData, codXm, month);
                 break;
@@ -685,6 +707,11 @@ const AddData = ({
                   year
                 );
                 break;
+                case "nuevoDataBanrepublicaTco":
+                  console.log({sheetData})
+                  dataArray2 = convertirBanRepTco(sheetData);
+
+                  break
               default:
                 // dataArray2 = sheetData.slice(1).map((row) =>
                 //   row.reduce(
@@ -744,7 +771,7 @@ const AddData = ({
             });
             dataArray.push(newData);
           });
-
+          console.log({dataArray})
           if (Object.keys(nestedArrayObjeto).length > 0) {
             dataArray.push(nestedArrayObjeto);
           }

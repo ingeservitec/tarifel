@@ -262,6 +262,7 @@ export function convertirDSPCTTOS(excelArray, month, day) {
 }
 
 export function convertirTRSM(excelArray, month) {
+  console.log('first')
   var resultArray = excelArray;
   return resultArray.map((data) => ({
     ...data,
@@ -1144,9 +1145,6 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 
 export function convertirCPROG(sheetName, excelArray, dataArray2) {
 
-console.log(sheetName)
-console.log(excelArray)
-console.log(dataArray2)
 
   let resultObject = dataArray2[0];
 
@@ -1202,4 +1200,179 @@ console.log(dataArray2)
 
   resultObject.Agente ='EGVD'
   return resultObject;
+}
+
+export function convertirBanRepTco(excelArray) {
+    // Encontrar índice de la fila con encabezados de las columnas
+    const headerRowIndex = excelArray.findIndex(row => row[0] === 'Año(aaaa)-Semana(ss)');
+
+    // Encontrar índice de la fila con nombres de categorías financieras
+    const subHeaderRowIndex = excelArray.findIndex(row => row.includes('Crédito de consumo'));
+
+    if (headerRowIndex === -1 || subHeaderRowIndex === -1) {
+        console.error('No se pudieron encontrar las filas de encabezados.');
+        return [];
+    }
+    const dataStartIndex = headerIndex + 1;  // Los datos comienzan justo después de la fila de encabezados
+
+    let lastValidIndex = dataStartIndex;
+    for (let i = dataStartIndex; i < excelArray.length; i++) {
+        if (excelArray[i][0] && (excelArray[i][0].startsWith('19') || excelArray[i][0].startsWith('20'))) { // Asumiendo que los años comienzan con '20'
+            lastValidIndex = i;
+        } else {
+            break;  // Deja de leer más filas si encuentra una fila sin un año válido
+        }
+    }
+
+    const headers = excelArray[headerRowIndex];
+    const subHeaders = excelArray[subHeaderRowIndex];
+    const indices = {
+      anho_semana: headers.indexOf('Año(aaaa)-Semana(ss)'),
+  };
+  
+  headers.forEach((header, index) => {
+    if (header === 'Tasa %') {
+        let subCategory = subHeaders[index];
+        // Reemplazar espacios en subCategory por guiones bajos
+        subCategory = subCategory.replace(/ /g, '_');
+
+        // Asignar el índice de la tasa y automáticamente asignar el monto de la columna siguiente
+        indices[`tasa_${subCategory}`] = index;
+        indices[`monto_${subCategory}`] = index + 1;  // Asume que el 'Monto' siempre está inmediatamente después de la 'Tasa %'
+    }
+});
+
+
+  // Procesar filas de datos que comienzan justo después de los headers y subheaders
+  const dataRows = excelArray.slice(headerRowIndex + 1);
+
+  var transformedData = [];
+  // Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
+// Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
+for (let i = dataStartIndex; i <= lastValidIndex; i++) {
+  const row = excelArray[i];
+  transformedData.push({
+      anho_semana: row[0],
+      tasa_cred_com_credito_consumo: parseFloat(row[2]),
+      monto_cred_com_credito_consumo: parseFloat(row[3].replace(/[$,]/g, '')),
+      tasa_cred_com_odinario: parseFloat(row[4]),
+      monto_cred_com_odinario: parseFloat(row[5].replace(/[$,]/g, '')),
+      tasa__cred_com_preferencial_o_corporativo: parseFloat(row[6]),
+      monto__cred_com_preferencial_o_corporativo: parseFloat(row[7].replace(/[$,]/g, '')),
+      tasa__cred_com_tesoreria: parseFloat(row[8]),
+      monto__cred_com_tesoreria: parseFloat(row[9].replace(/[$,]/g, '')),
+      tasa_colocacion_banco_republica: parseFloat(row[10]),
+      monto_colocacion_banco_republica: parseFloat(row[11].replace(/[$,]/g, '')),
+      tasa_colocacion_sin_tesoreria: parseFloat(row[12]),
+      monto_colocacion_sin_tesoreria: parseFloat(row[13].replace(/[$,]/g, '')),
+      tasa_colocacion_total: parseFloat(row[14]),
+      monto_colocacion_total: parseFloat(row[15].replace(/[$,]/g, ''))
+  });
+}
+
+    
+    return transformedData;
+}
+
+export function convertirBanRepTcap(excelArray) {
+  // Encontrar índice de la fila con encabezados de las columnas
+  const headerRowIndex = excelArray.findIndex(row => row[0] === 'Fecha(dd/mm/aaaa)');
+
+  // Encontrar índice de la fila con nombres de categorías financieras
+  const subHeaderRowIndex = excelArray.findIndex(row => row.includes('A 30 días'));
+
+  if (headerRowIndex === -1 || subHeaderRowIndex === -1) {
+      console.error('No se pudieron encontrar las filas de encabezados.');
+      return [];
+  }
+  const dataStartIndex = headerRowIndex + 1;  // Los datos comienzan justo después de la fila de encabezados
+
+  let lastValidIndex = dataStartIndex;
+  for (let i = dataStartIndex; i < excelArray.length; i++) {
+      if (excelArray[i][0] && (excelArray[i][0].startsWith('0') || excelArray[i][0].startsWith('1')|| excelArray[i][0].startsWith('2')|| excelArray[i][0].startsWith('3'))) { // Asumiendo que los años comienzan con '20'
+          lastValidIndex = i;
+      } else {
+          break;  // Deja de leer más filas si encuentra una fila sin un año válido
+      }
+  }
+
+  const headers = excelArray[headerRowIndex];
+  const subHeaders = excelArray[subHeaderRowIndex];
+  const indices = {
+    fecha: headers.indexOf('Fecha(dd/mm/aaaa)'),
+};
+
+headers.forEach((header, index) => {
+  if (header === 'Tasa %') {
+      let subCategory = subHeaders[index];
+      // Reemplazar espacios en subCategory por guiones bajos
+      subCategory = subCategory.replace(/ /g, '_');
+
+      // Asignar el índice de la tasa y automáticamente asignar el monto de la columna siguiente
+      indices[`tasa_${subCategory}`] = index;
+      indices[`monto_${subCategory}`] = index + 1;  // Asume que el 'Monto' siempre está inmediatamente después de la 'Tasa %'
+  }
+});
+
+
+
+var transformedData = [];
+
+// Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
+// Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
+for (let i = dataStartIndex; i <= lastValidIndex; i++) {
+const row = excelArray[i];
+transformedData.push({
+    fecha: row[0],
+    tasa_a_30_cdt_bancos_comerciales: parseFloat(row[1]),
+    monto_a_30_cdt_bancos_comerciales: parseFloat(row[2].replace(/[$,]/g, '')),
+    tasa_entre_31_y_44_cdt_bancos_comerciales: parseFloat(row[3]),
+    monto_entre_31_y_44_cdt_bancos_comerciales: parseFloat(row[4].replace(/[$,]/g, '')),
+    tasa_a_45_cdt_bancos_comerciales: parseFloat(row[5]),
+    monto_a_45_cdt_bancos_comerciales: parseFloat(row[6].replace(/[$,]/g, '')),
+    tasa_entre_46_y_59_cdt_bancos_comerciales: parseFloat(row[7]),
+    monto_entre_46_y_59_cdt_bancos_comerciales: parseFloat(row[8].replace(/[$,]/g, '')),
+    tasa_a_60_cdt_bancos_comerciales: parseFloat(row[9]),
+    monto_a_60_cdt_bancos_comerciales: parseFloat(row[10].replace(/[$,]/g, '')),
+    tasa_entre_61_y_89_cdt_bancos_comerciales: parseFloat(row[11]),
+    monto_entre_61_y_89_cdt_bancos_comerciales: parseFloat(row[12].replace(/[$,]/g, '')),
+    tasa_a_90_cdt_bancos_comerciales: parseFloat(row[13]),
+    monto_a_90_cdt_bancos_comerciales: parseFloat(row[14].replace(/[$,]/g, '')),
+    tasa_entre_91_y_119_cdt_bancos_comerciales: parseFloat(row[15]),
+    monto_entre_91_y_119_cdt_bancos_comerciales: parseFloat(row[16].replace(/[$,]/g, '')),
+    tasa_a_120_cdt_bancos_comerciales: parseFloat(row[17]),
+    monto_a_120_cdt_bancos_comerciales: parseFloat(row[18].replace(/[$,]/g, '')),
+    tasa_entre_121_y_179_cdt_bancos_comerciales: parseFloat(row[19]),
+    monto_entre_121_y_179_cdt_bancos_comerciales: parseFloat(row[20].replace(/[$,]/g, '')),
+    tasa_a_180_cdt_bancos_comerciales: parseFloat(row[21]),
+    monto_a_180_cdt_bancos_comerciales: parseFloat(row[22].replace(/[$,]/g, '')),
+    tasa_entre_181_y_359_cdt_bancos_comerciales: parseFloat(row[23]),
+    monto_entre_181_y_359_cdt_bancos_comerciales: parseFloat(row[24].replace(/[$,]/g, '')),
+    tasa_a_360_cdt_bancos_comerciales: parseFloat(row[25]),
+    monto_a_360_cdt_bancos_comerciales: parseFloat(row[26].replace(/[$,]/g, '')),
+    tasa_superiores_a_360_cdt_bancos_comerciales: parseFloat(row[27]),
+    monto_superiores_a_360_cdt_bancos_comerciales: parseFloat(row[28].replace(/[$,]/g, '')),
+    tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: parseFloat(row[29]),
+    monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: parseFloat(row[30].replace(/[$,]/g, '')),
+    tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales: parseFloat(row[31]),
+    monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales: parseFloat(row[32].replace(/[$,]/g, '')),
+    tasa_entre_2_y_14_cdats_cdat_bancos_comerciales: parseFloat(row[33]),
+    monto_entre_2_y_14_cdats_cdat_bancos_comerciales: parseFloat(row[34].replace(/[$,]/g, '')),
+    tasa_entre_15_y_29_cdats_cdat_bancos_comerciales: parseFloat(row[35]),
+    monto_entre_15_y_29_cdat_bancos_comerciales: parseFloat(row[36].replace(/[$,]/g, '')),
+   tasa_a_30_cdats_cdat_bancos_comerciales: parseFloat(row[37]),
+    monto_a_30_cdat_bancos_comerciales: parseFloat(row[38].replace(/[$,]/g, '')),
+    tasa_entre_31_y_90_cdats_cdat_bancos_comerciales: parseFloat(row[39]),
+    monto_entre_31_y_90_cdat_bancos_comerciales: parseFloat(row[40].replace(/[$,]/g, '')),
+    tasa_entre_91_y_180_cdats_cdat_bancos_comerciales: parseFloat(row[41]),
+    monto_entre_91_y_180_cdat_bancos_comerciales: parseFloat(row[42].replace(/[$,]/g, '')),
+    tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales: parseFloat(row[43]),
+    monto_de_181_en_adelante_cdats_cdat_bancos_comerciales: parseFloat(row[44].replace(/[$,]/g, '')),
+    tasa_cap_cdat_oficinas_cdat_bancos_comerciales: parseFloat(row[45]),
+    monto_cap_cdat_oficinas_cdat_bancos_comerciales: parseFloat(row[46].replace(/[$,]/g, ''))
+});
+}
+
+  
+  return transformedData;
 }

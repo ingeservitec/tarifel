@@ -1112,6 +1112,63 @@ const resolvers = {
         throw new Error(`No se pudieron obtener los datos: ${error.message}`);
       }
     },
+    obtenerDataMmeValidacion: async (_, { options }, ctx) => {
+      try {
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        // La función `realizarConsultaPaginada` sería una utilidad que implementas para manejar la paginación y el filtrado
+        if (!options.sortField) {
+          options.sortField = "fecha";
+          options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
+        }
+        
+        return await realizarConsultaPaginada(Data_mme_validacion, options, condicionesEmpresa);
+      } catch (error) {
+        console.error(error);
+        throw new Error("No se pudieron obtener los datos de validación MME.");
+      }
+    },
+    obtenerDataMmeGiro: async (_, { options }, ctx) => {
+      try {
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        // Asumiendo que exista una función genérica para manejar paginación y filtrado
+                // Establecer valores predeterminados para sortField y sortOrder
+                if (!options.sortField) {
+                  options.sortField = "fecha";
+                  options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
+                }
+
+                
+        const resultado = await realizarConsultaPaginada(Data_mme_giro, options, condicionesEmpresa);
+        
+        return resultado;
+      } catch (error) {
+        console.error("Error al obtener datos de giros MME: ", error);
+        throw new Error("Error al obtener los datos de giros MME.");
+      }
+    },
+    obtenerDataBanrepublicaTco: async (_, { options }, ctx) => {
+      try {
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        // La función `realizarConsultaPaginada` sería una utilidad que implementas para manejar la paginación y el filtrado
+        const resultado = await realizarConsultaPaginada(Data_banrepublica_tco, options, condicionesEmpresa);
+        return resultado;
+      } catch (error) {
+        console.log(error);
+        throw new Error('No se pudieron obtener los datos de banrepublica tco');
+      }
+    },
+
+    obtenerDataBanrepublicaTcap: async (_, { options }, ctx) => {
+      try {
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        // La función `realizarConsultaPaginada` sería una utilidad que implementas para manejar la paginación y el filtrado
+        const resultado = await realizarConsultaPaginada(Data_banrepublica_tcap, options, condicionesEmpresa);
+        return resultado;
+      } catch (error) {
+        console.log(error);
+        throw new Error('No se pudieron obtener los datos de banrepublica tco');
+      }
+    }
   },
 
   Mutation: {
@@ -1560,7 +1617,7 @@ const resolvers = {
     //Mutation
 
     nuevoData_xm_guatape: async (_, { input }) => {
-      console.log(input);
+      
       try {
         const data_xm_guatape = new Data_xm_guatape(input);
         const resultado = await data_xm_guatape.save();
@@ -2958,13 +3015,13 @@ const resolvers = {
                     data_empresam.ventas_usuarios_r_nt2 +
                     data_empresam.ventas_usuarios_r_nt3)
               );
-
+// Buscar todas las validaciones de la empresa del usuario en contexto
               data_xm_mme_validacione = await Data_mme_validacion.findAll({
                 where: {
                   empresa_id: ctx.usuario.empresa,
                 },
               });
-
+// Determinar el año más reciente entre las validaciones encontradas
               var len = data_xm_mme_validacione.length,
                 maxa = -Infinity;
               while (len > 0) {
@@ -2974,7 +3031,7 @@ const resolvers = {
                 }
               }
               anho_Ul_Trim_Val_Mme = maxa;
-
+// Determinar el trimestre más reciente del último año encontrado
               var len = data_xm_mme_validacione.length,
                 maxt = -Infinity;
               while (len > 0) {
@@ -2989,6 +3046,9 @@ const resolvers = {
 
               ul_Trim_Val_Mme = maxt;
 
+
+
+// Preparar la lista de últimos 4 trimestres validados
               var len = 4,
                 tri_validados = [],
                 index2 = 0,
@@ -3017,6 +3077,10 @@ const resolvers = {
                     anho_trimestre = maxa - 1;
                   }
                 }
+
+
+                  // Calcular las fechas de inicio y fin de los ultimos 4 trimestres
+
                 if (trimestre === 1) {
                   fecha_inicio_trimestre = new Date(anho_trimestre, 1 - 1, 1);
                   fecha_fin_trimestre = new Date(anho_trimestre, 3 - 1, 31);
@@ -3034,6 +3098,9 @@ const resolvers = {
                   fecha_fin_trimestre = new Date(anho_trimestre, 12 - 1, 31);
                 }
 
+
+
+                 // Revisar si el trimestre y año corresponden a una entrada de validación
                 for (
                   let index1 = 0;
                   index1 < data_xm_mme_validacione.length;
@@ -3044,14 +3111,14 @@ const resolvers = {
                     data_xm_mme_validacione[index1].trimestre === trimestre
                   ) {
                     tri_validados.push([
-                      index,
-                      trimestre,
-                      anho_trimestre,
-                      parseFloat(data_xm_mme_validacione[index1].subsidios) -
+                      index1, //Indice
+                      trimestre, //Trimestre
+                      anho_trimestre, //Año
+                      parseFloat(data_xm_mme_validacione[index1].subsidios) -  //Deficit de subsidios
                         data_xm_mme_validacione[index1].contribuciones,
-                      parseFloat(data_xm_mme_validacione[index1].facturacion),
-                      fecha_inicio_trimestre,
-                      fecha_fin_trimestre,
+                      parseFloat(data_xm_mme_validacione[index1].facturacion), //Facturación
+                      fecha_inicio_trimestre, //Fecha inicio trimestre
+                      fecha_fin_trimestre, //Fecha fin trimestre
                     ]);
                     summ =
                       summ +
@@ -3060,14 +3127,20 @@ const resolvers = {
                 }
               }
 
+           
+// Calcular la facturación total promedio
               facturacion_t_ = (summ / 4).toString();
 
+
+// Buscar todas las transacciones de giro para la empresa del usuario en contexto
               data_mme_giro_e = await Data_mme_giro.findAll({
                 where: {
                   empresa_id: ctx.usuario.empresa,
+                  fondo: "FSSRI",
                 },
               });
-
+            
+// Ordenar las transacciones de giro por fecha
               var data_mme_giro_ordenado = [...data_mme_giro_e];
 
               data_mme_giro_ordenado.sort((a, b) =>
@@ -3075,6 +3148,7 @@ const resolvers = {
               );
               const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
+// Preparar variables para calcular el saldo y el giro sobrante
               var len1 = 0,
                 len2,
                 len3,
@@ -3086,7 +3160,9 @@ const resolvers = {
                 ultimo_giro_incluidob,
                 fecha_ultimo_giro;
 
-              //Review Trimestre anterior el cual para arranque se incluye manual
+//Review del Trimestre anterior a los últimos 4 validados, el cual para arranque se incluye manual en la tabla de validaciones
+            
+              // Si el trimestre actual es el primero, verificar el último del año anterior
               if (tri_validados[0][1] === 1) {
                 giro_sobranteb = parseFloat(
                   data_xm_mme_validacione.filter(
@@ -3101,7 +3177,10 @@ const resolvers = {
                     data_xm_mme_validacione.anho === tri_validados[0][2] - 1 &&
                     data_xm_mme_validacione.trimestre === 4
                 )[0].ultimo_giro_incluido;
-              } else {
+              } 
+              // Para otros trimestres, verificar el trimestre anterior del mismo año
+              
+              else {
                 giro_sobranteb = parseFloat(
                   data_xm_mme_validacione.filter(
                     (data_xm_mme_validacione) =>
@@ -3117,17 +3196,24 @@ const resolvers = {
                       tri_validados[0][1] - 1
                 )[0].ultimo_giro_incluido;
               }
-
+              
+              
+// Si no hay datos de giro sobrante o último giro incluido, inicializar a cero
               if (giro_sobranteb === null || ultimo_giro_incluidob === null) {
                 giro_sobranteb = 0;
                 ultimo_giro_incluidob = 0;
               }
 
+
+
+// Procesar giros sobrantes y calcular saldo
+
+//Para cada Trimestre validado
               for (let index = 0; index < 4; index++) {
                 saldo = tri_validados[index][3];
 
                 len2 = ultimo_giro_incluidob;
-
+//EValuo primero pagos anticipados para si con eso se cubrio el saldo 
                 while (len2 < data_mme_giro_ordenado.length - 1 && saldo != 0) {
                   var fecha_giro = new Date(
                     parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0, 4)),
@@ -3137,13 +3223,14 @@ const resolvers = {
                     parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8, 2))
                   );
                   var fecha_inicial_giros = new Date(2019, 1, 1);
-
+// Verificar fondos y fechas para aplicar giros
                   if (
                     data_mme_giro_ordenado[len2].fondo === "FSSRI" &&
                     Date.parse(fecha_giro) >= Date.parse(fecha_inicial_giros) &&
                     Date.parse(fecha_giro) <=
                       Date.parse(tri_validados[index][6])
                   ) {
+                     // Ajustar saldo con giro sobrante si existe
                     if (giro_sobranteb > 0) {
                       var fecha_giro = new Date(
                         parseFloat(
@@ -3158,8 +3245,9 @@ const resolvers = {
                       );
 
                       saldo = saldo - giro_sobranteb;
-
-                      //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+                     
+                  
+                      // Guardar el giro y los días en una matriz, ajustando el giro para llegar a cero si necesario
                       if (saldo > 0) {
                         array_sub2M.push([
                           index + 1,
@@ -3206,7 +3294,7 @@ const resolvers = {
                       saldo =
                         saldo -
                         parseFloat(data_mme_giro_ordenado[len2].giro_cop);
-                      //Guardo el giro y lso dias en una matriz, si se pasa cojo solo la parte de giro para llegar a cero
+                   // Guardar el giro y los días en una matriz, ajustando el giro para llegar a cero si necesario
 
                       if (saldo > 0) {
                         array_sub2M.push([
@@ -3255,8 +3343,9 @@ const resolvers = {
                   }
                   len2++;
                 }
-
+            
                 len3 = ultimo_giro_incluidob;
+// SI aun quedan saldos miro los pagos posteirores al trimestre               
 
                 while (len3 < data_mme_giro_ordenado.length - 1 && saldo > 0) {
                   //Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre
@@ -3385,7 +3474,7 @@ const resolvers = {
                   }
                   len3++;
                 }
-
+               
                 const registro = await Data_mme_validacion.findOne({
                   where: {
                     anho: tri_validados[index][2],
@@ -3403,10 +3492,11 @@ const resolvers = {
                   throw new Error("Registro no encontrado.");
                 }
               }
-
+            
+       
               giro_sobrante = giro_sobranteb;
               ultimo_giro_incluido = ultimo_giro_incluidob;
-
+           
               var len1 = 0,
                 len2 = 0,
                 len3 = 0,
@@ -3471,18 +3561,25 @@ const resolvers = {
               sub1_ = (sub1mt[0] + sub1mt[1] + sub1mt[2] + sub1mt[3]) / 4;
               sub2_ = (sub2mt[0] + sub2mt[1] + sub2mt[2] + sub2mt[3]) / 4;
 
-              if (sub1mt[0] + sub1mt[1] + sub1mt[2] + sub1mt[3] === 0) {
-                n_Sub1_ = 0;
-              } else {
-                n_Sub1_ = roundToTwo(
-                  (sub1npt[0] / sub1mt[0] +
-                    sub1npt[1] / sub1mt[1] +
-                    sub1npt[2] / sub1mt[2] +
-                    sub1npt[3] / sub1mt[3]) /
-                    4 /
-                    30
-                );
-              }
+// Inicializa variables para contar y sumar los valores efectivos para el promedio
+let sumaEfectiva = 0;
+let cuentaEfectiva = 0;
+
+// Iterar sobre cada elemento de sub1mt y sub1npt
+for (let i = 0; i < sub1mt.length; i++) {
+  if (sub1mt[i] > 0) { // Solo considerar si sub1mt[i] es mayor que cero
+    sumaEfectiva += sub1npt[i] / sub1mt[i]; // Suma de los promedios efectivos
+    cuentaEfectiva++; // Contar solo los trimestres válidos
+  }
+}
+
+// Calcular n_Sub1_ usando los valores efectivos
+if (cuentaEfectiva === 0) {
+  n_Sub1_ = 0; // Si no hay trimestres válidos, el resultado es cero
+} else {
+  n_Sub1_ = roundToTwo(sumaEfectiva / cuentaEfectiva / 30); // Calcular el promedio solo con los trimestres válidos
+}
+           
 
               if (sub2mt[0] + sub2mt[1] + sub2mt[2] + sub2mt[3] === 0) {
                 m_Sub2_ = 0;
@@ -3614,6 +3711,7 @@ const resolvers = {
                   },
                 });
 
+       
               const getSundayFromWeekNum = (weekNum, year) => {
                 const sunday = new Date(year, 0, 1 + (weekNum - 1) * 7 - 7);
                 while (sunday.getDay() !== 0) {
@@ -3632,6 +3730,8 @@ const resolvers = {
                     data_banrepublica_tco_e[len1].anho_semana.substr(0, 4)
                   )
                 );
+
+              
                 if (date_tco >= firstDate && date_tco < secondDate) {
                   sum_tasa_x_monto_co =
                     data_banrepublica_tco_e[len1]
@@ -3646,10 +3746,12 @@ const resolvers = {
                   conteo++;
                 }
               }
-
+              
               r1_ = roundToTwo(
                 (1 + sum_tasa_x_monto_co / sum_monto_co / 100) ** (1 / 12) - 1
               );
+
+   
 
               //Últimos cuatro trimestres validados
               //1. Ir a la tabla y coger los ultimos cuatro
@@ -5153,6 +5255,326 @@ const resolvers = {
         throw new Error(`Error al eliminar registros: ${error.message}`);
       }
     },
+    nuevoDataMmeValidacion: async (_, { input }, ctx) => {
+      try {
+        const datos = [];
+        const errores = [];
+
+        for (let i = 0; i < input.length; i++) {
+          try {
+            input[i].empresa_id = ctx.usuario.empresa; // Asegúrate de que el contexto tenga estos datos
+            input[i].creador = ctx.usuario.id;
+            const { anho, trimestre } = input[i];
+                        // Busca si existe un registro con el mismo id de la empresa, año y mes
+                        const registroExistente = await Data_mme_validacion.findOne({
+                          where: {
+                            anho,
+                            trimestre,
+                            empresa_id: ctx.usuario.empresa,
+                          },
+                        });
+                        // Si ya existe un registro, retorna un error
+                        if (registroExistente) {
+                          throw new Error(
+                            `Ya existe un registro para el año ${anho} y el trimestre ${trimestre}`
+                          );
+                        }
+
+            const nuevoRegistro = new Data_mme_validacion(input[i]);
+            const resultado = await nuevoRegistro.save();
+            datos.push(resultado);
+          } catch (error) {
+            console.error(error);
+            errores.push({
+              mensaje: error.message,
+              tipo: "error",
+              registrosErrores: input[i]
+            });
+          }
+        }
+
+        return { datos, errores };
+      } catch (error) {
+        console.error(error);
+        throw new Error("Error al guardar los datos de validación MME.");
+      }
+    },
+
+    actualizarDataMmeValidacion: async (_, { id, input }, ctx) => {
+      try {
+        const registroActualizado = await Data_mme_validacion.findByIdAndUpdate(id, input, { new: true });
+        if (!registroActualizado) {
+          throw new Error(`Registro con ID ${id} no encontrado`);
+        }
+        return registroActualizado;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Error al actualizar el registro con ID ${id}.`);
+      }
+    },
+
+
+    eliminarDataMmeValidacion: async (_, { ids }, ctx) => {
+      try {
+        const totalExistente = await Data_mme_validacion.count({
+          where: { id: ids },
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(
+            `No se encontraron todos los registros con los IDs proporcionados`
+          );
+        }
+        await Data_mme_validacion.destroy({
+          where: { id: ids },
+        });
+        return ids;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Error al eliminar registros: ${error.message}`);
+      }
+    },
+
+    nuevoDataMmeGiro: async (_, { input }, ctx) => {
+      try {
+        const datos = [];
+        const errores = [];
+
+        for (let i = 0; i < input.length; i++) {
+          input[i].empresa_id = ctx.usuario.empresa;
+          input[i].creador = ctx.usuario.id;
+          
+          try {
+            const nuevoGiro = new Data_mme_giro(input[i]);
+            const resultado = await nuevoGiro.save();
+            datos.push(resultado);
+          } catch (error) {
+            console.error("Error al crear un nuevo giro: ", error);
+            errores.push({
+              mensaje: error.message,
+              tipo: "error",
+              registrosErrores: input[i]
+            });
+          }
+        }
+
+        return { datos, errores };
+      } catch (error) {
+        console.error("Error crítico al guardar datos de giro MME: ", error);
+        throw new Error("Error crítico al guardar datos de giro MME.");
+      }
+    },
+
+
+
+  
+    
+    eliminarDataMmeGiro: async (_, { ids }, ctx) => {
+      try {
+        const totalExistente = await Data_mme_giro.count({
+          where: { id: ids },
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(
+            `No se encontraron todos los registros con los IDs proporcionados`
+          );
+        }
+        await Data_mme_giro.destroy({
+          where: { id: ids },
+        });
+        return ids;
+      } catch (error) {
+        console.error(error);
+        throw new Error(`Error al eliminar registros: ${error.message}`);
+      }
+    },
+
+    nuevoDataBanrepublicaTco: async (_, { input }, ctx) => {
+      try {
+        const miArray = [];
+        const errores = [];
+    
+        // Consultar la última semana guardada en la base de datos
+        const ultimaSemanaGuardada = await Data_banrepublica_tco.max('anho_semana', {
+          where: { empresa_id: ctx.usuario.empresa }
+        });
+    
+        // Recorrer los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            // Reemplazar guiones bajos por nada en anho_semana
+            input[index].anho_semana = input[index].anho_semana.replace(/-/g, '');
+    
+            // Comparar la semana del input con la última semana guardada
+            if (input[index].anho_semana > ultimaSemanaGuardada) {
+              // Si no existe un registro para una semana posterior a la guardada, crea uno nuevo
+              input[index].empresa_id = ctx.usuario.empresa;
+              input[index].creador = ctx.usuario.id;
+              try {
+                const newDataBanrepublicaTco = new Data_banrepublica_tco(input[index]);
+                const resultado = await newDataBanrepublicaTco.save();
+                miArray.push(resultado);
+              } catch (error) {
+                console.log(error);
+                throw new Error(error.message);
+              }
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: [input[index]],
+              mensaje: error.message,
+              tipo: "error"
+            });
+          }
+        }
+    
+        return {
+          datos: miArray,
+          errores
+        };
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error al procesar la solicitud: ' + error.message);
+      }
+    },
+    
+    actualizarDataBanrepublicaTco: async (_, { id, input }) => {
+      try {
+        // Encuentra el elemento por ID
+        const elementoDataBanrepublicaTco = await Data_banrepublica_tco.findByPk(id);
+        if (!elementoDataBanrepublicaTco) {
+          throw new Error(`Elemento con ID ${id} no encontrado`);
+        }
+
+        // Actualiza el elemento con el input proporcionado
+        await Data_banrepublica_tco.update(input, {
+          where: { id: id } // La cláusula where es necesaria para especificar el registro a actualizar
+        });
+
+        // Vuelve a encontrar el elemento para obtener los datos actualizados
+        const elementoDataBanrepublicaTcoActualizado = await Data_banrepublica_tco.findByPk(id);
+        return elementoDataBanrepublicaTcoActualizado;
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error al actualizar el dato: ' + error.message);
+      }
+    },
+    eliminarDataBanrepublicaTco: async (_, { ids }, ctx) => {
+      try {
+        // Verificar si todos los ids existen
+        const totalExistente = await Data_banrepublica_tco.count({
+          where: { id: ids }
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(`No se encontraron todos los registros con los ids proporcionados`);
+        }
+
+        // Eliminar los registros
+        await Data_banrepublica_tco.destroy({ where: { id: ids } });
+        return ids;
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
+    },
+
+    nuevoDataBanrepublicaTcap: async (_, { input }, ctx) => {
+      try {
+        const miArray = [];
+        const errores = [];
+    
+        // Consultar la última semana guardada en la base de datos
+        const ultimafechaGuardada = await Data_banrepublica_tcap.max('fecha', {
+          where: { empresa_id: ctx.usuario.empresa }
+        });
+    
+        // Recorrer los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            // Reemplazar guiones bajos por nada en anho_semana
+        // Suponiendo que la fecha viene en el formato 'DD/MM/YYYY' y está en input[index].fecha
+const fechaOriginal = input[index].fecha;  // '31/08/2020'
+const partes = fechaOriginal.split('/');  // ['31', '08', '2020']
+const fechaFormateada = `${partes[2]}-${partes[1]}-${partes[0]}`;  // '2020-08-31'
+
+input[index].fecha = fechaFormateada;
+ // Verificar que la tasa no sea null
+ if (input[index].tasa_a_30_cdats_cdat_bancos_comerciales == null) {
+ throw new Error('La tasa a 30 días CDAT Bancos comerciales no puede ser nula');
+ 
+}
+            // Comparar la semana del input con la última semana guardada
+            if (input[index].fecha > ultimafechaGuardada) {
+              // Si no existe un registro para una semana posterior a la guardada, crea uno nuevo
+              input[index].empresa_id = ctx.usuario.empresa;
+              input[index].creador = ctx.usuario.id;
+              try {
+                const newDataBanrepublicaTco = new Data_banrepublica_tcap(input[index]);
+                const resultado = await newDataBanrepublicaTco.save();
+                miArray.push(resultado);
+              } catch (error) {
+                console.log(error);
+                throw new Error(error.message);
+              }
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: [input[index]],
+              mensaje: error.message,
+              tipo: "error"
+            });
+          }
+        }
+    
+        return {
+          datos: miArray,
+          errores
+        };
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error al procesar la solicitud: ' + error.message);
+      }
+    },
+    
+    actualizarDataBanrepublicaTcap: async (_, { id, input }) => {
+      try {
+        // Encuentra el elemento por ID
+        const elementoDataBanrepublicaTco = await Data_banrepublica_tcap.findByPk(id);
+        if (!elementoDataBanrepublicaTco) {
+          throw new Error(`Elemento con ID ${id} no encontrado`);
+        }
+
+        // Actualiza el elemento con el input proporcionado
+        await Data_banrepublica_tco.update(input, {
+          where: { id: id } // La cláusula where es necesaria para especificar el registro a actualizar
+        });
+
+        // Vuelve a encontrar el elemento para obtener los datos actualizados
+        const elementoDataBanrepublicaTcoActualizado = await Data_banrepublica_tcap.findByPk(id);
+        return elementoDataBanrepublicaTcoActualizado;
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error al actualizar el dato: ' + error.message);
+      }
+    },
+    eliminarDataBanrepublicaTcap: async (_, { ids }, ctx) => {
+      try {
+        // Verificar si todos los ids existen
+        const totalExistente = await Data_banrepublica_tcap.count({
+          where: { id: ids }
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(`No se encontraron todos los registros con los ids proporcionados`);
+        }
+
+        // Eliminar los registros
+        await Data_banrepublica_tcap.destroy({ where: { id: ids } });
+        return ids;
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
+    }
+  
   },
 };
 module.exports = resolvers;

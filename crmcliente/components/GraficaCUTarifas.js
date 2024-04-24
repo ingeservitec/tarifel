@@ -656,7 +656,7 @@ return (
   <h5 className="card-title">Costo Unitario y Tarifas</h5>
   <p className="card-text"></p>
 <div className="text-left mr-0 mb-3">
-<button variant="primary" onClick={() => setShowLogin(true)}><i className="fa fa-plus mr-2 white"></i>Agregar Calculo de CU y Tarifas</button>
+{/* <button variant="primary" onClick={() => setShowLogin(true)}><i className="fa fa-plus mr-2 white"></i>Agregar Calculo de CU y Tarifas</button> */}
 {showLogin ? <NuevoCalculo_CU show={showLogin}  anho={anho} mes={mes} dataCargada={0} close={() => setShowLogin(false)} />:  null}
 </div>
 <h6>No existen resultados para este periodo, haga click aca para realizar el cálculo</h6>

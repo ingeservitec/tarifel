@@ -29,7 +29,7 @@ const DataXmCprog = () => {
               className="btn btn-primary"
               onClick={() => setShowModal(true)}
             >
-              Agregar Datos
+              Agregar Calculo de CU y Tarifas
             </button>
             <AddData
               show={showModal}

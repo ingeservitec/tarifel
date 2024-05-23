@@ -50,6 +50,7 @@ const Dataempresamessin = () => {
             cacheField="obtenerDataempresamessin"
             mutation={ELIMINAR_DATAEMPRESAMESSIN}
             query={OBTENER_DATAEMPRESAMESSIN}
+            subMutation={"eliminarDataempresamessin"}
           />
         </div>
       </div>

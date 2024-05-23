@@ -11861,7 +11861,7 @@ export const headersDataempresamessin = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: false,
+    showInTable: true,
     clase: "input",
     type: "number",
     validations: "",

@@ -1213,7 +1213,7 @@ export function convertirBanRepTco(excelArray) {
         console.error('No se pudieron encontrar las filas de encabezados.');
         return [];
     }
-    const dataStartIndex = headerIndex + 1;  // Los datos comienzan justo después de la fila de encabezados
+    const dataStartIndex = headerRowIndex + 1;  // Los datos comienzan justo después de la fila de encabezados
 
     let lastValidIndex = dataStartIndex;
     for (let i = dataStartIndex; i < excelArray.length; i++) {
@@ -1253,20 +1253,20 @@ for (let i = dataStartIndex; i <= lastValidIndex; i++) {
   const row = excelArray[i];
   transformedData.push({
       anho_semana: row[0],
-      tasa_cred_com_credito_consumo: parseFloat(row[2]),
-      monto_cred_com_credito_consumo: parseFloat(row[3].replace(/[$,]/g, '')),
-      tasa_cred_com_odinario: parseFloat(row[4]),
-      monto_cred_com_odinario: parseFloat(row[5].replace(/[$,]/g, '')),
-      tasa__cred_com_preferencial_o_corporativo: parseFloat(row[6]),
-      monto__cred_com_preferencial_o_corporativo: parseFloat(row[7].replace(/[$,]/g, '')),
-      tasa__cred_com_tesoreria: parseFloat(row[8]),
-      monto__cred_com_tesoreria: parseFloat(row[9].replace(/[$,]/g, '')),
-      tasa_colocacion_banco_republica: parseFloat(row[10]),
-      monto_colocacion_banco_republica: parseFloat(row[11].replace(/[$,]/g, '')),
-      tasa_colocacion_sin_tesoreria: parseFloat(row[12]),
-      monto_colocacion_sin_tesoreria: parseFloat(row[13].replace(/[$,]/g, '')),
-      tasa_colocacion_total: parseFloat(row[14]),
-      monto_colocacion_total: parseFloat(row[15].replace(/[$,]/g, ''))
+      tasa_cred_com_credito_consumo: parseFloat(row[1]),
+      monto_cred_com_credito_consumo: parseFloat(row[2].replace(/[$,]/g, '')),
+      tasa_cred_com_odinario: parseFloat(row[3]),
+      monto_cred_com_odinario: parseFloat(row[4].replace(/[$,]/g, '')),
+      tasa__cred_com_preferencial_o_corporativo: parseFloat(row[5]),
+      monto__cred_com_preferencial_o_corporativo: parseFloat(row[6].replace(/[$,]/g, '')),
+      tasa__cred_com_tesoreria: parseFloat(row[7]),
+      monto__cred_com_tesoreria: parseFloat(row[8].replace(/[$,]/g, '')),
+      tasa_colocacion_banco_republica: parseFloat(row[9]),
+      monto_colocacion_banco_republica: parseFloat(row[10].replace(/[$,]/g, '')),
+      tasa_colocacion_sin_tesoreria: parseFloat(row[11]),
+      monto_colocacion_sin_tesoreria: parseFloat(row[12].replace(/[$,]/g, '')),
+      tasa_colocacion_total: parseFloat(row[13]),
+      monto_colocacion_total: parseFloat(row[14].replace(/[$,]/g, ''))
   });
 }
 

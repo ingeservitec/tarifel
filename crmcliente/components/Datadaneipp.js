@@ -40,7 +40,7 @@ const Datadaneipp = () => {
               inputFields={headers}
               cacheField="obtenerData_dane_ipp"
               tituloTabla="Agregar Datos dane ipp"
-              linkEjemplo="https://storage.googleapis.com/coool-files/ModelosImportacion/Importar%20datos%20a%20tabla%20data_empresa_mes_glp.xlsx"
+              linkEjemplo="https://www.dane.gov.co/files/operaciones/IPP/anex-IPP-may2024.xlsx"
               manual={false}
             />
           </div>

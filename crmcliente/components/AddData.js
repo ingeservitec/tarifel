@@ -731,7 +731,8 @@ const AddData = ({
           }
 
           let nestedArrayObjeto = [];
-
+try{
+  
           dataArray2 = dataArray2.filter((row) => {
             const hasNestedArray = Object.values(row).some(
               (value) => Array.isArray(value) && value.length > 0
@@ -742,7 +743,7 @@ const AddData = ({
             }
             return true; // Mantener el objeto en el array
           });
-
+      
           dataArray2.forEach((data) => {
             const newData = {};
 
@@ -771,7 +772,23 @@ const AddData = ({
             });
             dataArray.push(newData);
           });
-          console.log({dataArray})
+        }
+        catch{
+          if (subMutation === "nuevoData_dane_ipp") {
+            Swal.fire(
+              "Error en el archivo",
+              `El archivo cargado no coincide con el formato requerido. Recuerde que se debe cargar el archivo Anexo IPP, para poder obtener el IPP proyectado de acuerdo con los últimos conceptos CREG. Puede descargar el archivo desde <a href="https://www.dane.gov.co/files/operaciones/IPP/anex-IPP-may2024.xlsx" target="_blank">aquí</a>.`,
+              "error"
+            );
+          } else {
+            Swal.fire(
+              "Error en el archivo",
+              "El archivo cargado no coincide con el formato requerido. Por favor, revisa el archivo y vuelve a intentarlo.",
+              "error"
+            );
+          }
+        }
+
           if (Object.keys(nestedArrayObjeto).length > 0) {
             dataArray.push(nestedArrayObjeto);
           }
@@ -875,7 +892,7 @@ const AddData = ({
       if (resultsDatosErrores.length > 0) {
         Swal.fire(
           "¡Atención!",
-          `Existen (${resultsDatosErrores.length}) registros con errores. Revisa el reporte descargado para más información.`,
+          `Existen (${resultsDatosErrores.length}) registros con errores y (${results.length}) registros exitosos. Revisa el reporte descargado para más información.`,
           "warning"
         );
         generarReporteExcel(results, resultsDatosErrores);

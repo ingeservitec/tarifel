@@ -51,6 +51,7 @@ const Dataxmstn = () => {
             columns={headers}
             cacheField="obtenerData_xm_stn"
             mutation={ELIMINAR_DATA_XM_STN}
+            subMutation={"eliminarData_xm_stn"}
             query={OBTENER_DATA_XM_STN}
           />
         </div>

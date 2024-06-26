@@ -1909,17 +1909,26 @@ const resolvers = {
       });
       return "Registro Eliminado";
     },
-    eliminarData_xm_stn: async (_, { id }) => {
-      let data = await Data_xm_stn.findByPk(id);
-      if (!data) {
-        throw new Error("Registro no existe");
+    // Mutation Eliminar el registro
+    eliminarData_xm_stn: async (_, { ids }, ctx) => {
+      try {
+        // Verificar si todos los ids existen
+        const totalExistente = await Data_xm_stn.count({
+          where: { id: ids },
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(
+            `No se encontraron todos los registros con los ids proporcionados`
+          );
+        }
+
+        // Eliminar el registro
+        await Data_xm_stn.destroy({ where: { id: ids } });
+        return ids;
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
       }
-      resultado = await data.destroy({
-        where: {
-          id: id,
-        },
-      });
-      return "Registro Eliminado";
     },
     eliminarData_xm_str: async (_, { id }) => {
       let data = await Data_xm_str.findByPk(id);

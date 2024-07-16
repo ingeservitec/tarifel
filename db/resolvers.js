@@ -1071,6 +1071,7 @@ const resolvers = {
 
         const [startMonth, startYear] = selectedStartPeriod.split("-");
         const [endMonth, endYear] = selectedEndPeriod.split("-");
+console.log('startYear', ctx.usuario.empresa);
 
         const resultado = await Data_Formato_7_SSPDs.findAndCountAll({
           where: {

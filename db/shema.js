@@ -2626,6 +2626,9 @@ const typeDefs = gql`
   }
 
   type DataFormato7SSPDs {
+  id: ID
+    creador: Int
+    empresa_id: String
     id_mercado: String!
     anho: Int!
     mes: Int!

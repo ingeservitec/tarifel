@@ -759,7 +759,7 @@ const resolvers = {
               },
               attributes: ["codigo", "valor"], // Asumiendo que 'concepto' contiene el valor de 'mc'
             });
-            console.log(tserRegistro);
+      
 
             // Añadir mc (concepto) al registro actual
             return {
@@ -2642,27 +2642,36 @@ console.log('startYear', ctx.usuario.empresa);
                   await Data_empresa_EnergiaContratoAtipico.findAll({
                     where: {
                       id_contrato: uniqueContractIds,
+
+                      empresa_id: ctx.usuario.empresa,
+                      anho: anhom,
+                      mes: mesm,
                     },
                   });
+            
 
                 // Crear un Set de IDs de contratos existentes para una búsqueda rápida
                 const idsContratosExistentes = new Set(
                   contratosExistentes.map((ce) => ce.id_contrato)
                 );
+              
 
                 // Filtrar los datos para excluir los contratos existentes
-                filteredData = filteredData.filter(
+             /*    filteredData = filteredData.filter(
                   (obj) => !idsContratosExistentes.has(obj.contrato)
-                );
+                ); */
+                console.log("filteredData", filteredData);
 
                 Energia_contratos = calcularEnergiaContratos(filteredData);
                 Costo_contratos = calcularCostoContratos(filteredData);
+
+             
                 // Sumar los valores de energía y costo de los contratos existentes a los totales
-                contratosExistentes.forEach((contrato) => {
+              /*   contratosExistentes.forEach((contrato) => {
                   Energia_contratos += parseFloat(contrato.energia_comprada);
                   Costo_contratos += parseFloat(contrato.costo);
                 });
-
+ */
                 Energia_contratos_sub = 0;
                 Costo_contratos_sub = 0;
 
@@ -2683,6 +2692,8 @@ console.log('startYear', ctx.usuario.empresa);
 
                 pc_ = roundToTwo(Costo_contratos / Energia_contratos);
 
+
+             
                 if (Energia_contratos / dcr > 1) {
                   pc_ = pc_ * w;
                 }
@@ -2856,6 +2867,12 @@ console.log('startYear', ctx.usuario.empresa);
                     aj_
                 );
               }
+console.log(w1 * qc_ * (alfa * pc_ + (1 - alfa) * mc_) +
+w2 * qc_ * pcSub_)
+
+console.log(pb_)
+
+
 
               if (anho === 2024 && mes === 2) {
                 gc_ = 279.05844;

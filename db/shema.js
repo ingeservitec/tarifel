@@ -347,7 +347,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     empresa: String!
-    sector: String!
+    sector: String
   }
 
   input AutenticarInput {
@@ -3322,6 +3322,7 @@ type ErrorDataMmeGiro {
     nuevoDataBanrepublicaTcap(input: [DataBanrepublicaTcapInput!]): DataBanrepublicaTcapMutationResponse
     actualizarDataBanrepublicaTcap(id: ID!, input: DataBanrepublicaTcapInput!): DataBanrepublicaTcapMutationResponse
     eliminarDataBanrepublicaTcap(ids: [ID!]): [String]
+    
   }
 `;
 

@@ -14,6 +14,7 @@ const NUEVA_CUENTA = gql`
             apellido
             email
             empresa
+            sector
         }
     }
 `;
@@ -36,7 +37,8 @@ const NuevaCuenta = () => {
             apellido: '',
             email: '',
             password: '',
-            empresa: ''
+            empresa: '',
+            sector:'SIN'
         }, 
         validationSchema: Yup.object({
             nombre: Yup.string()
@@ -64,7 +66,8 @@ const NuevaCuenta = () => {
                             apellido,
                             email,
                             password,
-                            empresa: 'EGVC'
+                            empresa: 'EGVC',
+                            sector: 'sin'
                         }
                     }
                 });

@@ -2657,21 +2657,21 @@ console.log('startYear', ctx.usuario.empresa);
               
 
                 // Filtrar los datos para excluir los contratos existentes
-             /*    filteredData = filteredData.filter(
+                filteredData = filteredData.filter(
                   (obj) => !idsContratosExistentes.has(obj.contrato)
-                ); */
+                );
                 console.log("filteredData", filteredData);
 
                 Energia_contratos = calcularEnergiaContratos(filteredData);
                 Costo_contratos = calcularCostoContratos(filteredData);
 
-             
+              
                 // Sumar los valores de energía y costo de los contratos existentes a los totales
-              /*   contratosExistentes.forEach((contrato) => {
+                contratosExistentes.forEach((contrato) => {
                   Energia_contratos += parseFloat(contrato.energia_comprada);
                   Costo_contratos += parseFloat(contrato.costo);
                 });
- */
+
                 Energia_contratos_sub = 0;
                 Costo_contratos_sub = 0;
 

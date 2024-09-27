@@ -11,7 +11,7 @@ import html2canvas from "html2canvas";
 
 import logo_energuaviare from "../images/logos_clientes/logo_energuaviare.png";
 
-import pie_logo_energuaviare from "../images/logos_clientes/pie_energuaviare2024.jpg";
+import pie_logo_energuaviare from "../images/logos_clientes/pie_energuaviare2024_Monica.jpg";
 
 const OBTENER_RES_COMPONENTES_CU_TARIFA = gql`
   query obtenerRes_componentes_cu_tarifa {

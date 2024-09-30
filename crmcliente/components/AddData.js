@@ -12,12 +12,19 @@ import "font-awesome/css/font-awesome.min.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { convertirExcelIPC } from "../funciones/convertirExcel.js";
 import { convertirExcelIPP } from "../funciones/convertirExcel";
+import {convertirExcelIPPAnexos} from "../funciones/convertirExcel";
 import { convertirAFAC } from "../funciones/convertirExcel";
 import { convertirDSPCTTOS } from "../funciones/convertirExcel";
 import { convertirTRSM } from "../funciones/convertirExcel";
+import { convertirTSERV } from "../funciones/convertirExcel";
 import { convertirSTN } from "../funciones/convertirExcel";
 import { convertirSTR } from "../funciones/convertirExcel";
 import { convertirSDL } from "../funciones/convertirExcel";
+import { convertirCPROG } from "../funciones/convertirExcel";
+import { convertirFACTORESIPR } from "../funciones/convertirExcel";
+import { convertirBanRepTco } from "../funciones/convertirExcel";
+import { convertirBanRepTcap } from "../funciones/convertirExcel";
+
 import Dropzone from "react-dropzone";
 import { UPLOAD_FILE } from "../data";
 import Compressor from "compressorjs";
@@ -68,6 +75,7 @@ const AddData = ({
   manual,
   masivo,
 }) => {
+  
   const [files, setFiles] = useState([]);
   const [option, setOption] = useState(manual === false ? "Masivo" : "Manual");
   const [imagenCliente, setImagenCliente] = useState("");
@@ -113,15 +121,36 @@ const AddData = ({
 
   const [newData] = useMutation(mutation, {
     update: (cache, { data }) => {
-      console.log(data);
       if (data[subMutation]) {
-        const addedObjects = data[subMutation].datos;
+        const addedObjects = Array.isArray(data[subMutation].datos)
+          ? data[subMutation].datos
+          : [data[subMutation].datos];
         cache.modify({
           fields: {
-            [cacheField]: (existingObjects = []) => [
-              ...existingObjects,
-              ...addedObjects,
-            ],
+            [cacheField]: (existingFieldData = {}) => {
+              // Asegúrate de que existingObjects.records sea siempre tratado como un arreglo.
+              const existingObjects = Array.isArray(existingFieldData.records)
+                ? existingFieldData.records
+                : [];
+
+              // Combina los objetos existentes con los nuevos.
+              let updatedObjects = [...existingObjects, ...addedObjects];
+
+              // Ordena los objetos de mayor a menor año y mes, manejando la posibilidad de que no existan
+              updatedObjects = updatedObjects.sort((a, b) => {
+                const yearA = a.anho || 0; // Asume 0 si 'anho' no existe
+                const yearB = b.anho || 0; // Asume 0 si 'anho' no existe
+                const monthA = a.mes || 0; // Asume 0 si 'mes' no existe
+                const monthB = b.mes || 0; // Asume 0 si 'mes' no existe
+
+                const yearComparison = yearB - yearA;
+                if (yearComparison !== 0) return yearComparison;
+                return monthB - monthA;
+              });
+
+              // Devuelve el objeto actualizado con los nuevos registros en 'records'.
+              return { ...existingFieldData, records: updatedObjects };
+            },
           },
         });
       }
@@ -188,6 +217,7 @@ const AddData = ({
             input: updatedValues,
           },
         });
+
 
         if (data.data[subMutation].errores.length > 0) {
           Swal.fire(
@@ -324,20 +354,40 @@ const AddData = ({
             let day, month, regex, match;
 
             switch (subMutation) {
+              // case "nuevoData_dane_ipp":
+              //   dataArray2 = convertirExcelIPP(sheetData);
+              //   break;
+
               case "nuevoData_dane_ipp":
-                dataArray2 = convertirExcelIPP(sheetData);
-                break;
+            
+              wb.SheetNames.forEach(function (sheetName) {
+           
+                
+                if (sheetName === "2.1") { // Añade esta condición para verificar el nombre de la hoja
+                  ws = wb.Sheets[sheetName];
+                  let sheetData = XLSX.utils.sheet_to_json(ws, {
+                    header: 1,
+                    defval: "",
+                    raw: false,
+                    blankrows: true,
+                  });
+                
+                  dataArray2 = convertirExcelIPPAnexos(sheetData);
+                }
+              });
+            
+              break;
               case "nuevoData_dane_ipc":
                 dataArray2 = convertirExcelIPC(sheetData);
                 break;
               case "nuevoData_xm_afac":
                 let codXm;
                 switch (entidad.sigla) {
-                  case "EMSERPUCAR":
-                    codXm = "EMPC";
+                  case "EG":
+                    codXm = "EGVC";
                     break;
                   default:
-                    codXm = "EMPC";
+                    codXm = "EGVC";
                     break;
                 }
                 month = parseInt(
@@ -365,7 +415,6 @@ const AddData = ({
 
                 dataArray2 = convertirDSPCTTOS(sheetData, day, month);
                 break;
-
               case "nuevoData_xm_trsm":
                 month = parseInt(
                   file.name.substring(
@@ -373,10 +422,27 @@ const AddData = ({
                     file.name.length - 4
                   )
                 );
-
+                
                 dataArray2 = convertirTRSM(sheetData, month);
                 break;
+              case "nuevoDataXmTserv":
+                switch (entidad.sigla) {
+                  case "EG":
+                    codXm = "EGVC";
+                    break;
+                  default:
+                    codXm = "EGVC";
+                    break;
+                }
+                month = parseInt(
+                  file.name.substring(
+                    file.name.length - 6,
+                    file.name.length - 4
+                  )
+                );
 
+                dataArray2 = convertirTSERV(sheetData, codXm, month);
+                break;
               case "nuevoData_xm_stn":
                 let regex = /\((\d{4}-\d{2})\)/; // regex para capturar (YYYY-MM)
                 let match = file.name.match(regex);
@@ -400,7 +466,6 @@ const AddData = ({
                 });
 
                 break;
-
               case "nuevoData_xm_str":
                 var dataArray2 = [{}];
 
@@ -425,7 +490,7 @@ const AddData = ({
 
                 break;
 
-              case "nuevoData_xm_d015":
+              case "nuevoDataXmD015":
                 // Expresión regular para extraer el año y el mes
                 var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
                 const coincidencias = file.name.match(regex2);
@@ -451,13 +516,12 @@ const AddData = ({
 
                 break;
 
-
-                case "nuevoData_xm_cprog":
-                  // Expresión regular para extraer el año y el mes
+              case "nuevoDataXmCprog":
+            
+                // Expresión regular para extraer el año y el mes
                 var regex2 = /_(\d{4})(\d{2})\.xlsx$/;
-             
+
                 var dataArray2 = [{}];
-                
 
                 wb.SheetNames.forEach(function (sheetName) {
                   ws = wb.Sheets[sheetName];
@@ -467,10 +531,20 @@ const AddData = ({
                     raw: false,
                     blankrows: true,
                   });
+
                   convertirCPROG(sheetName, sheetData, dataArray2);
                 });
                 break;
+                case "nuevoDataBanrepublicaTco":
+                
+                  dataArray2 = convertirBanRepTco(sheetData);
 
+                  break
+                  case "nuevoDataBanrepublicaTcap":
+                    console.log({sheetData})
+                    dataArray2 = convertirBanRepTcap(sheetData);
+
+                    break
               default:
                 dataArray2 = sheetData.slice(1).map((row) =>
                   row.reduce(
@@ -509,10 +583,30 @@ const AddData = ({
             });
 
             let month, day;
+
             switch (subMutation) {
+              // case "nuevoData_dane_ipp":
+              //   dataArray2 = convertirExcelIPP(sheetData);
+              //   break;
               case "nuevoData_dane_ipp":
-                dataArray2 = convertirExcelIPP(sheetData);
-                break;
+            
+              wb.SheetNames.forEach(function (sheetName) {
+           
+                
+                if (sheetName === "2.1") { // Añade esta condición para verificar el nombre de la hoja
+                  ws = wb.Sheets[sheetName];
+                  let sheetData = XLSX.utils.sheet_to_json(ws, {
+                    header: 1,
+                    defval: "",
+                    raw: false,
+                    blankrows: true,
+                  });
+                
+                  dataArray2 = convertirExcelIPPAnexos(sheetData);
+                }
+              });
+            
+              break;
               case "nuevoData_dane_ipc":
                 dataArray2 = convertirExcelIPC(sheetData);
                 break;
@@ -521,10 +615,10 @@ const AddData = ({
 
                 switch (entidad.sigla) {
                   case "EMSERPUCAR":
-                    codXm = "EMPC"; //CTUALIZAR
+                    codXm = "EGVC"; //CTUALIZAR
                     break;
                   default:
-                    codXm = "EMPC";
+                    codXm = "EGVC";
                     break;
                 }
                 month = parseInt(
@@ -553,7 +647,6 @@ const AddData = ({
 
                 dataArray2 = convertirDSPCTTOS(sheetData, day, month);
                 break;
-
               case "nuevoData_xm_trsm":
                 month = parseInt(
                   file.name.substring(
@@ -561,9 +654,64 @@ const AddData = ({
                     file.name.length - 4
                   )
                 );
-
+                
                 dataArray2 = convertirTRSM(sheetData, month);
                 break;
+
+
+              case "nuevoDataXmTserv":
+                switch (entidad.sigla) {
+                  case "EGVC":
+                    codXm = "EGVC";
+                    break;
+                  default:
+                    codXm = "EGVC";
+                    break;
+                }
+                month = parseInt(
+                  file.name.substring(
+                    file.name.length - 6,
+                    file.name.length - 4
+                  )
+                );
+                
+
+                dataArray2 = convertirTSERV(sheetData, codXm, month);
+                break;
+              case "nuevoDataXmIpr":
+                switch (entidad.sigla) {
+                  case "EGVC":
+                    codXm = "GUVM";
+                    break;
+                  default:
+                    codXm = "GUVM";
+                    break;
+                }
+                // Extraer la fecha (YYYYMMDD)
+                let fecha = file.name.match(/(\d{8})/)[0];
+
+                // Extraer el año (YYYY)
+                let year = parseInt(fecha.substring(0, 4));
+
+                // Extraer el mes (MM)
+                let month = parseInt(fecha.substring(4, 6));
+
+                // Extraer el día (DD)
+                let day = parseInt(fecha.substring(6, 8));
+
+             
+                dataArray2 = convertirFACTORESIPR(
+                  sheetData,
+                  codXm,
+                  month,
+                  year
+                );
+                break;
+                case "nuevoDataBanrepublicaTco":
+                  console.log({sheetData})
+                  dataArray2 = convertirBanRepTco(sheetData);
+
+                  break
               default:
                 // dataArray2 = sheetData.slice(1).map((row) =>
                 //   row.reduce(
@@ -581,8 +729,10 @@ const AddData = ({
 
             // dataArray2 = sheetData;
           }
-          let nestedArrayObjeto = [];
 
+          let nestedArrayObjeto = [];
+try{
+  
           dataArray2 = dataArray2.filter((row) => {
             const hasNestedArray = Object.values(row).some(
               (value) => Array.isArray(value) && value.length > 0
@@ -593,7 +743,7 @@ const AddData = ({
             }
             return true; // Mantener el objeto en el array
           });
-
+      
           dataArray2.forEach((data) => {
             const newData = {};
 
@@ -622,6 +772,22 @@ const AddData = ({
             });
             dataArray.push(newData);
           });
+        }
+        catch{
+          if (subMutation === "nuevoData_dane_ipp") {
+            Swal.fire(
+              "Error en el archivo",
+              `El archivo cargado no coincide con el formato requerido. Recuerde que se debe cargar el archivo Anexo IPP, para poder obtener el IPP proyectado de acuerdo con los últimos conceptos CREG. Puede descargar el archivo desde <a href="https://www.dane.gov.co/files/operaciones/IPP/anex-IPP-may2024.xlsx" target="_blank">aquí</a>.`,
+              "error"
+            );
+          } else {
+            Swal.fire(
+              "Error en el archivo",
+              "El archivo cargado no coincide con el formato requerido. Por favor, revisa el archivo y vuelve a intentarlo.",
+              "error"
+            );
+          }
+        }
 
           if (Object.keys(nestedArrayObjeto).length > 0) {
             dataArray.push(nestedArrayObjeto);
@@ -658,7 +824,6 @@ const AddData = ({
       });
     }
 
-   
     return dataArray;
   };
 
@@ -682,8 +847,6 @@ const AddData = ({
         anho,
         inputFields
       );
-
-      console.log({dataArray})
 
       // Ejecuta la mutación con el array de datos completo
       let results = [];
@@ -729,7 +892,7 @@ const AddData = ({
       if (resultsDatosErrores.length > 0) {
         Swal.fire(
           "¡Atención!",
-          `Existen (${resultsDatosErrores.length}) registros con errores. Revisa el reporte descargado para más información.`,
+          `Existen (${resultsDatosErrores.length}) registros con errores y (${results.length}) registros exitosos. Revisa el reporte descargado para más información.`,
           "warning"
         );
         generarReporteExcel(results, resultsDatosErrores);

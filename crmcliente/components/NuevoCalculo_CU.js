@@ -150,6 +150,11 @@ const NUEVO_DATA_RES_COMPONENTES_CU_TARIFA = gql`
       ultimo_giro_incluido
       cg
       cgcu
+      cot
+      cv_nt1
+      cv_nt2
+      cv_nt3
+      cv_nt4
     }
   }
 `;
@@ -340,6 +345,7 @@ const OBTENER_DATA_EMPRESAS = gql`
       g_exc2
       g_exc3
       ggd
+      cot
     }
   }
 `;
@@ -1312,6 +1318,10 @@ const NuevoCalculo_CU = (props) => {
   const [cgsubasta, setCgsubasta] = useState(0);
   const [cvr, setCvr] = useState(0);
   const [cv, setCv] = useState(0);
+  const [cv_nt1, setCv_nt1] = useState(0);
+  const [cv_nt2, setCv_nt2] = useState(0);
+  const [cv_nt3, setCv_nt3] = useState(0);
+  const [cv_nt4, setCv_nt4] = useState(0);
   const [cu_nt1_100, setCu_Nt1_100] = useState(0);
   const [cu_nt1_50, setCu_Nt1_50] = useState(0);
   const [cu_nt1_0, setCu_Nt1_0] = useState(0);
@@ -1407,7 +1417,7 @@ const NuevoCalculo_CU = (props) => {
   const [giro_sobrante, setGiro_sobrante] = useState(0);
   const [tasaOt, setTasaot] = useState(0);
   const [ultimo_giro_incluido, setUltimo_giro_incluido] = useState(0);
-
+  const [cot, setCot] = useState("");
   const [status, setStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   let text = "";
@@ -1607,6 +1617,11 @@ const NuevoCalculo_CU = (props) => {
       saldo_nt3_ot: saldo_nt3_ot,
       giro_sobrante: giro_sobrante,
       ultimo_giro_incluido: ultimo_giro_incluido,
+      cot: cot,
+      cv_nt1: cv_nt1,
+      cv_nt2: cv_nt2,
+      cv_nt3: cv_nt3,
+      cv_nt4: cv_nt4,
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -1752,6 +1767,11 @@ const NuevoCalculo_CU = (props) => {
         saldo_nt3_ot,
         giro_sobrante,
         ultimo_giro_incluido,
+        cot,
+        cv_nt1,
+        cv_nt2,
+        cv_nt3,
+        cv_nt4,
       } = valores;
       Swal.fire("Buen trabajo!", "Los datos han sido guardados!", "success");
       setLoading(false);
@@ -1897,6 +1917,11 @@ const NuevoCalculo_CU = (props) => {
               saldo_nt3_ot,
               giro_sobrante,
               ultimo_giro_incluido,
+              cot,
+              cv_nt1,
+              cv_nt2,
+              cv_nt3,
+              cv_nt4,
             },
           },
         });
@@ -1957,7 +1982,6 @@ const NuevoCalculo_CU = (props) => {
       !loading22
     ) {
       try {
-        console.log('PORACA AA')
         data_xm_afac = data7.obtenerData_xm_afac;
         data_xm_afacm = data_xm_afac.filter(
           (data_xm_afac) =>
@@ -1995,7 +2019,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_trsm.mes === mesm2 &&
             data_xm_trsm.empresa_id === data2.obtenerUsuario.empresa
         );
-       console.log('trsm',{data_xm_trsmm})
+
         var ipcm = data_xm_trsmm.filter(
           (data_xm_trsmm) =>
             data_xm_trsmm.codigo === "IPDC" &&
@@ -2008,7 +2032,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_trsmm2.anho === anhom2 &&
             data_xm_trsmm2.mes === mesm2
         )[0].valor;
-        
+
         data_xm_trsm.anho === anhom && data_xm_trsm.mes === mesm;
         const data_xm_stn = data14.obtenerDataxmstn;
         const data_xm_stnm = data_xm_stn.filter(
@@ -2017,10 +2041,9 @@ const NuevoCalculo_CU = (props) => {
             data_xm_stn.mes === mes &&
             data_xm_stn.empresa_id === data2.obtenerUsuario.empresa
         );
-        
+
         const data_xm_guatape = data19.obtenerData_xm_guatape;
-          console.log({data19})
-        console.log('guatapefull',{data_xm_guatape})
+
         const data_xm_guatapem = data_xm_guatape.filter(
           (data_xm_guatape) =>
             data_xm_guatape.anho === anho &&
@@ -2092,7 +2115,7 @@ const NuevoCalculo_CU = (props) => {
               data_Res_componentes_cu_tarifa.empresa_id ===
                 data2.obtenerUsuario.empresa
           );
-          console.log('P1')
+
         const data_empresa_garantias = data23.obtenerData_empresa_garantia;
         const data_empresa_garantiasm = data_empresa_garantias.filter(
           (data_empresa_garantias) =>
@@ -2102,7 +2125,7 @@ const NuevoCalculo_CU = (props) => {
               Date.parse(new Date(anhom2, mesm2, 30)) &&
             data_empresa_garantias.empresa_id === data2.obtenerUsuario.empresa
         );
-        console.log('P2')
+
         const data_xm_dtun = data18.obtenerData_xm_dtun;
 
         const data_xm_d015 = data17.obtenerData_xm_d015;
@@ -2112,7 +2135,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_d015.mes === mes &&
             data_xm_d015.empresa_id === data2.obtenerUsuario.empresa
         );
-        console.log(data22);
+
         const data_xm_str = data22.obtenerData_xm_str;
         const data_xm_strm = data_xm_str.filter(
           (data_xm_str) =>
@@ -2124,11 +2147,16 @@ const NuevoCalculo_CU = (props) => {
         const data_xm_cprog = data15.obtenerData_xm_cprog;
 
         const data_empresa_anual = data21.obtenerData_empresa_anual;
-        const data_empresaanualm = data_empresa_anual.filter(
-          (data_empresa_anual) =>
-            data_empresa_anual.anho === anho - 1 &&
-            data_empresa_anual.empresa_id === data2.obtenerUsuario.empresa
-        );
+        const data_empresaanualm = data_empresa_anual
+          .filter(
+            (data_empresa_anual) =>
+              data_empresa_anual.anho === anho - 1 &&
+              data_empresa_anual.empresa_id === data2.obtenerUsuario.empresa
+          )
+          .sort((a, b) => b.id - a.id); // Ordena los resultados filtrados por id de forma descendente
+
+        // A partir de aquí, data_empresaanualm[0] será el elemento con el mayor id
+
         const data_xm_tserv = data4.obtenerData_xm_tserv;
 
         const data_xm_tservmcnd = data_xm_tserv.filter(
@@ -2384,7 +2412,7 @@ const NuevoCalculo_CU = (props) => {
           exp,
           g_exc1_u,
           g_exc1_ = 0;
-        console.log(data_empresa_agpem_cons);
+
         for (let index = 0; index < data_empresa_agpem_cons.length; index++) {
           if (data_empresa_agpem_cons[index].tipo_ene === "Imp") {
             for (
@@ -2485,6 +2513,10 @@ const NuevoCalculo_CU = (props) => {
         setPb(pb_);
 
         data_xm_dspcttom.forEach(function (obj) {
+          if (obj.contrato == 53393 && anho==2024) { // EL contrato PEESA no refleja el valor correcto en dspcctos
+            return;
+          }
+
           Energia_contratos +=
             parseFloat(obj.desp_hora_1) +
             parseFloat(obj.desp_hora_2) +
@@ -2536,21 +2568,28 @@ const NuevoCalculo_CU = (props) => {
             parseFloat(obj.desp_hora_23) * parseFloat(obj.trf_hora_23) +
             parseFloat(obj.desp_hora_24) * parseFloat(obj.trf_hora_24);
         });
-        console.log('dcr',dcr)
-        console.log('Energia_contratos',Energia_contratos)
-        console.log('Costo_Energia_contratos',Costo_contratos)
+        if (anho == 2024 && mes == 1) {
+          // El contrato PEESA no refleja el valro correcto en dspcttos
+          Energia_contratos = Energia_contratos + 6509138.62;
+          Costo_contratos = Costo_contratos + 2288092408;
+          Energia_contratos = Energia_contratos + 418455.3;
+          Costo_contratos = Costo_contratos + 308539646;
+        }
+        if (anho == 2024 && mes ==2) {
+          // El contrato PEESA no refleja el valro correcto en dspcttos
+          Energia_contratos = Energia_contratos + 6190955.59;
+          Costo_contratos = Costo_contratos + 2142999277;
+          Energia_contratos = Energia_contratos + 736638.33;
+          Costo_contratos = Costo_contratos + 416738402;
+        }
+
+
         const w = dcr / Energia_contratos;
         pc_ = roundToTwo(Costo_contratos / Energia_contratos);
         if (Energia_contratos / dcr > 1) {
           pc_ = pc_ * w;
         }
-        console.log("pc_");
-        console.log(pc_);
-        console.log(w);
-        console.log(roundToTwo(Costo_contratos / Energia_contratos));
-        console.log(Energia_contratos / dcr <= 1);
-        console.log(Energia_contratos);
-        console.log(dcr);
+
         setPc(pc_);
         var Energia_contratos_sub = 0,
           Costo_contratos_sub = 0;
@@ -2653,8 +2692,7 @@ const NuevoCalculo_CU = (props) => {
         qc_ = roundToTwo(
           Math.min(1 - qagd, (Energia_contratos_sub + Energia_contratos) / dcr)
         );
-        console.log({Energia_contratos_sub})
-        console.log({Energia_contratos})
+
         mc_ = roundToTwo(
           data_xm_trsmm.filter(
             (data_xm_trsmm) =>
@@ -2670,7 +2708,7 @@ const NuevoCalculo_CU = (props) => {
             name_sistema_or = "ARAM";
             name_or = "ENID";
             tipoCalculo = 1;
-
+            break
           case "EGVC":
             name_mercado_or =
               "ENERGUAVIARE Mercado de Comercialización GUAVIARE";
@@ -2678,16 +2716,18 @@ const NuevoCalculo_CU = (props) => {
             name_sistema_or = "GUVM";
             name_or = "EGVD";
             tipoCalculo = 1;
-
-          case "EMPC":
+            break
+          case "EGVC":
             name_mercado_or = "ENELAR Mercado de Comercialización ARAUCA";
             alfa = 0.036578428408;
             name_sistema_or = "GUVM";
             name_or = "EGVD";
             tipoCalculo = 2;
+            break
           default:
             break;
         }
+        console.log(alfa)
         // 1. SIN
         // 2 Interconexión si cargos Cx y Dx
         // i) El componente que remunera la actividad de generación se sustituirá por los costos de compra de energía en el Sistema Interconectado Nacional;
@@ -2820,7 +2860,7 @@ const NuevoCalculo_CU = (props) => {
 
         setKwhSubasta(Energia_contratos_sub);
         setKwhBilaterales(Energia_contratos);
-        // const alfa=0.584204941605 //***************************** */
+        
         setMc(mc_);
         setAd(roundToTwo(ad_));
         setCr(roundToTwo(cr_));
@@ -2836,10 +2876,6 @@ const NuevoCalculo_CU = (props) => {
             data_xm_afacm[0].perdida_real_kwh);
         setIprstn(roundToTwo(iprstn_));
 
-        console.log(iprstn_);
-        console.log("info del PR");
-        console.log(name_sistema_or);
-        console.log(data2.obtenerUsuario.empresa);
         const data_xm_iprm1 = data_xm_ipr.filter(
           (data_xm_ipr) =>
             data_xm_ipr.anho === anho &&
@@ -2872,8 +2908,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_ipr.nivelEntrada === 4 &&
             data_xm_ipr.empresa_id === data2.obtenerUsuario.empresa
         );
-        console.log('first')
-        console.log(r_)
+
         const data_xm_cprogm = data_xm_cprog.filter(
           (data_xm_cprog) =>
             data_xm_cprog.anho === anho &&
@@ -2881,6 +2916,7 @@ const NuevoCalculo_CU = (props) => {
             data_xm_cprog.agente === name_or &&
             data_xm_cprog.empresa_id === data2.obtenerUsuario.empresa
         );
+
         var pr_nt1_, pr_nt2_, pr_nt3_, pr_nt4_;
 
         pr_nt1_ = roundToTwo(
@@ -2907,8 +2943,6 @@ const NuevoCalculo_CU = (props) => {
             (tx_ * data_xm_iprm4[0].valor) / (1 - data_xm_iprm4[0].valor) +
             data_xm_cprogm[0].cargo_cprog_cop_kwh
         );
-        console.log("CPROG");
-        console.log(data_xm_cprogm[0].cargo_cprog_cop_kwh);
 
         setPr_Nt1(pr_nt1_);
         setPr_Nt2(pr_nt2_);
@@ -2938,8 +2972,7 @@ const NuevoCalculo_CU = (props) => {
               .valor_diferencial_despues_de_compensacion_cop_kwh_sur) /
             (1 - data_xm_iprm4[0].valor)
         );
-        console.log("PR4");
-        console.log(data_xm_iprm4[0].valor);
+
         setDnt4(dnt4_);
 
         const data_xm_dtunm1 = data_xm_dtun.filter(
@@ -2987,9 +3020,6 @@ const NuevoCalculo_CU = (props) => {
           setDtun_Nt3(dtun_nt3_);
         }
 
-        console.log(data_xm_afacm[0].restricciones_aliviadas_cop);
-        console.log(data_xm_afacm[0].ventas_en_desviacion_cop);
-        console.log('guatape',data_xm_guatapem);
         setCrs(
           data_xm_afacm[0].restricciones_aliviadas_cop -
             data_xm_afacm[0].ventas_en_desviacion_cop +
@@ -3008,8 +3038,6 @@ const NuevoCalculo_CU = (props) => {
               data_empresam[0].ventas_usuarios_nr_kwh)
         );
 
-
-
         setR(r_);
 
         cer_ =
@@ -3020,6 +3048,7 @@ const NuevoCalculo_CU = (props) => {
               data_empresaanualm[0].porc_contribucion_sspd) /
               100) /
           12;
+
         setCer(cer_);
 
         var x_, cfm_;
@@ -3452,8 +3481,6 @@ const NuevoCalculo_CU = (props) => {
             }
             len3++;
           }
-          console.log("Review SUb1");
-          console.log(array_sub1N);
 
           actualizarData_mme_validaciogirosob(
             data_xm_mme_validacione.filter(
@@ -3704,7 +3731,8 @@ const NuevoCalculo_CU = (props) => {
           cfe_ = 0,
           c_ast_,
           cvr_;
-
+console.log(sub1_)
+console.log(sub2_)
         if (sub1_ >= 0 || sub2_ >= 0) {
           cfs_ = roundToTwo(
             ((sub1_ * ((1 + r1_) ** (n_Sub1_ + 0.63) - 1) -
@@ -3713,11 +3741,12 @@ const NuevoCalculo_CU = (props) => {
               100
           );
           cfe_ = cfs_ + 0.042;
+          console.log({cfs_})
         }
         setN_Sub1(n_Sub1_);
         setM_Sub2(m_Sub2_);
         setCfs(cfs_);
-        setCfe(cfe_);
+        setCfe(roundToTwo(cfe_));
 
         cvr_ = roundToTwo(
           ((1 - 0) * cfm_ * data_empresam2[0].numero_usuarios_r +
@@ -3727,24 +3756,15 @@ const NuevoCalculo_CU = (props) => {
               data_empresam2[0].ventas_usuarios_r_nt1_c +
               data_empresam2[0].ventas_usuarios_r_nt1_u +
               data_empresam2[0].ventas_usuarios_r_nt2 +
-              618470 +
+              //618470 + se elimina 18-01-24 NID
               data_empresam2[0].ventas_usuarios_r_nt3)
+          //Se incluye por la Res CREG 101_028_2023, 18-01-24
+          // El comercializador responsable de calcular el COT publica el preliminar por tarde el día 12 calendario de cada mes.
+          //Con base en los comentarios que reciba, se hace la publicación oficial el día 14 calendario de cada mes.
+          //Por tarde, el día 14 calendario de cada mes el comercializador responsable reporta el COT al CAC, en el formato Excel preferiblemente, para que nosotros lo publiquemos en la WEB del CAC.
+          // +data_empresam[0].cot
         );
 
-        console.log("Review CVR");
-        console.log(cfm_);
-        console.log(
-          data_empresam2[0].ventas_usuarios_r_nt1_e +
-            data_empresam2[0].ventas_usuarios_r_nt1_c +
-            data_empresam2[0].ventas_usuarios_r_nt1_u +
-            data_empresam2[0].ventas_usuarios_r_nt2 +
-            618470 +
-            data_empresam2[0].ventas_usuarios_r_nt3
-        );
-        console.log(data_empresam2[0].ventas_usuarios_r_nt2);
-        console.log(data_empresam2[0].numero_usuarios_r);
-        console.log(cgcu);
-        console.log(data_empresam[0].pui_cop_kwh);
         setCvr(cvr_);
 
         if (data_Res_componentes_cu_tarifam[0].dtun_nt1_e > 0) {
@@ -3773,14 +3793,6 @@ const NuevoCalculo_CU = (props) => {
 
         var cv_;
 
-        console.log(
-          data_empresam[0].ventas_usuarios_r_nt1_e +
-            data_empresam[0].ventas_usuarios_r_nt1_c +
-            data_empresam[0].ventas_usuarios_r_nt1_u +
-            data_empresam[0].ventas_usuarios_r_nt2 +
-            data_empresam[0].ventas_usuarios_r_nt3 +
-            data_empresam[0].ventas_usuarios_nr_kwh
-        );
         cv_ = roundToTwo(
           c_ast_ +
             cvr_ +
@@ -3799,6 +3811,21 @@ const NuevoCalculo_CU = (props) => {
         //cv_=98.8861  May 2022
         //cv_=78.96043 Jun 2022
         setCv(cv_);
+        setCot(data_empresam[0].cot);
+
+        // 21-02-2024 se hace ajuste para el calculo de la tarifa de Feb 2024 restando los valores cobrados de más en cot en enero, al no haber aplicado limite resgulatoriuo se cambia a modelo excel Eg a Ax
+        //https://docs.google.com/spreadsheets/d/13FuR-CmATQJASWJ5T9yolJHW5psV0y4k_xzqPVIbZBU/edit#gid=0
+        if (anho == 2024 && mes == 2) {
+          setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot - 51.46 + 21.17));
+          setCv_nt2(roundToTwo(cv_ - 51.46));
+          setCv_nt3(cv_);
+          setCv_nt4(cv_);
+        } else {
+          setCv_nt1(roundToTwo(cv_ + data_empresam[0].cot));
+          setCv_nt2(cv_);
+          setCv_nt3(cv_);
+          setCv_nt4(cv_);
+        }
       } catch (ex) {
         console.log("No hay datos calculo principal");
         console.log(ex);
@@ -3856,21 +3883,20 @@ const NuevoCalculo_CU = (props) => {
     ) {
       var cu_nt1_100_, cu_nt1_50_, cu_nt1_0_, cu_nt2_, cu_nt3_, cu_nt4_;
       if (dtun_nt1_e > 0) {
-        cu_nt1_100_ = roundToTwo(gc + tx + r + cv + pr_nt1 + dtun_nt1_e);
-        cu_nt1_50_ = roundToTwo(gc + tx + r + cv + pr_nt1 + dtun_nt1_c);
-        cu_nt1_0_ = roundToTwo(gc + tx + r + cv + pr_nt1 + dtun_nt1_p);
-        cu_nt2_ = roundToTwo(gc + tx + r + cv + pr_nt2 + dtun_nt2);
-        cu_nt3_ = roundToTwo(gc + tx + r + cv + pr_nt3 + dtun_nt3);
-        cu_nt4_ = roundToTwo(gc + tx + r + cv + pr_nt4 + dnt4);
+        cu_nt1_100_ = roundToTwo(gc + tx + r + cv_nt1 + pr_nt1 + dtun_nt1_e);
+        cu_nt1_50_ = roundToTwo(gc + tx + r + cv_nt1 + pr_nt1 + dtun_nt1_c);
+        cu_nt1_0_ = roundToTwo(gc + tx + r + cv_nt1 + pr_nt1 + dtun_nt1_p);
+        cu_nt2_ = roundToTwo(gc + tx + r + cv_nt2 + pr_nt2 + dtun_nt2);
+        cu_nt3_ = roundToTwo(gc + tx + r + cv_nt3 + pr_nt3 + dtun_nt3);
+        cu_nt4_ = roundToTwo(gc + tx + r + cv_nt4 + pr_nt4 + dnt4);
       } else {
-        cu_nt1_100_ = roundToTwo(gc + tx + r + cv + pr_nt1 + dnt1);
-        cu_nt1_50_ = roundToTwo(gc + tx + r + cv + pr_nt1 + dnt1 - cdi_50);
-        cu_nt1_0_ = roundToTwo(gc + tx + r + cv + pr_nt1 + dnt1 - cdi_100);
-        cu_nt2_ = roundToTwo(gc + tx + r + cv + pr_nt2 + dnt2);
-        cu_nt3_ = roundToTwo(gc + tx + r + cv + pr_nt3 + dnt3);
-        cu_nt4_ = roundToTwo(gc + tx + r + cv + pr_nt4 + dnt4);
+        cu_nt1_100_ = roundToTwo(gc + tx + r + cv_nt1 + pr_nt1 + dnt1);
+        cu_nt1_50_ = roundToTwo(gc + tx + r + cv_nt1 + pr_nt1 + dnt1 - cdi_50);
+        cu_nt1_0_ = roundToTwo(gc + tx + r + cv_nt1 + pr_nt1 + dnt1 - cdi_100);
+        cu_nt2_ = roundToTwo(gc + tx + r + cv_nt2 + pr_nt2 + dnt2);
+        cu_nt3_ = roundToTwo(gc + tx + r + cv_nt3 + pr_nt3 + dnt3);
+        cu_nt4_ = roundToTwo(gc + tx + r + cv_nt4 + pr_nt4 + dnt4);
       }
-      console.log(cu_nt1_100_);
 
       setCu_Nt1_100(cu_nt1_100_);
       setCu_Nt1_50(cu_nt1_50_);
@@ -3957,35 +3983,35 @@ const NuevoCalculo_CU = (props) => {
         cu_nt2_ot_,
         cu_nt3_ot_,
         cu_nt4_ot_;
-      if (data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot > 0) {
+      if (data_Res_componentes_cu_tarifam[0].saldo_nt1_100_ot > 0 && pv != 0) {
         cu_nt1_100_ot_ = roundToTwo(
           data_Res_componentes_cu_tarifam[0].cu_nt1_100_ot * (1 + pv / 100)
         );
       } else {
         cu_nt1_100_ot_ = cu_nt1_100;
       }
-      if (data_Res_componentes_cu_tarifam[0].saldo_nt1_50_ot > 0) {
+      if (data_Res_componentes_cu_tarifam[0].saldo_nt1_50_ot > 0 && pv != 0) {
         cu_nt1_50_ot_ = roundToTwo(
           data_Res_componentes_cu_tarifam[0].cu_nt1_50_ot * (1 + pv / 100)
         );
       } else {
         cu_nt1_50_ot_ = cu_nt1_50;
       }
-      if (data_Res_componentes_cu_tarifam[0].saldo_nt1_0_ot > 0) {
+      if (data_Res_componentes_cu_tarifam[0].saldo_nt1_0_ot > 0 && pv != 0) {
         cu_nt1_0_ot_ = roundToTwo(
           data_Res_componentes_cu_tarifam[0].cu_nt1_0_ot * (1 + pv / 100)
         );
       } else {
         cu_nt1_0_ot_ = cu_nt1_0;
       }
-      if (data_Res_componentes_cu_tarifam[0].saldo_nt2_ot > 0) {
+      if (data_Res_componentes_cu_tarifam[0].saldo_nt2_ot > 0 && pv != 0) {
         cu_nt2_ot_ = roundToTwo(
           data_Res_componentes_cu_tarifam[0].cu_nt2_ot * (1 + pv / 100)
         );
       } else {
         cu_nt2_ot_ = cu_nt2;
       }
-      if (data_Res_componentes_cu_tarifam[0].saldo_nt3_ot > 0) {
+      if (data_Res_componentes_cu_tarifam[0].saldo_nt3_ot > 0 && pv != 0) {
         cu_nt3_ot_ = roundToTwo(
           data_Res_componentes_cu_tarifam[0].cu_nt3_ot * (1 + pv / 100)
         );
@@ -4091,6 +4117,7 @@ const NuevoCalculo_CU = (props) => {
       } else {
         porc_subE1_100_ = 0.6;
       }
+      
       if (1 - tarifamc2_100 / cu_nt1_100_ot_ < 0.5) {
         porc_subE2_100_ = 1 - tarifamc2_100 / cu_nt1_100_ot_;
       } else {
@@ -4166,12 +4193,12 @@ const NuevoCalculo_CU = (props) => {
         roundToTwo(cu_nt1_100_ot_ * (1 - porc_subE2_100_))
       );
 
-// setNt1_100_Estrato_1_Men_Cs(
-//                 roundToTwo(data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs * (1+pv/100))
-//               );
-//               setNt1_100_Estrato_2_Men_Cs(
-//                 roundToTwo(data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs * (1+pv/100))
-//               );
+      // setNt1_100_Estrato_1_Men_Cs(
+      //                 roundToTwo(data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs * (1+pv/100))
+      //               );
+      //               setNt1_100_Estrato_2_Men_Cs(
+      //                 roundToTwo(data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs * (1+pv/100))
+      //               );
       setNt1_100_Estrato_3_Men_Cs(roundToTwo(cu_nt1_100_ot_ * (1 - 0.15)));
       setNt1_100_Estrato_4_Men_Cs(roundToTwo(cu_nt1_100_ot_));
       setNt1_100_Estrato_5_Men_Cs(roundToTwo(cu_nt1_100_ot_ * 1.2));
@@ -4202,12 +4229,8 @@ const NuevoCalculo_CU = (props) => {
       setNt1_50__I_Sin_C(roundToTwo(cu_nt1_50_ot_ * 1));
       setNt1_50__P(roundToTwo(cu_nt1_50_ot_ * 1));
       setNt1_50__O(roundToTwo(cu_nt1_50_ot_ * 1));
-      setNt1_0_Estrato_1_Men_Cs(
-        roundToTwo(cu_nt1_0_ot_ * (1 - porc_subE1_0_))
-      );
-      setNt1_0_Estrato_2_Men_Cs(
-        roundToTwo(cu_nt1_0_ot_ * (1 - porc_subE2_0_))
-      );
+      setNt1_0_Estrato_1_Men_Cs(roundToTwo(cu_nt1_0_ot_ * (1 - porc_subE1_0_)));
+      setNt1_0_Estrato_2_Men_Cs(roundToTwo(cu_nt1_0_ot_ * (1 - porc_subE2_0_)));
       setNt1_0_Estrato_3_Men_Cs(roundToTwo(cu_nt1_0_ot_ * (1 - 0.15)));
       setNt1_0_Estrato_4_Men_Cs(roundToTwo(cu_nt1_0_ot_ * 1));
       setNt1_0_Estrato_5_Men_Cs(roundToTwo(cu_nt1_0_ot_ * 1.2));
@@ -4278,6 +4301,15 @@ const NuevoCalculo_CU = (props) => {
           data_empresam[0].ventas_usuarios_r_nt3 +
           data_Res_componentes_cu_tarifam[0].saldo_nt3_ot) *
         (1 + tasaOt);
+
+      if (anho === 2024 && mesm === 1) {
+        //se ponen saldos en cero pro Res _CREG_101_028_2023. La empresa EG sale de OT TEMPORAL
+        saldo_nt1_100_ot_ = 0;
+        saldo_nt1_50_ot_ = 0;
+        saldo_nt1_0_ot_ = 0;
+        saldo_nt2_ot_ = 0;
+        saldo_nt3_ot_ = 0;
+      }
 
       if (saldo_nt1_100_ot_ < 0) {
         setSaldo_Nt1_100_ot(0);
@@ -4522,7 +4554,6 @@ const NuevoCalculo_CU = (props) => {
                   ).length > 0 ? (
                     <p> Ok DATA_XM_GUATAPE</p>
                   ) : (
-                    
                     <p>No se encontraron insumos en DATA_XM_GUATAPE</p>
                   )
                 ) : null}
@@ -4559,7 +4590,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.creador && formik.errors.creador ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.creador}</p>
                     </div>
                   ) : null}
@@ -4581,7 +4611,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.anho && formik.errors.anho ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.anho}</p>
                     </div>
                   ) : null}
@@ -4603,7 +4632,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.mes && formik.errors.mes ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.mes}</p>
                     </div>
                   ) : null}
@@ -4625,7 +4653,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.qc && formik.errors.qc ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.qc}</p>
                     </div>
                   ) : null}
@@ -4647,7 +4674,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.pc && formik.errors.pc ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.pc}</p>
                     </div>
                   ) : null}
@@ -4669,7 +4695,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.ref_g && formik.errors.ref_g ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.ref_g}</p>
                     </div>
                   ) : null}
@@ -4691,7 +4716,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.max_g && formik.errors.max_g ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.max_g}</p>
                     </div>
                   ) : null}
@@ -4713,7 +4737,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.cr && formik.errors.cr ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cr}</p>
                     </div>
                   ) : null}
@@ -4735,7 +4758,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.ad && formik.errors.ad ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.ad}</p>
                     </div>
                   ) : null}
@@ -4757,7 +4779,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.aj && formik.errors.aj ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.aj}</p>
                     </div>
                   ) : null}
@@ -4779,7 +4800,6 @@ const NuevoCalculo_CU = (props) => {
                   </div>
                   {formik.touched.pb && formik.errors.pb ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.pb}</p>
                     </div>
                   ) : null}
@@ -4831,7 +4851,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.gc && formik.errors.gc ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.gc}</p>
                     </div>
                   ) : null}
@@ -4854,7 +4873,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.tx && formik.errors.tx ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.tx}</p>
                     </div>
                   ) : null}
@@ -4879,7 +4897,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dtun_nt1_e && formik.errors.dtun_nt1_e ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dtun_nt1_e}</p>
                     </div>
                   ) : null}
@@ -4904,7 +4921,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dtun_nt1_c && formik.errors.dtun_nt1_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dtun_nt1_c}</p>
                     </div>
                   ) : null}
@@ -4929,7 +4945,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dtun_nt1_p && formik.errors.dtun_nt1_p ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dtun_nt1_p}</p>
                     </div>
                   ) : null}
@@ -4954,7 +4969,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dtun_nt2 && formik.errors.dtun_nt2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dtun_nt2}</p>
                     </div>
                   ) : null}
@@ -4979,7 +4993,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dtun_nt3 && formik.errors.dtun_nt3 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dtun_nt3}</p>
                     </div>
                   ) : null}
@@ -5004,7 +5017,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cdi_100 && formik.errors.cdi_100 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cdi_100}</p>
                     </div>
                   ) : null}
@@ -5026,7 +5038,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cdi_50 && formik.errors.cdi_50 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cdi_50}</p>
                     </div>
                   ) : null}
@@ -5048,7 +5059,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cdm && formik.errors.cdm ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cdm}</p>
                     </div>
                   ) : null}
@@ -5070,7 +5080,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cd4 && formik.errors.cd4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cd4}</p>
                     </div>
                   ) : null}
@@ -5092,7 +5101,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cd3 && formik.errors.cd3 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cd3}</p>
                     </div>
                   ) : null}
@@ -5114,7 +5122,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cd2 && formik.errors.cd2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cd2}</p>
                     </div>
                   ) : null}
@@ -5136,7 +5143,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dnt1 && formik.errors.dnt1 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dnt1}</p>
                     </div>
                   ) : null}
@@ -5158,7 +5164,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dnt2 && formik.errors.dnt2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dnt2}</p>
                     </div>
                   ) : null}
@@ -5180,7 +5185,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dnt3 && formik.errors.dnt3 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dnt3}</p>
                     </div>
                   ) : null}
@@ -5202,7 +5206,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.dnt4 && formik.errors.dnt4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.dnt4}</p>
                     </div>
                   ) : null}
@@ -5224,7 +5227,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.crs && formik.errors.crs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.crs}</p>
                     </div>
                   ) : null}
@@ -5246,7 +5248,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.rcal && formik.errors.rcal ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.rcal}</p>
                     </div>
                   ) : null}
@@ -5268,7 +5269,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.r && formik.errors.r ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.r}</p>
                     </div>
                   ) : null}
@@ -5290,7 +5290,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.iprstn && formik.errors.iprstn ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.iprstn}</p>
                     </div>
                   ) : null}
@@ -5312,7 +5311,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.pr_nt1 && formik.errors.pr_nt1 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.pr_nt1}</p>
                     </div>
                   ) : null}
@@ -5334,7 +5332,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.pr_nt2 && formik.errors.pr_nt2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.pr_nt2}</p>
                     </div>
                   ) : null}
@@ -5356,7 +5353,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.pr_nt3 && formik.errors.pr_nt3 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.pr_nt3}</p>
                     </div>
                   ) : null}
@@ -5378,7 +5374,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.pr_nt4 && formik.errors.pr_nt4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.pr_nt4}</p>
                     </div>
                   ) : null}
@@ -5400,7 +5395,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cer && formik.errors.cer ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cer}</p>
                     </div>
                   ) : null}
@@ -5422,7 +5416,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cfm && formik.errors.cfm ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cfm}</p>
                     </div>
                   ) : null}
@@ -5444,7 +5437,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.rc && formik.errors.rc ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.rc}</p>
                     </div>
                   ) : null}
@@ -5470,7 +5462,6 @@ value={formik.values.gc}></input>
                   {formik.touched.ul_trim_val_mme &&
                   formik.errors.ul_trim_val_mme ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.ul_trim_val_mme}</p>
                     </div>
                   ) : null}
@@ -5496,7 +5487,6 @@ value={formik.values.gc}></input>
                   {formik.touched.anho_ul_trim_val_mme &&
                   formik.errors.anho_ul_trim_val_mme ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.anho_ul_trim_val_mme}</p>
                     </div>
                   ) : null}
@@ -5518,7 +5508,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.sub1 && formik.errors.sub1 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.sub1}</p>
                     </div>
                   ) : null}
@@ -5540,7 +5529,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.sub2 && formik.errors.sub2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.sub2}</p>
                     </div>
                   ) : null}
@@ -5562,7 +5550,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.n_sub1 && formik.errors.n_sub1 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.n_sub1}</p>
                     </div>
                   ) : null}
@@ -5584,7 +5571,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.m_sub2 && formik.errors.m_sub2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.m_sub2}</p>
                     </div>
                   ) : null}
@@ -5610,7 +5596,6 @@ value={formik.values.gc}></input>
                   {formik.touched.facturacion_t &&
                   formik.errors.facturacion_t ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.facturacion_t}</p>
                     </div>
                   ) : null}
@@ -5632,7 +5617,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.r1 && formik.errors.r1 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.r1}</p>
                     </div>
                   ) : null}
@@ -5654,7 +5638,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.r2 && formik.errors.r2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.r2}</p>
                     </div>
                   ) : null}
@@ -5679,7 +5662,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.sup_def && formik.errors.sup_def ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.sup_def}</p>
                     </div>
                   ) : null}
@@ -5701,7 +5683,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cfs && formik.errors.cfs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cfs}</p>
                     </div>
                   ) : null}
@@ -5723,7 +5704,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cfe && formik.errors.cfe ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cfe}</p>
                     </div>
                   ) : null}
@@ -5745,7 +5725,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.c_ast && formik.errors.c_ast ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.c_ast}</p>
                     </div>
                   ) : null}
@@ -5767,7 +5746,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cvr && formik.errors.cvr ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cvr}</p>
                     </div>
                   ) : null}
@@ -5789,8 +5767,91 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cv && formik.errors.cv ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cv}</p>
+                    </div>
+                  ) : null}
+                  <div className="form-group row">
+                    <label htmlFor="cv_nt1" className="col-sm-7 col-form-label">
+                      Cv_nt1
+                    </label>
+                    <div className="col-sm-5">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="cv_nt1"
+                        placeholder="Cv_nt1"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.cv_nt1}
+                      ></input>
+                    </div>
+                  </div>
+                  {formik.touched.cv_nt1 && formik.errors.cv_nt1 ? (
+                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                      <p>{formik.errors.cv_nt1}</p>
+                    </div>
+                  ) : null}
+                  <div className="form-group row">
+                    <label htmlFor="cv_nt2" className="col-sm-7 col-form-label">
+                      Cv_nt2
+                    </label>
+                    <div className="col-sm-5">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="cv_nt2"
+                        placeholder="Cv_nt2"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.cv_nt2}
+                      ></input>
+                    </div>
+                  </div>
+                  {formik.touched.cv_nt2 && formik.errors.cv_nt2 ? (
+                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                      <p>{formik.errors.cv_nt2}</p>
+                    </div>
+                  ) : null}
+                  <div className="form-group row">
+                    <label htmlFor="cv_nt3" className="col-sm-7 col-form-label">
+                      Cv_nt3
+                    </label>
+                    <div className="col-sm-5">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="cv_nt3"
+                        placeholder="Cv_nt3"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.cv_nt3}
+                      ></input>
+                    </div>
+                  </div>
+                  {formik.touched.cv_nt3 && formik.errors.cv_nt3 ? (
+                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                      <p>{formik.errors.cv_nt3}</p>
+                    </div>
+                  ) : null}
+                  <div className="form-group row">
+                    <label htmlFor="cv_nt4" className="col-sm-7 col-form-label">
+                      Cv_nt4
+                    </label>
+                    <div className="col-sm-5">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="cv_nt4"
+                        placeholder="Cv_nt4"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.cv_nt4}
+                      ></input>
+                    </div>
+                  </div>
+                  {formik.touched.cv_nt4 && formik.errors.cv_nt4 ? (
+                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                      <p>{formik.errors.cv_nt4}</p>
                     </div>
                   ) : null}
                   <div className="form-group row">
@@ -5814,7 +5875,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cu_nt1_100 && formik.errors.cu_nt1_100 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cu_nt1_100}</p>
                     </div>
                   ) : null}
@@ -5839,7 +5899,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cu_nt1_50 && formik.errors.cu_nt1_50 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cu_nt1_50}</p>
                     </div>
                   ) : null}
@@ -5864,7 +5923,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cu_nt1_0 && formik.errors.cu_nt1_0 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cu_nt1_0}</p>
                     </div>
                   ) : null}
@@ -5886,7 +5944,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cu_nt2 && formik.errors.cu_nt2 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cu_nt2}</p>
                     </div>
                   ) : null}
@@ -5908,7 +5965,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cu_nt3 && formik.errors.cu_nt3 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cu_nt3}</p>
                     </div>
                   ) : null}
@@ -5930,7 +5986,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.cu_nt4 && formik.errors.cu_nt4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.cu_nt4}</p>
                     </div>
                   ) : null}
@@ -5956,7 +6011,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_1_men_cs &&
                   formik.errors.nt1_100_estrato_1_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_1_men_cs}</p>
                     </div>
                   ) : null}
@@ -5982,7 +6036,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_2_men_cs &&
                   formik.errors.nt1_100_estrato_2_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_2_men_cs}</p>
                     </div>
                   ) : null}
@@ -6008,7 +6061,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_3_men_cs &&
                   formik.errors.nt1_100_estrato_3_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_3_men_cs}</p>
                     </div>
                   ) : null}
@@ -6034,7 +6086,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_4_men_cs &&
                   formik.errors.nt1_100_estrato_4_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_4_men_cs}</p>
                     </div>
                   ) : null}
@@ -6060,7 +6111,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_5_men_cs &&
                   formik.errors.nt1_100_estrato_5_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_5_men_cs}</p>
                     </div>
                   ) : null}
@@ -6086,7 +6136,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_6_men_cs &&
                   formik.errors.nt1_100_estrato_6_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_6_men_cs}</p>
                     </div>
                   ) : null}
@@ -6112,7 +6161,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_4 &&
                   formik.errors.nt1_100_estrato_4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_4}</p>
                     </div>
                   ) : null}
@@ -6138,7 +6186,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_5 &&
                   formik.errors.nt1_100_estrato_5 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_5}</p>
                     </div>
                   ) : null}
@@ -6164,7 +6211,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_estrato_6 &&
                   formik.errors.nt1_100_estrato_6 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_estrato_6}</p>
                     </div>
                   ) : null}
@@ -6189,7 +6235,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_100_c && formik.errors.nt1_100_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_c}</p>
                     </div>
                   ) : null}
@@ -6215,7 +6260,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_i_con_c &&
                   formik.errors.nt1_100_i_con_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_i_con_c}</p>
                     </div>
                   ) : null}
@@ -6241,7 +6285,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_100_i_sin_c &&
                   formik.errors.nt1_100_i_sin_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_i_sin_c}</p>
                     </div>
                   ) : null}
@@ -6266,7 +6309,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_100_p && formik.errors.nt1_100_p ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_p}</p>
                     </div>
                   ) : null}
@@ -6291,7 +6333,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_100_o && formik.errors.nt1_100_o ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_100_o}</p>
                     </div>
                   ) : null}
@@ -6317,7 +6358,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_1_men_cs &&
                   formik.errors.nt1_50_estrato_1_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_1_men_cs}</p>
                     </div>
                   ) : null}
@@ -6343,7 +6383,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_2_men_cs &&
                   formik.errors.nt1_50_estrato_2_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_2_men_cs}</p>
                     </div>
                   ) : null}
@@ -6369,7 +6408,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_3_men_cs &&
                   formik.errors.nt1_50_estrato_3_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_3_men_cs}</p>
                     </div>
                   ) : null}
@@ -6395,7 +6433,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_4_men_cs &&
                   formik.errors.nt1_50_estrato_4_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_4_men_cs}</p>
                     </div>
                   ) : null}
@@ -6421,7 +6458,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_5_men_cs &&
                   formik.errors.nt1_50_estrato_5_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_5_men_cs}</p>
                     </div>
                   ) : null}
@@ -6447,7 +6483,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_6_men_cs &&
                   formik.errors.nt1_50_estrato_6_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_6_men_cs}</p>
                     </div>
                   ) : null}
@@ -6473,7 +6508,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_4 &&
                   formik.errors.nt1_50_estrato_4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_4}</p>
                     </div>
                   ) : null}
@@ -6499,7 +6533,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_5 &&
                   formik.errors.nt1_50_estrato_5 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_5}</p>
                     </div>
                   ) : null}
@@ -6525,7 +6558,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_estrato_6 &&
                   formik.errors.nt1_50_estrato_6 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_estrato_6}</p>
                     </div>
                   ) : null}
@@ -6550,7 +6582,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_50_c && formik.errors.nt1_50_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_c}</p>
                     </div>
                   ) : null}
@@ -6576,7 +6607,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_i_con_c &&
                   formik.errors.nt1_50_i_con_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_i_con_c}</p>
                     </div>
                   ) : null}
@@ -6602,7 +6632,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_50_i_sin_c &&
                   formik.errors.nt1_50_i_sin_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_i_sin_c}</p>
                     </div>
                   ) : null}
@@ -6627,7 +6656,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_50_p && formik.errors.nt1_50_p ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_p}</p>
                     </div>
                   ) : null}
@@ -6652,7 +6680,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_50_o && formik.errors.nt1_50_o ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_50_o}</p>
                     </div>
                   ) : null}
@@ -6678,7 +6705,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_1_men_cs &&
                   formik.errors.nt1_0_estrato_1_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_1_men_cs}</p>
                     </div>
                   ) : null}
@@ -6704,7 +6730,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_2_men_cs &&
                   formik.errors.nt1_0_estrato_2_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_2_men_cs}</p>
                     </div>
                   ) : null}
@@ -6730,7 +6755,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_3_men_cs &&
                   formik.errors.nt1_0_estrato_3_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_3_men_cs}</p>
                     </div>
                   ) : null}
@@ -6756,7 +6780,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_4_men_cs &&
                   formik.errors.nt1_0_estrato_4_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_4_men_cs}</p>
                     </div>
                   ) : null}
@@ -6782,7 +6805,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_5_men_cs &&
                   formik.errors.nt1_0_estrato_5_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_5_men_cs}</p>
                     </div>
                   ) : null}
@@ -6808,7 +6830,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_6_men_cs &&
                   formik.errors.nt1_0_estrato_6_men_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_6_men_cs}</p>
                     </div>
                   ) : null}
@@ -6834,7 +6855,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_4 &&
                   formik.errors.nt1_0_estrato_4 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_4}</p>
                     </div>
                   ) : null}
@@ -6860,7 +6880,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_5 &&
                   formik.errors.nt1_0_estrato_5 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_5}</p>
                     </div>
                   ) : null}
@@ -6886,7 +6905,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_estrato_6 &&
                   formik.errors.nt1_0_estrato_6 ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_estrato_6}</p>
                     </div>
                   ) : null}
@@ -6911,7 +6929,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_0_c && formik.errors.nt1_0_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_c}</p>
                     </div>
                   ) : null}
@@ -6937,7 +6954,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_i_con_c &&
                   formik.errors.nt1_0_i_con_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_i_con_c}</p>
                     </div>
                   ) : null}
@@ -6963,7 +6979,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt1_0_i_sin_c &&
                   formik.errors.nt1_0_i_sin_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_i_sin_c}</p>
                     </div>
                   ) : null}
@@ -6988,7 +7003,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_0_p && formik.errors.nt1_0_p ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_p}</p>
                     </div>
                   ) : null}
@@ -7013,7 +7027,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt1_0_o && formik.errors.nt1_0_o ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt1_0_o}</p>
                     </div>
                   ) : null}
@@ -7035,7 +7048,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt2_c && formik.errors.nt2_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_c}</p>
                     </div>
                   ) : null}
@@ -7060,7 +7072,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt2_i_con_c && formik.errors.nt2_i_con_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_i_con_c}</p>
                     </div>
                   ) : null}
@@ -7085,7 +7096,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt2_i_sin_c && formik.errors.nt2_i_sin_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_i_sin_c}</p>
                     </div>
                   ) : null}
@@ -7107,7 +7117,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt2_o && formik.errors.nt2_o ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_o}</p>
                     </div>
                   ) : null}
@@ -7129,7 +7138,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt2_ap && formik.errors.nt2_ap ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_ap}</p>
                     </div>
                   ) : null}
@@ -7155,7 +7163,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt2_bsnmen_cs &&
                   formik.errors.nt2_bsnmen_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_bsnmen_cs}</p>
                     </div>
                   ) : null}
@@ -7181,7 +7188,6 @@ value={formik.values.gc}></input>
                   {formik.touched.nt2_bsnmay_cs &&
                   formik.errors.nt2_bsnmay_cs ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt2_bsnmay_cs}</p>
                     </div>
                   ) : null}
@@ -7203,7 +7209,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt3_c && formik.errors.nt3_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt3_c}</p>
                     </div>
                   ) : null}
@@ -7228,7 +7233,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt3_i_con_c && formik.errors.nt3_i_con_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt3_i_con_c}</p>
                     </div>
                   ) : null}
@@ -7253,7 +7257,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt3_i_sin_c && formik.errors.nt3_i_sin_c ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt3_i_sin_c}</p>
                     </div>
                   ) : null}
@@ -7275,7 +7278,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt3_o && formik.errors.nt3_o ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt3_o}</p>
                     </div>
                   ) : null}
@@ -7297,7 +7299,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.nt3_ap && formik.errors.nt3_ap ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.nt3_ap}</p>
                     </div>
                   ) : null}
@@ -7328,7 +7329,6 @@ value={formik.values.gc}></input>
                   </div>
                   {formik.touched.empresa_id && formik.errors.empresa_id ? (
                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                      
                       <p>{formik.errors.empresa_id}</p>
                     </div>
                   ) : null}
@@ -7372,7 +7372,6 @@ value={formik.values.gc}></input>
                             </div>
                             {formik.touched.pv && formik.errors.pv ? (
                               <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                
                                 <p>{formik.errors.pv}</p>
                               </div>
                             ) : null}
@@ -7453,7 +7452,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt1_100 &&
                                   formik.errors.cu_nt1_100 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt1_100}</p>
                                     </div>
                                   ) : null}
@@ -7471,7 +7469,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt1_50 &&
                                   formik.errors.cu_nt1_50 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt1_50}</p>
                                     </div>
                                   ) : null}
@@ -7489,7 +7486,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt1_0 &&
                                   formik.errors.cu_nt1_0 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt1_0}</p>
                                     </div>
                                   ) : null}
@@ -7507,7 +7503,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt2 &&
                                   formik.errors.cu_nt2 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt2}</p>
                                     </div>
                                   ) : null}
@@ -7525,7 +7520,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt3 &&
                                   formik.errors.cu_nt3 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt3}</p>
                                     </div>
                                   ) : null}
@@ -7548,7 +7542,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt1_100_ot &&
                                   formik.errors.cu_nt1_100_ot ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt1_100_ot}</p>
                                     </div>
                                   ) : null}
@@ -7566,7 +7559,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt1_50_ot &&
                                   formik.errors.cu_nt1_50_ot ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt1_50_ot}</p>
                                     </div>
                                   ) : null}
@@ -7584,7 +7576,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt1_0_ot &&
                                   formik.errors.cu_nt1_0_ot ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt1_0_ot}</p>
                                     </div>
                                   ) : null}
@@ -7602,7 +7593,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt2_ot &&
                                   formik.errors.cu_nt2_ot ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt2_ot}</p>
                                     </div>
                                   ) : null}
@@ -7620,7 +7610,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.cu_nt3_ot &&
                                   formik.errors.cu_nt3_ot ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.cu_nt3_ot}</p>
                                     </div>
                                   ) : null}
@@ -7642,7 +7631,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.saldo_nt1_100 &&
                                   formik.errors.saldo_nt1_100 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.saldo_nt1_100_ot}</p>
                                     </div>
                                   ) : null}
@@ -7660,7 +7648,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.saldo_nt1_50 &&
                                   formik.errors.saldo_nt1_50 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.saldo_nt1_50_ot}</p>
                                     </div>
                                   ) : null}
@@ -7678,7 +7665,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.saldo_nt1_0 &&
                                   formik.errors.saldo_nt1_0 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.saldo_nt1_0_ot}</p>
                                     </div>
                                   ) : null}
@@ -7696,7 +7682,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.saldo_nt2 &&
                                   formik.errors.cu_nt2 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.saldo_nt2_ot}</p>
                                     </div>
                                   ) : null}
@@ -7714,7 +7699,6 @@ value={formik.values.gc}></input>
                                   {formik.touched.saldo_nt3 &&
                                   formik.errors.saldo_nt3 ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                      
                                       <p>{formik.errors.saldo_nt3_ot}</p>
                                     </div>
                                   ) : null}

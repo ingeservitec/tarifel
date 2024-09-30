@@ -64,7 +64,7 @@ const NuevoDataempresa = (props) => {
   const [g_exc2, setG_exc2] = useState("");
   const [g_exc3, setG_exc3] = useState("");
   const [ggd, setGgd] = useState("");
-
+  const [cot, setCot] = useState("");
   const onDrop = useCallback((acceptedFiles) => {
     setFileNames(acceptedFiles.map((file) => file.name));
 
@@ -106,6 +106,7 @@ const NuevoDataempresa = (props) => {
       g_exc2: g_exc2,
       g_exc3: g_exc3,
       ggd: ggd,
+      cot: cot,
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -164,6 +165,7 @@ const NuevoDataempresa = (props) => {
         g_exc2,
         g_exc3,
         ggd,
+        cot
       } = valores;
     
       try {
@@ -193,6 +195,7 @@ const NuevoDataempresa = (props) => {
               g_exc2,
               g_exc3,
               ggd,
+              cot
             },
           },
         });
@@ -249,7 +252,8 @@ const NuevoDataempresa = (props) => {
       var Position = datacsv[0].indexOf("g_exc3".toString());
       setGgd(parseFloat(datacsv[1][Position]));
       var Position = datacsv[0].indexOf("ggd".toString());
-      console.log(mercado);
+      setCot(parseFloat(datacsv[1][Position]));
+      var Position = datacsv[0].indexOf("cot".toString());
     } else {
     }
   }, [datacsv]);
@@ -831,6 +835,28 @@ const NuevoDataempresa = (props) => {
             {formik.touched.ggd && formik.errors.ggd ? (
               <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                 <p>{formik.errors.ggd}</p>
+              </div>
+            ) : null}
+
+<div className="form-group row">
+              <label htmlFor="cot" className="col-sm-7 col-form-label">
+                COT NT1 cop/Kwh
+              </label>
+              <div className="col-sm-5">
+                <input
+                  type="number"
+                  className="form-control"
+                  id="cot"
+                  placeholder="cot cop-Kwh"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.cot}
+                ></input>
+              </div>
+            </div>
+            {formik.touched.cot && formik.errors.cot ? (
+              <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                <p>{formik.errors.cot}</p>
               </div>
             ) : null}
 

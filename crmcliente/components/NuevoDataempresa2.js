@@ -34,7 +34,7 @@ mutation nuevoDataempresa($input:DataempresaInput){
     g_exc2
     g_exc3
     ggd
-
+cot
   }
 }
 `;
@@ -64,7 +64,7 @@ query obtenerData_empresa {
     g_exc2
     g_exc3
     ggd
-
+cot
   }
 }
 `;

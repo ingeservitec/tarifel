@@ -1,0 +1,58 @@
+const { DataTypes } = require("sequelize");
+const db = require("../config/db.js");
+
+const Data_reportes_sui_sin_zni_tr_t9Schema = db.define(
+  "Data_reportes_sui_sin_zni_tr_t9",
+  {
+    empresa_id: { type: DataTypes.INTEGER, allowNull: false },
+    creador: { type: DataTypes.INTEGER, allowNull: false },
+    mercado: { type: DataTypes.NUMERIC, allowNull: false },
+    anho: { type: DataTypes.INTEGER, allowNull: false },
+    mes: { type: DataTypes.INTEGER, allowNull: false },
+    ecc: { type: DataTypes.NUMERIC, allowNull: false },
+    vecc: { type: DataTypes.NUMERIC, allowNull: false },
+    cb_mr: { type: DataTypes.NUMERIC, allowNull: false },
+    vcb_mr: { type: DataTypes.NUMERIC, allowNull: false },
+    gtr: { type: DataTypes.NUMERIC, allowNull: false },
+    aj: { type: DataTypes.NUMERIC, allowNull: false },
+    alfa: { type: DataTypes.NUMERIC, allowNull: false },
+    mc: { type: DataTypes.NUMERIC, allowNull: false },
+    dcr: { type: DataTypes.NUMERIC, allowNull: false },
+    t: { type: DataTypes.NUMERIC, allowNull: false },
+    delta_t: { type: DataTypes.NUMERIC, allowNull: false },
+    d_inversion: { type: DataTypes.NUMERIC, allowNull: false },
+    d_aom: { type: DataTypes.NUMERIC, allowNull: false },
+    ipp_0: { type: DataTypes.NUMERIC, allowNull: false },
+    ippm: { type: DataTypes.NUMERIC, allowNull: false },
+    propiedad: { type: DataTypes.NUMERIC, allowNull: false },
+    salinidad: { type: DataTypes.NUMERIC, allowNull: false },
+    d_sin: { type: DataTypes.NUMERIC, allowNull: false },
+    nt_d_sin: { type: DataTypes.NUMERIC, allowNull: false },
+    co: { type: DataTypes.NUMERIC, allowNull: false },
+    medicion_individual: {
+      type: DataTypes.NUMERIC,
+      allowNull: false,
+      defaultValue: 1,
+    },
+    no_facturas: { type: DataTypes.NUMERIC, allowNull: false },
+    kwh_fact: { type: DataTypes.NUMERIC, allowNull: false },
+    cfm: { type: DataTypes.NUMERIC, allowNull: false },
+    ipc_0: { type: DataTypes.NUMERIC, allowNull: false },
+    ipcm: { type: DataTypes.NUMERIC, allowNull: false },
+    ipr1: { type: DataTypes.NUMERIC, allowNull: false },
+    ipr2: { type: DataTypes.NUMERIC, allowNull: false },
+    ipr3: { type: DataTypes.NUMERIC, allowNull: false },
+    ipr4: { type: DataTypes.NUMERIC, allowNull: false },
+    iprstn: { type: DataTypes.NUMERIC, allowNull: false },
+    dmre: { type: DataTypes.NUMERIC, allowNull: false },
+    dmnr: { type: DataTypes.NUMERIC, allowNull: false },
+    prre: { type: DataTypes.NUMERIC, allowNull: false },
+    prnr: { type: DataTypes.NUMERIC, allowNull: false },
+    rtcsa: { type: DataTypes.NUMERIC, allowNull: false },
+    vdesv: { type: DataTypes.NUMERIC, allowNull: false },
+    variante_guatape: { type: DataTypes.NUMERIC, allowNull: false },
+    vtm: { type: DataTypes.NUMERIC, allowNull: false },
+  }
+);
+
+module.exports = Data_reportes_sui_sin_zni_tr_t9Schema;

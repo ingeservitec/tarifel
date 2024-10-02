@@ -759,7 +759,6 @@ const resolvers = {
               },
               attributes: ["codigo", "valor"], // Asumiendo que 'concepto' contiene el valor de 'mc'
             });
-      
 
             // Añadir mc (concepto) al registro actual
             return {
@@ -1088,7 +1087,9 @@ console.log('startYear', ctx.usuario.empresa);
           order: [["id", "ASC"]], // Añadir esta línea para ordenar por ID de forma ascendente
         });
 
+
         const totalPages = Math.ceil(resultado.count / limit);
+
 
         return {
           registros: resultado.rows,
@@ -1176,6 +1177,7 @@ console.log('startYear', ctx.usuario.empresa);
     nuevoUsuario: async (_, { input }) => {
       const { email, password } = input;
 
+
       //Revisar si el usuario ya esta registrado
       const existeUsuario = await Usuario.findOne({
         where: { email: "Alejandro" },
@@ -1183,6 +1185,7 @@ console.log('startYear', ctx.usuario.empresa);
       if (existeUsuario) {
         throw new Error("EL usuario ya esta registrado");
       }
+
 
       //Hash el password
       const salt = await bcryptjs.genSalt(10);
@@ -2643,6 +2646,7 @@ console.log('startYear', ctx.usuario.empresa);
                     where: {
                       id_contrato: uniqueContractIds,
 
+
                       empresa_id: ctx.usuario.empresa,
                       anho: anhom,
                       mes: mesm,
@@ -2650,22 +2654,22 @@ console.log('startYear', ctx.usuario.empresa);
                   });
             
 
+
                 // Crear un Set de IDs de contratos existentes para una búsqueda rápida
                 const idsContratosExistentes = new Set(
                   contratosExistentes.map((ce) => ce.id_contrato)
                 );
-              
 
                 // Filtrar los datos para excluir los contratos existentes
                 filteredData = filteredData.filter(
                   (obj) => !idsContratosExistentes.has(obj.contrato)
                 );
-                console.log("filteredData", filteredData);
 
                 Energia_contratos = calcularEnergiaContratos(filteredData);
                 Costo_contratos = calcularCostoContratos(filteredData);
 
               
+
                 // Sumar los valores de energía y costo de los contratos existentes a los totales
                 contratosExistentes.forEach((contrato) => {
                   Energia_contratos += parseFloat(contrato.energia_comprada);
@@ -2693,7 +2697,6 @@ console.log('startYear', ctx.usuario.empresa);
                 pc_ = roundToTwo(Costo_contratos / Energia_contratos);
 
 
-             
                 if (Energia_contratos / dcr > 1) {
                   pc_ = pc_ * w;
                 }
@@ -2867,11 +2870,6 @@ console.log('startYear', ctx.usuario.empresa);
                     aj_
                 );
               }
-console.log(w1 * qc_ * (alfa * pc_ + (1 - alfa) * mc_) +
-w2 * qc_ * pcSub_)
-
-console.log(pb_)
-
 
 
               if (anho === 2024 && mes === 2) {

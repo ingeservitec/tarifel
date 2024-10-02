@@ -7,11 +7,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.min.css";
 import Swal from "sweetalert2";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import html2canvas from 'html2canvas';
+import TableHeader from './DataTable/TableHeader';
+import logo_energuaviare from '../images/logo_energuaviare.jpg';
+import pie_energuaviare from '../images/pie_energuaviare.jpg';
+import b1 from '../images/1.jpg';
+import * as htmlToImage from 'html-to-image';
 
-import logo_energuaviare from "../images/logos_clientes/logo_energuaviare.png";
-
-import pie_logo_energuaviare from "../images/logos_clientes/pie_energuaviare2024_Monica.jpg";
 
 const OBTENER_RES_COMPONENTES_CU_TARIFA = gql`
   query obtenerRes_componentes_cu_tarifa {

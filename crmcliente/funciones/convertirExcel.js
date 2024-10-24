@@ -400,10 +400,14 @@ export function convertirSTN(sheetName, excelArray, dataArray2) {
 }
 
 export function convertirSTR(sheetName, excelArray, dataArray2) {
+  
   let resultObject = dataArray2[0];
 
   switch (true) {
+    
     case sheetName.includes("CargosEstimados"):
+
+  console.log({excelArray})
       excelArray.forEach((row) => {
         let found = false; // Bandera para indicar si ya se encontró un caso en la fila
 
@@ -413,63 +417,47 @@ export function convertirSTR(sheetName, excelArray, dataArray2) {
 
           switch (cellText) {
             case "TOTAL INGRESO MENSUAL BRUTO STR -  (COP)":
-              resultObject.total_ingreso_mensual_bruto_str_cop_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.total_ingreso_mensual_bruto_str_cop_sur = parseFloat(
-                row[i + 4].replace(/,/g, "")
-              );
+              resultObject.total_ingreso_mensual_bruto_str_cop_norte = parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.total_ingreso_mensual_bruto_str_cop_sur = parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "ENERGÍA DEL STR (kWh)":
-              resultObject.energia_del_str_kwh_norte = parseFloat(
-                row[i + 1].replace(/,/g, "")
-              );
-              resultObject.energia_del_str_kwh_sur = parseFloat(
-                row[i + 4].replace(/,/g, "")
-              );
+              resultObject.energia_del_str_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.energia_del_str_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "CARGO NIVEL DE TENSIÓN ANTES DE COMPENSACIÓN CD4 (COP/kWh )":
-              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur =
-                parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "CARGO NIVEL DE TENSIÓN DESPUÉS DE COMPENSACIÓN CD4 (COP/kWh )":
-              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur =
-                parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "Cargo por uso Dt4 (COP/kWh )":
-              resultObject.cargo_por_uso_dt4_cop_kwh_norte = parseFloat(
-                row[i + 1].replace(/,/g, "")
-              );
-              resultObject.cargo_por_uso_dt4_cop_kwh_sur = parseFloat(
-                row[i + 4].replace(/,/g, "")
-              );
+              resultObject.cargo_por_uso_dt4_cop_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.cargo_por_uso_dt4_cop_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "Factor para referir las medidas de energía del nivel de tensión 4":
-              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_norte =
-                parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_sur =
-                parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_norte = parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_sur = parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
-
+        
             default:
               break;
           }
         }
       });
+      
 
       break;
     default:
       if (sheetName.includes("Deltas")) {
-        console.log("first2");
+        console.log('first2');
         excelArray.forEach((row) => {
           // Código para el caso "Deltas Jun-2023"
           let lastValueIndex = row.lastIndexOf("") - 2;
@@ -477,8 +465,10 @@ export function convertirSTR(sheetName, excelArray, dataArray2) {
             lastValueIndex = row.length - 1;
           }
           console.log(row);
-          switch (row[0]) {
-            case "VALOR DIFERENCIAL DESPUÉS DE COMPENSACIÓN(COP / kWh)":
+          // Eliminar todos los espacios en blanco del texto
+          const normalizedText = row[0].replace(/\s+/g, '');
+          switch (normalizedText) {
+            case "VALORDIFERENCIALDESPUÉSDECOMPENSACIÓN(COP/kWh)":
               resultObject.valor_diferencial_despues_de_compensacion_cop_kwh_norte =
                 parseFloat(row[1].replace(/,/g, ""));
               resultObject.valor_diferencial_despues_de_compensacion_cop_kwh_sur =

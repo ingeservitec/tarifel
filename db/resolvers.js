@@ -1932,16 +1932,24 @@ console.log('startYear', ctx.usuario.empresa);
       }
     },
     eliminarData_xm_str: async (_, { id }) => {
-      let data = await Data_xm_str.findByPk(id);
-      if (!data) {
-        throw new Error("Registro no existe");
+      try {
+        // Verificar si todos los ids existen
+        const totalExistente = await Data_xm_str.count({
+          where: { id: ids },
+        });
+        if (totalExistente !== ids.length) {
+          throw new Error(
+            `No se encontraron todos los registros con los ids proporcionados`
+          );
+        }
+
+        // Eliminar el registro
+        await Data_xm_str.destroy({ where: { id: ids } });
+        return ids;
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
       }
-      resultado = await data.destroy({
-        where: {
-          id: id,
-        },
-      });
-      return "Registro Eliminado";
     },
     eliminarData_xm_cprog: async (_, { id }) => {
       let data = await Data_xm_cprog.findByPk(id);

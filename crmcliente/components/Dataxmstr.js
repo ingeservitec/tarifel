@@ -49,9 +49,9 @@ const Dataxmstr = () => {
           <TableAndt
             titulo={titulo}
             columns={headers}
-
             cacheField="obtenerData_xm_str"
             mutation={ELIMINAR_DATA_XM_STR}
+            subMutation={"eliminarData_xm_str"}
             query={OBTENER_DATA_XM_STR}
           />
         </div>

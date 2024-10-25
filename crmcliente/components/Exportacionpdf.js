@@ -344,11 +344,12 @@ console.log(data_Res_componentes_cu_tarifam)
                 <div className="col-md-12">
                   <div className="row ">
                     <div className="col-md-3">
-                      <img
-                        src={logo_}
-                        alt="Logo"
-                        className="img-fluid w-75 p-2"
-                      />
+                    <img
+  src={logo_}
+  alt="Logo"
+  className="img-fluid w-95 p-2"
+/>
+
                     </div>
                     <div className="col-md-9 text-center p-4">
                       <h3>

@@ -2566,7 +2566,9 @@ console.log('startYear', ctx.usuario.empresa);
                 },
               });
 
-              if (!data_xm_dspcttom) {
+
+
+              if (data_xm_dspcttom.length===0) {
                 throw new Error(
                   "No existen insumos de DSPCTTOS para el periodo anterior al mes y año seleccionado " +
                     mesm +

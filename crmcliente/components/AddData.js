@@ -116,7 +116,7 @@ const AddData = ({
     const worksheet2 = XLSX.utils.json_to_sheet(registrosConError);
     XLSX.utils.book_append_sheet(workbook, worksheet1, "Registros guardados");
     XLSX.utils.book_append_sheet(workbook, worksheet2, "Registros con errores");
-    XLSX.writeFile(workbook, "Log_Errores.xlsx");
+    XLSX.writeFile(workbook, "Log_Cargue.xlsx");
   }
 
   const [newData] = useMutation(mutation, {

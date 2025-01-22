@@ -2445,6 +2445,7 @@ console.log('startYear', ctx.usuario.empresa);
       }
     },
     nuevoResComponentesCuTarifa: async (_, { input }, ctx) => {
+      console.log("Antes de crear nuevo registro");
       try {
         const miArray = [];
         const errores = [];
@@ -2746,7 +2747,7 @@ console.log('startYear', ctx.usuario.empresa);
                 (qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * mc_) * 1.3
               );
               //cr_=(w1*qc_*(alfa*pc_+(1-alfa)*mc_))+(w2*qc_*pcSub_)+(cgsubasta_acu/dcr)+((1-qc_-qagd)*pb_)+gTransitorio //***Concpeto CREG
-              cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG
+            /*   cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG */
 
               const dataempresamessin = await Dataempresamessin.findOne({
                 where: {
@@ -2773,7 +2774,125 @@ console.log('startYear', ctx.usuario.empresa);
                 dataempresamessin.ventas_usuarios_nr_kwh;
 
               ad_ = 0; ////ACTUALIZAR
-              aj_ = 0;
+              
+
+              // consumtar en Res_componentes_cu_tarifasSchemaanho y mes anterior sde esa empresa id 
+              const data_componentes_cu_tarifas = await Res_componentes_cu_tarifa.findOne({
+                where: {
+                  empresa_id: ctx.usuario.empresa,
+                  anho: anhom,
+                  mes: mesm,
+                },
+              });
+
+              if (!data_componentes_cu_tarifas) {
+                throw new Error(
+                  "No existen insumos de componentes de cu para el periodo anterior al mes y año de calculo " +
+                    mesm +
+                    "-" +
+                    anhom
+                );
+              }
+
+              //traer ese ad de la tabla Res_componentes_cu_tarifasSchema
+              const adm_ = data_componentes_cu_tarifas.dataValues.ad;
+              
+
+// Helper function to get the week numbers for a given year and month
+const getWeeksInMonth = (year, month) => {
+  try {
+    console.log('Year:', year, 'Month:', month);
+    const weeks = [];
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDay = new Date(year, month, 0);
+    
+    console.log('First day:', firstDay);
+    console.log('Last day:', lastDay);
+
+    // Get first and last week of the month
+    const firstWeek = getWeekNumber(firstDay);
+    const lastWeek = getWeekNumber(lastDay);
+    
+    console.log('First week:', firstWeek);
+    console.log('Last week:', lastWeek);
+
+    // Si el lastWeek es menor que firstWeek, significa que cruzamos al año siguiente
+    if (lastWeek < firstWeek) {
+      // Generar semanas hasta el final del año
+      for (let week = firstWeek; week <= 53; week++) {
+        weeks.push(`${year}${week.toString().padStart(2, '0')}`);
+      }
+      // Generar semanas del inicio del siguiente año si es necesario
+      for (let week = 1; week <= lastWeek; week++) {
+        weeks.push(`${year + 1}${week.toString().padStart(2, '0')}`);
+      }
+    } else {
+      // Caso normal dentro del mismo año
+      for (let week = firstWeek; week <= lastWeek; week++) {
+        weeks.push(`${year}${week.toString().padStart(2, '0')}`);
+      }
+    }
+    
+    console.log('Generated weeks:', weeks);
+    return weeks;
+  } catch (error) {
+    console.error('Error in getWeeksInMonth:', error);
+    return [];
+  }
+};
+
+// Helper function to get ISO week number (mantener igual)
+const getWeekNumber = (date) => {
+  try {
+    const target = new Date(date.valueOf());
+    const dayNr = (date.getDay() + 6) % 7;
+    target.setDate(target.getDate() - dayNr + 3);
+    const firstThursday = target.valueOf();
+    target.setMonth(0, 1);
+    if (target.getDay() !== 4) {
+      target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+    }
+    const weekNr = 1 + Math.ceil((firstThursday - target) / 604800000);
+    return weekNr;
+  } catch (error) {
+    console.error('Error in getWeekNumber:', error);
+    return 0;
+  }
+};
+
+// Find TCO data for the specific month
+const data_banrepublica_tco = await Data_banrepublica_tco.findAll({
+  where: {
+    empresa_id: ctx.usuario.empresa,
+    anho_semana: {
+      [Op.in]: getWeeksInMonth(anhom, mesm)
+    }
+  },
+  order: [["anho_semana", "DESC"]],
+  limit: 1
+});
+
+if (!data_banrepublica_tco || data_banrepublica_tco.length === 0) {
+  throw new Error(`No se encontraron datos TCO para el período ${mesm}-${anhom}`);
+}
+
+const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
+
+
+
+
+
+              
+              ad_ = adm_+ ( // cr  de ese mes anterior menos gc del mes anterior 
+                data_componentes_cu_tarifas.dataValues.cr -
+                data_componentes_cu_tarifas.dataValues.gc
+              ) * ventas_totales * tasa_cred_com_odinario
+
+
+             
+
+
+
               gTransitorio = 0; //ACTUALIZAR
 
               // Creando la fecha de inicio y fin basado en año y mes para la comparación
@@ -2864,8 +2983,7 @@ console.log('startYear', ctx.usuario.empresa);
                     w2 * qc_ * pcSub_ +
                     1 +
                     (1 - qc_ - qagd) * pb_ +
-                    gTransitorio +
-                    aj_
+                    gTransitorio 
                 );
               } else {
                 gc_ = roundToTwo(
@@ -2873,14 +2991,9 @@ console.log('startYear', ctx.usuario.empresa);
                     w2 * qc_ * pcSub_ +
                     cgsubasta_acu / dcr +
                     (1 - qc_ - qagd) * pb_ +
-                    gTransitorio +
-                    aj_
+                    gTransitorio 
                 );
               }
-console.log(w1 * qc_ * (alfa * pc_ + (1 - alfa) * mc_) +
-w2 * qc_ * pcSub_)
-
-console.log(pb_)
 
 
 
@@ -2888,7 +3001,15 @@ console.log(pb_)
                 gc_ = 279.05844;
               }
 
-              cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG
+              cr_ = gc_
+
+
+               // multiplicado poor las ventas del mes anterior
+
+               aj_ = roundToTwo(Math.min(max_g_-cr_,ad_/ventas_totales) )
+
+
+              gc_ = roundToTwo(gc_ + aj_)
 
               input[index].qc = qc_;
               input[index].mc = mc_;

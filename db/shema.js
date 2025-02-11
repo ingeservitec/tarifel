@@ -2566,7 +2566,7 @@ const typeDefs = gql`
     avecc: Int
     amc: Float
     cb_mr: String
-    vcb_mr: Int
+    vcb_mr: String
     acb_mr: Int
     avcbmr: Int
     cb_mnr: Int

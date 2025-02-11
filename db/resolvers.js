@@ -1048,6 +1048,7 @@ const resolvers = {
           limit: limit,
           order: [["id", "ASC"]], // Añadir esta línea para ordenar por ID de forma ascendente
         });
+        console.log('resultado', resultado);
 
         const totalPages = Math.ceil(resultado.count / limit);
 
@@ -2445,7 +2446,7 @@ console.log('startYear', ctx.usuario.empresa);
       }
     },
     nuevoResComponentesCuTarifa: async (_, { input }, ctx) => {
-      console.log("Antes de crear nuevo registro");
+      console.log("Antes de crear nuevo registro2");
       try {
         const miArray = [];
         const errores = [];
@@ -4168,13 +4169,15 @@ if (cuentaEfectiva === 0) {
               }
 
               var pr_nt1_, pr_nt2_, pr_nt3_, pr_nt4_;
-
+              console.log(gc_,data_xm_iprm1, iprstn_, tx_, data_xm_cprogm.cargo_cprog_cop_kwh);
+              console.log(gc_);
               pr_nt1_ = roundToTwo(
                 (gc_ * (data_xm_iprm1 + iprstn_)) /
                   (1 - (data_xm_iprm1 + iprstn_)) +
                   (tx_ * data_xm_iprm1) / (1 - data_xm_iprm1) +
                   data_xm_cprogm.cargo_cprog_cop_kwh
               );
+              console.log(pr_nt1_);
               pr_nt2_ = roundToTwo(
                 (gc_ * (data_xm_iprm2 + iprstn_)) /
                   (1 - (data_xm_iprm2 + iprstn_)) +

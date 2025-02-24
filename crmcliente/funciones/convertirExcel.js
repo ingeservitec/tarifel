@@ -19,40 +19,51 @@ function mesANumero(mes) {
   return equivalencias[mesSinEspacios];
 }
 const monthMapping = {
-  ene: 1, jan: 1,
-  feb: 2, feb: 2,
-  mar: 3, mar: 3,
-  abr: 4, apr: 4,
-  may: 5, may: 5,
-  jun: 6, jun: 6,
-  jul: 7, jul: 7,
-  ago: 8, aug: 8,
-  sep: 9, sep: 9,
-  oct: 10, oct: 10,
-  nov: 11, nov: 11,
-  dic: 12, dec: 12
+  ene: 1,
+  jan: 1,
+  feb: 2,
+  feb: 2,
+  mar: 3,
+  mar: 3,
+  abr: 4,
+  apr: 4,
+  may: 5,
+  may: 5,
+  jun: 6,
+  jun: 6,
+  jul: 7,
+  jul: 7,
+  ago: 8,
+  aug: 8,
+  sep: 9,
+  sep: 9,
+  oct: 10,
+  oct: 10,
+  nov: 11,
+  nov: 11,
+  dic: 12,
+  dec: 12,
 };
 
-function mesANumeroTresWords(mes){
-  const primerPalabra = mes.split(' ')[0].toUpperCase();
+function mesANumeroTresWords(mes) {
+  const primerPalabra = mes.split(" ")[0].toUpperCase();
   const mesSinEspacios = primerPalabra.toUpperCase().replace(/\s/g, "");
   const equivalencias = {
-    "ENE": 1,
-    "FEB": 2,
-    "MAR": 3,
-    "ABR": 4,
-    "MAY": 5,
-    "JUN": 6,
-    "JUL": 7,
-    "AGO": 8,
-    "SEP": 9,
-    "OCT": 10,
-    "NOV": 11,
-    "DIC": 12,
+    ENE: 1,
+    FEB: 2,
+    MAR: 3,
+    ABR: 4,
+    MAY: 5,
+    JUN: 6,
+    JUL: 7,
+    AGO: 8,
+    SEP: 9,
+    OCT: 10,
+    NOV: 11,
+    DIC: 12,
   };
 
   return equivalencias[mesSinEspacios];
-
 }
 
 export function convertirExcelIPC(excelArray) {
@@ -193,17 +204,14 @@ export function convertirExcelIPP(excelArray) {
 }
 
 export function convertirExcelIPPAnexos(excelArray) {
-
-  
   // Encontrar la fila que contiene la palabra "TOTAL"
-  const totalRowIndex = excelArray.findIndex(row => row.includes("NIVEL"));
-  const valuesRowIndex = excelArray.findIndex(row => row.includes("TOTAL"));
+  const totalRowIndex = excelArray.findIndex((row) => row.includes("NIVEL"));
+  const valuesRowIndex = excelArray.findIndex((row) => row.includes("TOTAL"));
 
   // Verificar que encontramos una fila "TOTAL"
   if (totalRowIndex === -1) {
     throw new Error('No se encontró la fila "NIVEL" en los datos del Excel.');
   }
-
 
   const totalRow = excelArray[totalRowIndex];
   const valueRow = excelArray[valuesRowIndex];
@@ -212,12 +220,10 @@ export function convertirExcelIPPAnexos(excelArray) {
 
   // Extraer el año y el mes de las columnas que contengan "(pr*)"
   for (let colIndex = 0; colIndex < totalRow.length; colIndex++) {
-  
-
     const cellValue = totalRow[colIndex];
-    
+
     // Verificar si la columna actual contiene "(pr*)"
-    if (typeof cellValue === 'string' && cellValue.includes("(pr")) {
+    if (typeof cellValue === "string" && cellValue.includes("(pr")) {
       // Extraer año y mes del título de la columna
       const yearAndMonthMatch = cellValue.match(/([A-Za-z]+)-(\d+) \(pr/);
 
@@ -225,18 +231,16 @@ export function convertirExcelIPPAnexos(excelArray) {
         const mes = yearAndMonthMatch[1];
         let anho = yearAndMonthMatch[2];
         // Asegúrate de que el año tenga 4 dígitos
-        anho = anho.length === 2 ? '20' + anho : anho;
+        anho = anho.length === 2 ? "20" + anho : anho;
 
-  
         var obj = {};
-        obj["Año"] =anho
-        obj["Mes"] = mesANumeroTresWords(mes), // Suponiendo que tienes una función `mesANumero` que convierte el nombre del mes a número;
-        obj["Tipo"] = "pr";
+        obj["Año"] = anho;
+        (obj["Mes"] = mesANumeroTresWords(mes)), // Suponiendo que tienes una función `mesANumero` que convierte el nombre del mes a número;
+          (obj["Tipo"] = "pr");
         obj["ipp_oi_oferta_interna"] = valueRow[colIndex];
         resultArray.push(obj);
 
         // Agregar el objeto al array de resultados
-    
       }
     }
   }
@@ -262,7 +266,7 @@ export function convertirDSPCTTOS(excelArray, month, day) {
 }
 
 export function convertirTRSM(excelArray, month) {
-  console.log('first')
+  console.log("first");
   var resultArray = excelArray;
   return resultArray.map((data) => ({
     ...data,
@@ -271,7 +275,6 @@ export function convertirTRSM(excelArray, month) {
 }
 
 export function convertirTSERV(excelArray, agente, month) {
-
   var resultArray = excelArray.filter((data) => data.AGENTE === agente);
   return resultArray.map((data) => ({
     ...data,
@@ -280,16 +283,16 @@ export function convertirTSERV(excelArray, agente, month) {
 }
 
 export function convertirFACTORESIPR(excelArray, agente, month, year) {
-console.log('year')
-  var resultArray = excelArray.filter((data) => data.agrupaORMercado === agente);
+  console.log("year");
+  var resultArray = excelArray.filter(
+    (data) => data.agrupaORMercado === agente
+  );
   return resultArray.map((data) => ({
     ...data,
     Mes: month,
-    Anho: year
+    Anho: year,
   }));
 }
-
-
 
 export function convertirSTN(sheetName, excelArray, dataArray2) {
   let resultObject = dataArray2[0];
@@ -307,12 +310,12 @@ export function convertirSTN(sheetName, excelArray, dataArray2) {
               row[lastValueIndex].replace(/,/g, "")
             );
             break;
-          case "Ingreso a Compensar para estimados  (COP)":
+          case "Ingreso a Compensar para estimados  (COP)":
             resultObject.Ing_Compensar_T_cop = parseFloat(
               row[lastValueIndex].replace(/,/g, "")
             );
             break;
-          case "Ingreso Regulado Neto para estimados  (COP)":
+          case "Ingreso Regulado Neto para estimados  (COP)":
             resultObject.Ing_Reg_Neto_T_cop = parseFloat(
               row[lastValueIndex].replace(/,/g, "")
             );
@@ -400,14 +403,11 @@ export function convertirSTN(sheetName, excelArray, dataArray2) {
 }
 
 export function convertirSTR(sheetName, excelArray, dataArray2) {
-  
   let resultObject = dataArray2[0];
 
   switch (true) {
-    
     case sheetName.includes("CargosEstimados"):
-
-  console.log({excelArray})
+      console.log({ excelArray });
       excelArray.forEach((row) => {
         let found = false; // Bandera para indicar si ya se encontró un caso en la fila
 
@@ -417,47 +417,63 @@ export function convertirSTR(sheetName, excelArray, dataArray2) {
 
           switch (cellText) {
             case "TOTAL INGRESO MENSUAL BRUTO STR -  (COP)":
-              resultObject.total_ingreso_mensual_bruto_str_cop_norte = parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.total_ingreso_mensual_bruto_str_cop_sur = parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.total_ingreso_mensual_bruto_str_cop_norte =
+                parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.total_ingreso_mensual_bruto_str_cop_sur = parseFloat(
+                row[i + 4].replace(/,/g, "")
+              );
               found = true;
               break;
             case "ENERGÍA DEL STR (kWh)":
-              resultObject.energia_del_str_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.energia_del_str_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.energia_del_str_kwh_norte = parseFloat(
+                row[i + 1].replace(/,/g, "")
+              );
+              resultObject.energia_del_str_kwh_sur = parseFloat(
+                row[i + 4].replace(/,/g, "")
+              );
               found = true;
               break;
             case "CARGO NIVEL DE TENSIÓN ANTES DE COMPENSACIÓN CD4 (COP/kWh )":
-              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_norte =
+                parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.cargo_nt_antes_de_compensacion_cd4_cop_kwh_sur =
+                parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "CARGO NIVEL DE TENSIÓN DESPUÉS DE COMPENSACIÓN CD4 (COP/kWh )":
-              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_norte =
+                parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.cargo_nt_despues_de_compensacion_cd4_cop_kwh_sur =
+                parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
             case "Cargo por uso Dt4 (COP/kWh )":
-              resultObject.cargo_por_uso_dt4_cop_kwh_norte = parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.cargo_por_uso_dt4_cop_kwh_sur = parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.cargo_por_uso_dt4_cop_kwh_norte = parseFloat(
+                row[i + 1].replace(/,/g, "")
+              );
+              resultObject.cargo_por_uso_dt4_cop_kwh_sur = parseFloat(
+                row[i + 4].replace(/,/g, "")
+              );
               found = true;
               break;
             case "Factor para referir las medidas de energía del nivel de tensión 4":
-              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_norte = parseFloat(row[i + 1].replace(/,/g, ""));
-              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_sur = parseFloat(row[i + 4].replace(/,/g, ""));
+              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_norte =
+                parseFloat(row[i + 1].replace(/,/g, ""));
+              resultObject.factor_para_referir_las_medidas_de_energia_del_nt_4_sur =
+                parseFloat(row[i + 4].replace(/,/g, ""));
               found = true;
               break;
-        
+
             default:
               break;
           }
         }
       });
-      
 
       break;
     default:
       if (sheetName.includes("Deltas")) {
-        console.log('first2');
+        console.log("first2");
         excelArray.forEach((row) => {
           // Código para el caso "Deltas Jun-2023"
           let lastValueIndex = row.lastIndexOf("") - 2;
@@ -466,7 +482,7 @@ export function convertirSTR(sheetName, excelArray, dataArray2) {
           }
           console.log(row);
           // Eliminar todos los espacios en blanco del texto
-          const normalizedText = row[0].replace(/\s+/g, '');
+          const normalizedText = row[0].replace(/\s+/g, "");
           switch (normalizedText) {
             case "VALORDIFERENCIALDESPUÉSDECOMPENSACIÓN(COP/kWh)":
               resultObject.valor_diferencial_despues_de_compensacion_cop_kwh_norte =
@@ -488,7 +504,6 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 
   switch (true) {
     case sheetName.includes("Cargos_SDL"):
-        
       excelArray.forEach((row) => {
         let found = false; // Bandera para indicar si ya se encontró un caso en la fila
 
@@ -532,8 +547,7 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 
             break;
           case "Cargo nivel de tensión CD4 con DeltaCD4 (COP/kWh)":
-            resultObject.cargo_nivel_de_tension_cd4_cop_kwh =
-              cellValue;
+            resultObject.cargo_nivel_de_tension_cd4_cop_kwh = cellValue;
 
             break;
           case "Cargo por incentivos Dtcs (COP/kWh)":
@@ -1134,8 +1148,6 @@ export function convertirSDL(sheetName, excelArray, dataArray2) {
 }
 
 export function convertirCPROG(sheetName, excelArray, dataArray2) {
-
-
   let resultObject = dataArray2[0];
 
   switch (true) {
@@ -1150,12 +1162,12 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
 
           switch (cellText) {
             case "Cargo CPROG por concepto del plan ($/kWh)":
-              if (rowIndex + 1 < excelArray.length) { // Verifica que no se exceda el límite del array
+              if (rowIndex + 1 < excelArray.length) {
+                // Verifica que no se exceda el límite del array
                 const nextRow = excelArray[rowIndex + 1];
                 resultObject.Cargo_Cprog_Cop_Kwh = parseFloat(
                   nextRow[i].replace(/,/g, "")
                 );
-                
               }
               found = true;
               break;
@@ -1169,9 +1181,8 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
 
               resultObject.Año = parseInt(year);
 
-          
               resultObject.Mes = monthMapping[month.toLowerCase()];
-                
+
               break;
 
             default:
@@ -1181,188 +1192,255 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
         if (found) break; // Termina el bucle externo si se encontró el caso
       }
 
-
       break;
 
     default:
       break;
   }
 
-  resultObject.Agente ='EGVD'
+  resultObject.Agente = "EGVD";
   return resultObject;
 }
 
 export function convertirBanRepTco(excelArray) {
-    // Encontrar índice de la fila con encabezados de las columnas
-    const headerRowIndex = excelArray.findIndex(row => row[0] === 'Año(aaaa)-Semana(ss)');
+  // Encontrar índice de la fila con encabezados de las columnas
+  const headerRowIndex = excelArray.findIndex(
+    (row) => row[0] === "Año(aaaa)-Semana(ss)"
+  );
 
-    // Encontrar índice de la fila con nombres de categorías financieras
-    const subHeaderRowIndex = excelArray.findIndex(row => row.includes('Crédito de consumo'));
+  // Encontrar índice de la fila con nombres de categorías financieras
+  const subHeaderRowIndex = excelArray.findIndex((row) =>
+    row.includes("Crédito de consumo")
+  );
 
-    if (headerRowIndex === -1 || subHeaderRowIndex === -1) {
-        console.error('No se pudieron encontrar las filas de encabezados.');
-        return [];
+  if (headerRowIndex === -1 || subHeaderRowIndex === -1) {
+    console.error("No se pudieron encontrar las filas de encabezados.");
+    return [];
+  }
+  const dataStartIndex = headerRowIndex + 1; // Los datos comienzan justo después de la fila de encabezados
+
+  let lastValidIndex = dataStartIndex;
+  for (let i = dataStartIndex; i < excelArray.length; i++) {
+    if (
+      excelArray[i][0] &&
+      (excelArray[i][0].startsWith("19") || excelArray[i][0].startsWith("20"))
+    ) {
+      // Asumiendo que los años comienzan con '20'
+      lastValidIndex = i;
+    } else {
+      break; // Deja de leer más filas si encuentra una fila sin un año válido
     }
-    const dataStartIndex = headerRowIndex + 1;  // Los datos comienzan justo después de la fila de encabezados
+  }
 
-    let lastValidIndex = dataStartIndex;
-    for (let i = dataStartIndex; i < excelArray.length; i++) {
-        if (excelArray[i][0] && (excelArray[i][0].startsWith('19') || excelArray[i][0].startsWith('20'))) { // Asumiendo que los años comienzan con '20'
-            lastValidIndex = i;
-        } else {
-            break;  // Deja de leer más filas si encuentra una fila sin un año válido
-        }
-    }
-
-    const headers = excelArray[headerRowIndex];
-    const subHeaders = excelArray[subHeaderRowIndex];
-    const indices = {
-      anho_semana: headers.indexOf('Año(aaaa)-Semana(ss)'),
+  const headers = excelArray[headerRowIndex];
+  const subHeaders = excelArray[subHeaderRowIndex];
+  const indices = {
+    anho_semana: headers.indexOf("Año(aaaa)-Semana(ss)"),
   };
-  
+
   headers.forEach((header, index) => {
-    if (header === 'Tasa %') {
-        let subCategory = subHeaders[index];
-        // Reemplazar espacios en subCategory por guiones bajos
-        subCategory = subCategory.replace(/ /g, '_');
+    if (header === "Tasa %") {
+      let subCategory = subHeaders[index];
+      // Reemplazar espacios en subCategory por guiones bajos
+      subCategory = subCategory.replace(/ /g, "_");
 
-        // Asignar el índice de la tasa y automáticamente asignar el monto de la columna siguiente
-        indices[`tasa_${subCategory}`] = index;
-        indices[`monto_${subCategory}`] = index + 1;  // Asume que el 'Monto' siempre está inmediatamente después de la 'Tasa %'
+      // Asignar el índice de la tasa y automáticamente asignar el monto de la columna siguiente
+      indices[`tasa_${subCategory}`] = index;
+      indices[`monto_${subCategory}`] = index + 1; // Asume que el 'Monto' siempre está inmediatamente después de la 'Tasa %'
     }
-});
-
+  });
 
   // Procesar filas de datos que comienzan justo después de los headers y subheaders
   const dataRows = excelArray.slice(headerRowIndex + 1);
 
   var transformedData = [];
   // Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
-// Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
-for (let i = dataStartIndex; i <= lastValidIndex; i++) {
-  const row = excelArray[i];
-  transformedData.push({
+  // Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
+  for (let i = dataStartIndex; i <= lastValidIndex; i++) {
+    const row = excelArray[i];
+    transformedData.push({
       anho_semana: row[0],
       tasa_cred_com_credito_consumo: parseFloat(row[1]),
-      monto_cred_com_credito_consumo: parseFloat(row[2].replace(/[$,]/g, '')),
+      monto_cred_com_credito_consumo: parseFloat(row[2].replace(/[$,]/g, "")),
       tasa_cred_com_odinario: parseFloat(row[3]),
-      monto_cred_com_odinario: parseFloat(row[4].replace(/[$,]/g, '')),
+      monto_cred_com_odinario: parseFloat(row[4].replace(/[$,]/g, "")),
       tasa__cred_com_preferencial_o_corporativo: parseFloat(row[5]),
-      monto__cred_com_preferencial_o_corporativo: parseFloat(row[6].replace(/[$,]/g, '')),
+      monto__cred_com_preferencial_o_corporativo: parseFloat(
+        row[6].replace(/[$,]/g, "")
+      ),
       tasa__cred_com_tesoreria: parseFloat(row[7]),
-      monto__cred_com_tesoreria: parseFloat(row[8].replace(/[$,]/g, '')),
+      monto__cred_com_tesoreria: parseFloat(row[8].replace(/[$,]/g, "")),
       tasa_colocacion_banco_republica: parseFloat(row[9]),
-      monto_colocacion_banco_republica: parseFloat(row[10].replace(/[$,]/g, '')),
+      monto_colocacion_banco_republica: parseFloat(
+        row[10].replace(/[$,]/g, "")
+      ),
       tasa_colocacion_sin_tesoreria: parseFloat(row[11]),
-      monto_colocacion_sin_tesoreria: parseFloat(row[12].replace(/[$,]/g, '')),
+      monto_colocacion_sin_tesoreria: parseFloat(row[12].replace(/[$,]/g, "")),
       tasa_colocacion_total: parseFloat(row[13]),
-      monto_colocacion_total: parseFloat(row[14].replace(/[$,]/g, ''))
-  });
-}
+      monto_colocacion_total: parseFloat(row[14].replace(/[$,]/g, "")),
+    });
+  }
 
-    
-    return transformedData;
+  return transformedData;
 }
 
 export function convertirBanRepTcap(excelArray) {
-  // Encontrar índice de la fila con encabezados de las columnas
-  const headerRowIndex = excelArray.findIndex(row => row[0] === 'Fecha(dd/mm/aaaa)');
+  // 1. Inicio de la transformación
+  console.log(
+    "Iniciando conversión de Excel. Filas totales:",
+    excelArray.length
+  );
 
-  // Encontrar índice de la fila con nombres de categorías financieras
-  const subHeaderRowIndex = excelArray.findIndex(row => row.includes('A 30 días'));
+  // 2. Buscar la fila de sub-encabezados (que incluya "A 30 días" en alguna celda)
+  const subHeaderRowIndex = excelArray.findIndex((row) =>
+    row.some(
+      (cell) => typeof cell === "string" && cell.includes("A 30 días")
+    )
+  );
+  console.log(
+    `Sub-encabezado que incluye "A 30 días" encontrado en el índice ${subHeaderRowIndex}:`,
+    excelArray[subHeaderRowIndex]
+  );
 
-  if (headerRowIndex === -1 || subHeaderRowIndex === -1) {
-      console.error('No se pudieron encontrar las filas de encabezados.');
-      return [];
+  // 3. Determinar la fila de encabezados
+  let headerRowIndex = excelArray.findIndex(
+    (row) => row[0] === "Fecha (dd/mm/aaaa) "
+  );
+  console.log("Encabezado encontrado en el índice:", headerRowIndex);
+  if (headerRowIndex === -1) {
+    headerRowIndex = excelArray.findIndex(
+      (row) =>
+        row &&
+        row.some(
+          (cell) =>
+            typeof cell === "string" && cell.toLowerCase().includes("fecha")
+        )
+    );
+    if (headerRowIndex !== -1) {
+      console.log(
+        `Encabezado encontrado de forma flexible en el índice ${headerRowIndex}:`,
+        excelArray[headerRowIndex]
+      );
+    }
   }
-  const dataStartIndex = headerRowIndex + 1;  // Los datos comienzan justo después de la fila de encabezados
+  if (headerRowIndex === -1) {
+    if (subHeaderRowIndex > 0) {
+      headerRowIndex = subHeaderRowIndex - 1;
+      console.log(
+        `Encabezado "Fecha(dd/mm/aaaa)" no encontrado. Se usa la fila anterior al subencabezado. Nuevo índice: ${headerRowIndex}`
+      );
+      console.log("Encabezado:", excelArray[headerRowIndex]);
+    } else {
+      console.error("No se pudo determinar la fila de encabezado.");
+      return [];
+    }
+  } else {
+    console.log(
+      `Encabezado encontrado en el índice ${headerRowIndex}:`,
+      excelArray[headerRowIndex]
+    );
+  }
+
+  // 4. Determinar inicio y fin de datos
+  const dataStartIndex = headerRowIndex + 1;
+  console.log("Los datos comienzan en el índice:", dataStartIndex);
 
   let lastValidIndex = dataStartIndex;
   for (let i = dataStartIndex; i < excelArray.length; i++) {
-      if (excelArray[i][0] && (excelArray[i][0].startsWith('0') || excelArray[i][0].startsWith('1')|| excelArray[i][0].startsWith('2')|| excelArray[i][0].startsWith('3'))) { // Asumiendo que los años comienzan con '20'
-          lastValidIndex = i;
-      } else {
-          break;  // Deja de leer más filas si encuentra una fila sin un año válido
-      }
+    const rowValue = excelArray[i][0];
+    if (
+      rowValue &&
+      (rowValue.startsWith("0") ||
+       rowValue.startsWith("1") ||
+       rowValue.startsWith("2") ||
+       rowValue.startsWith("3"))
+    ) {
+      lastValidIndex = i;
+    } else {
+      console.log(
+        `Se encontró fila no válida en el índice ${i}. Deteniendo lectura de datos.`
+      );
+      break;
+    }
   }
+  console.log("Último índice de fila válida:", lastValidIndex);
 
+  // 5. Construir el objeto de índices dinámico
   const headers = excelArray[headerRowIndex];
   const subHeaders = excelArray[subHeaderRowIndex];
-  const indices = {
-    fecha: headers.indexOf('Fecha(dd/mm/aaaa)'),
-};
+  console.log("Encabezados:", headers);
+  console.log("Sub-encabezados:", subHeaders);
 
-headers.forEach((header, index) => {
-  if (header === 'Tasa %') {
-      let subCategory = subHeaders[index];
-      // Reemplazar espacios en subCategory por guiones bajos
-      subCategory = subCategory.replace(/ /g, '_');
+  const indices = {};
+  // Suponemos que la columna de fecha es la primera (índice 0)
+  indices.fecha = 0;
 
-      // Asignar el índice de la tasa y automáticamente asignar el monto de la columna siguiente
-      indices[`tasa_${subCategory}`] = index;
-      indices[`monto_${subCategory}`] = index + 1;  // Asume que el 'Monto' siempre está inmediatamente después de la 'Tasa %'
+  headers.forEach((header, i) => {
+    if (header === "Tasa (%)") {
+      const subHeader = subHeaders[i] || "";
+      // Extraer la parte primaria (hasta la palabra "días")
+      let primaryPart = subHeader.split("días")[0].trim();
+      const keyBase = primaryPart.toLowerCase().replace(/\s+/g, "_");
+
+      let tasaKey = "";
+      let montoKey = "";
+      if (subHeader.toLowerCase().includes("cdat")) {
+        tasaKey = `tasa_${keyBase}_cdats_cdat_bancos_comerciales`;
+        montoKey = `monto_${keyBase}_cdat_bancos_comerciales`;
+      } else {
+        tasaKey = `tasa_${keyBase}_cdt_bancos_comerciales`;
+        montoKey = `monto_${keyBase}_cdt_bancos_comerciales`;
+      }
+      indices[tasaKey] = i;
+      indices[montoKey] = i + 1;
+      console.log(
+        `Procesando columna ${i}: subHeader="${subHeader}" -> Generados keys "${tasaKey}" y "${montoKey}"`
+      );
+    }
+  });
+  console.log("Índices dinámicos calculados:", indices);
+
+  // 6. Transformar los datos
+  const transformedData = [];
+
+  for (let i = dataStartIndex; i <= lastValidIndex; i++) {
+    const row = excelArray[i];
+    const transformedRow = {};
+    // Asignar la fecha (supuesto: índice definido en indices.fecha)
+    transformedRow.fecha = row[indices.fecha];
+
+    for (const key in indices) {
+      if (key === "fecha") continue;
+      const colIndex = indices[key];
+      if (colIndex >= row.length) continue; // Omitir si no existe la columna
+      if (key.startsWith("monto_")) {
+        transformedRow[key] = parseFloat(
+          (row[colIndex] || "").replace(/[$,]/g, "")
+        );
+      } else {
+        transformedRow[key] = parseFloat(row[colIndex]);
+      }
+    }
+
+    // Validar que la tasa a 30 días CDAT no sea nula
+    if (isNaN(transformedRow["tasa_a_30_cdats_cdat_bancos_comerciales"])) {
+      console.error(
+        "La tasa a 30 días CDAT Bancos comerciales no puede ser nula en la fila ",
+        i
+      );
+      throw new Error(
+        "La tasa a 30 días CDAT Bancos comerciales no puede ser nula"
+      );
+    }
+
+    console.log(`Fila ${i} transformada:`, transformedRow);
+    transformedData.push(transformedRow);
   }
-});
 
-
-
-var transformedData = [];
-
-// Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
-// Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
-for (let i = dataStartIndex; i <= lastValidIndex; i++) {
-const row = excelArray[i];
-transformedData.push({
-    fecha: row[0],
-    tasa_a_30_cdt_bancos_comerciales: parseFloat(row[1]),
-    monto_a_30_cdt_bancos_comerciales: parseFloat(row[2].replace(/[$,]/g, '')),
-    tasa_entre_31_y_44_cdt_bancos_comerciales: parseFloat(row[3]),
-    monto_entre_31_y_44_cdt_bancos_comerciales: parseFloat(row[4].replace(/[$,]/g, '')),
-    tasa_a_45_cdt_bancos_comerciales: parseFloat(row[5]),
-    monto_a_45_cdt_bancos_comerciales: parseFloat(row[6].replace(/[$,]/g, '')),
-    tasa_entre_46_y_59_cdt_bancos_comerciales: parseFloat(row[7]),
-    monto_entre_46_y_59_cdt_bancos_comerciales: parseFloat(row[8].replace(/[$,]/g, '')),
-    tasa_a_60_cdt_bancos_comerciales: parseFloat(row[9]),
-    monto_a_60_cdt_bancos_comerciales: parseFloat(row[10].replace(/[$,]/g, '')),
-    tasa_entre_61_y_89_cdt_bancos_comerciales: parseFloat(row[11]),
-    monto_entre_61_y_89_cdt_bancos_comerciales: parseFloat(row[12].replace(/[$,]/g, '')),
-    tasa_a_90_cdt_bancos_comerciales: parseFloat(row[13]),
-    monto_a_90_cdt_bancos_comerciales: parseFloat(row[14].replace(/[$,]/g, '')),
-    tasa_entre_91_y_119_cdt_bancos_comerciales: parseFloat(row[15]),
-    monto_entre_91_y_119_cdt_bancos_comerciales: parseFloat(row[16].replace(/[$,]/g, '')),
-    tasa_a_120_cdt_bancos_comerciales: parseFloat(row[17]),
-    monto_a_120_cdt_bancos_comerciales: parseFloat(row[18].replace(/[$,]/g, '')),
-    tasa_entre_121_y_179_cdt_bancos_comerciales: parseFloat(row[19]),
-    monto_entre_121_y_179_cdt_bancos_comerciales: parseFloat(row[20].replace(/[$,]/g, '')),
-    tasa_a_180_cdt_bancos_comerciales: parseFloat(row[21]),
-    monto_a_180_cdt_bancos_comerciales: parseFloat(row[22].replace(/[$,]/g, '')),
-    tasa_entre_181_y_359_cdt_bancos_comerciales: parseFloat(row[23]),
-    monto_entre_181_y_359_cdt_bancos_comerciales: parseFloat(row[24].replace(/[$,]/g, '')),
-    tasa_a_360_cdt_bancos_comerciales: parseFloat(row[25]),
-    monto_a_360_cdt_bancos_comerciales: parseFloat(row[26].replace(/[$,]/g, '')),
-    tasa_superiores_a_360_cdt_bancos_comerciales: parseFloat(row[27]),
-    monto_superiores_a_360_cdt_bancos_comerciales: parseFloat(row[28].replace(/[$,]/g, '')),
-    tasa_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: parseFloat(row[29]),
-    monto_cap_cdt_red_de_oficinas_cdt_bancos_comerciales: parseFloat(row[30].replace(/[$,]/g, '')),
-    tasa_cap_cdt_por_tesoreria_cdt_bancos_comerciales: parseFloat(row[31]),
-    monto_cap_cdt_por_tesoreria_cdt_bancos_comerciales: parseFloat(row[32].replace(/[$,]/g, '')),
-    tasa_entre_2_y_14_cdats_cdat_bancos_comerciales: parseFloat(row[33]),
-    monto_entre_2_y_14_cdats_cdat_bancos_comerciales: parseFloat(row[34].replace(/[$,]/g, '')),
-    tasa_entre_15_y_29_cdats_cdat_bancos_comerciales: parseFloat(row[35]),
-    monto_entre_15_y_29_cdat_bancos_comerciales: parseFloat(row[36].replace(/[$,]/g, '')),
-   tasa_a_30_cdats_cdat_bancos_comerciales: parseFloat(row[37]),
-    monto_a_30_cdat_bancos_comerciales: parseFloat(row[38].replace(/[$,]/g, '')),
-    tasa_entre_31_y_90_cdats_cdat_bancos_comerciales: parseFloat(row[39]),
-    monto_entre_31_y_90_cdat_bancos_comerciales: parseFloat(row[40].replace(/[$,]/g, '')),
-    tasa_entre_91_y_180_cdats_cdat_bancos_comerciales: parseFloat(row[41]),
-    monto_entre_91_y_180_cdat_bancos_comerciales: parseFloat(row[42].replace(/[$,]/g, '')),
-    tasa_de_181_en_adelante_cdats_cdat_bancos_comerciales: parseFloat(row[43]),
-    monto_de_181_en_adelante_cdats_cdat_bancos_comerciales: parseFloat(row[44].replace(/[$,]/g, '')),
-    tasa_cap_cdat_oficinas_cdat_bancos_comerciales: parseFloat(row[45]),
-    monto_cap_cdat_oficinas_cdat_bancos_comerciales: parseFloat(row[46].replace(/[$,]/g, ''))
-});
-}
-
-  
+  // 7. Finalización: Imprimir cantidad de filas transformadas y retornar datos
+  console.log(
+    "Conversión terminada. Número total de filas transformadas:",
+    transformedData.length
+  );
   return transformedData;
 }

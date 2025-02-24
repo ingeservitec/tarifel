@@ -117,6 +117,6 @@ desviacion_generacion_variable_res_060_2019_kwh:{type: DataTypes.FLOAT,allowNull
 alivio_desviaciones_res_creg_060_2019_cop:{type: DataTypes.FLOAT,allowNull: true,trim: true},
 valor_pago_ajuste_res_140_2017_cop:{type: DataTypes.FLOAT,allowNull: true,trim: true},
 valor_cobro_ajuste_res_140_2017_cop:{type: DataTypes.FLOAT,allowNull: true,trim: true},
-
+compras_en_bolsa_ajustes_cop:{type: DataTypes.FLOAT,allowNull: true,trim: true},
 })
 module.exports = Data_xm_afacSchema;

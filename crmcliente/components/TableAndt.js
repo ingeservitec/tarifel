@@ -18,7 +18,6 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import Swal from "sweetalert2";
-import XLSX from "xlsx";
 import { useRouter } from "next/router";
 import JSZip from "jszip";
 import { utils } from "xlsx";

@@ -5674,6 +5674,19 @@ export const headersData_xm_afac = [
     description: "",
   },
   {
+    name: "COMPRAS EN BOLSA AJUSTES ($)",
+    field: "compras_en_bolsa_ajustes_cop",
+    sortable: true,
+    required: true,
+    location: "center",
+    showInForm: true,
+    showInTable: true,
+    clase: "input",
+    type: "number",
+    validations: "",
+    description: "",
+  },
+  {
     name: "VENTAS EN BOLSA (KWH)",
     field: "ventas_en_bolsa_kwh",
     sortable: true,
@@ -17439,22 +17452,50 @@ export const headersResComponentesCuTarifa = [
     type: "number",
   },
   {
-    name: "Anho",
+    name: "Año",
     field: "anho",
     sortable: true,
     showInForm: true,
     showInTable: true,
-    clase: "input",
     type: "number",
+    clase: "select",
+    description: "Año validado",
+    // Genera opciones desde 2020 hasta el año actual, ordenadas de mayor a menor
+    options: Array.from({ length: new Date().getFullYear() - 2020 + 1 }, (_, i) => ({
+      value: 2020 + i,
+      label: (2020 + i).toString()
+    })).reverse(),
+    validations: Yup.number()
+      .transform((value, originalValue) => Number(originalValue))
+      .max(new Date().getFullYear(), "El año no puede ser mayor al actual")
+      .min(2020, "El año no puede ser menor a 2020")
   },
   {
     name: "Mes",
     field: "mes",
     sortable: true,
+    required: true,
+    location: "center",
     showInForm: true,
     showInTable: true,
-    clase: "input",
+    clase: "select",
     type: "number",
+    options: [
+      { value: 1, label: "Enero" },
+      { value: 2, label: "Febrero" },
+      { value: 3, label: "Marzo" },
+      { value: 4, label: "Abril" },
+      { value: 5, label: "Mayo" },
+      { value: 6, label: "Junio" },
+      { value: 7, label: "Julio" },
+      { value: 8, label: "Agosto" },
+      { value: 9, label: "Septiembre" },
+      { value: 10, label: "Octubre" },
+      { value: 11, label: "Noviembre" },
+      { value: 12, label: "Diciembre" },
+    ],
+    description: "Mes de la información que se va a registrar",
+    search: true,
   },
   {
     name: "Mercado",
@@ -19085,7 +19126,17 @@ export const headersDataMmeValidacion = [
     showInTable: true,
     showInForm: true,
     type: 'number',
-    clase: "input",
+    clase: "select",
+    description: "Trimestre validado",
+    //que sea un select con opcion 1 al 4
+    options: [
+      { value: 1, label: "1" },
+      { value: 2, label: "2" },
+      { value: 3, label: "3" },
+      { value: 4, label: "4" },
+    ],
+    
+    
   },
   {
     name: 'Año',
@@ -19094,7 +19145,13 @@ export const headersDataMmeValidacion = [
     showInTable: true,
     showInForm: true,
     type: 'number',
-    clase: "input",
+    clase: "select",
+    description: "Año validado",
+    //que sea un select con opcion 2020 al año actual debe identificar qen queañoenstamos, ordenado de mayor a menor
+    options: Array.from({ length: new Date().getFullYear() - 2020 + 1 }, (_, i) => ({
+      value: 2020 + i,
+      label: (2020 + i).toString()
+    })).reverse(),
   },
   {
     name: 'Facturación',
@@ -19182,6 +19239,15 @@ export const headersDataMmeGiro = [
     type: "button",
   },
   {
+    name: 'Id',
+    field: 'id',
+    sortable: true,
+    showInTable: true,
+    showInForm: true,
+    type: 'number',
+    clase: "input", 
+  },
+  {
     name: 'Fecha',
     field: 'fecha',
     sortable: true,
@@ -19200,7 +19266,14 @@ export const headersDataMmeGiro = [
     clase: "input",
   },
   {
-    name: 'Resolución',
+    name: 'Giro COP',
+    field: 'giro_cop',
+    sortable: true,
+    showInTable: true,
+    showInForm: true,
+    type: 'text',
+    clase: "input",
+  },{    name: 'Resolución',
     field: 'resolucion',
     sortable: true,
     showInTable: true,
@@ -19217,18 +19290,19 @@ export const headersDataMmeGiro = [
     type: 'text',
     clase: "input",
   },
-  {
-    name: 'Giro COP',
-    field: 'giro_cop',
-    sortable: true,
-    showInTable: true,
-    showInForm: true,
-    type: 'text',
-    clase: "input",
-  }
+
 ];
 
 export const headersDataBanrepublicaTco = [
+  { name: "Id", field: "id", sortable: false },
+  {
+    name: "Eliminar",
+    field: "eliminar",
+    search: false,
+    sortable: true,
+    location: "center",
+    showInTable: true,
+  },
   { 
     name: "anho_semana",
     field: "anho_semana",
@@ -19248,7 +19322,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa de crédito de consumo"
@@ -19260,7 +19334,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto del crédito de consumo"
@@ -19272,7 +19346,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa de crédito ordinario"
@@ -19284,7 +19358,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto del crédito ordinario"
@@ -19320,7 +19394,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa de crédito para tesorería"
@@ -19332,7 +19406,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto del crédito para tesorería"
@@ -19344,7 +19418,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa de colocación del Banco República"
@@ -19356,7 +19430,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto de la colocación del Banco República"
@@ -19368,7 +19442,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa de colocación sin contar tesorería"
@@ -19380,7 +19454,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto de la colocación sin contar tesorería"
@@ -19392,7 +19466,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa total de colocación"
@@ -19404,7 +19478,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto total de la colocación"
@@ -19416,7 +19490,7 @@ export const headersDataBanrepublicaTco = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "text",
     description: "Identificador de la empresa asociada"
@@ -19426,6 +19500,15 @@ export const headersDataBanrepublicaTco = [
 
 
 export const headersDataBanrepublicaTcap = [
+  { name: "Id", field: "id", sortable: false },
+  {
+    name: "Eliminar",
+    field: "eliminar",
+    search: false,
+    sortable: true,
+    location: "center",
+    showInTable: true,
+  },
   {
     name: "fecha",
     field: "fecha",
@@ -19445,7 +19528,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 30 días CDT para bancos comerciales"
@@ -19457,7 +19540,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 30 días CDT para bancos comerciales"
@@ -19469,7 +19552,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa entre 31 y 44 días CDT para bancos comerciales"
@@ -19481,7 +19564,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto entre 31 y 44 días CDT para bancos comerciales"
@@ -19493,7 +19576,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 45 días CDT para bancos comerciales"
@@ -19505,7 +19588,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 45 días CDT para bancos comerciales"
@@ -19517,7 +19600,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa entre 46 y 59 días CDT para bancos comerciales"
@@ -19529,7 +19612,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto entre 46 y 59 días CDT para bancos comerciales"
@@ -19541,7 +19624,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 60 días CDT para bancos comerciales"
@@ -19553,7 +19636,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 60 días CDT para bancos comerciales"
@@ -19565,7 +19648,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa entre 61 y 89 días CDT para bancos comerciales"
@@ -19577,7 +19660,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto entre 61 y 89 días CDT para bancos comerciales"
@@ -19590,7 +19673,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 90 días CDT para bancos comerciales"
@@ -19602,7 +19685,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 90 días CDT para bancos comerciales"
@@ -19614,7 +19697,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa entre 91 y 119 días CDT para bancos comerciales"
@@ -19626,7 +19709,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto entre 91 y 119 días CDT para bancos comerciales"
@@ -19638,7 +19721,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 120 días CDT para bancos comerciales"
@@ -19650,7 +19733,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 120 días CDT para bancos comerciales"
@@ -19662,7 +19745,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 180 días CDT para bancos comerciales"
@@ -19674,7 +19757,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 180 días CDT para bancos comerciales"
@@ -19686,7 +19769,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Tasa a 360 días CDT para bancos comerciales"
@@ -19698,7 +19781,7 @@ export const headersDataBanrepublicaTcap = [
     required: true,
     location: "center",
     showInForm: true,
-    showInTable: true,
+    showInTable: false,
     clase: "input",
     type: "number",
     description: "Monto a 360 días CDT para bancos comerciales"

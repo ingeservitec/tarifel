@@ -375,7 +375,9 @@ const resolvers = {
     //Query
     obtenerData_xm_trsm: async (_, { options }, ctx) => {
       try {
-        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa ,
+          codigo: "MC",
+        };
         return realizarConsultaPaginada(
           Data_xm_trsm,
           options,
@@ -759,7 +761,6 @@ const resolvers = {
               },
               attributes: ["codigo", "valor"], // Asumiendo que 'concepto' contiene el valor de 'mc'
             });
-      
 
             // Añadir mc (concepto) al registro actual
             return {
@@ -1048,7 +1049,6 @@ const resolvers = {
           limit: limit,
           order: [["id", "ASC"]], // Añadir esta línea para ordenar por ID de forma ascendente
         });
-        console.log('resultado', resultado);
 
         const totalPages = Math.ceil(resultado.count / limit);
 
@@ -1072,7 +1072,6 @@ const resolvers = {
 
         const [startMonth, startYear] = selectedStartPeriod.split("-");
         const [endMonth, endYear] = selectedEndPeriod.split("-");
-console.log('startYear', ctx.usuario.empresa);
 
         const resultado = await Data_Formato_7_SSPDs.findAndCountAll({
           where: {
@@ -1122,8 +1121,12 @@ console.log('startYear', ctx.usuario.empresa);
           options.sortField = "fecha";
           options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
         }
-        
-        return await realizarConsultaPaginada(Data_mme_validacion, options, condicionesEmpresa);
+
+        return await realizarConsultaPaginada(
+          Data_mme_validacion,
+          options,
+          condicionesEmpresa
+        );
       } catch (error) {
         console.error(error);
         throw new Error("No se pudieron obtener los datos de validación MME.");
@@ -1133,15 +1136,18 @@ console.log('startYear', ctx.usuario.empresa);
       try {
         const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
         // Asumiendo que exista una función genérica para manejar paginación y filtrado
-                // Establecer valores predeterminados para sortField y sortOrder
-                if (!options.sortField) {
-                  options.sortField = "fecha";
-                  options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
-                }
+        // Establecer valores predeterminados para sortField y sortOrder
+        if (!options.sortField) {
+          options.sortField = "fecha";
+          options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
+        }
 
-                
-        const resultado = await realizarConsultaPaginada(Data_mme_giro, options, condicionesEmpresa);
-        
+        const resultado = await realizarConsultaPaginada(
+          Data_mme_giro,
+          options,
+          condicionesEmpresa
+        );
+
         return resultado;
       } catch (error) {
         console.error("Error al obtener datos de giros MME: ", error);
@@ -1151,26 +1157,43 @@ console.log('startYear', ctx.usuario.empresa);
     obtenerDataBanrepublicaTco: async (_, { options }, ctx) => {
       try {
         const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        if (!options.sortField) {
+          options.sortField = "anho_semana";
+          options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
+        }
+
         // La función `realizarConsultaPaginada` sería una utilidad que implementas para manejar la paginación y el filtrado
-        const resultado = await realizarConsultaPaginada(Data_banrepublica_tco, options, condicionesEmpresa);
+        const resultado = await realizarConsultaPaginada(
+          Data_banrepublica_tco,
+          options,
+          condicionesEmpresa
+        );
         return resultado;
       } catch (error) {
         console.log(error);
-        throw new Error('No se pudieron obtener los datos de banrepublica tco');
+        throw new Error("No se pudieron obtener los datos de banrepublica tco");
       }
     },
 
     obtenerDataBanrepublicaTcap: async (_, { options }, ctx) => {
       try {
         const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        if (!options.sortField) {
+          options.sortField = "fecha";
+          options.sortOrder = "DESCEND"; // Puede ser 'ASC' o 'DESC'
+        }
         // La función `realizarConsultaPaginada` sería una utilidad que implementas para manejar la paginación y el filtrado
-        const resultado = await realizarConsultaPaginada(Data_banrepublica_tcap, options, condicionesEmpresa);
+        const resultado = await realizarConsultaPaginada(
+          Data_banrepublica_tcap,
+          options,
+          condicionesEmpresa
+        );
         return resultado;
       } catch (error) {
         console.log(error);
-        throw new Error('No se pudieron obtener los datos de banrepublica tco');
+        throw new Error("No se pudieron obtener los datos de banrepublica tco");
       }
-    }
+    },
   },
 
   Mutation: {
@@ -1512,14 +1535,42 @@ console.log('startYear', ctx.usuario.empresa);
 
     //Mutation
 
-    nuevoData_mme_validacion: async (_, { input }) => {
-      try {
-        const data_mme_validacion = new Data_mme_validacion(input);
-        const resultado = await data_mme_validacion.save();
-        return resultado;
-      } catch (error) {
-        console.log(error);
+    nuevoData_mme_validacion: async (_, { input }, ctx) => {
+      const {
+        trimestre,
+        anho,
+        facturacion,
+        subsidios,
+        contribuciones,
+        contrib_no_recaud_desp_6m,
+        contrib_recaud_desp_de_conc,
+        giros_recibidos,
+        ultimo_giro_incluido,
+      } = input;
+
+      // Validar duplicidad: buscar si ya existe un registro para el mismo empresa_id, trimestre y anho
+      const registroExistente = await Data_mme_validacion.findOne({
+        where: { empresa_id: ctx.usuario.empresa, trimestre, anho },
+      });
+      if (registroExistente) {
+        throw new Error(
+          `Ya existe un registro para el trimestre ${trimestre} y el año ${anho}`
+        );
       }
+
+      for (const key of numericKeys) {
+        const value = Number(input[key]);
+        if (isNaN(value) || value <= 0) {
+          throw new Error(
+            `El campo ${key} debe ser un valor numérico positivo`
+          );
+        }
+        input[key] = value; // Convertir y actualizar el valor en input
+      }
+      // Crear y guardar el registro
+      const data_mme_validacion = new Data_mme_validacion(input);
+      const resultado = await data_mme_validacion.save();
+      return resultado;
     },
     //Mutation
 
@@ -1619,7 +1670,6 @@ console.log('startYear', ctx.usuario.empresa);
     //Mutation
 
     nuevoData_xm_guatape: async (_, { input }) => {
-      
       try {
         const data_xm_guatape = new Data_xm_guatape(input);
         const resultado = await data_xm_guatape.save();
@@ -1631,7 +1681,6 @@ console.log('startYear', ctx.usuario.empresa);
     //Mutation
 
     nuevoData_xm_cprog: async (_, { input }, ctx) => {
-      console.log(input);
       try {
         const miArray = [];
         const errores = [];
@@ -2446,7 +2495,6 @@ console.log('startYear', ctx.usuario.empresa);
       }
     },
     nuevoResComponentesCuTarifa: async (_, { input }, ctx) => {
-      console.log("Antes de crear nuevo registro2");
       try {
         const miArray = [];
         const errores = [];
@@ -2568,9 +2616,7 @@ console.log('startYear', ctx.usuario.empresa);
                 },
               });
 
-
-
-              if (data_xm_dspcttom.length===0) {
+              if (data_xm_dspcttom.length === 0) {
                 throw new Error(
                   "No existen insumos de DSPCTTOS para el periodo anterior al mes y año seleccionado " +
                     mesm +
@@ -2660,24 +2706,20 @@ console.log('startYear', ctx.usuario.empresa);
                       mes: mesm,
                     },
                   });
-            
 
                 // Crear un Set de IDs de contratos existentes para una búsqueda rápida
                 const idsContratosExistentes = new Set(
                   contratosExistentes.map((ce) => ce.id_contrato)
                 );
-              
 
                 // Filtrar los datos para excluir los contratos existentes
                 filteredData = filteredData.filter(
                   (obj) => !idsContratosExistentes.has(obj.contrato)
                 );
-                console.log("filteredData", filteredData);
 
                 Energia_contratos = calcularEnergiaContratos(filteredData);
                 Costo_contratos = calcularCostoContratos(filteredData);
 
-              
                 // Sumar los valores de energía y costo de los contratos existentes a los totales
                 contratosExistentes.forEach((contrato) => {
                   Energia_contratos += parseFloat(contrato.energia_comprada);
@@ -2700,12 +2742,13 @@ console.log('startYear', ctx.usuario.empresa);
 
                 Costo_contratos_sub = calcularCostoContratos(filteredDataSub);
 
-                var w = dcr / Energia_contratos;
+                var w = Energia_contratos === 0 ? 0 : dcr / Energia_contratos;
 
-                pc_ = roundToTwo(Costo_contratos / Energia_contratos);
+                var pc_ = Energia_contratos === 0 ? 0 : roundToTwo(Costo_contratos / Energia_contratos);
 
-
-             
+                         
+              
+                
                 if (Energia_contratos / dcr > 1) {
                   pc_ = pc_ * w;
                 }
@@ -2734,21 +2777,34 @@ console.log('startYear', ctx.usuario.empresa);
               }
 
               qagd = 0; // Caso ENerguaviare que aun no tiene AGPE info
+             
               qc_ = roundToTwo(
                 Math.min(
                   1 - qagd,
                   (Energia_contratos_sub + Energia_contratos) / dcr
                 )
               );
+              
 
               mc_ = data_xm_trsm.valor;
 
               alfa = 0.036578428408; //EGVC
-              max_g_ = roundToTwo(
+
+              //se actualzia el 23-02-2025 inclutendo el Pc subasta en el rpomerdio del ref y max
+       /*        max_g_ = roundToTwo(
                 (qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * mc_) * 1.3
               );
+ */
+
+              max_g_ = roundToTwo((
+                w1 * qc_ * (alfa * pc_ + (1 - alfa) * mc_) +
+                  w2 * qc_ * pcSub_ +
+                
+                  (1 - qc_ - qagd) * mc_ 
+                  
+              )*1.3);
               //cr_=(w1*qc_*(alfa*pc_+(1-alfa)*mc_))+(w2*qc_*pcSub_)+(cgsubasta_acu/dcr)+((1-qc_-qagd)*pb_)+gTransitorio //***Concpeto CREG
-            /*   cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG */
+              /*   cr_ = qc_ * (alfa * pc_ + (1 - alfa) * mc_) + (1 - qc_) * pb_; //***Concpeto CREG */
 
               const dataempresamessin = await Dataempresamessin.findOne({
                 where: {
@@ -2774,17 +2830,17 @@ console.log('startYear', ctx.usuario.empresa);
                 dataempresamessin.ventas_usuarios_r_nt3 +
                 dataempresamessin.ventas_usuarios_nr_kwh;
 
-              ad_ = 0; ////ACTUALIZAR
-              
+           /*    ad_ = 0; ////ACTUALIZAR */
 
-              // consumtar en Res_componentes_cu_tarifasSchemaanho y mes anterior sde esa empresa id 
-              const data_componentes_cu_tarifas = await Res_componentes_cu_tarifa.findOne({
-                where: {
-                  empresa_id: ctx.usuario.empresa,
-                  anho: anhom,
-                  mes: mesm,
-                },
-              });
+              // consumtar en Res_componentes_cu_tarifasSchemaanho y mes anterior sde esa empresa id
+              const data_componentes_cu_tarifas =
+                await Res_componentes_cu_tarifa.findOne({
+                  where: {
+                    empresa_id: ctx.usuario.empresa,
+                    anho: anhom,
+                    mes: mesm,
+                  },
+                });
 
               if (!data_componentes_cu_tarifas) {
                 throw new Error(
@@ -2797,102 +2853,106 @@ console.log('startYear', ctx.usuario.empresa);
 
               //traer ese ad de la tabla Res_componentes_cu_tarifasSchema
               const adm_ = data_componentes_cu_tarifas.dataValues.ad;
-              
+              console.log("adm_", adm_);
+              // Helper function to get the week numbers for a given year and month
+              const getWeeksInMonth = (year, month) => {
+                try {
+                  const weeks = [];
+                  const firstDay = new Date(year, month - 1, 1);
+                  const lastDay = new Date(year, month, 0);
 
-// Helper function to get the week numbers for a given year and month
-const getWeeksInMonth = (year, month) => {
-  try {
-    console.log('Year:', year, 'Month:', month);
-    const weeks = [];
-    const firstDay = new Date(year, month - 1, 1);
-    const lastDay = new Date(year, month, 0);
-    
-    console.log('First day:', firstDay);
-    console.log('Last day:', lastDay);
+                  // Get first and last week of the month
+                  const firstWeek = getWeekNumber(firstDay);
+                  const lastWeek = getWeekNumber(lastDay);
 
-    // Get first and last week of the month
-    const firstWeek = getWeekNumber(firstDay);
-    const lastWeek = getWeekNumber(lastDay);
-    
-    console.log('First week:', firstWeek);
-    console.log('Last week:', lastWeek);
+                  // Si el lastWeek es menor que firstWeek, significa que cruzamos al año siguiente
+                  if (lastWeek < firstWeek) {
+                    // Generar semanas hasta el final del año
+                    for (let week = firstWeek; week <= 53; week++) {
+                      weeks.push(`${year}${week.toString().padStart(2, "0")}`);
+                    }
+                    // Generar semanas del inicio del siguiente año si es necesario
+                    for (let week = 1; week <= lastWeek; week++) {
+                      weeks.push(
+                        `${year + 1}${week.toString().padStart(2, "0")}`
+                      );
+                    }
+                  } else {
+                    // Caso normal dentro del mismo año
+                    for (let week = firstWeek; week <= lastWeek; week++) {
+                      weeks.push(`${year}${week.toString().padStart(2, "0")}`);
+                    }
+                  }
 
-    // Si el lastWeek es menor que firstWeek, significa que cruzamos al año siguiente
-    if (lastWeek < firstWeek) {
-      // Generar semanas hasta el final del año
-      for (let week = firstWeek; week <= 53; week++) {
-        weeks.push(`${year}${week.toString().padStart(2, '0')}`);
-      }
-      // Generar semanas del inicio del siguiente año si es necesario
-      for (let week = 1; week <= lastWeek; week++) {
-        weeks.push(`${year + 1}${week.toString().padStart(2, '0')}`);
-      }
-    } else {
-      // Caso normal dentro del mismo año
-      for (let week = firstWeek; week <= lastWeek; week++) {
-        weeks.push(`${year}${week.toString().padStart(2, '0')}`);
-      }
-    }
-    
-    console.log('Generated weeks:', weeks);
-    return weeks;
-  } catch (error) {
-    console.error('Error in getWeeksInMonth:', error);
-    return [];
-  }
-};
+                  console.log("Generated weeks:", weeks);
+                  return weeks;
+                } catch (error) {
+                  console.error("Error in getWeeksInMonth:", error);
+                  return [];
+                }
+              };
 
-// Helper function to get ISO week number (mantener igual)
-const getWeekNumber = (date) => {
-  try {
-    const target = new Date(date.valueOf());
-    const dayNr = (date.getDay() + 6) % 7;
-    target.setDate(target.getDate() - dayNr + 3);
-    const firstThursday = target.valueOf();
-    target.setMonth(0, 1);
-    if (target.getDay() !== 4) {
-      target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
-    }
-    const weekNr = 1 + Math.ceil((firstThursday - target) / 604800000);
-    return weekNr;
-  } catch (error) {
-    console.error('Error in getWeekNumber:', error);
-    return 0;
-  }
-};
+              // Helper function to get ISO week number (mantener igual)
+              const getWeekNumber = (date) => {
+                try {
+                  const target = new Date(date.valueOf());
+                  const dayNr = (date.getDay() + 6) % 7;
+                  target.setDate(target.getDate() - dayNr + 3);
+                  const firstThursday = target.valueOf();
+                  target.setMonth(0, 1);
+                  if (target.getDay() !== 4) {
+                    target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7));
+                  }
+                  const weekNr =
+                    1 + Math.ceil((firstThursday - target) / 604800000);
+                  return weekNr;
+                } catch (error) {
+                  console.error("Error in getWeekNumber:", error);
+                  return 0;
+                }
+              };
 
-// Find TCO data for the specific month
-const data_banrepublica_tco = await Data_banrepublica_tco.findAll({
-  where: {
-    empresa_id: ctx.usuario.empresa,
-    anho_semana: {
-      [Op.in]: getWeeksInMonth(anhom, mesm)
-    }
-  },
-  order: [["anho_semana", "DESC"]],
-  limit: 1
-});
+              // Find TCO data for the specific month
+              const data_banrepublica_tco = await Data_banrepublica_tco.findAll(
+                {
+                  where: {
+                    empresa_id: ctx.usuario.empresa,
+                    anho_semana: {
+                      [Op.in]: getWeeksInMonth(anhom, mesm),
+                    },
+                  },
+                  order: [["anho_semana", "DESC"]],
+                  limit: 1,
+                }
+              );
 
-if (!data_banrepublica_tco || data_banrepublica_tco.length === 0) {
-  throw new Error(`No se encontraron datos TCO para el período ${mesm}-${anhom}`);
-}
+              if (
+                !data_banrepublica_tco ||
+                data_banrepublica_tco.length === 0
+              ) {
+                throw new Error(
+                  `No se encontraron datos TCO para el período ${mesm}-${anhom}`
+                );
+              }
 
-const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
+              var tasa_cred_com_odinario =
+                data_banrepublica_tco[0].tasa_cred_com_odinario;
 
+                if(anho === 2025 && mes === 2){
+                  tasa_cred_com_odinario = 13.09;
+                  //mensualizaresa tasa efectiva anual a efectiva mensual
+                  tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
+                  
+                }
+              ad_ =
+                adm_ +
+                // cr  de ese mes anterior menos gc del mes anterior
+                (data_componentes_cu_tarifas.dataValues.cr -
+                  data_componentes_cu_tarifas.dataValues.gc) *
+                  ventas_totales *
+                  tasa_cred_com_odinario;
 
-
-
-
-              
-              ad_ = adm_+ ( // cr  de ese mes anterior menos gc del mes anterior 
-                data_componentes_cu_tarifas.dataValues.cr -
-                data_componentes_cu_tarifas.dataValues.gc
-              ) * ventas_totales * tasa_cred_com_odinario
-
-
-             
-
-
+          
 
               gTransitorio = 0; //ACTUALIZAR
 
@@ -2984,7 +3044,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                     w2 * qc_ * pcSub_ +
                     1 +
                     (1 - qc_ - qagd) * pb_ +
-                    gTransitorio 
+                    gTransitorio
                 );
               } else {
                 gc_ = roundToTwo(
@@ -2992,27 +3052,24 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                     w2 * qc_ * pcSub_ +
                     cgsubasta_acu / dcr +
                     (1 - qc_ - qagd) * pb_ +
-                    gTransitorio 
+                    gTransitorio
                 );
               }
 
-
-
               if (anho === 2024 && mes === 2) {
-                gc_ = 279.05844;
+                gc_ = 279.05844; //Formulado da 292.89, no se sab de donde sa lio este valor
               }
 
-              cr_ = gc_
+              cr_ = gc_;
 
+              // multiplicado poor las ventas del mes anterior
 
-               // multiplicado poor las ventas del mes anterior
+              aj_ = roundToTwo(Math.min(max_g_ - cr_, ad_ / ventas_totales));
 
-               aj_ = roundToTwo(Math.min(max_g_-cr_,ad_/ventas_totales) )
-
-
-              gc_ = roundToTwo(gc_ + aj_)
+              gc_ = roundToTwo(gc_ + aj_);
 
               input[index].qc = qc_;
+              input[index].ad = roundToTwo(ad_);
               input[index].mc = mc_;
               input[index].w1 = roundToTwo(w1);
               input[index].w2 = roundToTwo(w2);
@@ -3029,7 +3086,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
               input[index].qagd = 0;
               input[index].pcsub = pcSub_;
 
-              input[index].ad = 0;
+            /*   input[index].ad = 0; */
               input[index].i = 0;
               input[index].aj = aj_;
 
@@ -3145,7 +3202,6 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
               cfm_ = roundToTwo(
                 (data_creg_cxm[0].Cf * ipcm * (1 - input[index].x)) / 79.55965
               );
-              // cfm_=(roundToTwo(6146.19*ipcm/79.55965))
 
               data_empresam = await Data_empresa.findOne({
                 where: {
@@ -3174,13 +3230,17 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                     data_empresam.ventas_usuarios_r_nt2 +
                     data_empresam.ventas_usuarios_r_nt3)
               );
-// Buscar todas las validaciones de la empresa del usuario en contexto
+            
+
+              // Buscar todas las validaciones de la empresa del usuario en contexto
               data_xm_mme_validacione = await Data_mme_validacion.findAll({
                 where: {
                   empresa_id: ctx.usuario.empresa,
                 },
               });
-// Determinar el año más reciente entre las validaciones encontradas
+
+              //1. Encontrar el último trimestre T validado
+              // Determinar el año más reciente entre las validaciones encontradas
               var len = data_xm_mme_validacione.length,
                 maxa = -Infinity;
               while (len > 0) {
@@ -3190,7 +3250,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                 }
               }
               anho_Ul_Trim_Val_Mme = maxa;
-// Determinar el trimestre más reciente del último año encontrado
+              // Determinar el trimestre más reciente del último año encontrado
               var len = data_xm_mme_validacione.length,
                 maxt = -Infinity;
               while (len > 0) {
@@ -3205,9 +3265,9 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
 
               ul_Trim_Val_Mme = maxt;
 
+       
 
-
-// Preparar la lista de últimos 4 trimestres validados
+              // Preparar la lista de últimos 4 trimestres validados
               var len = 4,
                 tri_validados = [],
                 index2 = 0,
@@ -3237,8 +3297,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                   }
                 }
 
-
-                  // Calcular las fechas de inicio y fin de los ultimos 4 trimestres
+                // Calcular las fechas de inicio y fin de los ultimos 4 trimestres
 
                 if (trimestre === 1) {
                   fecha_inicio_trimestre = new Date(anho_trimestre, 1 - 1, 1);
@@ -3257,9 +3316,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                   fecha_fin_trimestre = new Date(anho_trimestre, 12 - 1, 31);
                 }
 
-
-
-                 // Revisar si el trimestre y año corresponden a una entrada de validación
+                // Revisar si el trimestre y año corresponden a una entrada de validación
                 for (
                   let index1 = 0;
                   index1 < data_xm_mme_validacione.length;
@@ -3273,7 +3330,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                       index1, //Indice
                       trimestre, //Trimestre
                       anho_trimestre, //Año
-                      parseFloat(data_xm_mme_validacione[index1].subsidios) -  //Deficit de subsidios
+                      parseFloat(data_xm_mme_validacione[index1].subsidios) - //Deficit de subsidios
                         data_xm_mme_validacione[index1].contribuciones,
                       parseFloat(data_xm_mme_validacione[index1].facturacion), //Facturación
                       fecha_inicio_trimestre, //Fecha inicio trimestre
@@ -3285,29 +3342,32 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                   }
                 }
               }
+            
+              
 
-           
-// Calcular la facturación total promedio
+              // Calcular la facturación total promedio
               facturacion_t_ = (summ / 4).toString();
 
-
-// Buscar todas las transacciones de giro para la empresa del usuario en contexto
-              data_mme_giro_e = await Data_mme_giro.findAll({
+              // Buscar todas las transacciones de giro para la empresa del usuario en contexto
+              data_mme_giro_ordenado = await Data_mme_giro.findAll({
                 where: {
                   empresa_id: ctx.usuario.empresa,
                   fondo: "FSSRI",
                 },
+                order: [["fecha", "ASC"]],
               });
-            
-// Ordenar las transacciones de giro por fecha
+
+          /*     // Ordenar las transacciones de giro por fecha
               var data_mme_giro_ordenado = [...data_mme_giro_e];
 
               data_mme_giro_ordenado.sort((a, b) =>
                 a.fecha > b.fecha ? 1 : b.fecha > a.fecha ? -1 : 0
               );
+              // Ordenar las transacciones de giro por fecha */
+            
               const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
-// Preparar variables para calcular el saldo y el giro sobrante
+              // Preparar variables para calcular el saldo y el giro sobrante
               var len1 = 0,
                 len2,
                 len3,
@@ -3319,8 +3379,7 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                 ultimo_giro_incluidob,
                 fecha_ultimo_giro;
 
-//Review del Trimestre anterior a los últimos 4 validados, el cual para arranque se incluye manual en la tabla de validaciones
-            
+         //2. Me paro en el trimestre T-5  t miro como estaban el sobrante de giro y que giro se metio y se recalcula para los 4 T usando ese
               // Si el trimestre actual es el primero, verificar el último del año anterior
               if (tri_validados[0][1] === 1) {
                 giro_sobranteb = parseFloat(
@@ -3336,9 +3395,8 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                     data_xm_mme_validacione.anho === tri_validados[0][2] - 1 &&
                     data_xm_mme_validacione.trimestre === 4
                 )[0].ultimo_giro_incluido;
-              } 
+              }
               // Para otros trimestres, verificar el trimestre anterior del mismo año
-              
               else {
                 giro_sobranteb = parseFloat(
                   data_xm_mme_validacione.filter(
@@ -3355,285 +3413,229 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                       tri_validados[0][1] - 1
                 )[0].ultimo_giro_incluido;
               }
-              
-              
-// Si no hay datos de giro sobrante o último giro incluido, inicializar a cero
+
+              // Si no hay datos de giro sobrante o último giro incluido, inicializar a cero
               if (giro_sobranteb === null || ultimo_giro_incluidob === null) {
                 giro_sobranteb = 0;
                 ultimo_giro_incluidob = 0;
               }
+              console.log("giro_sobranteb", giro_sobranteb);
+              console.log("ultimo_giro_incluidob", ultimo_giro_incluidob);
 
+              // Procesar giros sobrantes y calcular saldo
 
-
-// Procesar giros sobrantes y calcular saldo
-
-//Para cada Trimestre validado
               for (let index = 0; index < 4; index++) {
+                console.log(`Iniciando iteración de outer loop - index: ${index}`);
+                console.log(`Saldo inicial: ${tri_validados[index][3]}`);
+                console.log(tri_validados[index][1])
+                console.log(tri_validados[index][2])
                 saldo = tri_validados[index][3];
-
+              
                 len2 = ultimo_giro_incluidob;
-//EValuo primero pagos anticipados para si con eso se cubrio el saldo 
-                while (len2 < data_mme_giro_ordenado.length - 1 && saldo != 0) {
+                console.log(`Valor inicial de len2: ${len2}`);
+                
+                // Evaluación de pagos anticipados
+                while (len2 < data_mme_giro_ordenado.length && saldo != 0) {
                   var fecha_giro = new Date(
                     parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0, 4)),
-                    parseFloat(
-                      data_mme_giro_ordenado[len2].fecha.substr(5, 2)
-                    ) - 1,
+                    parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5, 2)) - 1,
                     parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8, 2))
                   );
                   var fecha_inicial_giros = new Date(2019, 1, 1);
-// Verificar fondos y fechas para aplicar giros
+                  console.log(`Index: ${index}, len2: ${len2}`);
+                  console.log(`Fecha giro: ${fecha_giro.toISOString()}, Fondo: ${data_mme_giro_ordenado[len2].fondo}`);
+                  console.log(`Fecha límite de trimestre: ${new Date(tri_validados[index][6]).toISOString()}`);
+                  
                   if (
                     data_mme_giro_ordenado[len2].fondo === "FSSRI" &&
                     Date.parse(fecha_giro) >= Date.parse(fecha_inicial_giros) &&
-                    Date.parse(fecha_giro) <=
-                      Date.parse(tri_validados[index][6])
+                    Date.parse(fecha_giro) <= Date.parse(tri_validados[index][6])
                   ) {
-                     // Ajustar saldo con giro sobrante si existe
+                    console.log("Condición de fondo y fecha aprobada en pagos anticipados.");
+                    
                     if (giro_sobranteb > 0) {
-                      var fecha_giro = new Date(
-                        parseFloat(
-                          data_mme_giro_ordenado[len2].fecha.substr(0, 4)
-                        ),
-                        parseFloat(
-                          data_mme_giro_ordenado[len2].fecha.substr(5, 2)
-                        ) - 1,
-                        parseFloat(
-                          data_mme_giro_ordenado[len2].fecha.substr(8, 2)
-                        )
+                      console.log(`Giro sobrante antes de aplicar: ${giro_sobranteb}`);
+                      var fecha_giro_temp = new Date(
+                        parseFloat(data_mme_giro_ordenado[len2].fecha.substr(0, 4)),
+                        parseFloat(data_mme_giro_ordenado[len2].fecha.substr(5, 2)) - 1,
+                        parseFloat(data_mme_giro_ordenado[len2].fecha.substr(8, 2))
                       );
-
+                      console.log(`Fecha giro temp: ${fecha_giro_temp.toISOString()}`);
+                      
+                      let saldo_antes = saldo;
                       saldo = saldo - giro_sobranteb;
-                     
-                  
-                      // Guardar el giro y los días en una matriz, ajustando el giro para llegar a cero si necesario
+                      console.log(`Saldo actualizado: ${saldo_antes} - ${giro_sobranteb} = ${saldo}`);
+                      
+                      // Guardar el giro y los días en la matriz
                       if (saldo > 0) {
+                        const dias = Math.round(Math.abs((Date.parse(tri_validados[index][6]) - fecha_giro) / oneDay));
                         array_sub2M.push([
                           index + 1,
                           giro_sobranteb,
-                          Math.round(
-                            Math.abs(
-                              (Date.parse(tri_validados[index][6]) -
-                                fecha_giro) /
-                                oneDay
-                            )
-                          ),
-                          giro_sobranteb *
-                            Math.round(
-                              Math.abs(
-                                (tri_validados[index][6] - fecha_giro) / oneDay
-                              )
-                            ),
+                          dias,
+                          giro_sobranteb * dias
                         ]);
+                        console.log(`Se añade a array_sub2M: [${index + 1}, ${giro_sobranteb}, ${dias}, ${giro_sobranteb * dias}]`);
                         ultimo_giro_incluidob = len2;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         giro_sobranteb = 0;
+                        console.log("Giro sobrante reseteado a 0.");
                       } else {
+                        const dias = Math.round(Math.abs((Date.parse(tri_validados[index][6]) - fecha_giro) / oneDay));
                         array_sub2M.push([
                           index + 1,
                           giro_sobranteb + saldo,
-                          Math.round(
-                            Math.abs(
-                              (Date.parse(tri_validados[index][6]) -
-                                fecha_giro) /
-                                oneDay
-                            )
-                          ),
-                          (giro_sobranteb + saldo) *
-                            Math.round(
-                              Math.abs(
-                                (tri_validados[index][6] - fecha_giro) / oneDay
-                              )
-                            ),
+                          dias,
+                          (giro_sobranteb + saldo) * dias
                         ]);
+                        console.log(`Se añade a array_sub2M (ajuste final): [${index + 1}, ${giro_sobranteb + saldo}, ${dias}, ${(giro_sobranteb + saldo) * dias}]`);
                         giro_sobranteb = -saldo;
+                        console.log(`Actualización de giro_sobranteb a: ${giro_sobranteb}`);
                         ultimo_giro_incluidob = len2;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         saldo = 0;
+                        console.log("Saldo reseteado a 0.");
                       }
                     } else {
-                      saldo =
-                        saldo -
-                        parseFloat(data_mme_giro_ordenado[len2].giro_cop);
-                   // Guardar el giro y los días en una matriz, ajustando el giro para llegar a cero si necesario
-
+                      console.log("No hay giro sobrante. Aplicando giro directo.");
+                      let valor_giro = parseFloat(data_mme_giro_ordenado[len2].giro_cop);
+                      let saldo_antes = saldo;
+                      saldo = saldo - valor_giro;
+                      console.log(`Saldo actualizado: ${saldo_antes} - ${valor_giro} = ${saldo}`);
+                      
+                      const dias = Math.round(Math.abs((Date.parse(tri_validados[index][6]) - fecha_giro) / oneDay));
                       if (saldo > 0) {
                         array_sub2M.push([
                           index + 1,
-                          parseFloat(data_mme_giro_ordenado[len2].giro_cop),
-                          Math.round(
-                            Math.abs(
-                              (tri_validados[index][6] - fecha_giro) / oneDay
-                            )
-                          ),
-                          parseFloat(data_mme_giro_ordenado[len2].giro_cop) *
-                            Math.round(
-                              Math.abs(
-                                (tri_validados[index][6] - fecha_giro) / oneDay
-                              )
-                            ),
+                          valor_giro,
+                          dias,
+                          valor_giro * dias
                         ]);
-
+                        console.log(`Se añade a array_sub2M: [${index + 1}, ${valor_giro}, ${dias}, ${valor_giro * dias}]`);
                         ultimo_giro_incluidob = len2;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         giro_sobranteb = 0;
+                        console.log("Giro sobrante reseteado a 0.");
                         fecha_ultimo_giro = data_mme_giro_ordenado[len2].fecha;
+                        console.log(`Fecha último giro actualizada: ${fecha_ultimo_giro}`);
                       } else {
                         array_sub2M.push([
                           index + 1,
-                          parseFloat(data_mme_giro_ordenado[len2].giro_cop) +
-                            saldo,
-                          Math.round(
-                            Math.abs(
-                              (tri_validados[index][6] - fecha_giro) / oneDay
-                            )
-                          ),
-                          (parseFloat(data_mme_giro_ordenado[len2].giro_cop) +
-                            saldo) *
-                            Math.round(
-                              Math.abs(
-                                (tri_validados[index][6] - fecha_giro) / oneDay
-                              )
-                            ),
+                          valor_giro + saldo,
+                          dias,
+                          (valor_giro + saldo) * dias
                         ]);
+                        console.log(`Se añade a array_sub2M (ajuste final): [${index + 1}, ${valor_giro + saldo}, ${dias}, ${(valor_giro + saldo) * dias}]`);
                         giro_sobranteb = -saldo;
+                        console.log(`Actualización de giro_sobranteb a: ${giro_sobranteb}`);
                         ultimo_giro_incluidob = len2;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         saldo = 0;
+                        console.log("Saldo reseteado a 0.");
                         fecha_ultimo_giro = data_mme_giro_ordenado[len2].fecha;
+                        console.log(`Fecha último giro actualizada: ${fecha_ultimo_giro}`);
                       }
                     }
                   }
                   len2++;
                 }
-            
+                
+                console.log(`Fin del loop de pagos anticipados para index ${index}, ultimo_giro_incluidob: ${ultimo_giro_incluidob}, saldo: ${saldo}`);
                 len3 = ultimo_giro_incluidob;
-// SI aun quedan saldos miro los pagos posteirores al trimestre               
-
-                while (len3 < data_mme_giro_ordenado.length - 1 && saldo > 0) {
-                  //Evaluo si, hablando de que 2T, sea el primer trimestre del año el giro sea posterior al fin del trimestre
+                
+                // Evaluación de pagos posteriores al trimestre
+                while (len3 < data_mme_giro_ordenado.length && saldo > 0) {
                   var fecha_giro = new Date(
                     parseFloat(data_mme_giro_ordenado[len3].fecha.substr(0, 4)),
-                    parseFloat(
-                      data_mme_giro_ordenado[len3].fecha.substr(5, 2)
-                    ) - 1,
+                    parseFloat(data_mme_giro_ordenado[len3].fecha.substr(5, 2)) - 1,
                     parseFloat(data_mme_giro_ordenado[len3].fecha.substr(8, 2))
                   );
-
+                  console.log(`En loop de pagos posteriores - index: ${index}, len3: ${len3}`);
+                  console.log(`Fecha giro: ${fecha_giro.toISOString()}, Fondo: ${data_mme_giro_ordenado[len3].fondo}`);
+                  
                   if (
                     data_mme_giro_ordenado[len3].fondo === "FSSRI" &&
                     Date.parse(fecha_giro) > Date.parse(tri_validados[index][6])
                   ) {
-                    //Se descuenta del saldo ese giro
-
+                    console.log("Condición posterior al trimestre aprobada.");
                     if (giro_sobranteb > 0) {
+                      console.log(`Giro sobrante antes de aplicar (posterior): ${giro_sobranteb}`);
+                      let saldo_antes = saldo;
                       saldo = saldo - giro_sobranteb;
-                      var fecha_giro = new Date(
-                        parseFloat(
-                          data_mme_giro_ordenado[len3].fecha.substr(0, 4)
-                        ),
-                        parseFloat(
-                          data_mme_giro_ordenado[len3].fecha.substr(5, 2)
-                        ) - 1,
-                        parseFloat(
-                          data_mme_giro_ordenado[len3].fecha.substr(8, 2)
-                        )
-                      );
-                      //se evalua si aunqueda saldo y se garda sub1 y N
+                      console.log(`Saldo actualizado: ${saldo_antes} - ${giro_sobranteb} = ${saldo}`);
+                      const dias = Math.round(Math.abs((fecha_giro - Date.parse(tri_validados[index][6])) / oneDay));
                       if (saldo > 0) {
                         array_sub1N.push([
                           index + 1,
                           giro_sobranteb,
-                          Math.round(
-                            Math.abs(
-                              (fecha_giro -
-                                Date.parse(tri_validados[index][6])) /
-                                oneDay
-                            )
-                          ),
-                          giro_sobranteb *
-                            Math.round(
-                              Math.abs(
-                                (fecha_giro - tri_validados[index][6]) / oneDay
-                              )
-                            ),
+                          dias,
+                          giro_sobranteb * dias
                         ]);
-
+                        console.log(`Se añade a array_sub1N: [${index + 1}, ${giro_sobranteb}, ${dias}, ${giro_sobranteb * dias}]`);
                         ultimo_giro_incluidob = len3;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         giro_sobranteb = 0;
+                        console.log("Giro sobrante reseteado a 0.");
                       } else {
                         array_sub1N.push([
                           index + 1,
                           giro_sobranteb + saldo,
-                          Math.round(
-                            Math.abs(
-                              (fecha_giro -
-                                Date.parse(tri_validados[index][6])) /
-                                oneDay
-                            )
-                          ),
-                          (giro_sobranteb + saldo) *
-                            Math.round(
-                              Math.abs(
-                                (fecha_giro - tri_validados[index][6]) / oneDay
-                              )
-                            ),
+                          dias,
+                          (giro_sobranteb + saldo) * dias
                         ]);
+                        console.log(`Se añade a array_sub1N (ajuste final): [${index + 1}, ${giro_sobranteb + saldo}, ${dias}, ${(giro_sobranteb + saldo) * dias}]`);
                         giro_sobranteb = -saldo;
+                        console.log(`Actualización de giro_sobranteb a: ${giro_sobranteb}`);
                         ultimo_giro_incluidob = len3;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         saldo = 0;
+                        console.log("Saldo reseteado a 0.");
                       }
                     } else {
-                      saldo =
-                        saldo -
-                        parseFloat(data_mme_giro_ordenado[len3].giro_cop);
-                      //se evalua si aunqueda saldo y se garda sub1 y N
+                      let valor_giro = parseFloat(data_mme_giro_ordenado[len3].giro_cop);
+                      let saldo_antes = saldo;
+                      saldo = saldo - valor_giro;
+                      console.log(`Saldo actualizado: ${saldo_antes} - ${valor_giro} = ${saldo}`);
+                      const dias = Math.round(Math.abs((fecha_giro - Date.parse(tri_validados[index][6])) / oneDay));
                       if (saldo > 0) {
                         array_sub1N.push([
                           index + 1,
-                          parseFloat(data_mme_giro_ordenado[len3].giro_cop),
-                          Math.round(
-                            Math.abs(
-                              (fecha_giro -
-                                Date.parse(tri_validados[index][6])) /
-                                oneDay
-                            )
-                          ),
-                          parseFloat(data_mme_giro_ordenado[len3].giro_cop) *
-                            Math.round(
-                              Math.abs(
-                                (fecha_giro - tri_validados[index][6]) / oneDay
-                              )
-                            ),
+                          valor_giro,
+                          dias,
+                          valor_giro * dias
                         ]);
+                        console.log(`Se añade a array_sub1N: [${index + 1}, ${valor_giro}, ${dias}, ${valor_giro * dias}]`);
                         ultimo_giro_incluidob = len3;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         fecha_ultimo_giro = data_mme_giro_ordenado[len3].fecha;
+                        console.log(`Fecha último giro actualizada: ${fecha_ultimo_giro}`);
                       } else {
                         array_sub1N.push([
                           index + 1,
-                          parseFloat(data_mme_giro_ordenado[len3].giro_cop) +
-                            saldo,
-                          Math.round(
-                            Math.abs(
-                              (fecha_giro -
-                                Date.parse(tri_validados[index][6])) /
-                                oneDay
-                            )
-                          ),
-                          (parseFloat(data_mme_giro_ordenado[len3].giro_cop) +
-                            saldo) *
-                            Math.round(
-                              Math.abs(
-                                (fecha_giro - tri_validados[index][6]) / oneDay
-                              )
-                            ),
+                          valor_giro + saldo,
+                          dias,
+                          (valor_giro + saldo) * dias
                         ]);
+                        console.log(`Se añade a array_sub1N (ajuste final): [${index + 1}, ${valor_giro + saldo}, ${dias}, ${(valor_giro + saldo) * dias}]`);
                         giro_sobranteb = -saldo;
+                        console.log(`Actualización de giro_sobranteb a: ${giro_sobranteb}`);
                         ultimo_giro_incluidob = len3;
+                        console.log(`Actualización de ultimo_giro_incluidob a: ${ultimo_giro_incluidob}`);
                         saldo = 0;
+                        console.log("Saldo reseteado a 0.");
                         fecha_ultimo_giro = data_mme_giro_ordenado[len3].fecha;
+                        console.log(`Fecha último giro actualizada: ${fecha_ultimo_giro}`);
                       }
                     }
                   }
                   len3++;
                 }
-               
+                
+                // Registro y actualización de validación
+                console.log(`Al finalizar index ${index}, ultimo_giro_incluidob: ${ultimo_giro_incluidob}, saldo final: ${saldo}`);
+                console.log(`Array sub2M: ${JSON.stringify(array_sub2M)}`);
+                console.log(`Array sub1N: ${JSON.stringify(array_sub1N)}`);
+                
                 const registro = await Data_mme_validacion.findOne({
                   where: {
                     anho: tri_validados[index][2],
@@ -3641,21 +3643,23 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
                     empresa_id: ctx.usuario.empresa,
                   },
                 });
-
+              
                 if (registro) {
                   const resultado = await registro.update({
                     giro_sobrante: giro_sobranteb.toString(),
                     ultimo_giro_incluido: ultimo_giro_incluidob,
                   });
+                  console.log(`Registro actualizado para anho: ${tri_validados[index][2]}, trimestre: ${tri_validados[index][1]}`);
                 } else {
                   throw new Error("Registro no encontrado.");
                 }
+                console.log(`Tri_validados: ${tri_validados[index][1]} - ${tri_validados[index][2]}`);
+                console.log(`Fecha último giro: ${fecha_ultimo_giro}`);
               }
-            
-       
+             
               giro_sobrante = giro_sobranteb;
               ultimo_giro_incluido = ultimo_giro_incluidob;
-           
+
               var len1 = 0,
                 len2 = 0,
                 len3 = 0,
@@ -3720,25 +3724,25 @@ const tasa_cred_com_odinario = data_banrepublica_tco[0].tasa_cred_com_odinario;
               sub1_ = (sub1mt[0] + sub1mt[1] + sub1mt[2] + sub1mt[3]) / 4;
               sub2_ = (sub2mt[0] + sub2mt[1] + sub2mt[2] + sub2mt[3]) / 4;
 
-// Inicializa variables para contar y sumar los valores efectivos para el promedio
-let sumaEfectiva = 0;
-let cuentaEfectiva = 0;
+              // Inicializa variables para contar y sumar los valores efectivos para el promedio
+              let sumaEfectiva = 0;
+              let cuentaEfectiva = 0;
 
-// Iterar sobre cada elemento de sub1mt y sub1npt
-for (let i = 0; i < sub1mt.length; i++) {
-  if (sub1mt[i] > 0) { // Solo considerar si sub1mt[i] es mayor que cero
-    sumaEfectiva += sub1npt[i] / sub1mt[i]; // Suma de los promedios efectivos
-    cuentaEfectiva++; // Contar solo los trimestres válidos
-  }
-}
+              // Iterar sobre cada elemento de sub1mt y sub1npt
+              for (let i = 0; i < sub1mt.length; i++) {
+                if (sub1mt[i] > 0) {
+                  // Solo considerar si sub1mt[i] es mayor que cero
+                  sumaEfectiva += sub1npt[i] / sub1mt[i]; // Suma de los promedios efectivos
+                  cuentaEfectiva++; // Contar solo los trimestres válidos
+                }
+              }
 
-// Calcular n_Sub1_ usando los valores efectivos
-if (cuentaEfectiva === 0) {
-  n_Sub1_ = 0; // Si no hay trimestres válidos, el resultado es cero
-} else {
-  n_Sub1_ = roundToTwo(sumaEfectiva / cuentaEfectiva / 30); // Calcular el promedio solo con los trimestres válidos
-}
-           
+              // Calcular n_Sub1_ usando los valores efectivos
+              if (cuentaEfectiva === 0) {
+                n_Sub1_ = 0; // Si no hay trimestres válidos, el resultado es cero
+              } else {
+                n_Sub1_ = roundToTwo(sumaEfectiva / cuentaEfectiva / 30); // Calcular el promedio solo con los trimestres válidos
+              }
 
               if (sub2mt[0] + sub2mt[1] + sub2mt[2] + sub2mt[3] === 0) {
                 m_Sub2_ = 0;
@@ -3757,6 +3761,7 @@ if (cuentaEfectiva === 0) {
 
                 return date;
               }
+              
 
               var firstDate = subtractWeeks(26);
 
@@ -3801,8 +3806,8 @@ if (cuentaEfectiva === 0) {
               );
 
               //r1 y r2:
-              //1. Fecha del primer dia del segundo mes del ultimo trimestre
-              //2. Fecha del primer dia del ultimo giro que le pego al ultimo trmestre
+              //1. Fecha del primer dia del segundo mes del ultimo trimestre validado firstDate
+              //2. Fecha del primer dia del ultimo giro que le pego al ultimo trmestre secondDate
               //3. Recorrer matriz, consolidar tasa por monto y monto, que sea superior e inferior a las fechas
               //4. Dividir los consolidados
 
@@ -3829,32 +3834,35 @@ if (cuentaEfectiva === 0) {
                 date_tcap,
                 r2_;
 
-              while (len1 < data_banrepublica_tcap_e.length - 1) {
-                len1++;
-                date_tcap = new Date(
-                  parseFloat(
-                    data_banrepublica_tcap_e[len1].fecha.split("-")[0]
-                  ),
-                  parseFloat(
-                    data_banrepublica_tcap_e[len1].fecha.split("-")[1]
-                  ) - 1,
-                  parseFloat(data_banrepublica_tcap_e[len1].fecha.split("-")[2])
-                ).getTime();
-                if (date_tcap >= firstDate && date_tcap < secondDate) {
-                  sum_tasa_x_monto_cap =
-                    data_banrepublica_tcap_e[len1]
-                      .tasa_a_30_cdats_cdat_bancos_comerciales *
-                      data_banrepublica_tcap_e[len1]
-                        .monto_a_30_cdat_bancos_comerciales +
-                    sum_tasa_x_monto_cap;
-                  sum_monto_cap =
-                    data_banrepublica_tcap_e[len1]
-                      .monto_a_30_cdat_bancos_comerciales + sum_monto_cap;
-                }
-              }
+      // Antes del ciclo, identificar cuál fecha es la más temprana
+      const fechaInicio = Math.min(firstDate, secondDate);
+      const fechaFinal = Math.max(firstDate, secondDate);
+      console.log(firstDate, secondDate)
+      //console.log a fechas pero convertidas
+      console.log(new Date(firstDate), new Date(secondDate))
+      
+
+      while (len1 < data_banrepublica_tcap_e.length - 1) {
+        len1++;
+        date_tcap = new Date(
+          parseFloat(data_banrepublica_tcap_e[len1].fecha.split("-")[0]),
+          parseFloat(data_banrepublica_tcap_e[len1].fecha.split("-")[1]) - 1,
+          parseFloat(data_banrepublica_tcap_e[len1].fecha.split("-")[2])
+        ).getTime();
+        if (date_tcap >= fechaInicio && date_tcap < fechaFinal) {
+          sum_tasa_x_monto_cap =
+            data_banrepublica_tcap_e[len1].tasa_a_30_cdats_cdat_bancos_comerciales *
+            data_banrepublica_tcap_e[len1].monto_a_30_cdat_bancos_comerciales +
+            sum_tasa_x_monto_cap;
+          sum_monto_cap =
+            data_banrepublica_tcap_e[len1].monto_a_30_cdat_bancos_comerciales + sum_monto_cap;
+        }
+      }
               r2_ = roundToTwo(
-                (1 + sum_tasa_x_monto_cap / sum_monto_cap) ** (1 / 12) - 1
+                (1 + sum_tasa_x_monto_cap / sum_monto_cap/100) ** (1 / 12) - 1
               );
+       
+
 
               var len1 = 0,
                 date_tco,
@@ -3870,7 +3878,6 @@ if (cuentaEfectiva === 0) {
                   },
                 });
 
-       
               const getSundayFromWeekNum = (weekNum, year) => {
                 const sunday = new Date(year, 0, 1 + (weekNum - 1) * 7 - 7);
                 while (sunday.getDay() !== 0) {
@@ -3882,36 +3889,27 @@ if (cuentaEfectiva === 0) {
               while (len1 < data_banrepublica_tco_e.length - 1) {
                 len1++;
                 date_tco = getSundayFromWeekNum(
-                  parseFloat(
-                    data_banrepublica_tco_e[len1].anho_semana.substr(4, 2)
-                  ) + 1,
-                  parseFloat(
-                    data_banrepublica_tco_e[len1].anho_semana.substr(0, 4)
-                  )
+                  parseFloat(data_banrepublica_tco_e[len1].anho_semana.substr(4, 2)) + 1,
+                  parseFloat(data_banrepublica_tco_e[len1].anho_semana.substr(0, 4))
                 );
-
               
-                if (date_tco >= firstDate && date_tco < secondDate) {
+                if (date_tco >= fechaInicio && date_tco < fechaFinal) {
                   sum_tasa_x_monto_co =
-                    data_banrepublica_tco_e[len1]
-                      .tasa__cred_com_preferencial_o_corporativo *
-                      data_banrepublica_tco_e[len1]
-                        .monto__cred_com_preferencial_o_corporativo +
+                    data_banrepublica_tco_e[len1].tasa__cred_com_preferencial_o_corporativo *
+                    data_banrepublica_tco_e[len1].monto__cred_com_preferencial_o_corporativo +
                     sum_tasa_x_monto_co;
                   sum_monto_co =
-                    data_banrepublica_tco_e[len1]
-                      .monto__cred_com_preferencial_o_corporativo +
+                    data_banrepublica_tco_e[len1].monto__cred_com_preferencial_o_corporativo +
                     sum_monto_co;
                   conteo++;
                 }
               }
-              
+
               r1_ = roundToTwo(
                 (1 + sum_tasa_x_monto_co / sum_monto_co / 100) ** (1 / 12) - 1
               );
 
-   
-
+ 
               //Últimos cuatro trimestres validados
               //1. Ir a la tabla y coger los ultimos cuatro
               //2. Promedio = Facturacióni,j,T:
@@ -3937,9 +3935,9 @@ if (cuentaEfectiva === 0) {
                 cfs_ =
                   ((sub1_ * ((1 + r1_) ** (n_Sub1_ + 0.63) - 1) -
                     sub2_ * ((1 + r2_) ** m_Sub2_ - 1)) /
-                    facturacion_t_) *
-                  100;
-                cfe_ = cfs_ + 0.042;
+                    facturacion_t_) 
+                  ;
+                cfe_ = cfs_ + 0.00042;
               }
 
               data_empresam2 = await Data_empresa.findOne({
@@ -3990,8 +3988,7 @@ if (cuentaEfectiva === 0) {
                     data_Res_componentes_cu_tarifam.dtun_nt1_e +
                     data_Res_componentes_cu_tarifam.pr_nt1 +
                     data_Res_componentes_cu_tarifam.r) *
-                    (cfe_ + 2.73 + rc_)) /
-                    100
+                    (cfe_ + 2.73/100 + rc_ )) 
                 );
               } else {
                 c_ast_ = roundToTwo(
@@ -4000,8 +3997,7 @@ if (cuentaEfectiva === 0) {
                     data_Res_componentes_cu_tarifam.dnt1 +
                     data_Res_componentes_cu_tarifam.pr_nt1 +
                     data_Res_componentes_cu_tarifam.r) *
-                    (cfe_ + 2.73 + rc_)) /
-                    100
+                    (cfe_ + 2.73/100 + rc_))
                 );
               }
 
@@ -4169,15 +4165,14 @@ if (cuentaEfectiva === 0) {
               }
 
               var pr_nt1_, pr_nt2_, pr_nt3_, pr_nt4_;
-              console.log(gc_,data_xm_iprm1, iprstn_, tx_, data_xm_cprogm.cargo_cprog_cop_kwh);
-              console.log(gc_);
+
               pr_nt1_ = roundToTwo(
                 (gc_ * (data_xm_iprm1 + iprstn_)) /
                   (1 - (data_xm_iprm1 + iprstn_)) +
                   (tx_ * data_xm_iprm1) / (1 - data_xm_iprm1) +
                   data_xm_cprogm.cargo_cprog_cop_kwh
               );
-              console.log(pr_nt1_);
+
               pr_nt2_ = roundToTwo(
                 (gc_ * (data_xm_iprm2 + iprstn_)) /
                   (1 - (data_xm_iprm2 + iprstn_)) +
@@ -4242,150 +4237,123 @@ if (cuentaEfectiva === 0) {
               input[index].cu_nt3 = cu_nt3_;
               input[index].cu_nt4 = cu_nt4_;
 
-              const tarifamc1_100 =
-                data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt1_100_ / data_Res_componentes_cu_tarifam.cu_nt1_100
-                );
-              const tarifamc2_100 =
-                data_Res_componentes_cu_tarifam.nt1_100_estrato_2_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt1_100_ / data_Res_componentes_cu_tarifam.cu_nt1_100
-                );
-              const tarifamc1_50 =
-                data_Res_componentes_cu_tarifam.nt1_50_estrato_1_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt1_50_ / data_Res_componentes_cu_tarifam.cu_nt1_50
-                );
-              const tarifamc2_50 =
-                data_Res_componentes_cu_tarifam.nt1_50_estrato_2_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt1_50_ / data_Res_componentes_cu_tarifam.cu_nt1_50
-                );
-              const tarifamc1_0 =
-                data_Res_componentes_cu_tarifam.nt1_0_estrato_1_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt1_0_ / data_Res_componentes_cu_tarifam.cu_nt1_0
-                );
-              const tarifamc2_0 =
-                data_Res_componentes_cu_tarifam.nt1_0_estrato_2_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt1_0_ / data_Res_componentes_cu_tarifam.cu_nt1_0
-                );
-              const tarifamc1_NT2 =
-                data_Res_componentes_cu_tarifam.nt2_estrato_1_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt2_ / data_Res_componentes_cu_tarifam.cu_nt2
-                );
-              const tarifamc1_NT3 =
-                data_Res_componentes_cu_tarifam.nt3_estrato_1_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt3_ / data_Res_componentes_cu_tarifam.cu_nt3
-                );
-              const tarifamc1_NT4 =
-                data_Res_componentes_cu_tarifam.nt4_estrato_1_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt4_ / data_Res_componentes_cu_tarifam.cu_nt4
-                );
-              const tarifamc2_NT2 =
-                data_Res_componentes_cu_tarifam.nt2_estrato_2_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt2_ / data_Res_componentes_cu_tarifam.cu_nt2
-                );
-              const tarifamc2_NT3 =
-                data_Res_componentes_cu_tarifam.nt3_estrato_2_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt3_ / data_Res_componentes_cu_tarifam.cu_nt3
-                );
-              const tarifamc2_NT4 =
-                data_Res_componentes_cu_tarifam.nt4_estrato_2_men_cs *
-                Math.min(
-                  ipcm / ipcm2,
-                  cu_nt4_ / data_Res_componentes_cu_tarifam.cu_nt4
-                );
 
-              var porc_sube1_100_,
-                porc_sube2_100_,
-                porc_sube1_50_,
-                porc_sube2_50_,
-                porc_sube1_0_,
-                porc_sube2_0_,
-                porc_sube1_nt2_;
+              //aca necesito esconst tarifamc1_100 = cu_nt1_100_* (1- SI((1-((data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs*(ipcm/ipcm2))/cu_nt1_100_))<=0,6;((1-((data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs*(ipcm/ipcm2))/cu_nt1_100_)) ;0.6))
 
-              if (1 - tarifamc1_100 / cu_nt1_100_ < 0.6) {
-                porc_sube1_100_ = 1 - tarifamc1_100 / cu_nt1_100_;
-              } else {
-                porc_sube1_100_ = 0.6;
-              }
+              const porc_sube1_100_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt1_100_)) <= 0.6
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt1_100_))
+                  : 0.6
+              );
+              
 
-              if (1 - tarifamc2_100 / cu_nt1_100_ < 0.5) {
-                porc_sube2_100_ = 1 - tarifamc2_100 / cu_nt1_100_;
-              } else {
-                porc_sube2_100_ = 0.5;
-              }
-              if (1 - tarifamc1_50 / cu_nt1_50_ < 0.6) {
-                porc_sube1_50_ = 1 - tarifamc1_50 / cu_nt1_50_;
-              } else {
-                porc_sube1_50_ = 0.6;
-              }
-              if (1 - tarifamc2_50 / cu_nt1_50_ < 0.5) {
-                porc_sube2_50_ = 1 - tarifamc2_50 / cu_nt1_50_;
-              } else {
-                porc_sube2_50_ = 0.5;
-              }
-              if (1 - tarifamc1_0 / cu_nt1_0_ < 0.6) {
-                porc_sube1_0_ = 1 - tarifamc1_0 / cu_nt1_0_;
-              } else {
-                porc_sube1_0_ = 0.6;
-              }
-              if (1 - tarifamc2_0 / cu_nt1_0_ < 0.5) {
-                porc_sube2_0_ = 1 - tarifamc2_0 / cu_nt1_0_;
-              } else {
-                porc_sube2_0_ = 0.5;
-              }
-              if (1 - tarifamc1_NT2 / cu_nt2_ < 0.6) {
-                porc_sube1_nt2_ = 1 - tarifamc1_NT2 / cu_nt2_;
-              } else {
-                porc_sube1_nt2_ = 0.6;
-              }
 
-              if (1 - tarifamc1_NT3 / cu_nt3_ < 0.6) {
-                porc_sube1_nt3_ = 1 - tarifamc1_NT3 / cu_nt3_;
-              } else {
-                porc_sube1_nt3_ = 0.6;
-              }
+              const tarifamc1_100 = cu_nt1_100_ * (1 - porc_sube1_100_);
 
-              if (1 - tarifamc1_NT4 / cu_nt4_ < 0.6) {
-                porc_sube1_nt4_ = 1 - tarifamc1_NT4 / cu_nt4_;
-              } else {
-                porc_sube1_nt4_ = 0.6;
-              }
-              if (1 - tarifamc2_NT2 / cu_nt2_ < 0.5) {
-                porc_sube2_nt2_ = 1 - tarifamc2_NT2 / cu_nt2_;
-              } else {
-                porc_sube2_nt2_ = 0.5;
-              }
-              if (1 - tarifamc2_NT3 / cu_nt3_ < 0.5) {
-                porc_sube2_nt3_ = 1 - tarifamc2_NT3 / cu_nt3_;
-              } else {
-                porc_sube2_nt3_ = 0.5;
-              }
-              if (1 - tarifamc2_NT4 / cu_nt4_ < 0.5) {
-                porc_sube2_nt4_ = 1 - tarifamc2_NT4 / cu_nt4_;
-              } else {
-                porc_sube2_nt4_ = 0.5;
-              }
+              const porc_sube2_100_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt1_100_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt1_100_)) <= 0.5
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt1_100_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt1_100_))
+                  : 0.5
+              );
+
+              const tarifamc2_100 = cu_nt1_100_ * (1 - porc_sube2_100_);
+
+              const porc_sube1_50_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt1_50_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt1_50_)) <= 0.6
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt1_50_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt1_50_))
+                  : 0.6
+              );
+
+              const tarifamc1_50 = cu_nt1_50_ * (1 - porc_sube1_50_);
+
+              const porc_sube2_50_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt1_50_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt1_50_)) <= 0.5
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt1_50_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt1_50_))
+                  : 0.5
+              );
+
+              const tarifamc2_50 = cu_nt1_50_ * (1 - porc_sube2_50_);
+
+              const porc_sube1_0_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt1_0_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt1_0_)) <= 0.6
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt1_0_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt1_0_))
+                  : 0.6
+              );    
+
+              const tarifamc1_0 = cu_nt1_0_ * (1 - porc_sube1_0_);
+
+              const porc_sube2_0_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt1_0_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt1_0_)) <= 0.5
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt1_0_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt1_0_))
+                  : 0.5
+              );
+
+              const tarifamc2_0 = cu_nt1_0_ * (1 - porc_sube2_0_);
+
+              const porc_sube1_nt2_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt2_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt2_)) <= 0.6
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt2_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt2_))
+                  : 0.6
+              );
+
+              const tarifamc1_nt2 = cu_nt2_ * (1 - porc_sube1_nt2_);
+
+              const porc_sube2_nt2_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt2_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt2_)) <= 0.5
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt2_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt2_))
+                  : 0.5
+              );
+
+              const tarifamc2_nt2 = cu_nt2_ * (1 - porc_sube2_nt2_);
+
+              const porc_sube1_nt3_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt3_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt3_)) <= 0.6
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt3_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt3_))
+                  : 0.6
+              );
+
+              const tarifamc1_nt3 = cu_nt3_ * (1 - porc_sube1_nt3_);
+
+              const porc_sube2_nt3_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt3_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt3_)) <= 0.5
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt3_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt3_))
+                  : 0.5
+              );
+
+              const tarifamc2_nt3 = cu_nt3_ * (1 - porc_sube2_nt3_);
+
+              const porc_sube1_nt4_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt4_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt4_)) <= 0.6
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt4_estrato_1_men_cs * (ipcm/ipcm2)) / cu_nt4_))
+                  : 0.6
+              );
+
+              const tarifamc1_nt4 = cu_nt4_ * (1 - porc_sube1_nt4_);
+
+              const porc_sube2_nt4_ =  (
+                (1 - ((data_Res_componentes_cu_tarifam.nt4_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt4_)) <= 0.5
+                  ? (1 - ((data_Res_componentes_cu_tarifam.nt4_estrato_2_men_cs * (ipcm/ipcm2)) / cu_nt4_))
+                  : 0.5
+              );  
+
+              const tarifamc2_nt4 = cu_nt4_ * (1 - porc_sube2_nt4_);
+
+              input[index].tarifamc1_100 = tarifamc1_100;
+              input[index].tarifamc2_100 = tarifamc2_100;
+              input[index].tarifamc1_50 = tarifamc1_50;
+              input[index].tarifamc2_50 = tarifamc2_50;
+              input[index].tarifamc1_0 = tarifamc1_0;
+              input[index].tarifamc2_0 = tarifamc2_0;
+              input[index].tarifamc1_nt2 = tarifamc1_nt2;
+              input[index].tarifamc2_nt2 = tarifamc2_nt2;
+              input[index].tarifamc1_nt3 = tarifamc1_nt3;
+              input[index].tarifamc2_nt3 = tarifamc2_nt3;
+              input[index].tarifamc1_nt4 = tarifamc1_nt4;
+              input[index].tarifamc2_nt4 = tarifamc2_nt4;
+              
+              
+              
+             
 
               if (cgsubasta_acu > 0 || cg_acu > 0 || cgcu_acu > 0) {
                 var recuperacionGarantias = "Si";
@@ -4671,10 +4639,10 @@ if (cuentaEfectiva === 0) {
               input[index].cu_nt1_0 = cu_nt1_0_;
 
               input[index].nt1_100_estrato_1_men_cs = roundToTwo(
-                cu_nt1_100_ * (1 - porc_sube1_100_)
+                input[index].tarifamc1_100
               );
               input[index].nt1_100_estrato_2_men_cs = roundToTwo(
-                cu_nt1_100_ * (1 - porc_sube2_100_)
+                input[index].tarifamc2_100
               );
 
               input[index].nt1_100_estrato_3_men_cs = roundToTwo(
@@ -4696,10 +4664,10 @@ if (cuentaEfectiva === 0) {
               input[index].nt1_100_p = roundToTwo(cu_nt1_100_);
               input[index].nt1_100_o = roundToTwo(cu_nt1_100_);
               input[index].nt1_50_estrato_1_men_cs = roundToTwo(
-                cu_nt1_50_ * (1 - porc_sube1_50_)
+                input[index].tarifamc1_50
               );
               input[index].nt1_50_estrato_2_men_cs = roundToTwo(
-                cu_nt1_50_ * (1 - porc_sube2_50_)
+                input[index].tarifamc2_50
               );
               input[index].nt1_50_estrato_3_men_cs = roundToTwo(
                 cu_nt1_50_ * (1 - 0.15)
@@ -4720,10 +4688,10 @@ if (cuentaEfectiva === 0) {
               input[index].nt1_50_p = roundToTwo(cu_nt1_50_ * 1);
               input[index].nt1_50_o = roundToTwo(cu_nt1_50_ * 1);
               input[index].nt1_0_estrato_1_men_cs = roundToTwo(
-                cu_nt1_0_ * (1 - porc_sube1_0_)
+                input[index].tarifamc1_0
               );
               input[index].nt1_0_estrato_2_men_cs = roundToTwo(
-                cu_nt1_0_ * (1 - porc_sube2_0_)
+                input[index].tarifamc2_0
               );
               input[index].nt1_0_estrato_3_men_cs = roundToTwo(
                 cu_nt1_0_ * (1 - 0.15)
@@ -4738,22 +4706,22 @@ if (cuentaEfectiva === 0) {
               input[index].nt1_0_c = roundToTwo(cu_nt1_0_ * 1.2);
               input[index].nt2_c = roundToTwo(cu_nt2_ * 1.2);
               input[index].nt2_estrato_1_men_cs = roundToTwo(
-                cu_nt2_ * (1 - porc_sube1_nt2_)
+                input[index].tarifamc1_nt2
               );
               input[index].nt3_estrato_1_men_cs = roundToTwo(
-                cu_nt3_ * (1 - porc_sube1_nt3_)
+                input[index].tarifamc1_nt3
               );
               input[index].nt4_estrato_1_men_cs = roundToTwo(
-                cu_nt4_ * (1 - porc_sube1_nt4_)
+                input[index].tarifamc1_nt4
               );
               input[index].nt2_estrato_2_men_cs = roundToTwo(
-                cu_nt2_ * (1 - porc_sube2_nt2_)
+                input[index].tarifamc2_nt2
               );
               input[index].nt3_estrato_2_men_cs = roundToTwo(
-                cu_nt3_ * (1 - porc_sube2_nt3_)
+                input[index].tarifamc2_nt3
               );
               input[index].nt4_estrato_2_men_cs = roundToTwo(
-                cu_nt4_ * (1 - porc_sube2_nt4_)
+                input[index].tarifamc2_nt4
               );
 
               input[index].nt1_100_i_con_c = roundToTwo(cu_nt1_100_ * 1.2);
@@ -4806,7 +4774,7 @@ if (cuentaEfectiva === 0) {
               input[index].cot = data_empresam.cot;
               input[index].sup_def = 0;
               input[index].nt2_bsnmen_cs = roundToTwo(
-                cu_nt2_ * (1 - porc_sube1_nt2_)
+                input[index].tarifamc1_nt2
               );
               input[index].nt2_bsnmay_cs = cu_nt2_;
               input[index].nt3_c = cu_nt3_ * 1.2;
@@ -4814,6 +4782,21 @@ if (cuentaEfectiva === 0) {
               input[index].nt3_i_sin_c = cu_nt3_ * 1.2;
               input[index].nt3_o = cu_nt3_;
               input[index].nt3_ap = cu_nt3_;
+
+              console.log(porc_sube1_100_)
+              console.log(porc_sube1_50_)
+              console.log(porc_sube1_0_)
+              console.log(porc_sube2_100_)
+              console.log(porc_sube2_50_)
+              console.log(porc_sube2_0_)
+              console.log(input[index].tarifamc1_100)
+              console.log(data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs )
+              console.log(input[index].tarifamc1_50)
+              console.log(input[index].tarifamc1_0)
+              console.log(input[index].tarifamc2_100)
+              console.log(data_Res_componentes_cu_tarifam.nt1_100_estrato_2_men_cs)
+              console.log(input[index].tarifamc2_50)
+              console.log(input[index].tarifamc2_0)
 
               for (let indexF3 = 1; indexF3 < 10; indexF3++) {
                 // Suponiendo que data_Res_componentes_cu_tarifam[0] contiene datos relevantes fuera del bucle.
@@ -5426,20 +5409,20 @@ if (cuentaEfectiva === 0) {
             input[i].empresa_id = ctx.usuario.empresa; // Asegúrate de que el contexto tenga estos datos
             input[i].creador = ctx.usuario.id;
             const { anho, trimestre } = input[i];
-                        // Busca si existe un registro con el mismo id de la empresa, año y mes
-                        const registroExistente = await Data_mme_validacion.findOne({
-                          where: {
-                            anho,
-                            trimestre,
-                            empresa_id: ctx.usuario.empresa,
-                          },
-                        });
-                        // Si ya existe un registro, retorna un error
-                        if (registroExistente) {
-                          throw new Error(
-                            `Ya existe un registro para el año ${anho} y el trimestre ${trimestre}`
-                          );
-                        }
+            // Busca si existe un registro con el mismo id de la empresa, año y mes
+            const registroExistente = await Data_mme_validacion.findOne({
+              where: {
+                anho,
+                trimestre,
+                empresa_id: ctx.usuario.empresa,
+              },
+            });
+            // Si ya existe un registro, retorna un error
+            if (registroExistente) {
+              throw new Error(
+                `Ya existe un registro para el año ${anho} y el trimestre ${trimestre}`
+              );
+            }
 
             const nuevoRegistro = new Data_mme_validacion(input[i]);
             const resultado = await nuevoRegistro.save();
@@ -5449,7 +5432,7 @@ if (cuentaEfectiva === 0) {
             errores.push({
               mensaje: error.message,
               tipo: "error",
-              registrosErrores: input[i]
+              registrosErrores: input[i],
             });
           }
         }
@@ -5463,7 +5446,11 @@ if (cuentaEfectiva === 0) {
 
     actualizarDataMmeValidacion: async (_, { id, input }, ctx) => {
       try {
-        const registroActualizado = await Data_mme_validacion.findByIdAndUpdate(id, input, { new: true });
+        const registroActualizado = await Data_mme_validacion.findByIdAndUpdate(
+          id,
+          input,
+          { new: true }
+        );
         if (!registroActualizado) {
           throw new Error(`Registro con ID ${id} no encontrado`);
         }
@@ -5473,7 +5460,6 @@ if (cuentaEfectiva === 0) {
         throw new Error(`Error al actualizar el registro con ID ${id}.`);
       }
     },
-
 
     eliminarDataMmeValidacion: async (_, { ids }, ctx) => {
       try {
@@ -5503,7 +5489,7 @@ if (cuentaEfectiva === 0) {
         for (let i = 0; i < input.length; i++) {
           input[i].empresa_id = ctx.usuario.empresa;
           input[i].creador = ctx.usuario.id;
-          
+
           try {
             const nuevoGiro = new Data_mme_giro(input[i]);
             const resultado = await nuevoGiro.save();
@@ -5513,7 +5499,7 @@ if (cuentaEfectiva === 0) {
             errores.push({
               mensaje: error.message,
               tipo: "error",
-              registrosErrores: input[i]
+              registrosErrores: input[i],
             });
           }
         }
@@ -5525,10 +5511,6 @@ if (cuentaEfectiva === 0) {
       }
     },
 
-
-
-  
-    
     eliminarDataMmeGiro: async (_, { ids }, ctx) => {
       try {
         const totalExistente = await Data_mme_giro.count({
@@ -5553,25 +5535,33 @@ if (cuentaEfectiva === 0) {
       try {
         const miArray = [];
         const errores = [];
-    
+
         // Consultar la última semana guardada en la base de datos
-        const ultimaSemanaGuardada = await Data_banrepublica_tco.max('anho_semana', {
-          where: { empresa_id: ctx.usuario.empresa }
-        });
-    
+        const ultimaSemanaGuardada = await Data_banrepublica_tco.max(
+          "anho_semana",
+          {
+            where: { empresa_id: ctx.usuario.empresa },
+          }
+        );
+
         // Recorrer los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
             // Reemplazar guiones bajos por nada en anho_semana
-            input[index].anho_semana = input[index].anho_semana.replace(/-/g, '');
-    
+            input[index].anho_semana = input[index].anho_semana.replace(
+              /-/g,
+              ""
+            );
+
             // Comparar la semana del input con la última semana guardada
             if (input[index].anho_semana > ultimaSemanaGuardada) {
               // Si no existe un registro para una semana posterior a la guardada, crea uno nuevo
               input[index].empresa_id = ctx.usuario.empresa;
               input[index].creador = ctx.usuario.id;
               try {
-                const newDataBanrepublicaTco = new Data_banrepublica_tco(input[index]);
+                const newDataBanrepublicaTco = new Data_banrepublica_tco(
+                  input[index]
+                );
                 const resultado = await newDataBanrepublicaTco.save();
                 miArray.push(resultado);
               } catch (error) {
@@ -5583,50 +5573,54 @@ if (cuentaEfectiva === 0) {
             errores.push({
               registrosErrores: [input[index]],
               mensaje: error.message,
-              tipo: "error"
+              tipo: "error",
             });
           }
         }
-    
+
         return {
           datos: miArray,
-          errores
+          errores,
         };
       } catch (error) {
         console.log(error);
-        throw new Error('Error al procesar la solicitud: ' + error.message);
+        throw new Error("Error al procesar la solicitud: " + error.message);
       }
     },
-    
+
     actualizarDataBanrepublicaTco: async (_, { id, input }) => {
       try {
         // Encuentra el elemento por ID
-        const elementoDataBanrepublicaTco = await Data_banrepublica_tco.findByPk(id);
+        const elementoDataBanrepublicaTco =
+          await Data_banrepublica_tco.findByPk(id);
         if (!elementoDataBanrepublicaTco) {
           throw new Error(`Elemento con ID ${id} no encontrado`);
         }
 
         // Actualiza el elemento con el input proporcionado
         await Data_banrepublica_tco.update(input, {
-          where: { id: id } // La cláusula where es necesaria para especificar el registro a actualizar
+          where: { id: id }, // La cláusula where es necesaria para especificar el registro a actualizar
         });
 
         // Vuelve a encontrar el elemento para obtener los datos actualizados
-        const elementoDataBanrepublicaTcoActualizado = await Data_banrepublica_tco.findByPk(id);
+        const elementoDataBanrepublicaTcoActualizado =
+          await Data_banrepublica_tco.findByPk(id);
         return elementoDataBanrepublicaTcoActualizado;
       } catch (error) {
         console.log(error);
-        throw new Error('Error al actualizar el dato: ' + error.message);
+        throw new Error("Error al actualizar el dato: " + error.message);
       }
     },
     eliminarDataBanrepublicaTco: async (_, { ids }, ctx) => {
       try {
         // Verificar si todos los ids existen
         const totalExistente = await Data_banrepublica_tco.count({
-          where: { id: ids }
+          where: { id: ids },
         });
         if (totalExistente !== ids.length) {
-          throw new Error(`No se encontraron todos los registros con los ids proporcionados`);
+          throw new Error(
+            `No se encontraron todos los registros con los ids proporcionados`
+          );
         }
 
         // Eliminar los registros
@@ -5642,34 +5636,38 @@ if (cuentaEfectiva === 0) {
       try {
         const miArray = [];
         const errores = [];
-    
+        console.log({ inputLength: input.length });
         // Consultar la última semana guardada en la base de datos
-        const ultimafechaGuardada = await Data_banrepublica_tcap.max('fecha', {
-          where: { empresa_id: ctx.usuario.empresa }
+        const ultimafechaGuardada = await Data_banrepublica_tcap.max("fecha", {
+          where: { empresa_id: ctx.usuario.empresa },
         });
-    
+
         // Recorrer los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
             // Reemplazar guiones bajos por nada en anho_semana
-        // Suponiendo que la fecha viene en el formato 'DD/MM/YYYY' y está en input[index].fecha
-const fechaOriginal = input[index].fecha;  // '31/08/2020'
-const partes = fechaOriginal.split('/');  // ['31', '08', '2020']
-const fechaFormateada = `${partes[2]}-${partes[1]}-${partes[0]}`;  // '2020-08-31'
+            // Suponiendo que la fecha viene en el formato 'DD/MM/YYYY' y está en input[index].fecha
+            const fechaOriginal = input[index].fecha; // '31/08/2020'
+            const partes = fechaOriginal.split("/"); // ['31', '08', '2020']
+            const fechaFormateada = `${partes[2]}-${partes[1]}-${partes[0]}`; // '2020-08-31'
 
-input[index].fecha = fechaFormateada;
- // Verificar que la tasa no sea null
- if (input[index].tasa_a_30_cdats_cdat_bancos_comerciales == null) {
- throw new Error('La tasa a 30 días CDAT Bancos comerciales no puede ser nula');
- 
-}
+            input[index].fecha = fechaFormateada;
+            // Verificar que la tasa no sea null
+            if (input[index].tasa_a_30_cdats_cdat_bancos_comerciales == null) {
+              throw new Error(
+                "La tasa a 30 días CDAT Bancos comerciales no puede ser nula"
+              );
+            }
+
             // Comparar la semana del input con la última semana guardada
             if (input[index].fecha > ultimafechaGuardada) {
               // Si no existe un registro para una semana posterior a la guardada, crea uno nuevo
               input[index].empresa_id = ctx.usuario.empresa;
               input[index].creador = ctx.usuario.id;
               try {
-                const newDataBanrepublicaTco = new Data_banrepublica_tcap(input[index]);
+                const newDataBanrepublicaTco = new Data_banrepublica_tcap(
+                  input[index]
+                );
                 const resultado = await newDataBanrepublicaTco.save();
                 miArray.push(resultado);
               } catch (error) {
@@ -5681,50 +5679,55 @@ input[index].fecha = fechaFormateada;
             errores.push({
               registrosErrores: [input[index]],
               mensaje: error.message,
-              tipo: "error"
+              tipo: "error",
             });
           }
         }
-    
+
         return {
           datos: miArray,
-          errores
+          errores,
         };
       } catch (error) {
         console.log(error);
-        throw new Error('Error al procesar la solicitud: ' + error.message);
+        throw new Error("Error al procesar la solicitud: " + error.message);
       }
     },
-    
+
     actualizarDataBanrepublicaTcap: async (_, { id, input }) => {
       try {
         // Encuentra el elemento por ID
-        const elementoDataBanrepublicaTco = await Data_banrepublica_tcap.findByPk(id);
+        const elementoDataBanrepublicaTco =
+          await Data_banrepublica_tcap.findByPk(id);
         if (!elementoDataBanrepublicaTco) {
           throw new Error(`Elemento con ID ${id} no encontrado`);
         }
 
         // Actualiza el elemento con el input proporcionado
         await Data_banrepublica_tco.update(input, {
-          where: { id: id } // La cláusula where es necesaria para especificar el registro a actualizar
+          where: { id: id }, // La cláusula where es necesaria para especificar el registro a actualizar
         });
 
         // Vuelve a encontrar el elemento para obtener los datos actualizados
-        const elementoDataBanrepublicaTcoActualizado = await Data_banrepublica_tcap.findByPk(id);
+        const elementoDataBanrepublicaTcoActualizado =
+          await Data_banrepublica_tcap.findByPk(id);
         return elementoDataBanrepublicaTcoActualizado;
       } catch (error) {
         console.log(error);
-        throw new Error('Error al actualizar el dato: ' + error.message);
+        throw new Error("Error al actualizar el dato: " + error.message);
       }
     },
     eliminarDataBanrepublicaTcap: async (_, { ids }, ctx) => {
       try {
+        console.log({ ids });
         // Verificar si todos los ids existen
         const totalExistente = await Data_banrepublica_tcap.count({
-          where: { id: ids }
+          where: { id: ids },
         });
         if (totalExistente !== ids.length) {
-          throw new Error(`No se encontraron todos los registros con los ids proporcionados`);
+          throw new Error(
+            `No se encontraron todos los registros con los ids proporcionados`
+          );
         }
 
         // Eliminar los registros
@@ -5734,8 +5737,7 @@ input[index].fecha = fechaFormateada;
         console.log(error);
         throw new Error(error);
       }
-    }
-  
+    },
   },
 };
 module.exports = resolvers;

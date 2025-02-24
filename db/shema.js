@@ -2767,6 +2767,7 @@ type DataMmeGiro {
 }
 
 input DataMmeGiroInput {
+  id: ID
   creador: Int
   empresa_id: String
   fecha: String!

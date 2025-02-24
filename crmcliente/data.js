@@ -193,6 +193,7 @@ export const OBTENER_DATA_XM_AFAC = gql`
         valor_pago_ajuste_res_140_2017_cop
         valor_cobro_ajuste_res_140_2017_cop
         valor_pago_excedente_res_140_2017_cop
+        compras_en_bolsa_ajustes_cop
       }
       totalRecords
       valoresFiltrables {
@@ -3734,8 +3735,8 @@ export const ACTUALIZAR_DATA_BANREPUBLICA_TCO = gql`
 `;
 
 export const ELIMINAR_DATA_BANREPUBLICA_TCO = gql`
-  mutation eliminarDataBanrepublicaTco($ids: [ID!]!) {
-    eliminarDataBanrepublicaTco(ids: $ids)
+  mutation eliminarDataBanrepublicaTco($eliminarDataId: [ID!]!) {
+    eliminarDataBanrepublicaTco(ids: $eliminarDataId)
   }
 `;
 
@@ -3923,7 +3924,7 @@ export const ACTUALIZAR_DATA_BANREPUBLICA_TCAP = gql`
 `;
 
 export const ELIMINAR_DATA_BANREPUBLICA_TCAP = gql`
-  mutation eliminarDataBanrepublicaTcap($ids: [ID!]!) {
-    eliminarDataBanrepublicaTcap(ids: $ids)
+  mutation eliminarDataBanrepublicaTcap($eliminarDataId: [ID!]!) {
+    eliminarDataBanrepublicaTcap(ids: $eliminarDataId)
   }
 `;

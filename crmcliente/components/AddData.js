@@ -712,6 +712,11 @@ const AddData = ({
                   dataArray2 = convertirBanRepTco(sheetData);
 
                   break
+                  case "nuevoDataBanrepublicaTcap":
+                    console.log({sheetData})
+                    dataArray2 = convertirBanRepTcap(sheetData);
+
+                    break
               default:
                 // dataArray2 = sheetData.slice(1).map((row) =>
                 //   row.reduce(
@@ -729,7 +734,7 @@ const AddData = ({
 
             // dataArray2 = sheetData;
           }
-
+console.log({dataArray2})
           let nestedArrayObjeto = [];
 try{
   

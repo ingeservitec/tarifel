@@ -16,7 +16,7 @@ const Dataempresamessin = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  const titulo = "Datosempresamessin";
+  const titulo = "Datos Empresa Mensuales";
 
   return (
     <div>

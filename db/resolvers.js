@@ -3802,7 +3802,7 @@ const resolvers = {
                 }
               }
               tasaot = roundToTwo(
-                (1 + sum_tasa_x_monto_cap / sum_monto_cap) ** (1 / 12) - 1
+                (1 + sum_tasa_x_monto_cap / sum_monto_cap/100) ** (1 / 12) - 1
               );
 
               //r1 y r2:
@@ -4783,20 +4783,7 @@ const resolvers = {
               input[index].nt3_o = cu_nt3_;
               input[index].nt3_ap = cu_nt3_;
 
-              console.log(porc_sube1_100_)
-              console.log(porc_sube1_50_)
-              console.log(porc_sube1_0_)
-              console.log(porc_sube2_100_)
-              console.log(porc_sube2_50_)
-              console.log(porc_sube2_0_)
-              console.log(input[index].tarifamc1_100)
-              console.log(data_Res_componentes_cu_tarifam.nt1_100_estrato_1_men_cs )
-              console.log(input[index].tarifamc1_50)
-              console.log(input[index].tarifamc1_0)
-              console.log(input[index].tarifamc2_100)
-              console.log(data_Res_componentes_cu_tarifam.nt1_100_estrato_2_men_cs)
-              console.log(input[index].tarifamc2_50)
-              console.log(input[index].tarifamc2_0)
+
 
               for (let indexF3 = 1; indexF3 < 10; indexF3++) {
                 // Suponiendo que data_Res_componentes_cu_tarifam[0] contiene datos relevantes fuera del bucle.

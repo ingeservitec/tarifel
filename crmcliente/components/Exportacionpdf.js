@@ -11,7 +11,8 @@ import html2canvas from "html2canvas";
 
 import logo_energuaviare from "../images/logos_clientes/logo_energuaviare.png";
 
-import pie_logo_energuaviare from "../images/logos_clientes/pie_energuaviare2024_Monica.jpg";
+//import pie_logo_energuaviare from "../images/logos_clientes/pie_energuaviare2024_Monica.jpg";
+import pie_logo_energuaviare from "../images/logos_clientes/pie_energuaviare2024.jpg";
 
 const OBTENER_RES_COMPONENTES_CU_TARIFA = gql`
   query obtenerRes_componentes_cu_tarifa {
@@ -227,40 +228,101 @@ console.log(data_Res_componentes_cu_tarifam)
   const print = () => {
     const input = document.getElementById("divToPrint");
 
-    // htmlToImage.tojpg(input)
-    // .then(function (dataUrl) {
-    //   saveAs(dataUrl, 'my-node.jpg');
+    // Preparamos el contenido antes de la captura
+    const prepareContent = () => {
+      // Ajustamos el ancho del contenedor para la captura
+      input.style.width = "950px";
+      input.style.maxWidth = "950px";
+      input.style.margin = "0 auto";
+      
+      // Mejoramos el estilo de las tablas
+      const tables = input.querySelectorAll('table');
+      tables.forEach(table => {
+        table.style.width = "100%";
+        table.style.borderCollapse = "collapse";
+        table.style.marginBottom = "10px";
+        table.style.fontSize = "11px";
+      });
 
-    //   const imgData = saveAs(dataUrl, 'my-node.jpg', crossOrigin="anonymous");
-    //   imgData.setAttribute('src', `url/timestamp=${new Date().getTime()}`);
+      // Mejoramos el estilo de las celdas de la tabla
+      const cells = input.querySelectorAll('th, td');
+      cells.forEach(cell => {
+        cell.style.padding = "4px";
+        cell.style.border = "1px solid #ddd";
+        cell.style.textAlign = "center";
+        cell.style.fontSize = "11px";
+      });
+
+      // Mejoramos los encabezados
+      const headers = input.querySelectorAll('th');
+      headers.forEach(header => {
+        header.style.backgroundColor = "#f2f2f2";
+        header.style.fontWeight = "bold";
+      });
+
+      // Ajustamos los párrafos para que ocupen menos espacio
+      const paragraphs = input.querySelectorAll('p');
+      paragraphs.forEach(p => {
+        p.style.margin = "3px 0";
+        p.style.fontSize = "10px";
+      });
+    };
+
+    // Aplicamos los estilos
+    prepareContent();
+
     html2canvas(input, {
-      logging: true,
+      logging: false,
       letterRendering: 1,
       allowTaint: true,
       useCORS: true,
+      scale: 2,
+      backgroundColor: "#ffffff",
+      imageTimeout: 0
     }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpg");
-      const pdf = new jsPDF();
-      var width = pdf.internal.pageSize.getWidth();
-      var height = pdf.internal.pageSize.getHeight();
-      pdf.addImage(imgData, "JPEG", 5, 5, width - 10, height - 10);
-
-      // pdf.output('dataurlnewwindow');
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
+      
+      // Creamos el PDF con formato legal
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'legal',
+        compress: true
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+      // Añadimos la imagen solo a la primera página
+      pdf.addImage(
+        imgData,
+        'JPEG',
+        10, // margen izquierdo
+        10, // margen superior
+        pdfWidth - 20, // ancho con márgenes
+        pdfHeight - 20, // alto con márgenes
+        null,
+        'FAST'
+      );
+      
+      // Importante: Forzamos a que solo haya una página
+      // Si hay más de una página, eliminamos todas excepto la primera
+      if (pdf.getNumberOfPages() > 1) {
+        for (let i = pdf.getNumberOfPages(); i > 1; i--) {
+          pdf.deletePage(i);
+        }
+      }
+      
+      // Guardamos el PDF
       pdf.save("Publicación_" + mes_letras + "-" + anho + ".pdf");
+      
+      // Restauramos los estilos originales
+      input.style.width = "";
+      input.style.maxWidth = "";
+      input.style.margin = "";
     });
-
-    // const divToDisplay = document.getElementById('divToPrint')
-    // // html2canvas(divToDisplay).then(function(canvas) {
-    // // const divImage = canvas .toDataURL("image/jpg");
-
-    //     const doc = new jsPDF();
-
-    //     // doc.addImage(divImage, 'jpg', 0, 0);
-
-    //     doc.text(body,10 , 10)
-
-    //     doc.save('demo.pdf')
   };
+
   function roundToTwo(num) {
     return +(Math.round(num + "e+5") + "e-5");
   }
@@ -347,12 +409,13 @@ console.log(data_Res_componentes_cu_tarifam)
                     <img
   src={logo_}
   alt="Logo"
-  className="img-fluid w-95 p-2"
+  className="img-fluid w-95 p-2" 
+  style={{ maxWidth: "300px" }}
 />
 
                     </div>
                     <div className="col-md-9 text-center p-4">
-                      <h3>
+                      <h3 style={{ fontSize: "18px", fontWeight: "bold" }}>
                         TARIFAS A COBRAR A USUARIOS REGULADOS PERIODO DE
                         FACTURACIÓN MES DE {mes_letras} DE {anho}
                       </h3>
@@ -361,7 +424,7 @@ console.log(data_Res_componentes_cu_tarifam)
                 </div>
               </div>
 
-              <p className="text-sm-justify p-3">
+              <p className="text-sm-justify p-3" style={{ fontSize: "12px" }}>
                 Componentes del costo de prestación del servicio, en
                 cumplimiento de la resolución CREG, 031/97, 082/02, 108/03,
                 Decreto UPME 355/04, 001/07, 119/07, 097/08, 168/08, 058/08,
@@ -1246,9 +1309,347 @@ console.log(data_Res_componentes_cu_tarifam)
                   </tr>
                 </tbody>
               </table>
-              <p>Conforme lo dispuesto en la resolución CREG 015 de 2018</p>
+              
+              {/* Nueva tabla para porcentajes de subsidios y contribuciones */}
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th colspan="7" className="text-center">
+                      Porcentajes de Subsidios y Contribuciones respecto al CU
+                    </th>
+                  </tr>
+                </thead>
+                <thead>
+                  <tr>
+                    <th scope="col">ESTRATO</th>
+                    <th scope="col">Empresa (%)</th>
+                    <th scope="col">Compartido (%)</th>
+                    <th scope="col">Usuario (%)</th>
+                    <th scope="col">Empresa (%)</th>
+                    <th scope="col">Compartido (%)</th>
+                    <th scope="col">Usuario (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Estrato 1</th>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_1_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_1_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_1_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Estrato 2</th>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_2_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_2_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_2_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Estrato 3</th>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_3_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_3_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_3_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Estrato 4</th>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_4 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Estrato 5</th>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_5_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_5_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_5_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_5 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_5 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_5 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Estrato 6</th>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_6_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_6_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_6_men_cs / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_100_estrato_6 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_100) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_50_estrato_6 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_50) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                    <td>
+                      {data_Res_componentes_cu_tarifam.length > 0
+                        ? roundToTwo(
+                            ((data_Res_componentes_cu_tarifam[0].nt1_0_estrato_6 / 
+                              data_Res_componentes_cu_tarifam[0].cu_nt1_0) - 1) * 100
+                          )
+                        : null}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <div>
-                <img src={logopie_} alt="pie" width="1100" />
+                <p style={{ fontSize: "12px" }}>
+                  <strong>Nota sobre porcentajes:</strong> Los valores negativos indican subsidios (descuentos respecto al CU), 
+                  mientras que los valores positivos indican contribuciones (sobrecostos respecto al CU). El estrato 4 no tiene 
+                  subsidio ni contribución, por lo que su porcentaje debería ser 0%.
+                </p>
+              </div>
+              
+              <p style={{ fontSize: "12px" }}>Conforme lo dispuesto en la resolución CREG 015 de 2018</p>
+              <div>
+                <img src={logopie_} alt="pie" style={{ width: "100%", maxWidth: "950px" }} />
               </div>
             </div>
           </div>

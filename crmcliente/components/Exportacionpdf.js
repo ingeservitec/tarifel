@@ -1321,7 +1321,15 @@ console.log(data_Res_componentes_cu_tarifam)
                 </thead>
                 <thead>
                   <tr>
-                    <th scope="col">ESTRATO</th>
+                    <th scope="col" rowspan="2">ESTRATO</th>
+                    <th scope="col" colspan="3" className="text-center" style={{backgroundColor: "#e6f7ff"}}>
+                      Consumos menores o iguales al consumo de subsistencia (173 kWh/mes)
+                    </th>
+                    <th scope="col" colspan="3" className="text-center" style={{backgroundColor: "#fff2e6"}}>
+                      Consumos superiores al consumo de subsistencia (> 173 kWh/mes)
+                    </th>
+                  </tr>
+                  <tr>
                     <th scope="col">Empresa (%)</th>
                     <th scope="col">Compartido (%)</th>
                     <th scope="col">Usuario (%)</th>

@@ -295,6 +295,11 @@ export function convertirFACTORESIPR(excelArray, agente, month, year) {
 }
 
 export function convertirSTN(sheetName, excelArray, dataArray2) {
+
+  console.log({ excelArray });
+  console.log({ sheetName });
+  console.log({ dataArray2 });
+
   let resultObject = dataArray2[0];
 
   switch (sheetName) {
@@ -310,12 +315,12 @@ export function convertirSTN(sheetName, excelArray, dataArray2) {
               row[lastValueIndex].replace(/,/g, "")
             );
             break;
-          case "Ingreso a Compensar para estimados  (COP)":
+          case "Ingreso a Compensar para estimados  (COP)":
             resultObject.Ing_Compensar_T_cop = parseFloat(
               row[lastValueIndex].replace(/,/g, "")
             );
             break;
-          case "Ingreso Regulado Neto para estimados  (COP)":
+          case "Ingreso Regulado Neto para estimados  (COP)":
             resultObject.Ing_Reg_Neto_T_cop = parseFloat(
               row[lastValueIndex].replace(/,/g, "")
             );
@@ -1203,84 +1208,44 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
 }
 
 export function convertirBanRepTco(excelArray) {
+  console.log("Iniciando conversión de Excel de tasas de crédito. Filas recibidas:", excelArray.length);
+  
   // Encontrar índice de la fila con encabezados de las columnas
-  const headerRowIndex = excelArray.findIndex(
-    (row) => row[0] === "Año(aaaa)-Semana(ss)"
+  const headerRowIndex = excelArray.findIndex(row => 
+    row.includes("Año semana")
   );
-
-  // Encontrar índice de la fila con nombres de categorías financieras
-  const subHeaderRowIndex = excelArray.findIndex((row) =>
-    row.includes("Crédito de consumo")
-  );
-
-  if (headerRowIndex === -1 || subHeaderRowIndex === -1) {
-    console.error("No se pudieron encontrar las filas de encabezados.");
+  
+  if (headerRowIndex === -1) {
+    console.error("No se pudo encontrar la fila de encabezados.");
     return [];
   }
-  const dataStartIndex = headerRowIndex + 1; // Los datos comienzan justo después de la fila de encabezados
-
-  let lastValidIndex = dataStartIndex;
+  
+  // Los datos comienzan justo después de la fila de encabezados
+  const dataStartIndex = headerRowIndex + 1;
+  
+  // Procesamos los datos hasta encontrar una fila vacía o inválida
+  const transformedData = [];
+  
   for (let i = dataStartIndex; i < excelArray.length; i++) {
-    if (
-      excelArray[i][0] &&
-      (excelArray[i][0].startsWith("19") || excelArray[i][0].startsWith("20"))
-    ) {
-      // Asumiendo que los años comienzan con '20'
-      lastValidIndex = i;
-    } else {
-      break; // Deja de leer más filas si encuentra una fila sin un año válido
-    }
-  }
-
-  const headers = excelArray[headerRowIndex];
-  const subHeaders = excelArray[subHeaderRowIndex];
-  const indices = {
-    anho_semana: headers.indexOf("Año(aaaa)-Semana(ss)"),
-  };
-
-  headers.forEach((header, index) => {
-    if (header === "Tasa %") {
-      let subCategory = subHeaders[index];
-      // Reemplazar espacios en subCategory por guiones bajos
-      subCategory = subCategory.replace(/ /g, "_");
-
-      // Asignar el índice de la tasa y automáticamente asignar el monto de la columna siguiente
-      indices[`tasa_${subCategory}`] = index;
-      indices[`monto_${subCategory}`] = index + 1; // Asume que el 'Monto' siempre está inmediatamente después de la 'Tasa %'
-    }
-  });
-
-  // Procesar filas de datos que comienzan justo después de los headers y subheaders
-  const dataRows = excelArray.slice(headerRowIndex + 1);
-
-  var transformedData = [];
-  // Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
-  // Ejemplo de cómo se podrían utilizar estos índices para mapear los datos
-  for (let i = dataStartIndex; i <= lastValidIndex; i++) {
     const row = excelArray[i];
-    transformedData.push({
-      anho_semana: row[0],
-      tasa_cred_com_credito_consumo: parseFloat(row[1]),
-      monto_cred_com_credito_consumo: parseFloat(row[2].replace(/[$,]/g, "")),
-      tasa_cred_com_odinario: parseFloat(row[3]),
-      monto_cred_com_odinario: parseFloat(row[4].replace(/[$,]/g, "")),
-      tasa__cred_com_preferencial_o_corporativo: parseFloat(row[5]),
-      monto__cred_com_preferencial_o_corporativo: parseFloat(
-        row[6].replace(/[$,]/g, "")
-      ),
-      tasa__cred_com_tesoreria: parseFloat(row[7]),
-      monto__cred_com_tesoreria: parseFloat(row[8].replace(/[$,]/g, "")),
-      tasa_colocacion_banco_republica: parseFloat(row[9]),
-      monto_colocacion_banco_republica: parseFloat(
-        row[10].replace(/[$,]/g, "")
-      ),
-      tasa_colocacion_sin_tesoreria: parseFloat(row[11]),
-      monto_colocacion_sin_tesoreria: parseFloat(row[12].replace(/[$,]/g, "")),
-      tasa_colocacion_total: parseFloat(row[13]),
-      monto_colocacion_total: parseFloat(row[14].replace(/[$,]/g, "")),
-    });
-  }
+    
+    // Verificar si es una fila de datos válida (debe tener año-semana)
+    if (!row[0] || row[0].trim() === '') {
+      continue; // Saltamos filas vacías
+    }
+    
+    // Crear un objeto con la estructura que necesita la base de datos
+    const dataObject = {
+      anho_semana: row[0], // "2025-08"
+      tasa__cred_com_preferencial_o_corporativo: parseFloat(row[4] || 0),
+      monto__cred_com_preferencial_o_corporativo: parseFloat((row[5] || "0").replace(/[,$]/g, "")),
 
+    };
+    
+    transformedData.push(dataObject);
+  }
+  
+  console.log(`Conversión completada. Se procesaron ${transformedData.length} registros.`);
   return transformedData;
 }
 
@@ -1422,7 +1387,7 @@ export function convertirBanRepTcap(excelArray) {
       }
     }
 
-    // Validar que la tasa a 30 días CDAT no sea nula
+/*     // Validar que la tasa a 30 días CDAT no sea nula
     if (isNaN(transformedRow["tasa_a_30_cdats_cdat_bancos_comerciales"])) {
       console.error(
         "La tasa a 30 días CDAT Bancos comerciales no puede ser nula en la fila ",
@@ -1431,7 +1396,7 @@ export function convertirBanRepTcap(excelArray) {
       throw new Error(
         "La tasa a 30 días CDAT Bancos comerciales no puede ser nula"
       );
-    }
+    } */
 
     console.log(`Fila ${i} transformada:`, transformedRow);
     transformedData.push(transformedRow);

@@ -2939,10 +2939,15 @@ const resolvers = {
                 data_banrepublica_tco[0].tasa_cred_com_odinario;
 
                 if(anho === 2025 && mes === 2){
-                  tasa_cred_com_odinario = 13.09;
+                  tasa_cred_com_odinario = 13.09; // era 1327
                   //mensualizaresa tasa efectiva anual a efectiva mensual
                   tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
                   
+                }
+                else if(anho === 2025 && mes === 3){
+                  tasa_cred_com_odinario = 13.63; 
+                  //mensualizaresa tasa efectiva anual a efectiva mensual
+                  tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
                 }
               ad_ =
                 adm_ +
@@ -5628,6 +5633,7 @@ const resolvers = {
         const ultimafechaGuardada = await Data_banrepublica_tcap.max("fecha", {
           where: { empresa_id: ctx.usuario.empresa },
         });
+        console.log({ ultimafechaGuardada });
 
         // Recorrer los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {

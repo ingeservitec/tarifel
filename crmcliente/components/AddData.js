@@ -853,7 +853,66 @@ try{
         inputFields
       );
 
-      // Ejecuta la mutación con el array de datos completo
+      // Cambio aquí: En lugar de dividir el dataArray en paquetes pequeños,
+      // para el caso específico de los datos del Banco de la República,
+      // enviamos todo el array en una sola petición
+      if (subMutation === "nuevoDataBanrepublicaTcap" || subMutation === "nuevoDataBanrepublicaTco") {
+        try {
+          console.log("Enviando todos los datos en una sola petición...");
+          const data = await newData({
+            variables: {
+              input: dataArray,
+            },
+          });
+          
+          // Actualizar la barra de progreso al 100%
+          updateProgress(100);
+          
+          let results = [];
+          let resultsDatosErrores = [];
+          
+          if (data.data[subMutation].errores) {
+            results = [...data.data[subMutation].datos];
+            
+            if (data.data[subMutation].errores.length > 0) {
+              resultsDatosErrores = data.data[subMutation].errores.map((error) => {
+                return {
+                  mensaje: error.mensaje,
+                  tipo: error.tipo,
+                  ...error.registrosErrores,
+                };
+              });
+            }
+          } else {
+            results = [...data.data[subMutation]];
+          }
+          
+          if (resultsDatosErrores.length > 0) {
+            Swal.fire(
+              "¡Atención!",
+              `Existen (${resultsDatosErrores.length}) registros con errores y (${results.length}) registros exitosos. Revisa el reporte descargado para más información.`,
+              "warning"
+            );
+            generarReporteExcel(results, resultsDatosErrores);
+          } else {
+            Swal.fire(
+              "Buen trabajo!",
+              `(${results.length}) registros han sido guardados!`,
+              "success"
+            );
+            generarReporteExcel(results, []);
+          }
+          
+          close();
+          return;
+        } catch (error) {
+          console.error("Error al enviar los datos en bloque:", error);
+          // Si falla, continuamos con el enfoque de paquetes
+          console.log("Fallback al enfoque por paquetes...");
+        }
+      }
+      
+      // El código original para el procesamiento por paquetes se mantiene para otros casos
       let results = [];
       let paquetesEnviados = 0;
       let resultsDatosErrores = [];
@@ -894,6 +953,7 @@ try{
           results = [...results, ...data.data[subMutation]];
         }
       }
+      
       if (resultsDatosErrores.length > 0) {
         Swal.fire(
           "¡Atención!",

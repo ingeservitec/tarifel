@@ -52,6 +52,8 @@ function Datarxsui() {
       // "FORMATO T6. Opción Tarifaria168/2008",
       "FORMATO T7. Costo Unitario de Prestación del Servicio _CU 119 – UR",
       "FORMATO T9. Variables Costo Unitario de Prestación del Servicio CU 119 – UR",
+      // Reporte Circular CREG 119 de 2017
+      "Reporte Circular CREG 119 de 2017",
     ];
   
   // Add/Remove checked item from list

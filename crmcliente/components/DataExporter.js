@@ -7,6 +7,7 @@ import { OBTENER_DATA_REPORTES_SUI_Formato3SSPD } from "../data";
 
 import { OBTENER_DATA_REPORTES_SUI_Formato6SSPD } from "../data";
 import { OBTENER_DATA_REPORTES_SUI_Formato9SSPD } from "../data";
+import { OBTENER_DATA_REPORTE_SSPD_CIRCULAR_CREG_119_2017 } from "../data";
 import { OBTENER_DATA_FORMATO_7_SSPDS } from "../data";
 import { Button, message, Progress } from "antd";
 
@@ -66,12 +67,13 @@ const empresa='EGVC'
         lazyQuery: useLazyQuery(OBTENER_DATA_REPORTES_SUI_Formulario1SSPD),
         dataProperty: "obtenerDataFormulario1SSPD",
       },
-
-
+      "Reporte Circular CREG 119 de 2017":
+      {
+        lazyQuery: useLazyQuery(OBTENER_DATA_REPORTE_SSPD_CIRCULAR_CREG_119_2017),
+        dataProperty: "obtenerDataReporteSSPDCIRCULARCREG1192017",
+        isExcel: true, // Indicamos que este reporte devuelve Excel directamente
+      },
     }
-
-
-   
 
 
   const progresoPorArchivo = 100 / checked.length; // Esto divide 100% por el número de archivos
@@ -93,15 +95,15 @@ const empresa='EGVC'
       setIsDisabled(false);
       return;
     }
-    const totalExportSteps =
-      checked.length; /* Cantidad de iteraciones en el bucle principal */
+    const totalExportSteps = checked.length;
     let currentExportStep = 0;
     let noDataElements = [];
     const [startMonth, startYear] = selectedStartPeriod.split("-");
     const [endMonth, endYear] = selectedEndPeriod.split("-");
 
     let noDataMessage = "";
-var filtradosPorNius
+    var filtradosPorNius
+    
     for (let year = startYear; year <= endYear; year++) {
       let currentStartMonth = year === startYear ? startMonth : 1;
       let currentEndMonth = year === endYear ? endMonth : 12;
@@ -110,93 +112,242 @@ var filtradosPorNius
         const startDate = month.toString() + "-" + year.toString();
 
         for (const check of checked) {
-          let page = 1;
-          let totalPagesPorArchivo = 0; // Inicializa el total de páginas por archivo
-          let allData = [];
           try {
-            const { lazyQuery, dataProperty } = checkMappings[check];
+            const { lazyQuery, dataProperty, isExcel } = checkMappings[check];
             const mapping = checkMappings[check];
 
             const [loadDataFunction, { data, loading, error }] = lazyQuery;
 
-            try {
-              while (true) {
-               
-                try {
+            // Si es el reporte que devuelve Excel directamente
+            if (isExcel) {
+              try {
+                // Para el reporte CREG 119, lo procesamos solo una vez
+                if (isExcel) {
+                  // Verificar si estamos en el primer mes-año del rango seleccionado
+                  // Solo procesamos si estamos en el primer mes-año
+                  if (year.toString() !== startYear || month.toString() !== startMonth) {
+                    // Si no es el primer mes-año, saltamos este ciclo
+                    continue;
+                  }
+                  
+                  updateProgress(50); // Iniciar progreso
+                  
+                  // Recolectar todos los períodos solicitados
+                  const allPeriods = [];
+                  
+                  for (let y = parseInt(startYear); y <= parseInt(endYear); y++) {
+                    let startM = (y === parseInt(startYear)) ? parseInt(startMonth) : 1;
+                    let endM = (y === parseInt(endYear)) ? parseInt(endMonth) : 12;
+                    
+                    for (let m = startM; m <= endM; m++) {
+                      allPeriods.push({
+                        anho: y.toString(),
+                        mes: m.toString()
+                      });
+                    }
+                  }
+                  
+                  console.log(`Procesando ${allPeriods.length} períodos para CREG 119`);
+                  
+                  // Una única llamada al backend con todos los períodos
                   const result = await loadDataFunction({
                     variables: {
-                      page: page,
-                      limit: 1000, // Ajusta según tus necesidades
-                      selectedStartPeriod: startDate,
-                      selectedEndPeriod: startDate,
+                      options: {
+                        filters: [
+                          {
+                            campo: "periodos",
+                            valores: [JSON.stringify(allPeriods)]
+                          }
+                        ],
+                        page: 1,
+                        limit: 1
+                      }
                     },
                   });
-              
-                  if (
-                    result.data &&
-                    result.data[mapping.dataProperty].registros
-                  ) {
-
-
-                    allData = [
-                      ...allData,
-                      ...result.data[mapping.dataProperty].registros,
-                    ]; // Asegúrate de ajustar el nombre del query
-                    if (page === 1) {
-                      totalPagesPorArchivo =
-                        result.data[mapping.dataProperty].totalPages;
-                    }
-
-                    const progresoActualArchivo = calcularProgresoArchivo(page, totalPagesPorArchivo);
-                    actualizarProgresoTotal(currentExportStep, progresoActualArchivo);
-
+                  
+                  // Procesar la respuesta
+                  if (result.data && result.data[mapping.dataProperty]) {
+                    const excelBase64 = result.data[mapping.dataProperty].excelBase64;
                     
+                    if (excelBase64) {
+                      // Convertir base64 a Blob
+                      const binaryString = window.atob(excelBase64);
+                      const len = binaryString.length;
+                      const bytes = new Uint8Array(len);
+                      for (let i = 0; i < len; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                      }
+                      
+                      const blob = new Blob([bytes], { 
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+                      });
+                      
+                      // Nombre de archivo incluye rango de fechas completo
+                      saveAs(
+                        blob,
+                        `${empresa}_${check}_${startMonth}-${startYear}_a_${endMonth}-${endYear}.xlsx`
+                      );
+                      
+                      updateProgress(100); // Completar progreso
+                    } else {
+                      // Verificar si hay mensaje de error en la respuesta
+                      if (result.data[mapping.dataProperty].message) {
+                        throw new Error(result.data[mapping.dataProperty].message);
+                      } else {
+                        throw new Error("No se recibió el archivo Excel desde el servidor");
+                      }
+                    }
+                  } else {
+                    throw new Error("No se obtuvieron datos para la generación del Excel");
+                  }
+                } else {
+                  // Comportamiento normal para otros reportes Excel (un archivo por período)
+                  updateProgress(50); // Iniciar progreso
+                  
+                  const result = await loadDataFunction({
+                    variables: {
+                      options: {
+                        filters: [
+                          {
+                            campo: "anho",
+                            valores: [year.toString()]
+                          },
+                          {
+                            campo: "mes",
+                            valores: [month.toString()]
+                          }
+                        ],
+                        page: 1,
+                        limit: 1
+                      }
+                    },
+                  });
+                  
+                  // Verificar si la respuesta contiene el Excel en base64
+                  if (result.data && result.data[mapping.dataProperty]) {
+                    const excelBase64 = result.data[mapping.dataProperty].excelBase64;
+                    
+                    if (excelBase64) {
+                      // Convertir base64 a Blob
+                      const binaryString = window.atob(excelBase64);
+                      const len = binaryString.length;
+                      const bytes = new Uint8Array(len);
+                      for (let i = 0; i < len; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                      }
+                      
+                      const blob = new Blob([bytes], { 
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+                      });
+                      
+                      // Descargar el archivo Excel
+                      saveAs(
+                        blob,
+                        `${empresa}_${check}-${year.toString()}-${month.toString()}.xlsx`
+                      );
+                      
+                      updateProgress(100); // Completar progreso
+                    } else {
+                      // Verificar si hay mensaje de error en la respuesta
+                      if (result.data[mapping.dataProperty].message) {
+                        throw new Error(result.data[mapping.dataProperty].message);
+                      } else {
+                        throw new Error("No se recibió el archivo Excel desde el servidor");
+                      }
+                    }
+                  } else {
+                    throw new Error("No se obtuvieron datos para la generación del Excel");
+                  }
+                }
+              } catch (error) {
+                console.error("Error al descargar Excel:", error);
+                message.error({
+                  content: `Error al descargar ${check}: ${error.message}`,
+                  duration: 3,
+                });
+                noDataElements.push({
+                  check,
+                  year,
+                  month,
+                });
+                continue;
+              }
+            }
+            
+            else  {
+              // Procesamiento normal para reportes en CSV
+              let page = 1;
+              let totalPagesPorArchivo = 0;
+              let allData = [];
+              
+              try {
+                while (true) {
+                  try {
+                    const result = await loadDataFunction({
+                      variables: {
+                        page: page,
+                        limit: 1000,
+                        selectedStartPeriod: startDate,
+                        selectedEndPeriod: startDate,
+                      },
+                    });
+                
+                    if (
+                      result.data &&
+                      result.data[mapping.dataProperty].registros
+                    ) {
+                      allData = [
+                        ...allData,
+                        ...result.data[mapping.dataProperty].registros,
+                      ];
+                      
+                      if (page === 1) {
+                        totalPagesPorArchivo =
+                          result.data[mapping.dataProperty].totalPages;
+                      }
 
-                    // Si la longitud de los datos es menor que el límite, has llegado al final
-                    // Actualiza el progreso
-                    // updateProgress(calcularProgreso(page, totalPagesPorArchivo, totalExportSteps, currentExportStep));
-                    if (page >= totalPagesPorArchivo) {
+                      const progresoActualArchivo = calcularProgresoArchivo(page, totalPagesPorArchivo);
+                      actualizarProgresoTotal(currentExportStep, progresoActualArchivo);
+
+                      if (page >= totalPagesPorArchivo) {
+                        break;
+                      }
+
+                      page++;
+                    } else {
                       break;
                     }
-
-                    page++; // Incrementa la página para la próxima iteración
-                  } else {
-                    // Manejo si no hay más datos o si hay un error
+                  } catch (error) {
+                    console.error("Error al cargar datos:", error);
                     break;
                   }
-                } catch (error) {
-                  console.error("Error al cargar datos:", error);
-                  // Manejo de errores, posiblemente romper el bucle o mostrar un mensaje
-                  break;
                 }
+
+                const csvData = convertToCSV(allData);
+                const blob = new Blob([csvData], {
+                  type: "text/csv;charset=utf-8",
+                });
+
+                saveAs(
+                  blob,
+                  `${empresa}_${check}-${year.toString()}-${month.toString()}.csv`
+                );
+              } catch (error) {
+                console.error("Error al cargar datos:", error);
+                noDataElements.push({
+                  check,
+                  year,
+                  month,
+                });
+                continue;
               }
-
-
-
-              const csvData = convertToCSV(allData);
-              const blob = new Blob([csvData], {
-                type: "text/csv;charset=utf-8",
-              });
-
-              saveAs(
-                blob,
-                `${empresa}_${check}-${year.toString()}-${month.toString()}.csv`
-              );
-            } catch (error) {
-              console.error("Error al cargar datos:", error);
-              noDataElements.push({
-                check,
-                year,
-                month,
-              });
-              continue;
             }
+            
             currentExportStep++;
-          } catch {
+          } catch (error) {
             noDataMessage = `No se encontró la función de carga de datos para el check "${check}".`;
             continue;
           }
-          currentExportStep++;
         }
       }
     }
@@ -214,7 +365,7 @@ var filtradosPorNius
         .join("\n")}`;
       message.error({
         content: errorMessage,
-        duration: 3, // Hace que el mensaje no se desaparezca automáticamente
+        duration: 3,
       });
     }
 
@@ -224,6 +375,8 @@ var filtradosPorNius
   };
 
   const convertToCSV = (data) => {
+    if (!data || data.length === 0) return "";
+    
     const excludedColumns = [
       "__typename",
       "id",

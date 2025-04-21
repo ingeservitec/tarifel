@@ -311,6 +311,159 @@ const realizarConsultaPaginada = async (
   };
 };
 
+
+
+
+// Función para generar el Excel con ExcelJS
+// Función para generar el Excel con xlsx
+// Función para generar el Excel con múltiples períodos usando xlsx
+async function generarExcelMultiPeriodos(datosPorPeriodo, periodos) {
+  const XLSX = require('xlsx');
+  
+  // Obtener encabezados de períodos
+  const periodosEncabezados = periodos.map(p => `${p.mes}-${p.anho}`);
+  
+  // Crear cabeceras para la hoja de Excel
+  // Primera fila: título
+  const headerRow1 = ["COMPONENTE FIJO RESOLUCIÓN CREG 180 DE 2014"];
+  
+  // Segunda fila: encabezados de columnas
+  const headerRow2 = ["Variable", "Unidad", "Descripción"];
+  
+  // Añadimos pares de columnas (Valor, Comentario) para cada período
+  periodosEncabezados.forEach(periodo => {
+    headerRow2.push(periodo);
+    headerRow2.push("Comentarios / Fuente");
+  });
+  
+  // Inicializar la hoja de cálculo con los encabezados
+  const ws = XLSX.utils.aoa_to_sheet([headerRow1, headerRow2]);
+  
+  // Configurar mezcla de celdas para el título
+  ws['!merges'] = [
+    // Mezclar las celdas del título en la primera fila
+    { s: { r: 0, c: 0 }, e: { r: 0, c: headerRow2.length - 1 } }
+  ];
+  
+  // Verificar que tengamos datos válidos
+  if (!datosPorPeriodo || datosPorPeriodo.length === 0) {
+    throw new Error('No hay datos disponibles para generar el reporte');
+  }
+  
+  // Función auxiliar para crear una fila con valores para múltiples períodos
+  const createRow = (variable, unidad, descripcion) => {
+    const row = [variable, unidad, descripcion];
+    
+    // Agregar valores de cada período
+    datosPorPeriodo.forEach(datoPeriodo => {
+      // Acceder directamente a la propiedad del objeto
+      if (datoPeriodo && variable in datoPeriodo) {
+        row.push(datoPeriodo[variable]);
+      } else {
+        row.push('N/A'); // Valor por defecto si no se encuentra
+      }
+      row.push(""); // Columna de comentarios vacía
+    });
+    
+    return row;
+  };
+  
+  // Agregar filas para el componente fijo
+  const componenteFijoRows = [
+    createRow("CF", "Art 11", "Costo base de comercialización para cada mercado de comercialización j, expresado en pesos por factura, correspondiente al mes m."),
+    
+    createRow("IPCm_1", "Índice", "Índice de precios al consumidor reportado por el DANE para el mes m-1."),
+    createRow("IPC0", "Índice", "Índice de precios al consumidor reportado por el DANE para diciembre de 2013."),
+    createRow("X", "%", "Factor de productividad reconocido para la actividad de comercialización."),
+  ];
+  
+  // Fila vacía y encabezado de componente variable
+  const separadorRow = ["", "", "", ...Array(periodos.length * 2).fill("")];
+  const componenteVariableTitleRow = ["COMPONENTE VARIABLE RESOLUCIÓN CREG 180 DE 2014", "", "", ...Array(periodos.length * 2).fill("")];
+  
+  // Agregar filas para el componente variable
+  const componenteVariableRows = [
+    createRow("Gm_1", "$/kWh", "Costo de compra de energía para los usuarios regulados del comercializador j, en el mercado de comercialización i, en el mes m-1."),
+    createRow("Tm_1", "$/kWh", "Costo por uso de los STN y STR del mes m-1."),
+    createRow("D1m_1", "$/kWh", "Costo por uso de los SDL del nivel de tensión 1, en el mercado de comercialización j, para el mes m-1."),
+    createRow("PR1m_1", "$/kWh", "Costo de compra, transporte y reducción de pérdidas de energía acumuladas hasta el nivel de tensión 1."),
+    createRow("Rm_1", "$/kWh", "Costos de Restricciones y Servicios asociados con generación."),
+    createRow("mo", "%", "Margen de comercialización definido en el artículo 11 de esta resolución."),
+    createRow("RCTj", "%", "Riesgo por riesgo de cartera no gestionable."),
+    createRow("RCAEj", "%", "Valor reconocido regulatoriamente por el operador de red."),
+    createRow("RCNU", "%", "Valor reconocible por atender grupo de usuarios."),
+    createRow("IFSSRI_t_1", "", "IFSSRIi,j (t-1)"),
+    createRow("IFSSRI_t_2", "", "IFSSRIi,j (t-2)"),
+    createRow("IFOES_t_1", "", "IFOESi,j (t-1)"),
+    createRow("IFOES_t_2", "", "IFOESi,j (t-2)"),
+    createRow("facturacion_t_1", "", "Facturación (t-1)"),
+    createRow("facturacion_t_2", "", "Facturación (t-2)"),
+    createRow("VUTr", "", "VUTri,j,m-1"),
+    createRow("VAE", "", "VAEi,j,m-1"),
+    createRow("VSNE", "", "VSNEi,j,m-1"),
+    createRow("VNU", "", "VNUi,j,m-1"),
+    createRow("CFE", "", "CFE: CFS + 0.0042"),
+    createRow("Sub1", "", "Sub1i,j,T*"),
+    createRow("r1", "", "r1"),
+    createRow("N", "", "N"),
+    createRow("Sub2", "", "Sub2i,j,T*"),
+    createRow("r2", "", "r2"),
+    createRow("M", "", "M"),
+    createRow("Facturacion", "", "Facturación"),
+    createRow("CER", "", "CERi,m"),
+    createRow("CCD", "", "CCDi,m-1"),
+    createRow("CG", "", "CGi,m-1"),
+    createRow("V", "", "Vi,m-1"),
+    createRow("beta", "", "β"),
+    createRow("UR", "", "URi,j,m-2"),
+    createRow("CGCU", "", "CGCUi,j,m-1"),
+    createRow("PUI", "", "PUIj,m"),
+    createRow("VR", "", "VRi,j,m-2")
+  ];
+  
+  // Combinar todas las filas
+  const allRows = [
+    ...componenteFijoRows,
+    separadorRow,
+    componenteVariableTitleRow,
+    ...componenteVariableRows
+  ];
+  
+  // Agregar todas las filas a la hoja de cálculo
+  XLSX.utils.sheet_add_aoa(ws, allRows, { origin: 'A3' });
+  
+  // Agregar merge para el título del componente variable
+  ws['!merges'].push({ 
+    s: { r: componenteFijoRows.length + 3, c: 0 }, 
+    e: { r: componenteFijoRows.length + 3, c: headerRow2.length - 1 } 
+  });
+  
+  // Ajustar anchos de columna
+  const wchValues = [
+    15, // Variable
+    10, // Unidad
+    60  // Descripción
+  ];
+  
+  // Añadir anchos para cada período (valor y comentario)
+  periodosEncabezados.forEach(() => {
+    wchValues.push(15); // Valor
+    wchValues.push(20); // Comentario
+  });
+  
+  ws['!cols'] = wchValues.map(wch => ({ wch }));
+  
+  // Crear un libro de trabajo y agregar la hoja
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Reporte SSPD CREG 119');
+  
+  // Convertir a buffer
+  const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+  
+  return buffer;
+}
+
+
 const resolvers = {
   Query: {
     //Toma un token
@@ -1194,6 +1347,358 @@ const resolvers = {
         throw new Error("No se pudieron obtener los datos de banrepublica tco");
       }
     },
+    obtenerDataReporteSSPDCIRCULARCREG1192017: async (_, { options }, ctx) => {
+      try {
+        // Verificar si se recibió un array de períodos
+        const periodosFilter = options.filters?.find(f => f.campo === "periodos");
+        
+        let periodos = [];
+        let anho, mes;
+        
+        if (periodosFilter && periodosFilter.valores && periodosFilter.valores.length > 0) {
+          // Si recibimos períodos múltiples, los procesamos
+          try {
+            periodos = JSON.parse(periodosFilter.valores[0]);
+            
+            if (!Array.isArray(periodos) || periodos.length === 0) {
+              throw new Error('El formato de períodos es inválido');
+            }
+            
+            // Usamos el primer período como referencia inicial
+            anho = periodos[0].anho;
+            mes = periodos[0].mes;
+            
+            console.log(`Procesando ${periodos.length} períodos para el reporte`);
+          } catch (error) {
+            throw new Error('Error al procesar los períodos: ' + error.message);
+          }
+        } else {
+          // Si no recibimos múltiples períodos, buscamos año y mes individuales
+          const anhoFilter = options.filters?.find(f => f.campo === "anho");
+          const mesFilter = options.filters?.find(f => f.campo === "mes");
+          
+          anho = anhoFilter?.valores?.[0];
+          mes = mesFilter?.valores?.[0];
+          
+          if (!anho || !mes) {
+            throw new Error('Se requiere el año y mes para generar el reporte');
+          }
+          
+          // Usamos un solo período
+          periodos.push({ anho, mes });
+        }
+        
+        // Ordenamos los períodos cronológicamente
+        periodos.sort((a, b) => {
+          if (a.anho !== b.anho) return parseInt(a.anho) - parseInt(b.anho);
+          return parseInt(a.mes) - parseInt(b.mes);
+        });
+        
+        // Inicializar array para almacenar datos de todos los períodos
+        const datosPorPeriodo = [];
+        
+        // Agrupar los datos de todos los períodos
+        for (let i = 0; i < periodos.length; i++) {
+          const periodo = periodos[i];
+          const { anho, mes } = periodo;
+          
+          // Calcular mes y año anteriores
+          let mesm, anhom, mesm2, anhom2;
+          if (parseInt(mes) === 1) {
+            mesm = "12";
+            anhom = (parseInt(anho) - 1).toString();
+            mesm2 = "11";
+            anhom2 = (parseInt(anho) - 1).toString();
+          } else if (parseInt(mes) === 2) {
+            mesm = (parseInt(mes) - 1).toString();
+            anhom = anho;
+            mesm2 = "12";
+            anhom2 = (parseInt(anho) - 1).toString();
+          } else {
+            mesm = (parseInt(mes) - 1).toString();
+            anhom = anho;
+            mesm2 = (parseInt(mes) - 2).toString();
+            anhom2 = anho;
+          }
+          
+          // Obtener datos de los diferentes modelos para este período
+          
+          // Data_creg_cx - CF, RCTj, RCAEj,t, RCNU
+          const dataCregCx = await Data_creg_cx.findOne({
+            /* where: { empresa_id: ctx.usuario.empresa } */
+          });
+          
+         
+          // Data_dane - IPCm-1, IPC0
+          const dataDane = await Data_dane_ipc.findOne({
+            where: { anho: anhom, mes: mesm }
+          });
+          
+          
+          
+          // Res_componentes_cu_tarifas - Gi,j,m-1, Tm-1, D1,j,m-1, PR1,j,m-1, Ri,m-1, CFS, CERi,m
+          const componentesCu = await Res_componentes_cu_tarifa.findOne({
+            where: { anho: anhom, mes: mesm }
+          });
+          
+        
+          
+          // Data_Formato_9_SSPD - Sub1i,j,T*, r1, N, Sub2i,j,T*, r2, M, Facturación
+          const dataFormato9 = await DataFormato9SSPD.findOne({
+            where: { anho: anhom, mes: mesm, empresa_id: ctx.usuario.empresa }
+          });
+          
+          // Data_xm_tservs - CCDi,m-1
+          data_xm_tserv = await Data_xm_tserv.findAll({
+            where: {
+              empresa_id: ctx.usuario.empresa,
+              anho: anhom,
+              mes: mesm,
+              agente: "EGVC",
+            },
+          });
+
+          if (!data_xm_tserv) {
+            throw new Error(
+              `No existen datos de TSERV para periodo ${mesm}-${anhom}`
+            );
+          }
+
+          const data_xm_tservmcnd = data_xm_tserv.filter(
+            (data_xm_tserv) => data_xm_tserv.concepto === "CND"
+          )[0].dataValues.valor;
+          const data_xm_tservmsic = data_xm_tserv.filter(
+            (data_xm_tserv) => data_xm_tserv.concepto === "SIC"
+          )[0].dataValues.valor;
+          const data_xm_tservmsiciva = data_xm_tserv.filter(
+            (data_xm_tserv) => data_xm_tserv.concepto === "SIC_IVA"
+          )[0].dataValues.valor;
+          
+          // data_empresa_garantia - CGi,m-1, CGCUi,j,m-1
+          const dataEmpresaGarantia = await Data_empresa_garantia.findOne({
+            where: { empresa_id: ctx.usuario.empresa }
+          });
+          
+          // Cf es el fijo Data_creg_cxSchema
+          const CF = dataCregCx?.Cf 
+          
+          // IPCm-1: Data_daneSchema o Data_reportes_sui_sin_zni_tr_t9Schema
+          const IPCm_1 = dataDane?.ipc 
+          
+          // IPC0: Data_daneSchema
+          const IPC0 = 79.55965;
+          
+          // X: Calcular con base en calculo Cu
+          const X = 0.02900; // Valor por defecto
+          
+          // Gi,j,m-1: Res_componentes_cu_tarifasSchema
+          const Gm_1 = componentesCu?.gc 
+          
+          // Tm-1: Res_componentes_cu_tarifasSchema
+          const Tm_1 = componentesCu?.tx 
+          
+          // D1,j,m-1: Res_componentes_cu_tarifasSchema
+          const D1m_1 = componentesCu?.dnt1 
+          
+          // PR1,j,m-1: Res_componentes_cu_tarifasSchema
+          const PR1m_1 = componentesCu?.pr_nt1 
+          
+          // Ri,m-1: Res_componentes_cu_tarifasSchema
+          const Rm_1 = componentesCu?.r 
+          
+          // mo: Fijo
+          const mo = 2.73;
+          
+          // RCTj Data_creg_cxSchema
+          const RCTj = dataCregCx?.RCT /100
+          
+          // RCAEj,t Data_creg_cxSchema
+          const RCAEj = dataCregCx?.RCAE 
+          
+          // RCNU: Data_creg_cxSchema
+          const RCNU = dataCregCx?.RCNU 
+          
+          // Valores fijos para IFSSRI e IFOES
+          const IFSSRI_t_1 = 0;
+          const IFSSRI_t_2 = 0;
+          const IFOES_t_1 = 0;
+          const IFOES_t_2 = 0;
+          
+          // Facturación (t-1) y Facturación (t-2)
+          const facturacion_t_1 = 1000000; // Valor simulado
+          const facturacion_t_2 = 950000; // Valor simulado
+          
+          // Consulta específica para datos de empresa del mes anterior
+          const data_empresam = await Data_empresa.findOne({
+            where: {
+              empresa_id: ctx.usuario.empresa,
+              anho: anhom,
+              mes: mesm,
+            },
+          });
+          
+          var VUTr = data_empresam ? (
+            data_empresam.ventas_usuarios_r_nt1_e +
+            data_empresam.ventas_usuarios_r_nt1_c +
+            data_empresam.ventas_usuarios_r_nt1_u +
+            data_empresam.ventas_usuarios_r_nt2 +
+            data_empresam.ventas_usuarios_r_nt3 -
+            data_empresam.vae_kwh -
+            data_empresam.vsne_kwh -
+            data_empresam.vnu_kwh
+          ) : 0;
+          
+          // VAEi,j,m-1: Data_empresaSchema
+          const VAE = data_empresam?.vae_kwh 
+          
+          // VSNEi,j,m-1: Data_empresaSchema
+          const VSNE = data_empresam?.vsne_kwh 
+          
+          // VNUi,j,m-1: Data_empresaSchema
+          const VNU = data_empresam?.vnu_kwh 
+          
+          // CFE: CFS +0.0042 CFS es Res_componentes_cu_tarifasSchema
+          const CFS = componentesCu?.cfs 
+          const CFE = CFS + 0.0042;
+          
+          // Sub1i,j,T*: Data_Formato_9_SSPDSchema
+          const Sub1 = dataFormato9?.sub1 
+          
+          // r1 Data_Formato_9_SSPDSchema
+          const r1 = dataFormato9?.r1 
+          
+          // N Data_Formato_9_SSPDSchema
+          const N = dataFormato9?.n 
+          
+          // Sub2i,j,T* Data_Formato_9_SSPDSchema
+          const Sub2 = dataFormato9?.sub2 
+          
+          // r2 Data_Formato_9_SSPDSchema
+          const r2 = dataFormato9?.r2 
+          
+          // M Data_Formato_9_SSPDSchema
+          const M = dataFormato9?.m 
+          
+          // Facturación Data_Formato_9_SSPDSchema
+          const Facturacion = dataFormato9?.facturacion 
+          
+          // CERi,m: Res_componentes_cu_tarifasSchema
+          const CER = componentesCu?.cer 
+          
+          // CCDi,m-1: Data_xm_tservsSchema
+          const CCD = data_xm_tservmcnd 
+          
+          // CGi,m-1: data_empresa_garantiaSchema
+          const CG = dataEmpresaGarantia?.valor_garantia 
+          
+          // Vi,m-1: Data_empresaSchema
+          const V = data_empresam ? (
+            data_empresam.ventas_usuarios_r_nt1_e +
+            data_empresam.ventas_usuarios_r_nt1_c +
+            data_empresam.ventas_usuarios_r_nt1_u +
+            data_empresam.ventas_usuarios_r_nt2 +
+            data_empresam.ventas_usuarios_r_nt3 
+
+          ) : 0;
+          
+          // β: 0
+          const beta = 0;
+          
+          // Datos de dos meses atrás
+          // URi,j,m-2: Data_empresaSchema
+
+          const data_empresam2 = await Data_empresa.findOne({
+            where: {
+              empresa_id: ctx.usuario.empresa,
+              anho: anhom2,
+              mes: mesm2,
+            },
+          });
+          const UR = data_empresam2?.numero_usuarios_r 
+          
+          // VRi,j,m-2: Data_empresaSchema
+          const VR =  data_empresam2.ventas_usuarios_r_nt1_e +
+          data_empresam2.ventas_usuarios_r_nt1_c +
+          data_empresam2.ventas_usuarios_r_nt1_u +
+          data_empresam2.ventas_usuarios_r_nt2 +
+          data_empresam2.ventas_usuarios_r_nt3
+          
+          // CGCUi,j,m-1: data_empresa_garantiaSchema
+          const CGCU = dataEmpresaGarantia?.cgcu 
+          
+          // PUIj,m: 0
+          const PUI = 0;
+          
+          const datosPeriodo = {
+            periodo: `${mes}-${anho}`,
+            CF,
+            IPCm_1,
+            IPC0,
+            X,
+            Gm_1,
+            Tm_1,
+            D1m_1,
+            PR1m_1,
+            Rm_1,
+            mo,
+            RCTj,
+            RCAEj,
+            RCNU,
+            IFSSRI_t_1,
+            IFSSRI_t_2,
+            IFOES_t_1,
+            IFOES_t_2,
+            facturacion_t_1,
+            facturacion_t_2,
+            VUTr,
+            VAE,
+            VSNE,
+            VNU,
+            CFE,
+            Sub1,
+            r1,
+            N,
+            Sub2,
+            r2,
+            M,
+            Facturacion,
+            CER,
+            CCD,
+            CG,
+            V,
+            beta,
+            UR,
+            CGCU,
+            PUI,
+            VR
+          };
+          
+          // Guardar datos de este período
+          datosPorPeriodo.push(datosPeriodo);
+        }
+        
+        // Generar Excel con múltiples períodos
+        const excelBuffer = await generarExcelMultiPeriodos(datosPorPeriodo, periodos);
+        const excelBase64 = excelBuffer.toString('base64');
+        
+        return {
+          excelBase64,
+          success: true,
+          message: 'Reporte generado correctamente'
+        };
+        
+      } catch (error) {
+        console.error('Error al generar reporte Excel:', error);
+        return {
+          excelBase64: null,
+          success: false,
+          message: error.message
+        };
+      }
+    }
+    
+   
+    
   },
 
   Mutation: {

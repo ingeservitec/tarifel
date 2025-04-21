@@ -3928,3 +3928,13 @@ export const ELIMINAR_DATA_BANREPUBLICA_TCAP = gql`
     eliminarDataBanrepublicaTcap(ids: $eliminarDataId)
   }
 `;
+
+export const OBTENER_DATA_REPORTE_SSPD_CIRCULAR_CREG_119_2017 = gql`
+  query obtenerDataReporteSSPDCIRCULARCREG1192017($options: QueryOptions!) {
+    obtenerDataReporteSSPDCIRCULARCREG1192017(options: $options) {
+      excelBase64
+      success
+      message
+    }
+  }
+`;

@@ -2977,6 +2977,11 @@ type ErrorDataMmeGiro {
     valoresFiltrables: [ValoresFiltrables]
   }
 
+type ReporteExcelResponse {
+     excelBase64: String
+     success: Boolean
+     message: String
+  }
 
 
   type Query {
@@ -3112,7 +3117,9 @@ type ErrorDataMmeGiro {
     obtenerDataBanrepublicaTco(options: QueryOptions!): DataBanrepublicaTcoResponse
     obtenerDataBanrepublicaTcap(options: QueryOptions!): DataBanrepublicaTcapResponse
     
-  
+   obtenerDataReporteSSPDCIRCULARCREG1192017(
+     options: QueryOptions!
+    ): ReporteExcelResponse
   }
   type Mutation {
     #Usuarios

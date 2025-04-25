@@ -3454,15 +3454,25 @@ const resolvers = {
                   //mensualizaresa tasa efectiva anual a efectiva mensual
                   tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
                 }
+                else if(anho === 2025 && mes === 4){
+                  tasa_cred_com_odinario = 13.27; 
+                  //mensualizaresa tasa efectiva anual a efectiva mensual
+                  tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
+                }
               ad_ =
                 adm_ +
                 // cr  de ese mes anterior menos gc del mes anterior
                 (data_componentes_cu_tarifas.dataValues.cr -
                   data_componentes_cu_tarifas.dataValues.gc) *
                   ventas_totales *
-                  tasa_cred_com_odinario;
+                  (1 + tasa_cred_com_odinario);
 
-          
+          console.log("tasa_cred_com_odinario", tasa_cred_com_odinario);
+          console.log("adm_", adm_);
+          console.log("data_componentes_cu_tarifas.dataValues.cr", data_componentes_cu_tarifas.dataValues.cr);
+          console.log("data_componentes_cu_tarifas.dataValues.gc", data_componentes_cu_tarifas.dataValues.gc);
+          console.log("ventas_totales", ventas_totales);
+          console.log("ad_", ad_);
 
               gTransitorio = 0; //ACTUALIZAR
 
@@ -3575,11 +3585,21 @@ const resolvers = {
               // multiplicado poor las ventas del mes anterior
 
               aj_ = roundToTwo(Math.min(max_g_ - cr_, ad_ / ventas_totales));
+              console.log("aj_", aj_);
+              console.log("max_g_", max_g_);
+              console.log("cr_", cr_);
+              console.log("ad_", ad_);
+              console.log("ventas_totales", ventas_totales);
+              console.log("ad_ / ventas_totales", ad_ / ventas_totales);
+              console.log("Math.min(max_g_ - cr_, ad_ / ventas_totales)", Math.min(max_g_ - cr_, ad_ / ventas_totales));
+              console.log("max_g_ - cr_", max_g_ - cr_);
+
 
               gc_ = roundToTwo(gc_ + aj_);
 
               input[index].qc = qc_;
               input[index].ad = roundToTwo(ad_);
+              console.log("input[index].ad", input[index].ad);
               input[index].mc = mc_;
               input[index].w1 = roundToTwo(w1);
               input[index].w2 = roundToTwo(w2);

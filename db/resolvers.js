@@ -3441,7 +3441,7 @@ const resolvers = {
               }
 
               var tasa_cred_com_odinario =
-                data_banrepublica_tco[0].tasa_cred_com_odinario;
+                data_banrepublica_tco[0].tasa_cred_com_odinario_31_365;
 
                 if(anho === 2025 && mes === 2){
                   tasa_cred_com_odinario = 13.09; // era 1327
@@ -3459,6 +3459,7 @@ const resolvers = {
                   //mensualizaresa tasa efectiva anual a efectiva mensual
                   tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
                 }
+                tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
               ad_ =
                 adm_ +
                 // cr  de ese mes anterior menos gc del mes anterior
@@ -6052,39 +6053,43 @@ const resolvers = {
       try {
         const miArray = [];
         const errores = [];
-
-        // Consultar la última semana guardada en la base de datos
-        const ultimaSemanaGuardada = await Data_banrepublica_tco.max(
-          "anho_semana",
-          {
-            where: { empresa_id: ctx.usuario.empresa },
-          }
-        );
-
+    
         // Recorrer los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
             // Reemplazar guiones bajos por nada en anho_semana
-            input[index].anho_semana = input[index].anho_semana.replace(
-              /-/g,
-              ""
-            );
-
-            // Comparar la semana del input con la última semana guardada
-            if (input[index].anho_semana > ultimaSemanaGuardada) {
-              // Si no existe un registro para una semana posterior a la guardada, crea uno nuevo
+            input[index].anho_semana = input[index].anho_semana.replace(/-/g, "");
+    
+            // Buscar si ya existe un registro para esta semana
+            const registroExistente = await Data_banrepublica_tco.findOne({
+              where: { 
+                empresa_id: ctx.usuario.empresa,
+                anho_semana: input[index].anho_semana
+              }
+            });
+    
+            if (registroExistente) {
+              // Si existe el registro, verificar si los campos específicos están NULL
+              if (registroExistente.tasa__cred_com_preferencial_o_corporativo === null || 
+                  registroExistente.monto__cred_com_preferencial_o_corporativo === null) {
+                
+                // Actualizar solo los campos que vienen en el input
+                await registroExistente.update({
+                  tasa__cred_com_preferencial_o_corporativo: input[index].tasa__cred_com_preferencial_o_corporativo,
+                  monto__cred_com_preferencial_o_corporativo: input[index].monto__cred_com_preferencial_o_corporativo
+                });
+                
+                miArray.push(registroExistente);
+              }
+              // Si los campos ya tienen valores, no hacer nada (o podrías agregar a errores si quieres)
+            } else {
+              // Si no existe, crear un nuevo registro
               input[index].empresa_id = ctx.usuario.empresa;
               input[index].creador = ctx.usuario.id;
-              try {
-                const newDataBanrepublicaTco = new Data_banrepublica_tco(
-                  input[index]
-                );
-                const resultado = await newDataBanrepublicaTco.save();
-                miArray.push(resultado);
-              } catch (error) {
-                console.log(error);
-                throw new Error(error.message);
-              }
+              
+              const newDataBanrepublicaTco = new Data_banrepublica_tco(input[index]);
+              const resultado = await newDataBanrepublicaTco.save();
+              miArray.push(resultado);
             }
           } catch (error) {
             errores.push({
@@ -6094,7 +6099,68 @@ const resolvers = {
             });
           }
         }
-
+    
+        return {
+          datos: miArray,
+          errores,
+        };
+      } catch (error) {
+        console.log(error);
+        throw new Error("Error al procesar la solicitud: " + error.message);
+      }
+    },
+    
+    nuevoDataBanrepublicaTco31365: async (_, { input }, ctx) => {
+      try {
+        const miArray = [];
+        const errores = [];
+    
+        // Recorrer los inputs que se quieren agregar
+        for (let index = 0; index < input.length; index++) {
+          try {
+            // Reemplazar guiones bajos por nada en anho_semana
+            input[index].anho_semana = input[index].anho_semana.replace(/-/g, "");
+    
+            // Buscar si ya existe un registro para esta semana
+            const registroExistente = await Data_banrepublica_tco.findOne({
+              where: { 
+                empresa_id: ctx.usuario.empresa,
+                anho_semana: input[index].anho_semana
+              }
+            });
+    
+            if (registroExistente) {
+              // Si existe el registro, verificar si los campos específicos están NULL
+              if (registroExistente.tasa_cred_com_odinario_31_365 === null || 
+                  registroExistente.monto_cred_com_odinario_31_365 === null) {
+                
+                // Actualizar solo los campos que vienen en el input
+                await registroExistente.update({
+                  tasa_cred_com_odinario_31_365: input[index].tasa_cred_com_odinario_31_365,
+                  monto_cred_com_odinario_31_365: input[index].monto_cred_com_odinario_31_365
+                });
+                
+                miArray.push(registroExistente);
+              }
+              // Si los campos ya tienen valores, no hacer nada (o podrías agregar a errores si quieres)
+            } else {
+              // Si no existe, crear un nuevo registro
+              input[index].empresa_id = ctx.usuario.empresa;
+              input[index].creador = ctx.usuario.id;
+              
+              const newDataBanrepublicaTco = new Data_banrepublica_tco(input[index]);
+              const resultado = await newDataBanrepublicaTco.save();
+              miArray.push(resultado);
+            }
+          } catch (error) {
+            errores.push({
+              registrosErrores: [input[index]],
+              mensaje: error.message,
+              tipo: "error",
+            });
+          }
+        }
+    
         return {
           datos: miArray,
           errores,

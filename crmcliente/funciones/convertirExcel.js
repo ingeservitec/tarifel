@@ -315,12 +315,12 @@ export function convertirSTN(sheetName, excelArray, dataArray2) {
               row[lastValueIndex].replace(/,/g, "")
             );
             break;
-          case "Ingreso a Compensar para estimados  (COP)":
+          case "Ingreso a Compensar para estimados  (COP)":
             resultObject.Ing_Compensar_T_cop = parseFloat(
               row[lastValueIndex].replace(/,/g, "")
             );
             break;
-          case "Ingreso Regulado Neto para estimados  (COP)":
+          case "Ingreso Regulado Neto para estimados  (COP)":
             resultObject.Ing_Reg_Neto_T_cop = parseFloat(
               row[lastValueIndex].replace(/,/g, "")
             );
@@ -1209,44 +1209,296 @@ export function convertirCPROG(sheetName, excelArray, dataArray2) {
 
 export function convertirBanRepTco(excelArray) {
   console.log("Iniciando conversión de Excel de tasas de crédito. Filas recibidas:", excelArray.length);
+  console.log({excelArray})
   
-  // Encontrar índice de la fila con encabezados de las columnas
-  const headerRowIndex = excelArray.findIndex(row => 
-    row.includes("Año semana")
-  );
-  
-  if (headerRowIndex === -1) {
-    console.error("No se pudo encontrar la fila de encabezados.");
-    return [];
-  }
-  
-  // Los datos comienzan justo después de la fila de encabezados
-  const dataStartIndex = headerRowIndex + 1;
-  
-  // Procesamos los datos hasta encontrar una fila vacía o inválida
-  const transformedData = [];
-  
-  for (let i = dataStartIndex; i < excelArray.length; i++) {
-    const row = excelArray[i];
+  try {
+    // Validación 1: Verificar que el archivo contiene datos de tasas de crédito comercial
+    // Buscar en todo el contenido del archivo, no solo en los encabezados
+    const hasCommercialCreditData = excelArray.some(row => 
+      row.some(cell => 
+        typeof cell === 'string' && 
+        (cell.toLowerCase().includes('créditos comerciales') || 
+         cell.toLowerCase().includes('creditos comerciales') ||
+         cell.toLowerCase().includes('preferencial') ||
+         cell.toLowerCase().includes('corporativo') ||
+         cell.toLowerCase().includes('comercial'))
+      )
+    );
     
-    // Verificar si es una fila de datos válida (debe tener año-semana)
-    if (!row[0] || row[0].trim() === '') {
-      continue; // Saltamos filas vacías
+    if (!hasCommercialCreditData) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Archivo Incorrecto',
+        description: 'El archivo seleccionado no contiene datos de tasas de crédito comercial.',
+        details: [
+          '📋 Archivo esperado: Tasas de interés de créditos comerciales del Banco de la República',
+          '🔍 Términos requeridos: "créditos comerciales", "preferencial", "corporativo" o "comercial"',
+          '💡 Solución: Verifique que está cargando el archivo correcto desde el sitio web del Banco de la República',
+          '',
+          '📊 Contenido encontrado en el archivo:',
+          ...excelArray.slice(0, 5).map((row, index) => `   Fila ${index + 1}: ${row.slice(0, 3).join(' | ')}`)
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
     }
     
-    // Crear un objeto con la estructura que necesita la base de datos
-    const dataObject = {
-      anho_semana: row[0], // "2025-08"
-      tasa__cred_com_preferencial_o_corporativo: parseFloat(row[4] || 0),
-      monto__cred_com_preferencial_o_corporativo: parseFloat((row[5] || "0").replace(/[,$]/g, "")),
-
+    console.log("✅ Validación 1 EXITOSA: El archivo contiene datos de crédito comercial");
+    
+    // Encontrar índice de la fila con encabezados de las columnas
+    const headerRowIndex = excelArray.findIndex(row => 
+      row.includes("Año semana") || 
+      row.some(cell => typeof cell === 'string' && cell.toLowerCase().includes('año'))
+    );
+    
+    if (headerRowIndex === -1) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Estructura Incorrecta',
+        description: 'No se encontró la columna "Año semana" o similar en el archivo.',
+        details: [
+          '📋 Estructura esperada: El archivo debe contener una columna de fechas (Año semana, Año, etc.)',
+          `🔍 Primeras filas encontradas:`,
+          ...excelArray.slice(0, 5).map((row, index) => `   Fila ${index + 1}: ${row.join(' | ')}`),
+          '',
+          '💡 Solución: Verifique que el archivo tiene la estructura correcta del Banco de la República'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+    
+    // Validación 2: Verificar que existe la columna de tasas y montos para crédito comercial
+    const headerRow = excelArray[headerRowIndex];
+    console.log("📊 Encabezados encontrados:", headerRow);
+    
+    // Buscar las columnas específicas que necesitamos - ser más flexible
+    let tasaColumnIndex = headerRow.findIndex(cell => 
+      typeof cell === 'string' && 
+      cell.toLowerCase().includes('tasa') && 
+      (cell.toLowerCase().includes('preferencial') || 
+       cell.toLowerCase().includes('corporativo') ||
+       cell.toLowerCase().includes('comercial'))
+    );
+    
+    let montoColumnIndex = headerRow.findIndex(cell => 
+      typeof cell === 'string' && 
+      cell.toLowerCase().includes('monto') && 
+      (cell.toLowerCase().includes('preferencial') || 
+       cell.toLowerCase().includes('corporativo') ||
+       cell.toLowerCase().includes('comercial'))
+    );
+    
+    // Si no encontramos las columnas específicas, buscar por posición o patrón más general
+    if (tasaColumnIndex === -1) {
+      // Buscar columnas que contengan "tasa" o "%" 
+      tasaColumnIndex = headerRow.findIndex(cell => 
+        typeof cell === 'string' && 
+        (cell.toLowerCase().includes('tasa') || cell.includes('%'))
+      );
+    }
+    
+    if (montoColumnIndex === -1) {
+      // Buscar columnas que contengan "monto" o "cop"
+      montoColumnIndex = headerRow.findIndex(cell => 
+        typeof cell === 'string' && 
+        (cell.toLowerCase().includes('monto') || cell.toLowerCase().includes('cop'))
+      );
+    }
+    
+    // Si aún no encontramos, usar posiciones por defecto basadas en la estructura típica
+    if (tasaColumnIndex === -1 && headerRow.length > 4) {
+      tasaColumnIndex = 4; // Posición típica de la tasa
+      console.warn("⚠️ Usando posición por defecto para columna de tasa: índice 4");
+    }
+    
+    if (montoColumnIndex === -1 && headerRow.length > 5) {
+      montoColumnIndex = 5; // Posición típica del monto
+      console.warn("⚠️ Usando posición por defecto para columna de monto: índice 5");
+    }
+    
+    if (tasaColumnIndex === -1) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Columna Faltante',
+        description: 'No se encontró la columna de tasa para crédito comercial.',
+        details: [
+          '📋 Columna esperada: Una columna que contenga "tasa", "%" o en posición 5',
+          `🔍 Columnas disponibles: ${headerRow.map((col, idx) => `${idx}: ${col}`).join(', ')}`,
+          '💡 Solución: Verifique que el archivo contiene las columnas correctas de tasas de crédito comercial'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+    
+    if (montoColumnIndex === -1) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Columna Faltante',
+        description: 'No se encontró la columna de monto para crédito comercial.',
+        details: [
+          '📋 Columna esperada: Una columna que contenga "monto", "COP" o en posición 6',
+          `🔍 Columnas disponibles: ${headerRow.map((col, idx) => `${idx}: ${col}`).join(', ')}`,
+          '💡 Solución: Verifique que el archivo contiene las columnas correctas de montos de crédito comercial'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+    
+    console.log(`✅ Validación 2 EXITOSA: Columnas encontradas - Tasa: índice ${tasaColumnIndex} (${headerRow[tasaColumnIndex]}), Monto: índice ${montoColumnIndex} (${headerRow[montoColumnIndex]})`);
+    
+    // Los datos comienzan justo después de la fila de encabezados
+    const dataStartIndex = headerRowIndex + 1;
+    
+    // Procesamos los datos hasta encontrar una fila vacía o inválida
+    const transformedData = [];
+    let validRowsCount = 0;
+    let invalidRowsCount = 0;
+    const invalidRows = [];
+    
+    for (let i = dataStartIndex; i < excelArray.length; i++) {
+      console.log({i})
+      const row = excelArray[i];
+      
+      // Verificar si es una fila de datos válida (debe tener año-semana)
+      if (!row[0] || row[0].trim() === '') {
+        continue; // Saltamos filas vacías
+      }
+      
+      // Validación 3: Verificar formato de año-semana (ser más flexible)
+      const anhoSemana = row[0].toString().trim();
+      const anhoSemanaPattern = /^\d{4}-\d{1,2}$/; // Formato: YYYY-MM o YYYY-M (sin espacios)
+      
+      if (!anhoSemanaPattern.test(anhoSemana)) {
+        invalidRowsCount++;
+        invalidRows.push({
+          fila: i + 1,
+          valor: anhoSemana,
+          error: "Formato de año-semana inválido"
+        });
+        console.warn(`⚠️ Fila ${i + 1}: Formato de año-semana inválido: "${anhoSemana}". Se omite esta fila.`);
+        continue;
+      }
+      
+      // Validación 4: Verificar que los valores numéricos sean válidos
+      const tasaValue = row[tasaColumnIndex];
+      const montoValue = row[montoColumnIndex];
+      
+      const tasa = parseFloat(tasaValue || 0);
+      const monto = parseFloat((montoValue || "0").toString().replace(/[,$]/g, ""));
+      
+      if (isNaN(tasa) && isNaN(monto)) {
+        invalidRowsCount++;
+        invalidRows.push({
+          fila: i + 1,
+          valor: `Tasa: ${tasaValue}, Monto: ${montoValue}`,
+          error: "Valores numéricos inválidos"
+        });
+        console.warn(`⚠️ Fila ${i + 1}: Tanto la tasa como el monto son inválidos. Se omite esta fila.`);
+        continue;
+      }
+      
+      // Crear un objeto con la estructura que necesita la base de datos
+      const dataObject = {
+        anho_semana: anhoSemana,
+        tasa__cred_com_preferencial_o_corporativo: isNaN(tasa) ? 0 : tasa,
+        monto__cred_com_preferencial_o_corporativo: isNaN(monto) ? 0 : monto,
+      };
+      
+      transformedData.push(dataObject);
+      validRowsCount++;
+    }
+    
+    // Validación 5: Verificar que se procesaron datos
+    if (transformedData.length === 0) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Sin Datos Válidos',
+        description: 'No se encontraron datos válidos para procesar.',
+        details: [
+          `📊 Estadísticas:`,
+          `   • Filas totales procesadas: ${excelArray.length - dataStartIndex}`,
+          `   • Filas válidas: ${validRowsCount}`,
+          `   • Filas inválidas: ${invalidRowsCount}`,
+          '',
+          '🔍 Errores encontrados:',
+          ...invalidRows.map(row => `   • Fila ${row.fila}: ${row.error} (${row.valor})`),
+          '',
+          '💡 Solución: Revise el formato de los datos y asegúrese de que:',
+          '   • Las fechas estén en formato YYYY-MM',
+          '   • Los valores numéricos sean válidos',
+          '   • El archivo no esté corrupto'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+    
+    // Mostrar resumen de procesamiento
+    const successMsg = {
+      type: 'success',
+      title: '✅ Conversión Exitosa!',
+      description: `Se procesaron ${validRowsCount} registros correctamente.`,
+      details: [
+        `📊 Resumen del procesamiento:`,
+        `   • Filas válidas procesadas: ${validRowsCount}`,
+        `   • Filas inválidas omitidas: ${invalidRowsCount}`,
+        `   • Total de registros generados: ${transformedData.length}`,
+        `   • Eficiencia: ${((validRowsCount / (validRowsCount + invalidRowsCount)) * 100).toFixed(1)}%`,
+        '',
+        `📋 Columnas utilizadas:`,
+        `   • Fecha: Columna 0 (${headerRow[0]})`,
+        `   • Tasa: Columna ${tasaColumnIndex} (${headerRow[tasaColumnIndex]})`,
+        `   • Monto: Columna ${montoColumnIndex} (${headerRow[montoColumnIndex]})`
+      ]
     };
     
-    transformedData.push(dataObject);
+    console.log(successMsg);
+    
+    if (invalidRowsCount > 0) {
+      console.warn(`⚠️ ADVERTENCIA: Se omitieron ${invalidRowsCount} filas con errores:`);
+      invalidRows.forEach(row => {
+        console.warn(`   • Fila ${row.fila}: ${row.error} (${row.valor})`);
+      });
+    }
+    
+    // Mostrar una muestra de los primeros registros para verificación
+    console.log("📋 MUESTRA DE REGISTROS PROCESADOS (primeros 3):");
+    transformedData.slice(0, 3).forEach((record, index) => {
+      console.log(`   ${index + 1}. ${JSON.stringify(record)}`);
+    });
+    
+    return { 
+      success: true, 
+      data: transformedData, 
+      message: successMsg,
+      warnings: invalidRowsCount > 0 ? {
+        type: 'warning',
+        title: '⚠️ Advertencias',
+        description: `Se omitieron ${invalidRowsCount} filas con errores.`,
+        details: invalidRows.map(row => `Fila ${row.fila}: ${row.error} (${row.valor})`)
+      } : null
+    };
+    
+  } catch (error) {
+    // Mejorar el mensaje de error para que sea más informativo
+    const enhancedError = {
+      type: 'error',
+      title: '🚨 Error Crítico',
+      description: 'Ha ocurrido un error inesperado durante la conversión.',
+      details: [
+        `💥 Error: ${error.message}`,
+        '',
+        '📞 Soporte: Si el problema persiste, contacte al administrador del sistema.',
+        `🕐 Timestamp: ${new Date().toLocaleString()}`
+      ]
+    };
+    
+    console.error("❌ ERROR CRÍTICO:", enhancedError);
+    return { success: false, error: enhancedError, data: [] };
   }
-  
-  console.log(`Conversión completada. Se procesaron ${transformedData.length} registros.`);
-  return transformedData;
 }
 
 export function convertirBanRepTcap(excelArray) {
@@ -1408,4 +1660,293 @@ export function convertirBanRepTcap(excelArray) {
     transformedData.length
   );
   return transformedData;
+}
+
+export function convertirBanRepTco31365(excelArray) {
+  try {
+    console.log("Iniciando conversión de Excel de tasas de crédito 31-365 días. Filas recibidas:", excelArray.length);
+    console.log({ excelArray });
+
+    // Validación 1: Verificar que hay datos
+    if (!excelArray || excelArray.length === 0) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Archivo Vacío',
+        description: 'El archivo Excel no contiene datos para procesar.',
+        details: [
+          '📋 Archivo recibido: Vacío o sin contenido',
+          '💡 Solución: Verifique que el archivo contiene datos válidos'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+
+    // Buscar la fila que contiene "Créditos Comerciales (Ordinario)" y "Ordinario entre 31 y 365 días"
+    let targetRowIndex = -1;
+    let dataRow = null;
+    
+    for (let i = 0; i < excelArray.length; i++) {
+      const row = excelArray[i];
+      if (Array.isArray(row)) {
+        const rowText = row.join(' ').toLowerCase();
+        if (rowText.includes('créditos comerciales') && 
+            rowText.includes('ordinario') &&
+            (rowText.includes('ordinario entre 31 y 365 días') || 
+             rowText.includes('ordinario entre 31 y 365 dias'))) {
+          targetRowIndex = i;
+          dataRow = row;
+          break;
+        }
+      }
+    }
+
+    if (targetRowIndex === -1 || !dataRow) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Fila de Datos No Encontrada',
+        description: 'No se encontró la fila con datos de "Créditos Comerciales (Ordinario) - Ordinario entre 31 y 365 días".',
+        details: [
+          '🔍 Búsqueda realizada: "Créditos Comerciales" + "Ordinario" + "31 y 365 días"',
+          `📊 Filas analizadas: ${excelArray.length}`,
+          '💡 Solución: Verifique que el archivo contiene la fila correcta'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+
+    console.log(`✅ Validación 1 EXITOSA: El archivo contiene datos de crédito comercial ordinario 31-365 días`);
+
+    // Buscar la fila de encabezados (debe estar antes de la fila de datos)
+    let headerRow = null;
+    let headerRowIndex = -1;
+    
+    for (let i = targetRowIndex - 1; i >= 0; i--) {
+      const row = excelArray[i];
+      if (Array.isArray(row) && row.length > 5) {
+        const hasYearWeek = row.some(cell => 
+          typeof cell === 'string' && /año.*semana/i.test(cell)
+        );
+        if (hasYearWeek) {
+          headerRow = row;
+          headerRowIndex = i;
+          break;
+        }
+      }
+    }
+
+    if (!headerRow) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Encabezados No Encontrados',
+        description: 'No se encontraron los encabezados de las columnas.',
+        details: [
+          '🔍 Búsqueda realizada: Fila con "Año" y "semana"',
+          `📊 Filas analizadas: ${targetRowIndex}`,
+          '💡 Solución: Verifique que el archivo contiene los encabezados correctos'
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+
+    console.log(`✅ Fila encontrada en índice ${targetRowIndex}:`, dataRow);
+    console.log(`📊 Encabezados encontrados:`, headerRow);
+
+    // Procesar múltiples registros - cada columna de fecha representa un registro diferente
+    const transformedData = [];
+    let validRowsCount = 0;
+    let invalidRowsCount = 0;
+    const invalidRows = [];
+
+    // Buscar las columnas de tasa y monto para 31-365 días
+    // Según los logs, los datos están en las últimas columnas (índices 15 y 16)
+    let tasaColumnIndex = -1;
+    let montoColumnIndex = -1;
+
+    // Buscar las columnas que corresponden a 31-365 días
+    // Típicamente están al final del archivo
+    for (let i = headerRow.length - 2; i >= 5; i -= 2) {
+      // Verificar si hay datos válidos en estas posiciones
+      const tasaValue = dataRow[i];
+      const montoValue = dataRow[i + 1];
+      
+      if (tasaValue && montoValue) {
+        const tasaNum = parseFloat(typeof tasaValue === 'string' ? tasaValue.replace(/[,$]/g, '') : tasaValue);
+        const montoNum = parseFloat(typeof montoValue === 'string' ? montoValue.replace(/[,$]/g, '') : montoValue);
+        
+        if (!isNaN(tasaNum) && !isNaN(montoNum) && tasaNum > 0 && montoNum > 0) {
+          tasaColumnIndex = i;
+          montoColumnIndex = i + 1;
+          break;
+        }
+      }
+    }
+
+    if (tasaColumnIndex === -1 || montoColumnIndex === -1) {
+      // Usar las últimas dos columnas como fallback
+      tasaColumnIndex = dataRow.length - 2;
+      montoColumnIndex = dataRow.length - 1;
+    }
+
+    console.log(`✅ Columnas encontradas - Tasa: índice ${tasaColumnIndex}, Monto: índice ${montoColumnIndex}`);
+
+    // Ahora buscar todas las filas que contengan datos de bancos comerciales
+    // Buscar filas que contengan "Créditos Comerciales" pero no necesariamente "31 y 365 días"
+    for (let i = 0; i < excelArray.length; i++) {
+      const row = excelArray[i];
+      if (!Array.isArray(row) || row.length < 5) continue;
+
+      const rowText = row.join(' ').toLowerCase();
+      
+      // Buscar filas que contengan "créditos comerciales" y datos de bancos específicos
+      if (rowText.includes('créditos comerciales')) {
+        
+        // Extraer año-semana del primer campo y limpiar espacios
+        const anhoSemanaValue = row[0];
+        if (!anhoSemanaValue || typeof anhoSemanaValue !== 'string') {
+          invalidRowsCount++;
+          invalidRows.push({
+            fila: i + 1,
+            banco: row[3] || 'Desconocido',
+            valor: `Año-semana: ${anhoSemanaValue}`,
+            error: "Año-semana inválido"
+          });
+          continue;
+        }
+
+        // Limpiar espacios del año-semana para que quede formato "2025-18"
+        const anhoSemanaLimpio = anhoSemanaValue.trim().replace(/\s+/g, '');
+
+        // Validar formato de año-semana (sin espacios)
+        const anhoSemanaPattern = /^\d{4}-\d{1,2}$/;
+        if (!anhoSemanaPattern.test(anhoSemanaLimpio)) {
+          invalidRowsCount++;
+          invalidRows.push({
+            fila: i + 1,
+            banco: row[3] || 'Desconocido',
+            valor: `Año-semana: ${anhoSemanaValue} -> ${anhoSemanaLimpio}`,
+            error: "Formato de año-semana inválido (esperado: YYYY-SS)"
+          });
+          console.warn(`⚠️ Fila ${i + 1}: Formato de año-semana inválido: "${anhoSemanaValue}" -> "${anhoSemanaLimpio}". Esperado: YYYY-SS`);
+          continue;
+        }
+
+        // Extraer valores de tasa y monto
+        const tasaValue = row[tasaColumnIndex];
+        const montoValue = row[montoColumnIndex];
+        
+        const tasa = parseFloat(typeof tasaValue === 'string' ? tasaValue.replace(/[,$]/g, '') : tasaValue);
+        const monto = parseFloat(typeof montoValue === 'string' ? montoValue.replace(/[,$]/g, '') : montoValue);
+        
+        if (isNaN(tasa) && isNaN(monto)) {
+          invalidRowsCount++;
+          invalidRows.push({
+            fila: i + 1,
+            banco: row[3] || 'Desconocido', // Columna que típicamente contiene el nombre del banco
+            valor: `Tasa: ${tasaValue}, Monto: ${montoValue}`,
+            error: "Valores numéricos inválidos"
+          });
+          console.warn(`⚠️ Fila ${i + 1}: Valores inválidos para banco. Se omite.`);
+          continue;
+        }
+
+        // Crear el objeto de datos con año-semana sin espacios
+        const dataObject = {
+          anho_semana: anhoSemanaLimpio, // Usar el valor limpio sin espacios
+          tasa_cred_com_odinario_31_365: isNaN(tasa) ? 0 : tasa,
+          monto_cred_com_odinario_31_365: isNaN(monto) ? 0 : monto,
+        };
+
+        transformedData.push(dataObject);
+        validRowsCount++;
+        
+        console.log(`✅ Procesado: ${anhoSemanaLimpio} - Banco: ${row[3] || 'N/A'} - Tasa: ${dataObject.tasa_cred_com_odinario_31_365}%, Monto: ${dataObject.monto_cred_com_odinario_31_365.toLocaleString()}`);
+      }
+    }
+
+    if (transformedData.length === 0) {
+      const errorMsg = {
+        type: 'error',
+        title: '❌ Sin Datos de Bancos Comerciales',
+        description: 'No se encontraron datos válidos de bancos comerciales para 31-365 días.',
+        details: [
+          `📊 Estadísticas:`,
+          `   • Filas procesadas: ${excelArray.length}`,
+          `   • Registros válidos: ${validRowsCount}`,
+          `   • Registros inválidos: ${invalidRowsCount}`,
+          '',
+          '🔍 Fila de referencia utilizada:',
+          `   • Índice: ${targetRowIndex}`,
+          `   • Contenido: ${dataRow.slice(0, 5).join(' | ')}...`,
+          '',
+          '💡 Solución: Verifique que el archivo contiene datos de bancos comerciales',
+          dataRow,
+          headerRow
+        ]
+      };
+      console.error("VALIDACIÓN FALLIDA:", errorMsg);
+      return { success: false, error: errorMsg, data: [] };
+    }
+
+    // Mostrar resumen de procesamiento
+    const successMsg = {
+      type: 'success',
+      title: '✅ Conversión Exitosa!',
+      description: `Se procesaron ${validRowsCount} registros de bancos comerciales para crédito ordinario 31-365 días.`,
+      details: [
+        `📊 Resumen del procesamiento:`,
+        `   • Registros válidos procesados: ${validRowsCount}`,
+        `   • Registros inválidos omitidos: ${invalidRowsCount}`,
+        `   • Total de registros generados: ${transformedData.length}`,
+        `   • Eficiencia: ${validRowsCount > 0 ? ((validRowsCount / (validRowsCount + invalidRowsCount)) * 100).toFixed(1) : 0}%`,
+        '',
+       
+      ]
+    };
+
+    console.log(successMsg);
+
+    if (invalidRowsCount > 0) {
+      console.warn(`⚠️ ADVERTENCIA: Se omitieron ${invalidRowsCount} registros con errores:`);
+      invalidRows.forEach(row => {
+        console.warn(`   • Fila ${row.fila} (${row.banco}): ${row.error} (${row.valor})`);
+      });
+    }
+
+    // Mostrar una muestra de los registros procesados
+    console.log("📋 MUESTRA DE REGISTROS PROCESADOS:");
+    transformedData.slice(0, 3).forEach((record, index) => {
+      console.log(`   ${index + 1}. ${JSON.stringify(record)}`);
+    });
+
+    return { 
+      success: true, 
+      data: transformedData, 
+      message: successMsg,
+      warnings: invalidRowsCount > 0 ? {
+        type: 'warning',
+        title: '⚠️ Advertencias',
+        description: `Se omitieron ${invalidRowsCount} registros con errores.`,
+        details: invalidRows.map(row => `Fila ${row.fila} (${row.banco}): ${row.error} (${row.valor})`)
+      } : null
+    };
+    
+  } catch (error) {
+    const enhancedError = {
+      type: 'error',
+      title: '🚨 Error Crítico',
+      description: 'Ha ocurrido un error inesperado durante la conversión.',
+      details: [
+        `💥 Error: ${error.message}`,
+        '',
+        '📞 Soporte: Si el problema persiste, contacte al administrador del sistema.',
+        `🕐 Timestamp: ${new Date().toLocaleString()}`
+      ]
+    };
+    
+    console.error("❌ ERROR CRÍTICO:", enhancedError);
+    return { success: false, error: enhancedError, data: [] };
+  }
 }

@@ -329,8 +329,12 @@ export const NUEVO_DATA_XM_AFAC = gql`
         mensaje
         tipo
         registrosErrores {
-          anho
-          mes
+          mensaje
+          tipo
+          registrosErrores {
+            anho
+            mes
+          }
         }
       }
     }
@@ -3640,6 +3644,8 @@ export const OBTENER_DATA_BANREPUBLICA_TCO = gql`
         monto_cred_com_credito_consumo
         tasa_cred_com_odinario
         monto_cred_com_odinario
+        tasa_cred_com_odinario_31_365
+        monto_cred_com_odinario_31_365
         tasa__cred_com_preferencial_o_corporativo
         monto__cred_com_preferencial_o_corporativo
         tasa__cred_com_tesoreria
@@ -3672,6 +3678,8 @@ export const NUEVO_DATA_BANREPUBLICA_TCO = gql`
         monto_cred_com_credito_consumo
         tasa_cred_com_odinario
         monto_cred_com_odinario
+        tasa_cred_com_odinario_31_365
+        monto_cred_com_odinario_31_365
         tasa__cred_com_preferencial_o_corporativo
         monto__cred_com_preferencial_o_corporativo
         tasa__cred_com_tesoreria
@@ -3693,6 +3701,8 @@ export const NUEVO_DATA_BANREPUBLICA_TCO = gql`
           monto_cred_com_credito_consumo
           tasa_cred_com_odinario
           monto_cred_com_odinario
+          tasa_cred_com_odinario_31_365
+          monto_cred_com_odinario_31_365
           tasa__cred_com_preferencial_o_corporativo
           monto__cred_com_preferencial_o_corporativo
           tasa__cred_com_tesoreria
@@ -3719,6 +3729,8 @@ export const ACTUALIZAR_DATA_BANREPUBLICA_TCO = gql`
       monto_cred_com_credito_consumo
       tasa_cred_com_odinario
       monto_cred_com_odinario
+      tasa_cred_com_odinario_31_365
+      monto_cred_com_odinario_31_365
       tasa__cred_com_preferencial_o_corporativo
       monto__cred_com_preferencial_o_corporativo
       tasa__cred_com_tesoreria
@@ -3730,6 +3742,7 @@ export const ACTUALIZAR_DATA_BANREPUBLICA_TCO = gql`
       tasa_colocacion_total
       monto_colocacion_total
       empresa_id
+
     }
   }
 `;
@@ -3935,6 +3948,58 @@ export const OBTENER_DATA_REPORTE_SSPD_CIRCULAR_CREG_119_2017 = gql`
       excelBase64
       success
       message
+    }
+  }
+`;
+
+export const NUEVO_DATA_BANREPUBLICA_TCO_31_365 = gql`
+  mutation nuevoDataBanrepublicaTco31365($input: [DataBanrepublicaTcoInput!]) {
+    nuevoDataBanrepublicaTco31365(input: $input) {
+      datos {
+        id
+        creador
+        anho_semana
+        tasa_cred_com_credito_consumo
+        monto_cred_com_credito_consumo
+        tasa_cred_com_odinario
+        monto_cred_com_odinario
+        tasa_cred_com_odinario_31_365
+        monto_cred_com_odinario_31_365
+        tasa__cred_com_preferencial_o_corporativo
+        monto__cred_com_preferencial_o_corporativo
+        tasa__cred_com_tesoreria
+        monto__cred_com_tesoreria
+        tasa_colocacion_banco_republica
+        monto_colocacion_banco_republica
+        tasa_colocacion_sin_tesoreria
+        monto_colocacion_sin_tesoreria
+        tasa_colocacion_total
+        monto_colocacion_total
+        empresa_id
+      }
+      errores {
+        mensaje
+        tipo
+        registrosErrores {
+          anho_semana
+          tasa_cred_com_credito_consumo
+          monto_cred_com_credito_consumo
+          tasa_cred_com_odinario
+          monto_cred_com_odinario
+          tasa_cred_com_odinario_31_365
+          monto_cred_com_odinario_31_365
+          tasa__cred_com_preferencial_o_corporativo
+          monto__cred_com_preferencial_o_corporativo
+          tasa__cred_com_tesoreria
+          monto__cred_com_tesoreria
+          tasa_colocacion_banco_republica
+          monto_colocacion_banco_republica
+          tasa_colocacion_sin_tesoreria
+          monto_colocacion_sin_tesoreria
+          tasa_colocacion_total
+          monto_colocacion_total
+        }
+      }
     }
   }
 `;

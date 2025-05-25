@@ -2814,6 +2814,8 @@ type ErrorDataMmeGiro {
     tasa_colocacion_total: Float
     monto_colocacion_total: Float
     empresa_id: String
+    tasa_cred_com_odinario_31_365: Float
+    monto_cred_com_odinario_31_365: Float 
   }
 
   input DataBanrepublicaTcoInput {
@@ -2834,6 +2836,8 @@ type ErrorDataMmeGiro {
     tasa_colocacion_total: Float
     monto_colocacion_total: Float
     empresa_id: String
+    tasa_cred_com_odinario_31_365: Float
+    monto_cred_com_odinario_31_365: Float 
   }
 
   type DataBanrepublicaTcoResponse {
@@ -3330,6 +3334,9 @@ type ReporteExcelResponse {
     nuevoDataBanrepublicaTcap(input: [DataBanrepublicaTcapInput!]): DataBanrepublicaTcapMutationResponse
     actualizarDataBanrepublicaTcap(id: ID!, input: DataBanrepublicaTcapInput!): DataBanrepublicaTcapMutationResponse
     eliminarDataBanrepublicaTcap(ids: [ID!]): [String]
+
+    nuevoDataBanrepublicaTco31365(input: [DataBanrepublicaTcoInput!]): ResponseDataBanrepublicaTco
+
     
   }
 `;

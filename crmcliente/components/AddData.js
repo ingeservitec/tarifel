@@ -10,6 +10,7 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import "font-awesome/css/font-awesome.min.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import { notification } from "antd";
 import { convertirExcelIPC } from "../funciones/convertirExcel.js";
 import { convertirExcelIPP } from "../funciones/convertirExcel";
 import {convertirExcelIPPAnexos} from "../funciones/convertirExcel";
@@ -24,6 +25,7 @@ import { convertirCPROG } from "../funciones/convertirExcel";
 import { convertirFACTORESIPR } from "../funciones/convertirExcel";
 import { convertirBanRepTco } from "../funciones/convertirExcel";
 import { convertirBanRepTcap } from "../funciones/convertirExcel";
+import { convertirBanRepTco31365 } from "../funciones/convertirExcel";
 
 import Dropzone from "react-dropzone";
 import { UPLOAD_FILE } from "../data";
@@ -537,7 +539,23 @@ const AddData = ({
                 break;
                 case "nuevoDataBanrepublicaTco":
                 
-                  dataArray2 = convertirBanRepTco(sheetData);
+                  const resultTcoPlano = convertirBanRepTco(sheetData);
+                  
+                  if (!resultTcoPlano.success) {
+                    // Mostrar error con notificación de Ant Design
+                    showNotification(resultTcoPlano.error);
+                    return; // Detener el procesamiento
+                  }
+                  
+                  // Si hay advertencias, mostrarlas
+                  if (resultTcoPlano.warnings) {
+                    showNotification(resultTcoPlano.warnings);
+                  }
+                  
+                  // Mostrar mensaje de éxito
+                  showNotification(resultTcoPlano.message);
+                  
+                  dataArray2 = resultTcoPlano.data;
 
                   break
                   case "nuevoDataBanrepublicaTcap":
@@ -545,6 +563,26 @@ const AddData = ({
                     dataArray2 = convertirBanRepTcap(sheetData);
 
                     break
+                case "nuevoDataBanrepublicaTco31365":
+                  console.log({sheetData})
+                  const resultTco31365 = convertirBanRepTco31365(sheetData);
+                  
+                  if (!resultTco31365.success) {
+                    // Mostrar error con notificación de Ant Design
+                    showNotification(resultTco31365.error);
+                    return; // Detener el procesamiento
+                  }
+                  
+                  // Si hay advertencias, mostrarlas
+                  if (resultTco31365.warnings) {
+                    showNotification(resultTco31365.warnings);
+                  }
+                  
+                  // Mostrar mensaje de éxito
+                  showNotification(resultTco31365.message);
+                  
+                  dataArray2 = resultTco31365.data;
+                  break
               default:
                 dataArray2 = sheetData.slice(1).map((row) =>
                   row.reduce(
@@ -709,7 +747,23 @@ const AddData = ({
                 break;
                 case "nuevoDataBanrepublicaTco":
                   console.log({sheetData})
-                  dataArray2 = convertirBanRepTco(sheetData);
+                  const resultTcoPlano = convertirBanRepTco(sheetData);
+                  
+                  if (!resultTcoPlano.success) {
+                    // Mostrar error con notificación de Ant Design
+                    showNotification(resultTcoPlano.error);
+                    return; // Detener el procesamiento
+                  }
+                  
+                  // Si hay advertencias, mostrarlas
+                  if (resultTcoPlano.warnings) {
+                    showNotification(resultTcoPlano.warnings);
+                  }
+                  
+                  // Mostrar mensaje de éxito
+                  showNotification(resultTcoPlano.message);
+                  
+                  dataArray2 = resultTcoPlano.data;
 
                   break
                   case "nuevoDataBanrepublicaTcap":
@@ -717,6 +771,26 @@ const AddData = ({
                     dataArray2 = convertirBanRepTcap(sheetData);
 
                     break
+                case "nuevoDataBanrepublicaTco31365":
+                  console.log({sheetData})
+                  const resultTco31365Plano = convertirBanRepTco31365(sheetData);
+                  
+                  if (!resultTco31365Plano.success) {
+                    // Mostrar error con notificación de Ant Design
+                    showNotification(resultTco31365Plano.error);
+                    return; // Detener el procesamiento
+                  }
+                  
+                  // Si hay advertencias, mostrarlas
+                  if (resultTco31365Plano.warnings) {
+                    showNotification(resultTco31365Plano.warnings);
+                  }
+                  
+                  // Mostrar mensaje de éxito
+                  showNotification(resultTco31365Plano.message);
+                  
+                  dataArray2 = resultTco31365Plano.data;
+                  break
               default:
                 // dataArray2 = sheetData.slice(1).map((row) =>
                 //   row.reduce(
@@ -856,7 +930,7 @@ try{
       // Cambio aquí: En lugar de dividir el dataArray en paquetes pequeños,
       // para el caso específico de los datos del Banco de la República,
       // enviamos todo el array en una sola petición
-      if (subMutation === "nuevoDataBanrepublicaTcap" || subMutation === "nuevoDataBanrepublicaTco") {
+      if (subMutation === "nuevoDataBanrepublicaTcap" || subMutation === "nuevoDataBanrepublicaTco" || subMutation === "nuevoDataBanrepublicaTco31365") {
         try {
           console.log("Enviando todos los datos en una sola petición...");
           const data = await newData({
@@ -1106,6 +1180,64 @@ try{
       formik1.setFieldValue(fieldName, contact[campoListQuery]);
       setContact(contact);
       setFilteredContacts([]);
+    }
+  };
+
+  // Función helper para mostrar notificaciones de Ant Design
+  const showNotification = (notificationData) => {
+    const config = {
+      message: notificationData.title,
+      description: notificationData.description,
+      duration: notificationData.type === 'error' ? 0 : 4.5, // Los errores no se cierran automáticamente
+      style: {
+        width: 600, // Aumentamos el ancho
+        maxWidth: '90vw', // Máximo 90% del ancho de la ventana
+        marginLeft: 'auto',
+        marginRight: 20,
+      },
+      className: 'custom-notification', // Clase CSS personalizada
+    };
+
+    // Si hay detalles, los agregamos como contenido adicional
+    if (notificationData.details && notificationData.details.length > 0) {
+      config.description = (
+        <div>
+          <div style={{ marginBottom: '12px', fontSize: '14px' }}>
+            {notificationData.description}
+          </div>
+          <div style={{ 
+            fontSize: '12px', 
+            color: '#666', 
+            backgroundColor: '#f8f9fa', 
+            padding: '12px', 
+            borderRadius: '6px',
+            fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+            whiteSpace: 'pre-wrap', // Permite saltos de línea
+            wordWrap: 'break-word', // Rompe palabras largas
+            maxHeight: '300px', // Altura máxima
+            overflowY: 'auto', // Scroll vertical si es necesario
+            border: '1px solid #e1e5e9',
+            lineHeight: '1.4'
+          }}>
+            {notificationData.details.join('\n')}
+          </div>
+        </div>
+      );
+    }
+
+    // Mostrar la notificación según el tipo
+    switch (notificationData.type) {
+      case 'success':
+        notification.success(config);
+        break;
+      case 'warning':
+        notification.warning(config);
+        break;
+      case 'error':
+        notification.error(config);
+        break;
+      default:
+        notification.info(config);
     }
   };
 

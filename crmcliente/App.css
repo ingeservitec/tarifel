@@ -16,3 +16,48 @@ table{
   {
     background-color: limegreen;
   }
+
+  /* Estilos personalizados para notificaciones de Ant Design */
+  .custom-notification .ant-notification-notice-content {
+    padding: 20px !important;
+  }
+
+  .custom-notification .ant-notification-notice-message {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+    line-height: 1.3 !important;
+  }
+
+  .custom-notification .ant-notification-notice-description {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Responsive para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .custom-notification {
+      width: 95vw !important;
+      margin-left: 2.5vw !important;
+      margin-right: 2.5vw !important;
+    }
+  }
+
+  /* Mejorar el scroll en el área de detalles */
+  .custom-notification .ant-notification-notice-description div:last-child::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-notification .ant-notification-notice-description div:last-child::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .custom-notification .ant-notification-notice-description div:last-child::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+
+  .custom-notification .ant-notification-notice-description div:last-child::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }

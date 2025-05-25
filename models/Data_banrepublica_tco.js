@@ -8,12 +8,12 @@ const Data_banrepublica_tcoSchema = db.define("Data_banrepublica_tco", {
   // Solo estos campos serán requeridos después de Feb 2025
   tasa__cred_com_preferencial_o_corporativo: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true,
   },
   monto__cred_com_preferencial_o_corporativo: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
     trim: true,
   },
   // Todos los demás campos se configuran como allowNull: true
@@ -33,6 +33,17 @@ const Data_banrepublica_tcoSchema = db.define("Data_banrepublica_tco", {
     trim: true,
   },
   monto_cred_com_odinario: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+    trim: true,
+  },
+  // Nuevas columnas para crédito comercial ordinario 31-365 días
+  tasa_cred_com_odinario_31_365: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+    trim: true,
+  },
+  monto_cred_com_odinario_31_365: {
     type: DataTypes.FLOAT,
     allowNull: true,
     trim: true,

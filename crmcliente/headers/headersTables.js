@@ -19495,6 +19495,8 @@ export const headersDataBanrepublicaTco = [
     type: "text",
     description: "Identificador de la empresa asociada"
   }
+  
+
 ];
 
 

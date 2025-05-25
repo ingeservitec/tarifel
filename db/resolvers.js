@@ -3442,6 +3442,11 @@ const resolvers = {
 
               var tasa_cred_com_odinario =
                 data_banrepublica_tco[0].tasa_cred_com_odinario_31_365;
+//si es null entonces error
+                if(tasa_cred_com_odinario === null){
+                  throw new Error(`No existen datos TCO 31-365, usado para actualizar el valor del AD, para el período ${mesm}-${anhom}`);
+                }
+
 
                 if(anho === 2025 && mes === 2){
                   tasa_cred_com_odinario = 13.09; // era 1327

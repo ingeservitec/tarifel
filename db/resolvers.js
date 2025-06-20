@@ -2192,13 +2192,14 @@ const resolvers = {
         // Recorre los inputs que se quieren agregar
         for (let index = 0; index < input.length; index++) {
           try {
-            const { anho, mes } = input[index];
+            const { anho, mes,agente } = input[index];
             // Busca si existe un registro con el mismo id de la empresa, año y mes
             const registroExistente = await Data_xm_cprog.findOne({
               where: {
                 empresa_id: ctx.usuario.empresa,
                 anho,
                 mes,
+               
               },
             });
             // Si ya existe un registro, retorna un error

@@ -329,12 +329,8 @@ export const NUEVO_DATA_XM_AFAC = gql`
         mensaje
         tipo
         registrosErrores {
-          mensaje
-          tipo
-          registrosErrores {
-            anho
-            mes
-          }
+          anho
+          mes
         }
       }
     }

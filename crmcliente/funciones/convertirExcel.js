@@ -295,11 +295,6 @@ export function convertirFACTORESIPR(excelArray, agente, month, year) {
 }
 
 export function convertirSTN(sheetName, excelArray, dataArray2) {
-
-  console.log({ excelArray });
-  console.log({ sheetName });
-  console.log({ dataArray2 });
-
   let resultObject = dataArray2[0];
 
   switch (sheetName) {
@@ -309,25 +304,34 @@ export function convertirSTN(sheetName, excelArray, dataArray2) {
         if (lastValueIndex < 0) {
           lastValueIndex = row.length - 1; // Si todos los valores son no vacíos, selecciona el último valor
         }
-        switch (row[0]) {
-          case "Ingreso Regulado Bruto para estimados (COP)":
-            resultObject.Ing_Reg_Bruto_T_cop = parseFloat(
-              row[lastValueIndex].replace(/,/g, "")
-            );
-            break;
-          case "Ingreso a Compensar para estimados  (COP)":
-            resultObject.Ing_Compensar_T_cop = parseFloat(
-              row[lastValueIndex].replace(/,/g, "")
-            );
-            break;
-          case "Ingreso Regulado Neto para estimados  (COP)":
-            resultObject.Ing_Reg_Neto_T_cop = parseFloat(
-              row[lastValueIndex].replace(/,/g, "")
-            );
-            break;
-          default:
-            break;
-        }
+// ... existing code ...
+console.log(row[0]);
+// Normalizar el texto para comparación más robusta
+const normalizedText = row[0] ? row[0].replace(/\s+/g, ' ').trim() : '';
+console.log('Texto normalizado:', normalizedText);
+
+switch (normalizedText) {
+  case "Ingreso Regulado Bruto para estimados (COP)":
+    resultObject.Ing_Reg_Bruto_T_cop = parseFloat(
+      row[lastValueIndex].replace(/,/g, "")
+    );
+    break;
+  case "Ingreso a Compensar para estimados (COP)":
+    console.log('Entrando en caso Ingreso a Compensar:', row[0]);
+    resultObject.Ing_Compensar_T_cop = parseFloat(
+      row[lastValueIndex].replace(/,/g, "")
+    );
+    break;
+  case "Ingreso Regulado Neto para estimados (COP)":
+    console.log(row[0]);
+    resultObject.Ing_Reg_Neto_T_cop = parseFloat(
+      row[lastValueIndex].replace(/,/g, "")
+    );
+    break;
+  default:
+    break;
+}
+// ... existing code ...
       });
 
       break;

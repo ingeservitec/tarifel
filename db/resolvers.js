@@ -3252,12 +3252,13 @@ const resolvers = {
 
                 var pc_ = Energia_contratos === 0 ? 0 : roundToTwo(Costo_contratos / Energia_contratos);
 
-                         
+                
               
                 
                 if (Energia_contratos / dcr > 1) {
                   pc_ = pc_ * w;
                 }
+              
 
                 pcSub_ = roundToTwo(
                   Costo_contratos_sub / Energia_contratos_sub
@@ -3466,13 +3467,14 @@ const resolvers = {
                   tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
                 }
                 tasa_cred_com_odinario = Math.pow(1 + tasa_cred_com_odinario / 100, 1/12) - 1;
-              ad_ =
+              ad_ = Math.max(0,
                 adm_ +
                 // cr  de ese mes anterior menos gc del mes anterior
                 (data_componentes_cu_tarifas.dataValues.cr -
                   data_componentes_cu_tarifas.dataValues.gc) *
                   ventas_totales *
-                  (1 + tasa_cred_com_odinario);
+                  (1 + tasa_cred_com_odinario))
+                  console.log("ad_x", ad_);
 
           console.log("tasa_cred_com_odinario", tasa_cred_com_odinario);
           console.log("adm_", adm_);

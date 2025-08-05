@@ -18,7 +18,7 @@ const Dataxm = (props) => {
           <EmpresaGarantiaComponent/>
           {/* <Dataempresaanual /> */}
           <DataempresaanualSin />
-          {/* <Dataempresaagpe /> */}
+           <Dataempresaagpe /> 
           <Data_empresa_EnergiaContratoAtipico />
         </div>
       </Layout>

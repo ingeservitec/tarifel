@@ -1152,6 +1152,51 @@ export const OBTENER_DATA_EMPRESA_AGPE = gql`
     }
   }
 `;
+
+export const NUEVO_DATA_EMPRESA_AGPE = gql`
+  mutation nuevoData_empresa_agpe($input: Data_empresa_agpeInput) {
+    nuevoData_empresa_agpe(input: $input) {
+      id
+      creador
+      empresa_id
+      niu
+      anho
+      mes
+      dia
+      tipo_ene
+      hora_01
+      hora_02
+      hora_03
+      hora_04
+      hora_05
+      hora_06
+      hora_07
+      hora_08
+      hora_09
+      hora_10
+      hora_11
+      hora_12
+      hora_13
+      hora_14
+      hora_15
+      hora_16
+      hora_17
+      hora_18
+      hora_19
+      hora_20
+      hora_21
+      hora_22
+      hora_23
+      hora_24
+    }
+  }
+`;
+
+export const ELIMINAR_DATA_EMPRESA_AGPE = gql`
+  mutation eliminarData_empresa_agpe($eliminarDataEmpresaAgpeId: ID!) {
+    eliminarData_empresa_agpe(id: $eliminarDataEmpresaAgpeId)
+  }
+`;
 export const ELIMINAR_DATAXMSTN = gql`
   mutation eliminarDataxmstn($eliminarDataxmstnId: ID!) {
     eliminarDataxmstn(id: $eliminarDataxmstnId)

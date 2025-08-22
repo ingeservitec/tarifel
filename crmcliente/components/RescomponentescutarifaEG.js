@@ -45,15 +45,17 @@ const DataXmCprog = () => {
               masivo={true} // Si quieres habilitar la carga masiva
             />
           </div>
-          <TableAndt
-            titulo="Datos CU y Tarifas"
-            columns={headersResComponentesCuTarifa}
-            cacheField="obtenerResComponentesCuTarifas"
-            mutation={ELIMINAR_DATA_RES_COMPONENTES_CU_TARIFA }
-            query={OBTENER_RES_COMPONENTES_CU_TARIFAS }
-            actionMode = "delete"
-            subMutation="eliminarData_res_componentes_cu_tarifa" 
-          />
+          <div className="overflow-x-auto">
+            <TableAndt
+              titulo="Datos CU y Tarifas"
+              columns={headersResComponentesCuTarifa}
+              cacheField="obtenerResComponentesCuTarifas"
+              mutation={ELIMINAR_DATA_RES_COMPONENTES_CU_TARIFA }
+              query={OBTENER_RES_COMPONENTES_CU_TARIFAS }
+              actionMode = "delete"
+              subMutation="eliminarData_res_componentes_cu_tarifa" 
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -3258,6 +3258,7 @@ const resolvers = {
                 if (Energia_contratos / dcr > 1) {
                   pc_ = pc_ * w;
                 }
+                pc_=roundToTwo(pc_);
               
 
                 pcSub_ = roundToTwo(
@@ -3475,6 +3476,10 @@ const resolvers = {
                   ventas_totales *
                   (1 + tasa_cred_com_odinario))
                   console.log("ad_x", ad_);
+
+if(ad_ < 0){
+  ad_ = 0;
+}
 
           console.log("tasa_cred_com_odinario", tasa_cred_com_odinario);
           console.log("adm_", adm_);

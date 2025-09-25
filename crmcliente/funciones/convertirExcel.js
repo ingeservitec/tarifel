@@ -285,7 +285,7 @@ export function convertirTSERV(excelArray, agente, month) {
 export function convertirFACTORESIPR(excelArray, agente, month, year) {
   console.log("year");
   var resultArray = excelArray.filter(
-    (data) => data.agrupaORMercado === agente
+    (data) => data.agrupaORMercado === agente && data.conceptoID === "FactorReferirSTN"
   );
   return resultArray.map((data) => ({
     ...data,

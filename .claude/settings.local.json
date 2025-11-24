@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"D:\\Aplicativo_Tarifas\\tarifel\\crmcliente\\pages\\comportamientocu.js\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

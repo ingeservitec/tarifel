@@ -1009,8 +1009,30 @@ export const OBTENER_DATA_XM_ADEM = gql`
 
 
 export const OBTENER_DATA_CREG_CX = gql`
-  query obtenerData_creg_cx {
-    obtenerData_creg_cx {
+  query obtenerData_creg_cx($options: QueryOptions!) {
+    obtenerData_creg_cx(options: $options) {
+      records {
+        id
+        fecha
+        creador
+        empresa_id
+        resolucion
+        mo
+        RCT
+        RCAE
+        RCSNE
+        RCNU
+        Cf
+        PUI
+      }
+      totalRecords
+    }
+  }
+`;
+
+export const NUEVO_DATA_CREG_CX = gql`
+  mutation nuevoData_creg_cx($input: Data_creg_cxInput) {
+    nuevoData_creg_cx(input: $input) {
       id
       fecha
       creador
@@ -1024,6 +1046,12 @@ export const OBTENER_DATA_CREG_CX = gql`
       Cf
       PUI
     }
+  }
+`;
+
+export const ELIMINAR_DATA_CREG_CX = gql`
+  mutation eliminarData_creg_cx($eliminarDataId: [ID!]!) {
+    eliminarData_creg_cx(id: $eliminarDataId)
   }
 `;
 

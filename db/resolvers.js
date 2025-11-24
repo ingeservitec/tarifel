@@ -550,12 +550,17 @@ const resolvers = {
       }
     },
 
-    obtenerData_creg_cx: async () => {
+    obtenerData_creg_cx: async (_, { options }, ctx) => {
       try {
-        const data_creg_cx = await Data_creg_cx.findAll();
-        return data_creg_cx;
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        return realizarConsultaPaginada(
+          Data_creg_cx,
+          options,
+          condicionesEmpresa
+        );
       } catch (error) {
         console.log(error);
+        throw new Error(`No se pudieron obtener los datos de CREG`);
       }
     },
     obtenerData_dane: async () => {
@@ -593,12 +598,17 @@ const resolvers = {
       }
     },
     //Query
-    obtenerData_creg_cx: async () => {
+    obtenerData_creg_cx: async (_, { options }, ctx) => {
       try {
-        const data_creg_cx = await Data_creg_cx.findAll();
-        return data_creg_cx;
+        const condicionesEmpresa = { empresa_id: ctx.usuario.empresa };
+        return realizarConsultaPaginada(
+          Data_creg_cx,
+          options,
+          condicionesEmpresa
+        );
       } catch (error) {
         console.log(error);
+        throw new Error(`No se pudieron obtener los datos de CREG`);
       }
     },
     //Query

@@ -34,6 +34,7 @@ import EntidadContext from "../context/entidad/EntidadContext.js";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css"; // Import styles
 import dynamic from "next/dynamic";
+import LogsModal from "./LogsModal";
 
 const modules = {
   toolbar: [
@@ -95,6 +96,13 @@ const AddData = ({
   const [contact, setContact] = useState("");
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [activeField, setActiveField] = useState("");
+  // Estados para LogsModal
+  const [showLogsModal, setShowLogsModal] = useState(false);
+  const [logsData, setLogsData] = useState({
+    registrosExitosos: [],
+    registrosErrores: [],
+    moduloNombre: "",
+  });
   const entidad = { sigla: "EGVC", id: "EGVC" };
   const [createAccount] = useMutation(UPLOAD_FILE);
   const getMasivoFields = () => {
@@ -112,14 +120,15 @@ const AddData = ({
     setShowModal2(true);
   };
 
-  function generarReporteExcel(registrosGuardados, registrosConError) {
-    const workbook = XLSX.utils.book_new();
-    const worksheet1 = XLSX.utils.json_to_sheet(registrosGuardados);
-    const worksheet2 = XLSX.utils.json_to_sheet(registrosConError);
-    XLSX.utils.book_append_sheet(workbook, worksheet1, "Registros guardados");
-    XLSX.utils.book_append_sheet(workbook, worksheet2, "Registros con errores");
-    XLSX.writeFile(workbook, "Log_Cargue.xlsx");
-  }
+  // NOTA: Función eliminada - La exportación a Excel ahora se maneja en LogsModal.js
+  // function generarReporteExcel(registrosGuardados, registrosConError) {
+  //   const workbook = XLSX.utils.book_new();
+  //   const worksheet1 = XLSX.utils.json_to_sheet(registrosGuardados);
+  //   const worksheet2 = XLSX.utils.json_to_sheet(registrosConError);
+  //   XLSX.utils.book_append_sheet(workbook, worksheet1, "Registros guardados");
+  //   XLSX.utils.book_append_sheet(workbook, worksheet2, "Registros con errores");
+  //   XLSX.writeFile(workbook, "Log_Cargue.xlsx");
+  // }
 
   const [newData] = useMutation(mutation, {
     update: (cache, { data }) => {
@@ -927,6 +936,26 @@ try{
         inputFields
       );
 
+      // Crear mapa para rastrear número de fila de cada registro
+      // (NO lo enviamos al backend para evitar errores de validación del schema)
+      const registroToFila = new Map();
+      dataArray.forEach((registro, index) => {
+        const key = JSON.stringify(registro);
+        registroToFila.set(key, index + 2); // +2 porque fila 1 son títulos
+      });
+
+      // Función helper para agregar número de fila a un registro
+      const agregarNumeroFila = (registro) => {
+        // Crear copia sin campos de error para buscar en el mapa
+        const { mensaje, tipo, ...registroLimpio } = registro;
+        const key = JSON.stringify(registroLimpio);
+        const numeroFila = registroToFila.get(key);
+        return {
+          ...registro,
+          _numeroFila: numeroFila !== undefined ? numeroFila : '?',
+        };
+      };
+
       // Cambio aquí: En lugar de dividir el dataArray en paquetes pequeños,
       // para el caso específico de los datos del Banco de la República,
       // enviamos todo el array en una sola petición
@@ -944,10 +973,10 @@ try{
           
           let results = [];
           let resultsDatosErrores = [];
-          
+
           if (data.data[subMutation].errores) {
             results = [...data.data[subMutation].datos];
-            
+
             if (data.data[subMutation].errores.length > 0) {
               resultsDatosErrores = data.data[subMutation].errores.map((error) => {
                 return {
@@ -960,24 +989,22 @@ try{
           } else {
             results = [...data.data[subMutation]];
           }
-          
-          if (resultsDatosErrores.length > 0) {
-            Swal.fire(
-              "¡Atención!",
-              `Existen (${resultsDatosErrores.length}) registros con errores y (${results.length}) registros exitosos. Revisa el reporte descargado para más información.`,
-              "warning"
-            );
-            generarReporteExcel(results, resultsDatosErrores);
-          } else {
-            Swal.fire(
-              "Buen trabajo!",
-              `(${results.length}) registros han sido guardados!`,
-              "success"
-            );
-            generarReporteExcel(results, []);
-          }
-          
-          close();
+
+          // Agregar número de fila a los resultados
+          results = results.map(agregarNumeroFila);
+          resultsDatosErrores = resultsDatosErrores.map(agregarNumeroFila);
+
+          // Cerrar SweetAlert de procesamiento
+          Swal.close();
+
+          // Mostrar LogsModal con resultados
+          setLogsData({
+            registrosExitosos: results,
+            registrosErrores: resultsDatosErrores,
+            moduloNombre: tituloTabla || "Carga Masiva",
+          });
+          setShowLogsModal(true);
+
           return;
         } catch (error) {
           console.error("Error al enviar los datos en bloque:", error);
@@ -1027,24 +1054,21 @@ try{
           results = [...results, ...data.data[subMutation]];
         }
       }
-      
-      if (resultsDatosErrores.length > 0) {
-        Swal.fire(
-          "¡Atención!",
-          `Existen (${resultsDatosErrores.length}) registros con errores y (${results.length}) registros exitosos. Revisa el reporte descargado para más información.`,
-          "warning"
-        );
-        generarReporteExcel(results, resultsDatosErrores);
-      } else {
-        Swal.fire(
-          "Buen trabajo!",
-          `(${results.length}) registros han sido guardados!`,
-          "success"
-        );
-        generarReporteExcel(results, []);
-      }
 
-      close();
+      // Agregar número de fila a los resultados
+      results = results.map(agregarNumeroFila);
+      resultsDatosErrores = resultsDatosErrores.map(agregarNumeroFila);
+
+      // Cerrar SweetAlert de procesamiento
+      Swal.close();
+
+      // Mostrar LogsModal con resultados
+      setLogsData({
+        registrosExitosos: results,
+        registrosErrores: resultsDatosErrores,
+        moduloNombre: tituloTabla || "Carga Masiva",
+      });
+      setShowLogsModal(true);
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -1917,6 +1941,18 @@ try{
           )}
         </Modal.Body>
       </Modal>
+
+      {/* Modal de Logs de Carga Masiva */}
+      <LogsModal
+        visible={showLogsModal}
+        onClose={() => {
+          setShowLogsModal(false);
+          close(); // Cerrar también el modal principal de AddData
+        }}
+        registrosExitosos={logsData.registrosExitosos}
+        registrosErrores={logsData.registrosErrores}
+        moduloNombre={logsData.moduloNombre}
+      />
     </div>
   );
 };

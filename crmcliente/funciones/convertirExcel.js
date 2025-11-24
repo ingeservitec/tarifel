@@ -1597,7 +1597,8 @@ export function convertirBanRepTcap(excelArray) {
   indices.fecha = 0;
 
   headers.forEach((header, i) => {
-    if (header === "Tasa (%)") {
+    // Buscar columnas de tasa de forma flexible (permite variaciones como "Tasa efectiva anual (%)")
+    if (header && header.toLowerCase().includes("tasa") && header.toLowerCase().includes("%")) {
       const subHeader = subHeaders[i] || "";
       // Extraer la parte primaria (hasta la palabra "días")
       let primaryPart = subHeader.split("días")[0].trim();
@@ -1613,7 +1614,19 @@ export function convertirBanRepTcap(excelArray) {
         montoKey = `monto_${keyBase}_cdt_bancos_comerciales`;
       }
       indices[tasaKey] = i;
-      indices[montoKey] = i + 1;
+
+      // Buscar la columna de monto - debe estar en i+1 y contener "monto"
+      const nextHeader = headers[i + 1];
+      if (nextHeader && nextHeader.toLowerCase().includes("monto")) {
+        indices[montoKey] = i + 1;
+      } else {
+        console.warn(
+          `Advertencia: No se encontró columna de monto después de la columna ${i} (${header}). Se esperaba encontrar un encabezado con "Monto".`
+        );
+        // Asignar de todas formas el índice i+1 como fallback
+        indices[montoKey] = i + 1;
+      }
+
       console.log(
         `Procesando columna ${i}: subHeader="${subHeader}" -> Generados keys "${tasaKey}" y "${montoKey}"`
       );

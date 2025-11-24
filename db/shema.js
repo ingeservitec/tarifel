@@ -654,6 +654,12 @@ const typeDefs = gql`
     Cf: Float
     PUI: Float
   }
+
+  type DataCregCxResponse {
+    records: [Data_creg_cx]
+    totalRecords: Int
+  }
+
   input Data_creg_cxInput {
     id: ID
     fecha: String
@@ -3005,7 +3011,7 @@ type ReporteExcelResponse {
     obtenerData_xm_trsm(options: QueryOptions!): DataXmTrsmResponse
 
     #Data_creg_cx
-    obtenerData_creg_cx: [Data_creg_cx]
+    obtenerData_creg_cx(options: QueryOptions!): DataCregCxResponse
     #Query Data_dane
     obtenerData_dane: [Data_dane]
     #Query Data_banrepublica_tcap

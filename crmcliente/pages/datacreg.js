@@ -1,20 +1,29 @@
-import React, { useState,useCallback,useEffect} from "react";
-import Datacreg from '../components/Datacreg'
-import Layout from '../components/Layout';
+import React, { useState, useCallback, useEffect } from "react";
+import { Tabs } from "antd";
+import Datacreg from "../components/Datacreg";
+import Layout from "../components/Layout";
 
+const Datacreg_Page = (props) => {
+  const tabItems = [
+    {
+      key: "1",
+      label: "CREG Insumos",
+      children: <Datacreg />
+    }
+  ];
 
-const datacreg =(props) => {
-  
-    return (
-        <div>
-        <Layout>
-        <div>
-        <Datacreg/>
-        </div>
-        </Layout>
-        </div>
+  return (
+    <div>
+      <Layout>
+        <Tabs
+          defaultActiveKey="1"
+          type="card"
+          size="large"
+          items={tabItems}
+        />
+      </Layout>
+    </div>
+  );
+};
 
-    )
-}
-
-export default datacreg
+export default Datacreg_Page;

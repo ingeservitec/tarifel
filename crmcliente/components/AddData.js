@@ -918,6 +918,21 @@ try{
   const handleFileData = async () => {
     if (!files.length)
       return Swal.fire("Huy", "Aún no has cargado información!", "error");
+
+    // Validar que los campos masivos estén diligenciados
+    const masivoFieldsToValidate = getMasivoFields();
+    const camposVacios = masivoFieldsToValidate.filter(
+      (field) => !formik2.values[field.field] || formik2.values[field.field] === ""
+    );
+
+    if (camposVacios.length > 0) {
+      const nombresCampos = camposVacios.map((field) => field.name).join(", ");
+      return Swal.fire(
+        "Campos obligatorios",
+        `Por favor diligencia los siguientes campos antes de guardar: ${nombresCampos}`,
+        "warning"
+      );
+    }
     try {
       Swal.fire({
         title: "Procesando...",

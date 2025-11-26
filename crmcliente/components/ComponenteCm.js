@@ -10,11 +10,13 @@ const ComponenteCm = () => {
   // Estado para controlar visibilidad de variables
   const [visibleVars, setVisibleVars] = useState({
     Cv: true,
-    COT: true,
-    CvNT1: true,
-    CvNT2: true,
-    CvNT3: true,
-    CvNT4: true
+    CAst: true,
+    CvR: true,
+    Cfm: true,
+    Cfs: true,
+    Cfe: true,
+    RC: true,
+    COT: true
   });
 
   const { data, loading, error } = useQuery(OBTENER_RES_COMPONENTES_CU_TARIFAS, {
@@ -49,14 +51,25 @@ const ComponenteCm = () => {
     return sortedRecords[sortedRecords.length - 1];
   }, [sortedRecords]);
 
-  // Sub-variables de Cm
+  // Sub-variables de Cv (Componente de Comercialización)
   const subVariables = [
-    { key: "cv", name: "Cv - Costo Comercialización", description: "Resultado final", color: "#66BB6A" },
-    { key: "cot", name: "COT - Costo Opción Tarifaria", description: "Costo de opción tarifaria", color: "#FFA726" },
-    { key: "cV_nt1", name: "Cv NT1", description: "Costo ventas nivel 1", color: "#AB47BC" },
-    { key: "cV_nt2", name: "Cv NT2", description: "Costo ventas nivel 2", color: "#26C6DA" },
-    { key: "cV_nt3", name: "Cv NT3", description: "Costo ventas nivel 3", color: "#EC407A" },
-    { key: "cV_nt4", name: "Cv NT4", description: "Costo ventas nivel 4", color: "#7E57C2" }
+    { key: "cv", name: "Cv - Comercialización", description: "Resultado final", color: "#66BB6A" },
+    { key: "c_ast", name: "C* - C Asterisco", description: "Componente variable base", color: "#E53935" },
+    { key: "cvr", name: "CvR - Cv Regulado", description: "Costo variable regulado", color: "#1E88E5" },
+    { key: "cfm", name: "Cfm - Comp. Fijo", description: "Componente fijo", color: "#FFA726" },
+    { key: "cfs", name: "Cfs - Costo Fin. Sub", description: "Costo financiero subsidiado", color: "#AB47BC" },
+    { key: "cfe", name: "Cfe - Costo Fin. Esp", description: "Costo financiero especial", color: "#26C6DA" },
+    { key: "rc", name: "RC - Riesgo Cartera", description: "Riesgo de cartera", color: "#EC407A" },
+    { key: "cer", name: "CER", description: "Certificado energía renovable", color: "#7E57C2" },
+    { key: "cgcu", name: "CGCU - Pagos CND/LAC", description: "Pagos CND, LAC, SIC", color: "#26A69A" },
+    { key: "cot", name: "COT - Opción Tarifaria", description: "Costo opción tarifaria", color: "#8D6E63" },
+    { key: "r1", name: "R1 - Tasa 1", description: "Tasa de referencia 1", color: "#5E35B1" },
+    { key: "r2", name: "R2 - Tasa 2", description: "Tasa de referencia 2", color: "#00ACC1" },
+    { key: "sub1", name: "Sub1", description: "Subsidio componente 1", color: "#43A047" },
+    { key: "sub2", name: "Sub2", description: "Subsidio componente 2", color: "#FB8C00" },
+    { key: "n_sub1", name: "N Sub1", description: "Días subsidio 1", color: "#F4511E" },
+    { key: "m_sub2", name: "M Sub2", description: "Días subsidio 2", color: "#6D4C41" },
+    { key: "facturacion_t", name: "Facturación T", description: "Facturación trimestre", color: "#78909C" }
   ];
 
   const tableData = useMemo(() => {
@@ -64,11 +77,22 @@ const ComponenteCm = () => {
       key: `${record.anho}-${record.mes}`,
       periodo: `${record.mes}/${record.anho}`,
       cv: (record.cv || 0).toFixed(4),
+      c_ast: (record.c_ast || 0).toFixed(4),
+      cvr: (record.cvr || 0).toFixed(4),
+      cfm: (record.cfm || 0).toFixed(2),
+      cfs: (record.cfs || 0).toFixed(6),
+      cfe: (record.cfe || 0).toFixed(6),
+      rc: (record.rc || 0).toFixed(4),
+      cer: (record.cer || 0).toFixed(0),
+      cgcu: (record.cgcu || 0).toFixed(0),
       cot: (record.cot || 0).toFixed(4),
-      cV_nt1: (record.cV_nt1 || 0).toFixed(4),
-      cV_nt2: (record.cV_nt2 || 0).toFixed(4),
-      cV_nt3: (record.cV_nt3 || 0).toFixed(4),
-      cV_nt4: (record.cV_nt4 || 0).toFixed(4)
+      r1: (record.r1 || 0).toFixed(6),
+      r2: (record.r2 || 0).toFixed(6),
+      sub1: (record.sub1 || 0).toFixed(0),
+      sub2: (record.sub2 || 0).toFixed(0),
+      n_sub1: (record.n_sub1 || 0).toFixed(2),
+      m_sub2: (record.m_sub2 || 0).toFixed(2),
+      facturacion_t: (record.facturacion_t || 0).toFixed(0)
     })).reverse();
   }, [last12Months]);
 
@@ -78,13 +102,13 @@ const ComponenteCm = () => {
       dataIndex: "periodo",
       key: "periodo",
       fixed: "left",
-      width: 100
+      width: 90
     },
     ...subVariables.map(v => ({
       title: v.name,
       dataIndex: v.key,
       key: v.key,
-      width: 130,
+      width: 120,
       render: (text) => (
         <span style={{
           fontWeight: v.key === "cv" ? "bold" : "normal",
@@ -100,13 +124,23 @@ const ComponenteCm = () => {
     return last12Months.map(record => ({
       periodo: `${record.mes}/${record.anho}`,
       "Cv": record.cv || 0,
-      "COT": record.cot || 0,
-      "Cv NT1": record.cV_nt1 || 0,
-      "Cv NT2": record.cV_nt2 || 0,
-      "Cv NT3": record.cV_nt3 || 0,
-      "Cv NT4": record.cV_nt4 || 0
+      "C*": record.c_ast || 0,
+      "CvR": record.cvr || 0,
+      "Cfm": record.cfm || 0,
+      "Cfs": record.cfs || 0,
+      "Cfe": record.cfe || 0,
+      "RC": record.rc || 0,
+      "COT": record.cot || 0
     }));
   }, [last12Months]);
+
+  const selectAll = () => setVisibleVars({
+    Cv: true, CAst: true, CvR: true, Cfm: true, Cfs: true, Cfe: true, RC: true, COT: true
+  });
+
+  const deselectAll = () => setVisibleVars({
+    Cv: false, CAst: false, CvR: false, Cfm: false, Cfs: false, Cfe: false, RC: false, COT: false
+  });
 
   if (loading) {
     return (
@@ -136,10 +170,10 @@ const ComponenteCm = () => {
     <div style={{ padding: "20px" }}>
       {latestData && (
         <Row gutter={16} style={{ marginBottom: "20px" }}>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={6}>
             <Card>
               <Statistic
-                title="Cv - Costo Comercialización (Último)"
+                title="Cv - Comercialización (Último)"
                 value={(latestData.cv || 0).toFixed(2)}
                 suffix="$/kWh"
                 valueStyle={{ color: '#66BB6A', fontWeight: 'bold' }}
@@ -149,54 +183,111 @@ const ComponenteCm = () => {
               </div>
             </Card>
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={6}>
             <Card>
               <Statistic
-                title="COT - Costo Opción Tarifaria"
-                value={(latestData.cot || 0).toFixed(2)}
+                title="C* - C Asterisco"
+                value={(latestData.c_ast || 0).toFixed(2)}
                 suffix="$/kWh"
-                valueStyle={{ color: '#FFA726' }}
+                valueStyle={{ color: '#E53935' }}
               />
             </Card>
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} sm={6}>
             <Card>
               <Statistic
-                title="Cv NT1"
-                value={(latestData.cV_nt1 || 0).toFixed(2)}
+                title="CvR - Cv Regulado"
+                value={(latestData.cvr || 0).toFixed(2)}
                 suffix="$/kWh"
-                valueStyle={{ color: '#AB47BC' }}
+                valueStyle={{ color: '#1E88E5' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card>
+              <Statistic
+                title="Cfm - Componente Fijo"
+                value={(latestData.cfm || 0).toFixed(2)}
+                suffix="$/factura"
+                valueStyle={{ color: '#FFA726' }}
               />
             </Card>
           </Col>
         </Row>
       )}
 
-      <Card title="Evolución de Cm y Componentes (Últimos 12 Meses)" style={{ marginBottom: "20px" }}>
-        <div style={{ marginBottom: "16px", display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
-          <Button size="small" onClick={() => setVisibleVars({ Cv: true, COT: true, CvNT1: true, CvNT2: true, CvNT3: true, CvNT4: true })}>
-            Seleccionar Todo
-          </Button>
-          <Button size="small" onClick={() => setVisibleVars({ Cv: false, COT: false, CvNT1: false, CvNT2: false, CvNT3: false, CvNT4: false })}>
-            Deseleccionar Todo
-          </Button>
+      {latestData && (
+        <Row gutter={16} style={{ marginBottom: "20px" }}>
+          <Col xs={24} sm={6}>
+            <Card size="small">
+              <Statistic
+                title="CGCU (Pagos CND/LAC/SIC)"
+                value={(latestData.cgcu || 0).toLocaleString()}
+                suffix="$"
+                valueStyle={{ color: '#26A69A', fontSize: '16px' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card size="small">
+              <Statistic
+                title="CER"
+                value={(latestData.cer || 0).toLocaleString()}
+                suffix="$"
+                valueStyle={{ color: '#7E57C2', fontSize: '16px' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card size="small">
+              <Statistic
+                title="Sub1 (Superávit/Déficit)"
+                value={(latestData.sub1 || 0).toLocaleString()}
+                suffix="$"
+                valueStyle={{ color: '#43A047', fontSize: '16px' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card size="small">
+              <Statistic
+                title="Facturación T"
+                value={(latestData.facturacion_t || 0).toLocaleString()}
+                suffix="$"
+                valueStyle={{ color: '#78909C', fontSize: '16px' }}
+              />
+            </Card>
+          </Col>
+        </Row>
+      )}
+
+      <Card title="Evolución de Cv y Componentes (Últimos 12 Meses)" style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "16px", display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
+          <Button size="small" onClick={selectAll}>Seleccionar Todo</Button>
+          <Button size="small" onClick={deselectAll}>Deseleccionar Todo</Button>
           <Checkbox checked={visibleVars.Cv} onChange={(e) => setVisibleVars({...visibleVars, Cv: e.target.checked})}>
             <span style={{ color: "#66BB6A", fontWeight: "bold" }}>Cv</span>
           </Checkbox>
+          <Checkbox checked={visibleVars.CAst} onChange={(e) => setVisibleVars({...visibleVars, CAst: e.target.checked})}>
+            <span style={{ color: "#E53935" }}>C*</span>
+          </Checkbox>
+          <Checkbox checked={visibleVars.CvR} onChange={(e) => setVisibleVars({...visibleVars, CvR: e.target.checked})}>
+            <span style={{ color: "#1E88E5" }}>CvR</span>
+          </Checkbox>
+          <Checkbox checked={visibleVars.Cfm} onChange={(e) => setVisibleVars({...visibleVars, Cfm: e.target.checked})}>
+            <span style={{ color: "#FFA726" }}>Cfm</span>
+          </Checkbox>
+          <Checkbox checked={visibleVars.Cfs} onChange={(e) => setVisibleVars({...visibleVars, Cfs: e.target.checked})}>
+            <span style={{ color: "#AB47BC" }}>Cfs</span>
+          </Checkbox>
+          <Checkbox checked={visibleVars.Cfe} onChange={(e) => setVisibleVars({...visibleVars, Cfe: e.target.checked})}>
+            <span style={{ color: "#26C6DA" }}>Cfe</span>
+          </Checkbox>
+          <Checkbox checked={visibleVars.RC} onChange={(e) => setVisibleVars({...visibleVars, RC: e.target.checked})}>
+            <span style={{ color: "#EC407A" }}>RC</span>
+          </Checkbox>
           <Checkbox checked={visibleVars.COT} onChange={(e) => setVisibleVars({...visibleVars, COT: e.target.checked})}>
-            <span style={{ color: "#FFA726" }}>COT</span>
-          </Checkbox>
-          <Checkbox checked={visibleVars.CvNT1} onChange={(e) => setVisibleVars({...visibleVars, CvNT1: e.target.checked})}>
-            <span style={{ color: "#AB47BC" }}>Cv NT1</span>
-          </Checkbox>
-          <Checkbox checked={visibleVars.CvNT2} onChange={(e) => setVisibleVars({...visibleVars, CvNT2: e.target.checked})}>
-            <span style={{ color: "#26C6DA" }}>Cv NT2</span>
-          </Checkbox>
-          <Checkbox checked={visibleVars.CvNT3} onChange={(e) => setVisibleVars({...visibleVars, CvNT3: e.target.checked})}>
-            <span style={{ color: "#EC407A" }}>Cv NT3</span>
-          </Checkbox>
-          <Checkbox checked={visibleVars.CvNT4} onChange={(e) => setVisibleVars({...visibleVars, CvNT4: e.target.checked})}>
-            <span style={{ color: "#7E57C2" }}>Cv NT4</span>
+            <span style={{ color: "#8D6E63" }}>COT</span>
           </Checkbox>
         </div>
         <ResponsiveContainer width="100%" height={350}>
@@ -210,34 +301,41 @@ const ComponenteCm = () => {
               style={{ fontSize: "12px" }}
             />
             <YAxis label={{ value: '$/kWh', angle: -90, position: 'insideLeft' }} />
-            <Tooltip formatter={(value) => value.toFixed(4)} />
+            <Tooltip formatter={(value) => typeof value === 'number' ? value.toFixed(4) : value} />
             <Legend wrapperStyle={{ fontSize: "12px" }} />
             {visibleVars.Cv && <Line type="monotone" dataKey="Cv" stroke="#66BB6A" strokeWidth={3} />}
-            {visibleVars.COT && <Line type="monotone" dataKey="COT" stroke="#FFA726" strokeWidth={2} />}
-            {visibleVars.CvNT1 && <Line type="monotone" dataKey="Cv NT1" stroke="#AB47BC" strokeWidth={2} />}
-            {visibleVars.CvNT2 && <Line type="monotone" dataKey="Cv NT2" stroke="#26C6DA" strokeWidth={2} />}
-            {visibleVars.CvNT3 && <Line type="monotone" dataKey="Cv NT3" stroke="#EC407A" strokeWidth={2} />}
-            {visibleVars.CvNT4 && <Line type="monotone" dataKey="Cv NT4" stroke="#7E57C2" strokeWidth={2} />}
+            {visibleVars.CAst && <Line type="monotone" dataKey="C*" stroke="#E53935" strokeWidth={2} />}
+            {visibleVars.CvR && <Line type="monotone" dataKey="CvR" stroke="#1E88E5" strokeWidth={2} />}
+            {visibleVars.Cfm && <Line type="monotone" dataKey="Cfm" stroke="#FFA726" strokeWidth={2} />}
+            {visibleVars.Cfs && <Line type="monotone" dataKey="Cfs" stroke="#AB47BC" strokeWidth={2} />}
+            {visibleVars.Cfe && <Line type="monotone" dataKey="Cfe" stroke="#26C6DA" strokeWidth={2} />}
+            {visibleVars.RC && <Line type="monotone" dataKey="RC" stroke="#EC407A" strokeWidth={2} />}
+            {visibleVars.COT && <Line type="monotone" dataKey="COT" stroke="#8D6E63" strokeWidth={2} />}
           </LineChart>
         </ResponsiveContainer>
       </Card>
 
-      <Card title="Detalle de Sub-Variables de Cm (Últimos 12 Meses)">
+      <Card title="Detalle de Sub-Variables de Cv (Últimos 12 Meses)">
         <Table
           dataSource={tableData}
           columns={columns}
           pagination={false}
-          scroll={{ x: 1000 }}
+          scroll={{ x: 2100 }}
           size="small"
         />
 
         <div style={{ marginTop: "20px", padding: "16px", backgroundColor: "#f5f5f5", borderRadius: "4px" }}>
-          <strong>Fórmula:</strong>
-          <div style={{ marginTop: "8px", fontFamily: "monospace", fontSize: "14px" }}>
-            Cm = Cv + COT
+          <strong>Fórmulas:</strong>
+          <div style={{ marginTop: "8px", fontFamily: "monospace", fontSize: "13px" }}>
+            <div><strong>Cv</strong> = C* + CvR + (CER + CND + SIC + SIC_IVA + Cg) / Ventas</div>
+            <div style={{ marginTop: "4px" }}><strong>C*</strong> = (Gc + Tx + D + Pr + R) × (Cfe + mo + RC)</div>
+            <div style={{ marginTop: "4px" }}><strong>CvR</strong> = (Cfm × Usuarios_m-2 + PUI) / Ventas_m-2</div>
+            <div style={{ marginTop: "4px" }}><strong>Cfm</strong> = (Cf × IPC × (1 - X)) / IPC0</div>
+            <div style={{ marginTop: "4px" }}><strong>Cfs</strong> = (Sub1 × ((1+R1)^(N+0.63) - 1) - Sub2 × ((1+R2)^M - 1)) / Fact_T</div>
+            <div style={{ marginTop: "4px" }}><strong>Cfe</strong> = Cfs + 0.00042</div>
           </div>
           <div style={{ marginTop: "12px", fontSize: "13px", color: "#666" }}>
-            <strong>Fuente de datos:</strong> Data CREG
+            <strong>Fuente de datos:</strong> Data CREG, Data Empresa (ventas/usuarios m-2), Data XM (CND, SIC, LAC)
           </div>
         </div>
       </Card>

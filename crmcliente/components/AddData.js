@@ -236,10 +236,6 @@ const AddData = ({
             `${data.data[subMutation].errores[0].mensaje}`,
             "warning"
           );
-          generarReporteExcel(
-            data.data[subMutation].datos,
-            data.data[subMutation].errores
-          );
         } else {
           Swal.fire({
             icon: "success",
